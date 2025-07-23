@@ -1,0 +1,2 @@
+.xref:index.adoc[MuleSoft MCP Server]
+* xref:index.adoc[MuleSoft MCP Server Overview]

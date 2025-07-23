@@ -1,0 +1,5 @@
+name: mulesoft-mcp-server
+title: MuleSoft MCP Server
+version: latest
+nav:
+- modules/ROOT/nav.adoc
