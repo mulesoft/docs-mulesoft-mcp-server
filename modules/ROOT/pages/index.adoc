@@ -1,3 +1,95 @@
 = MuleSoft MCP Server Overview
 
-Placeholder description.
+The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Create and deploy Mule applications, create API specs, search for assets in Anypoint Exchange, get platform insights, and more.
+
+== Tools
+
+=== Application Development
+* create_and_manage_assets: Create an asset in Anypoint Exchange, update some Anypoint Exchange asset properties without republishing the asset, and delete an asset in Anypoint Exchange. Asset properties are the asset name, description, icon, contact name, and contact email.
+
+* create_and_manage_metadata: Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data. Available only in MuleSoft MCP Server embedded in Anypoint Code Builder.
+
+* generate_api_spec: Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials. Make sure Einstein is enabled in Access Management.
+
+* create_api_spec_project: Create and scaffold an API spec or fragment project. You can specify the project name, location, and spec language (RAML, OAS, etc.).
+
+* create_MCP_server: Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector). Prerequisite: Install the MCP Connector.
+
+* create_mule_project: Create an integration project.
+
+* generate_mule_flow: Create a flow using AI.
+
+* run_local_mule_application: Deploy and run your application locally.
+
+* search_asset: Search for an asset in an organization and Anypoint Exchange. Returns the first asset in the user's own organization that matches input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
+
+* test_connection: Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection. Available only in MuleSoft MCP Server embedded in Anypoint Code Builder.
+
+=== Application Management
+* create_and_manage_api_instances: Create and configure API instances in Anypoint API Manager.
+
+* deploy_mule_application: Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can deploy from a local project or Anypoint Exchange asset. This tool supports security, high availability, and performance optimization deployment options. 
+
+* list_api_instances: Get information for instances in an environment. You can also filter by an instance ID or label and include applied or available policies. Results are paginated using the page parameter. Prompt tip: To get information for all instances, revise results using the page parameter.
+
+* list_applications: Get information about all applications in the environment you specify. You can also specify an optional deployment name. Results are sorted by last update date and time, in descending order.
+
+* update_mule_application: Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update runtime version, configuration, and other application settings.
+
+==== Policy Management
+* manage_api_instance_policy: Apply a new policy to an API instance and update an existing policy configuration.
+
+* manage_flex_gateway_policy_project: Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. https://docs.mulesoft.com/pdk/latest/policies-pdk-prerequisites[Prerequisites]
+
+* get_flex_gateway_policy_example: Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
+
+=== Usage & Insights
+* get_platform_insights: See how your organization leverages the Anypoint Platform through usage and operational insights. These include:
+** Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it's early in the month, you get usage for the last full month.
+** API and app call volume across consumers for last 7 days.
+** API and app performance metrics such as errors and latency for last 7 days.
+
+* get_reuse_metrics: Get visibility into how assets are reused across your organization. Drive efficiency, consistency, and cost savings by reducing duplication. Includes sandbox and production environments. Metrics are a year-to-date snapshot.
+
+== Example Prompts
+
+[cols="1,1"]
+|===
+|If you want to... |Try this... 
+
+|Apply a policy
+|Apply the rate-limiting policy to this API instance. 
+
+|Create an asset in Exchange
+|I want to publish this API to Exchange.
+
+|Create an instance
+|Create an instance for this application.
+
+|Create an integration project
+|Create a Mule project that creates an order in NetSuite every time an opportunity in Salesforce is updated to stage Closed Won.
+
+|Deploy an application
+|Deploy Mule application in current project. Deploy with high security, high availability, and performance-optimized settings.
+
+|Deploy an existing asset in Anypoint Exchange to CloudHub 2.0 or Runtime Fabric
+|Deploy app using `sample-asset-name` from Anypoint Exchange.  
+
+|Generate an MCP server using Anypoint connectors
+|Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
+
+|List all policies
+|What policies do I have available?
+
+|Search for assets in Exchange
+|Do I have any assets for order notification in Exchange? OR Find all assets related to product synchronization.
+
+|View performance metrics for your APIs or apps   
+|Which apps generated the most errors?  OR  Which apps have the highest latency?  OR  Show top APIs by call volume.
+
+|View reuse metrics
+|Show reuse metrics.
+
+|View usage for your runtime applications
+|Show me trends for flows, messages and data throughput.
+|===
