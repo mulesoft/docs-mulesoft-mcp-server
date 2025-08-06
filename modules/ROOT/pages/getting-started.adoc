@@ -5,7 +5,7 @@ Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
 * Anypoint Extension Pack version 1.10.0 or later
 * Git
 * Organization administrator access (for https://docs.mulesoft.com/access-management/connected-apps-overview[creating a connected app])
-* To run the generate_mule_flow and generate_api_spec tools, enable Einstein in Access Management. For more information, see https://docs.mulesoft.com/access-management/enabling-einstein[Enabling Einstein for Anypoint Platform].
+* To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see https://docs.mulesoft.com/access-management/enabling-einstein[Enabling Einstein for Anypoint Platform].
 
 == Considerations
 You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
@@ -13,37 +13,37 @@ You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
 == Set Up Authentication
 Create a connected app that acts on its own behalf using the steps in https://docs.mulesoft.com/access-management/creating-connected-apps-dev#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf].
 
-**In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.**
+In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
 
-**Anypoint Code Builder**
+=== Anypoint Code Builder
 * Mule Developer Generative AI User
 
-**Anypoint Monitoring**
+=== Anypoint Monitoring
 * Monitoring Viewer
 
-**API Manager**
+=== API Manager
 * Manage APIs Configuration
 * Manage Policies
 * View APIs Configuration
 * View Policies
 
-**Exchange**
+=== Exchange
 * Exchange Administrator
 * Exchange Contributor
 * Exchange Creator
 * Exchange Viewer
 
-**General**
+=== General
 * View Organization
 * View Connected Applications
 
-**Runtime Manager**
+=== Runtime Manager
 * Read Applications
 * Create Applications
 * Read Runtime Fabrics
 * Cloudhub Network Viewer
 
-**Usage**
+=== Usage
 * Usage Viewer
 
 == Install the MuleSoft MCP Server
