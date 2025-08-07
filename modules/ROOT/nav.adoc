@@ -1,2 +1,5 @@
 .xref:index.adoc[MuleSoft MCP Server]
-* xref:index.adoc[MuleSoft MCP Server Overview]
+* xref:index.adoc[Overview]
+* xref:mulesoft-mcp-server-release-notes.adoc[Release Notes]
+
+* xref:getting-started.adoc[Getting Started with MuleSoft MCP Server]

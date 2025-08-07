@@ -1,0 +1,193 @@
+= Getting Started with MuleSoft MCP Server
+Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. If you have Anypoint Code Builder, you don't need to perform these steps, because MuleSoft MCP Server is included.
+
+== Prerequisites
+* Anypoint Extension Pack version 1.10.0 or later
+* Git
+* Organization administrator access (for https://docs.mulesoft.com/access-management/connected-apps-overview[creating a connected app])
+* To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see https://docs.mulesoft.com/access-management/enabling-einstein[Enabling Einstein for Anypoint Platform].
+
+== Considerations
+You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
+
+== Set Up Authentication
+Create a connected app that acts on its own behalf using the steps in https://docs.mulesoft.com/access-management/creating-connected-apps-dev#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf].
+
+In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
+
+=== Anypoint Code Builder
+* Mule Developer Generative AI User
+
+=== Anypoint Monitoring
+* Monitoring Viewer
+
+=== API Manager
+* Manage APIs Configuration
+* Manage Policies
+* View APIs Configuration
+* View Policies
+
+=== Exchange
+* Exchange Administrator
+* Exchange Contributor
+* Exchange Creator
+* Exchange Viewer
+
+=== General
+* View Organization
+* View Connected Applications
+
+=== Runtime Manager
+* Read Applications
+* Create Applications
+* Read Runtime Fabrics
+* Cloudhub Network Viewer
+
+=== Usage
+* Usage Viewer
+
+== Install the MuleSoft MCP Server
+To install the server with node, run: 
+`npm install -g @mulesoft/mcp-server`
+
+== Configure the MuleSoft MCP Server
+You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
+
+=== https://claude.ai/download[Claude Desktop]
+Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcpServers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+=== https://cline.bot/[Cline]
+Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcpServers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+=== https://www.cursor.com/[Cursor]
+Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcpServers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+=== https://trae.ai/[Trae]
+Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcpServers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+=== https://code.visualstudio.com/[VS Code]
+Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optional) `ANYPOINT_REGION` is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcp": {
+    "servers": {
+      "mulesoft": {
+        "command": "npx",
+        "args": ["-y", "@mulesoft/mcp-server", "start"],
+        "env": {
+          "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+          "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+          "ANYPOINT_REGION": "<REGION_NAME>"
+        }
+      }
+    }
+  }
+}
+----
+
+=== https://www.windsurf.com/[Windsurf]
+Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "mcpServers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+=== https://github.com/zed-industries/zed[Zed]
+Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
+
+----
+{
+  "context_servers": {
+    "mulesoft": {
+      "command": "npx",
+      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "env": {
+        "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
+        "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
+        "ANYPOINT_REGION": "<REGION_NAME>"
+      }
+    }
+  }
+}
+----
+
+* xref:index.adoc[Overview]
+////
+
