@@ -35,7 +35,7 @@ The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that fa
 
 * `update_mule_application`: Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update runtime version, configuration, and other application settings.
 
-==== Policy Management
+=== Policy Management
 * `get_flex_gateway_policy_example`: Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
 
 * `manage_api_instance_policy`: Apply a new policy to an API instance and update an existing policy configuration.
@@ -81,10 +81,16 @@ The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that fa
 |What policies do I have available?
 
 |Search for assets in Exchange
-|Do I have any assets for order notification in Exchange? + OR + Find all assets related to product synchronization.
+|Do I have any assets for order notification in Exchange? +
+OR +
+Find all assets related to product synchronization.
 
 |View performance metrics for your APIs or apps   
-|Which apps generated the most errors? + OR + Which apps have the highest latency? + OR + Show top APIs by call volume.
+|Which apps generated the most errors? +
+OR +
+Which apps have the highest latency? +
+OR +
+Show top APIs by call volume.
 
 |View reuse metrics
 |Show reuse metrics.
