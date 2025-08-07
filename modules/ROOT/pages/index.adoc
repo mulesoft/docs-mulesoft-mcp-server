@@ -1,6 +1,6 @@
 = MuleSoft MCP Server Overview
 
-The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Create and deploy Mule applications, create API specs, search for assets in Anypoint Exchange, get platform insights, and more.
+The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can create and deploy Mule applications, create API specs, search for assets in Anypoint Exchange, get platform insights, and more.
 
 == Tools
 === Application Development
