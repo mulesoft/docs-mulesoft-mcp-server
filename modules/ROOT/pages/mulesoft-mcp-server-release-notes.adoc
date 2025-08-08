@@ -1,0 +1,13 @@
+= MuleSoft MCP Server Release Notes
+:page-revdate: August 11, 2025
+
+The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can create and deploy Mule applications, create API specs, search for assets in Anypoint Exchange, get platform insights, and more.
+
+== August 11, 2025
+include::partial$release-notes/rn-headings.adoc[tag=whatsNew,leveloffset=+2]
+
+* New tool: `create_and_manage_metadata`. Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data.
+
+* New tool: `test_connection`. Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection.
+
+For more information, see xref:index.adoc[Overview].
