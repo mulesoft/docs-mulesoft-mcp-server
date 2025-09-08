@@ -3,10 +3,8 @@
 Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
 
 [IMPORTANT] 
-.If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed in Anypoint Code Builder.
-==== 
+If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed in Anypoint Code Builder.
 
-====
 
 
 == Prerequisites
