@@ -5,7 +5,7 @@ The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that fa
 
 == August 11, 2025
 
-include::release-notes:partial$release-notes/rn-headings.adoc[tag=whatsNew,leveloffset=+2]
+include::release-notes::partial$release-notes/rn-headings.adoc[tag=whatsNew,leveloffset=+2]
 
 * New tool: `create_and_manage_metadata`. Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data.
 
