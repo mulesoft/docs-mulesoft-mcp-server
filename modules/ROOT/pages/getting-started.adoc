@@ -3,18 +3,16 @@
 Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
 
 [IMPORTANT] 
-If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed in Anypoint Code Builder.
+If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed and configured in Anypoint Code Builder.
 
-
-
-== Prerequisites
+== Before You Begin
+Before you install and use MuleSoft MCP Server, make sure you meet these prerequisites.
 * Anypoint Extension Pack version 1.10.0 or later
 * Git
 * Organization administrator access (for https://docs.mulesoft.com/access-management/connected-apps-overview[creating a connected app])
 * To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see https://docs.mulesoft.com/access-management/enabling-einstein[Enabling Einstein for Anypoint Platform].
 
-== Considerations
-You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
+
 
 == Set Up Authentication
 Create a connected app that acts on its own behalf using the steps in https://docs.mulesoft.com/access-management/creating-connected-apps-dev#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf].
@@ -52,11 +50,11 @@ In step 6, add these scopes. Make sure that all business groups and relevant env
 === Usage
 * Usage Viewer
 
-== Install the MuleSoft MCP Server
+== Install MuleSoft MCP Server
 To install the server with node, run: 
 `npm install -g @mulesoft/mcp-server`
 
-== Configure the MuleSoft MCP Server
+== Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
 
 === https://claude.ai/download[Claude Desktop]
@@ -196,6 +194,6 @@ Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is on
 
 == See Also
 
-* xref:index.adoc[Overview]
+* xref:using-mulesoft-mcp-server.adoc[]
 
 

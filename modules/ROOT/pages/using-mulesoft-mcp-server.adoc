@@ -1,0 +1,68 @@
+= Using the MuleSoft MCP Server
+
+Whether you're using Cursor, Windsurf, or any MCP-compatible IDE, you have direct access to the full lifecycle of Mule application development without leaving your editor. 
+
+== Example Prompts
+
+[cols="1,1"]
+|===
+|If you want to... |Try this... 
+
+|Apply a policy
+|Apply the rate-limiting policy to this API instance. 
+
+|Configure or update an agent network project
+|Help me build an agent network project. +
+OR +
+Add a new broker for employee offboarding.
+
+|Create an agent network project
+|Create an agent network project called hello-world-network. 
+
+|Create an asset in Exchange
+|I want to publish this API to Exchange.
+
+|Create an instance
+|Create an instance for this application.
+
+|Create an integration project
+|Create a Mule project that creates an order in NetSuite every time an opportunity in Salesforce is updated to stage Closed Won.
+
+|Deploy an agent network instance
+|Deploy the hello-world-network project to staging.
+
+|Deploy an application
+|Deploy Mule application in current project. Deploy with high security, high availability, and performance-optimized settings.
+
+|Deploy an existing asset in Anypoint Exchange to CloudHub 2.0 or Runtime Fabric
+|Deploy app using `sample-asset-name` from Anypoint Exchange.  
+
+|Generate an MCP server using Anypoint connectors
+|Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
+
+|List all policies
+|What policies do I have available?
+
+|Publish agent network assets to Exchange
+|Publish my agent network project version 1.0.0 +
+OR +
+Publish the hello-world-network project to Exchange.
+
+|Search for assets in Exchange
+|Do I have any assets for order notification in Exchange? +
+OR +
+Find all assets related to product synchronization.
+
+|View performance metrics for your APIs or apps   
+|Which apps generated the most errors? +
+OR +
+Which apps have the highest latency? +
+OR +
+Show top APIs by call volume.
+
+|View reuse metrics
+|Show reuse metrics.
+
+|View usage for your runtime applications
+|Show me trends for flows, messages and data throughput.
+|===
