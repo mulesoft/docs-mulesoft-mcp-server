@@ -9,7 +9,7 @@ If you have Anypoint Code Builder desktop, the MuleSoft MCP Server is already in
 == Deployment Targets
 You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
 
-== See Also
+== Next Steps
 
 * xref:getting-started.adoc[]
 * xref:using-mulesoft-mcp-server.adoc[]
