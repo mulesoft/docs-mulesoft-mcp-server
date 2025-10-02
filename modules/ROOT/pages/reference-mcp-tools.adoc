@@ -30,7 +30,7 @@ These tools are available in MuleSoft MCP Server. Some tools are available only 
 
 * `mock_api_spec`: Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec. Available only in Anypoint Code Builder.
 
-* `open_api_spec`: Open an API specification project. Available only in Anypoint Code Builder.
+* `open_project`: Open a project. For example, an API spec or an agent network project. Available only in Anypoint Code Builder.
 
 * `run_local_mule_application`: Deploy and run your application locally.
 
