@@ -7,7 +7,7 @@ These tools are available in MuleSoft MCP Server. Some tools are available only 
 
 * `create_agent_network_project`: Create and scaffold an agent network project with a name and location you specify. Available only in Anypoint Code Builder.
 
-* `deploy_agent_network`: Deploy an agent network instance to a runtime environment. Specify the project path, target environment, private space, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
+* `deploy_agent_network`: Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
 
 * `publish_agent_network_assets`: Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group. Prerequisite: The agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
 
