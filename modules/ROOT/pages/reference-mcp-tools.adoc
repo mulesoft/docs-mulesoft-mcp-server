@@ -63,7 +63,7 @@ These tools are available in MuleSoft MCP Server. Some tools are available only 
 
 * `manage_api_instance_policy`: Apply a new policy to an API instance and update an existing policy configuration.
 
-* `manage_flex_gateway_policy_project`: Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. https://docs.mulesoft.com/pdk/latest/policies-pdk-prerequisites[Prerequisites]
+* `manage_flex_gateway_policy_project`: Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites]
 
 == Usage & Insights
 * `get_platform_insights`: See how your organization leverages the Anypoint Platform through usage and operational insights. These include:
