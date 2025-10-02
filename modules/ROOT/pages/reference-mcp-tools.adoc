@@ -34,7 +34,7 @@ These tools are available in MuleSoft MCP Server. Some tools are available only 
 
 * `run_local_mule_application`: Deploy and run your application locally.
 
-* `search_asset`: Search for an asset in an organization and Anypoint Exchange. Returns the first asset in the user's own organization that matches input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
+* `search_asset`: Search for an asset in an organization and Anypoint Exchange. Returns up to 10 assets in the user's own organization that match input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
 
 * `test_connection`: Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection. Available only in Anypoint Code Builder.
 
