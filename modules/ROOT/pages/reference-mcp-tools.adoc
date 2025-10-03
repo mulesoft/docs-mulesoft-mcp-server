@@ -1,6 +1,8 @@
 = MuleSoft MCP Server Tools
 
-These tools are available in MuleSoft MCP Server. Some tools are available only in the MuleSoft MCP Server that's included in Anypoint Code Builder IDE; those tool descriptions include "Available only in Anypoint Code Builder."
+These tools are available in MuleSoft MCP Server.
+
+Some tools are available only in the MuleSoft MCP Server that's included in Anypoint Code Builder IDE; those tool descriptions include "Available only in Anypoint Code Builder."
 
 == Agent Network Development
 * `configure_agent_network_yaml`: Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (mode='configure'). Or, the tool can make minor changes to a preconfigured agent network YAML file (mode='edit'). The LLM determines the appropriate mode value from user prompts and guided setup. Available only in Anypoint Code Builder.
