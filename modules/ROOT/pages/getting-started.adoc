@@ -6,13 +6,12 @@ Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE.
 If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent in Anypoint Code Builder. Authentication happens through the user that's logged into Anypoint Code Builder. Any permissions that the user has, MuleSoft Dev Agent will assume. For more information about MuleSoft Dev Agent, see xref:code-builder::api-ai-create-spec.adoc[].
 
 == Before You Begin
-Before you install and use MuleSoft MCP Server, make sure you meet these prerequisites.
+Before you install and use MuleSoft MCP Server, make sure you meet these prerequisites. +
 * Anypoint Extension Pack version 1.10.0 or later +
 * Git, if using MuleSoft VCS in Anypoint Code Builder +
 * Node 20 or later. For more information, see link:https://nodejs.org/en/download[Download Node.js]. +
 * Organization administrator access (for xref:access-management::connected-apps-overview.adoc[creating a connected app]) +
 * To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see xref:access-management::enabling-einstein.adoc[].
-
 
 
 == Set Up Authentication
