@@ -1,0 +1,79 @@
+= MuleSoft MCP Server Tools
+
+These tools are available in MuleSoft MCP Server. Some tools are available only in the MuleSoft MCP Server that's included in Anypoint Code Builder IDE; those tool descriptions include "Available only in Anypoint Code Builder."
+
+== Agent Network Development
+* `configure_agent_network_yaml`: Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (mode='configure'). Or, the tool can make minor changes to a preconfigured agent network YAML file (mode='edit'). The LLM determines the appropriate mode value from user prompts and guided setup. Available only in Anypoint Code Builder.
+
+* `create_agent_network_project`: Create and scaffold an agent network project with a name and location you specify. Available only in Anypoint Code Builder.
+
+* `deploy_agent_network`: Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
+
+* `publish_agent_network_assets`: Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group. Prerequisite: The agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
+
+== Application Development
+* `create_and_manage_assets`: Create an asset in Anypoint Exchange, update some Anypoint Exchange asset properties without republishing the asset, and delete an asset in Anypoint Exchange. Asset properties are the asset name, description, icon, contact name, and contact email.
+
+* `create_and_manage_metadata`: Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data. Available only in Anypoint Code Builder.
+
+* `create_api_spec_project`: Create and scaffold an API spec or fragment project. You can specify the project name, location, and spec language (RAML, OAS, etc.).
+
+* `create_MCP_server`: Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector). Prerequisite: Install the MCP Connector.
+
+* `create_mule_project`: Create an integration project.
+
+* `generate_api_spec`: Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials. Make sure Einstein is enabled in Access Management.
+
+* `generate_mule_flow`: Create a flow using AI.
+
+* `get_topics_agent_actions_metadata_instructions`: Get metadata and instructions for enabling topics and agent actions from an OpenAI spec. Topics are bundles of actions and sets of instructions agents use to complete tasks. Actions are tasks that the agent can do, and instructions help the agent understand how to use actions. Available only in Anypoint Code Builder.
+
+* `mock_api_spec`: Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec. Available only in Anypoint Code Builder.
+
+* `open_project`: Open a project. For example, an API spec or an agent network project. Available only in Anypoint Code Builder.
+
+* `run_local_mule_application`: Deploy and run your application locally.
+
+* `search_asset`: Search for an asset in an organization and Anypoint Exchange. Returns up to 10 assets in the user's own organization that match input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
+
+* `test_connection`: Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection. Available only in Anypoint Code Builder.
+
+* `validate_project`: Validate the current project. For example, an API spec or an agent network project. This tool doesn't validate against API Governance rulesets. To validate against those rulesets, use the `validate_api_against_rules` tool. Available only in Anypoint Code Builder.
+
+== Application Management
+* `create_and_manage_api_instances`: Create and configure API instances in Anypoint API Manager.
+
+* `deploy_mule_application`: Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can deploy from a local project or Anypoint Exchange asset. This tool supports security, high availability, and performance optimization deployment options. 
+
+* `list_api_instances`: Get information for instances in an environment. You can also filter by an instance ID or label and include applied or available policies. Results are paginated using the page parameter. Prompt tip: To get information for all instances, revise results using the page parameter.
+
+* `list_applications`: Get information about all applications in the environment you specify. You can also specify an optional deployment name. Results are sorted by last update date and time, in descending order.
+
+* `update_mule_application`: Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update runtime version, configuration, and other application settings.
+
+== Governance
+* `add_governance_ruleset`: Add a governance ruleset from Anypoint Exchange to your project. To find the ruleset to add, use the search_asset tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The search_asset tool uses searchQuery=user criteria and assetFilters='ruleset' to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project. Available only in Anypoint Code Builder.
+
+* `list_governance_rulesets`: List governance rulesets that apply to a project along with the rules that comprise each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets. Available only in Anypoint Code Builder.
+
+* `validate_api_against_rules`: Validate an API specification in your project against governance rulesets or rules that you specify. If you specify all rulesets, the tool uses an empty 'rules' parameter to validate all rulesets. Similarly, if you specify no ruleset, the tool uses an empty `rules` parameter. To find rules or rulesets that you specify, this tool calls the `list_governance_rulesets` tool. Available only in Anypoint Code Builder.
+
+== Policy Management
+* `get_flex_gateway_policy_example`: Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
+
+* `manage_api_instance_policy`: Apply a new policy to an API instance and update an existing policy configuration.
+
+* `manage_flex_gateway_policy_project`: Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites]
+
+== Usage & Insights
+* `get_platform_insights`: See how your organization leverages the Anypoint Platform through usage and operational insights. These include:
+** Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it's early in the month, you get usage for the last full month.
+** API and app call volume across consumers for last 7 days.
+** API and app performance metrics such as errors and latency for last 7 days.
+
+* `get_reuse_metrics`: Get visibility into how assets are reused across your organization. Drive efficiency, consistency, and cost savings by reducing duplication. Includes sandbox and production environments. Metrics are a year-to-date snapshot.
+
+== See Also
+
+* xref:using-mulesoft-mcp-server.adoc[]
+
