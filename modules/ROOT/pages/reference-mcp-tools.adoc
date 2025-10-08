@@ -58,7 +58,7 @@ Some tools are available only in the MuleSoft MCP Server that's included in Anyp
 
 * `list_governance_rulesets`: List governance rulesets that apply to a project along with the rules that comprise each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets. Available only in Anypoint Code Builder.
 
-* `validate_api_against_rules`: Validate an API specification in your project against governance rulesets or rules that you specify. If you specify all rulesets, the tool uses an empty 'rules' parameter to validate all rulesets. Similarly, if you specify no ruleset, the tool uses an empty `rules` parameter. To find rules or rulesets that you specify, this tool calls the `list_governance_rulesets` tool. Available only in Anypoint Code Builder.
+* `validate_api_against_ruleset`: Validate an API specification in your project against governance rulesets or rules that you specify. If you specify all rulesets, the tool uses an empty 'rules' parameter to validate all rulesets. Similarly, if you specify no ruleset, the tool uses an empty `rules` parameter. To find rules or rulesets that you specify, this tool calls the `list_governance_rulesets` tool. Available only in Anypoint Code Builder.
 
 == Policy Management
 * `get_flex_gateway_policy_example`: Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
