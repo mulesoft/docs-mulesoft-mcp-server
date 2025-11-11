@@ -23,7 +23,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 
-.13+|Application Development
+.14+|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 
