@@ -2,15 +2,15 @@
 
 These tools are available in MuleSoft MCP Server.
 
-Some tools are available only in the MuleSoft MCP Server included in Anypoint Code Builder IDE. Those tool descriptions include "Available only in Anypoint Code Builder."
+Tools are available only in the MuleSoft MCP Server included in Anypoint Code Builder IDE. Those tool descriptions include "Available only in Anypoint Code Builder."
 
 == Command Summary
 
-[cols="1,2,1"]
+[%header,cols="1h,2,1"]
 |===
 |Category |Tool |Anypoint Code Builder Only
 
-.4+|Agent Network Development
+.4+h|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 
@@ -23,7 +23,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 
-.14+|Application Development
+.14+h|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 
@@ -66,7 +66,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<validate-project,validate_project>>
 |Yes
 
-.5+|Application Management
+.5+h|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 
@@ -82,7 +82,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<update-mule-application,update_mule_application>>
 |No
 
-.3+|Governance
+.3+h|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
 
@@ -92,7 +92,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
 
-.3+|Policy Management
+.3+h|Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 
@@ -102,7 +102,7 @@ Some tools are available only in the MuleSoft MCP Server included in Anypoint Co
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 
-.2+|Usage and Insights
+.2+h|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
 
@@ -132,6 +132,68 @@ Create and scaffold an agent network project with a name and location you specif
 
 Create and configure API instances in Anypoint API Manager.
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description | Required?
+
+|organizationId
+|The ID of the organization where the instance resides. Default is the ID of the user's organization from the current session.
+|No
+
+|environmentName
+|The name of the environment where the instance resides. Default is the environment for the organization specified in organizationId.
+|No
+
+|apiInstanceId
+|Required if you're configuring an API instance.
+|No
+
+|apiInstanceLabel
+|Label or name of the API instance.
+|No
+
+|operation
+|Operation to perform on the API instance. Valid values: `create` and `configureBasicEndpointInMuleApplication`.
+|Yes
+
+|groupId
+|Group ID of the API asset in Anypoint Exchange.
+|No
+
+|assetId
+|ID of the API asset in Anypoint Exchange. Value can be the API name.
+|Yes
+
+Required to create an API instance.
+
+|assetVersion
+|Version of the API asset in Anypoint Exchange.
+|No
+
+|runtimeEngine
+|Engine the API instance runs on. Valid value is `mule4`.
+|No
+
+|muleProxyType
+|Valid value is `basicEndpoint`.
+|No
+
+|endpointUri
+|iEndpoint URI of the API instance (upstream).
+|No
+
+If muleProxyType=basicEndpoint.
+
+|consumerEndpoint
+|Consumer endpoint of the API instance.
+|No
+
+|providerId
+|Provider ID of the API instance.
+|No
+
+|===
+
 [[create-and-manage-assets]]
 == create_and_manage_assets
 
@@ -147,10 +209,62 @@ Define metadata for a flow component, attach metadata to Mule flow components, a
 
 Create and scaffold an API spec or fragment project. You can specify the project name, location, and spec language (RAML, OAS, etc.).
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|projectName
+|Unique name of the project. This name is used as the API spec title in Exchange, the name of the spec file, and the name of the project's root directory.
+|Yes
+
+|projectPath
+|Parent location of the project. The default is the parent folder of the current workspace. The project will reside in a subfolder of projectPath.
+|No
+
+|isApiEnabledForTopicsAndActions
+|Whether the project is enabled for topics and agent actions through MuleSoft for Agentforce: Topic Center. Only OAS 3.0 is supported. Default is false.
+|No
+
+|language
+|Language of the API spec. Valid values: `oas`, `oas-components`, `raml`, `raml-fragments`, `json-schema`, `avro-schema`, `evented-api`.
+|Yes
+
+|languageVersion
+|If language=oas or oas-components, valid values are `2.0` and `3.0`. If language=raml or raml-fragments, valid values are `1.0` and `0.8`. If language=evented-api, valid value is `2.6`.
+|Yes
+
+|fragmentType
+|Required when language=raml-fragment. Valid values: `trait`, `resource-type`, `library`, `overlay`, `extension`, `type`, `user-documentation`, `example`, `annotation-type`, `security-scheme`.
+|No
+
+|format
+|Valid values: `json`, `yaml`, `avsc`. If language=oas or oas-components, default is yaml.
+|No
+
+|===
+
 [[create-mcp-server]]
 == create_MCP_server
 
 Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector). Prerequisite: Install the MCP Connector.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|projectPath
+|Path where the Mule project folder is located.
+|Yes
+
+|projectXmlPath
+|Path where the Mule project XML file is located.
+|Yes
+
+|originalPrompt
+|The original user input without modifications. Use this input for requests to update a flow, add a Java method, logging, and any other flow changes.
+|Yes
+
+|===
 
 [[create-mule-project]]
 == create_mule_project
@@ -172,6 +286,32 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 
 Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials. Make sure Einstein is enabled in Access Management.
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|language
+|Language of the API spec. Valid values: `oas` (OpenAPI specs) and `raml`.
+|Yes
+
+|languageVersion
+|If language=oas, valid value is `3.0`. If language=raml, valid value is `1.0`.
+|Yes
+
+|specSyntax
+|Syntax of the generated API spec. If language=oas or oas-components, valid values are `json` and `yaml`. If language=raml or raml-fragments, valid value is `raml`.
+|Yes
+
+|projectType
+|Valid value is `API_SPEC`.
+|Yes
+
+|naturalLanguagePrompt
+|Input to the Large Language Model (LLM).
+|Yes
+
+|===
+
 [[generate-mule-flow]]
 == generate_mule_flow
 
@@ -182,6 +322,16 @@ Create a flow using AI.
 
 Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|feature
+|Valid values: `header_manipulation` (CRUD for request/response headers), `body_manipulation` (read or update request/response body), `http_call` (HTTP call to external service), `control_flow` (stop request flow and generate custom response), `request_data` (share data between requests and responses), and `timer` (perform sleep operations).
+|Yes
+
+|===
+
 [[get-platform-insights]]
 == get_platform_insights
 
@@ -191,10 +341,62 @@ See how your organization leverages the Anypoint Platform through usage and oper
 * API and app call volume across consumers for last 7 days.
 * API and app performance metrics such as errors and latency for last 7 days.
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|entityName
+|Name of the application or API.
+|No
+
+|entityType
+|Type of entity. Valid values: `application` and `api`.
+|No
+
+|includeFlows
+|Whether app usage trends for flows are included. Default is false.
+|No
+
+|includeMessages
+|Whether app usage trends for messages are included. Default is false.
+|No
+
+|includeDataThroughput
+|Whether app usage trends for data throughput are included. Default is false.
+|No
+
+|includeErrorCount
+|Whether error counts from apps and APIs are included. Default is false.
+|No
+
+|includeCallVolume
+|Whether call volume from apps and APIs are included. Default is false.
+|No
+
+|includeLatency
+|Whether P99 latency is included in the response time. Default is false.
+|No
+
+|latencyPercentile
+|If includeLatency=true, this parameter contains the percentile to measure latency. Valid values: `P99`, `P95`, `P90`, `P75`. Default is P99.
+|No
+
+|===
+
 [[get-reuse-metrics]]
 == get_reuse_metrics
 
 Get visibility into how assets are reused across your organization. Drive efficiency, consistency, and cost savings by reducing duplication. Includes sandbox and production environments. Metrics are a year-to-date snapshot.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|includeReuseMetrics
+|Whether the output includes reuse metrics for applications. Default is false.
+|No
+
+|===
 
 [[get-topics-agent-actions-metadata-instructions]]
 == get_topics_agent_actions_metadata_instructions
@@ -205,6 +407,40 @@ Get metadata and instructions for enabling topics and agent actions from an Open
 == list_api_instances
 
 Get information for instances in an environment. You can also filter by an instance ID or label and include applied or available policies. Results are paginated using the page parameter. Prompt tip: To get information for all instances, revise results using the page parameter.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|organizationId
+|The ID of the organization where instances reside. Default is the ID of the default organization.
+|No
+
+|environmentName
+|The name of the environment where instances reside. Default is the name of the default environment for the organization specified in organizationId.
+|No
+
+|apiInstanceId
+|Required if includeAvailablePolicies=true.
+|No
+
+|apiInstanceLabel
+|Label or name of the API instance.
+|No
+
+|page
+|Page number of the results. Each page contains information for up to 10 instances.
+|Yes
+
+|includeAppliedPolicies
+|Whether to include applied policies in results.
+|No
+
+|includeAvailablePolicies
+|Whether to include available policies in results. Requires apiInstanceId.
+|No
+
+|===
 
 [[list-applications]]
 == list_applications
@@ -220,6 +456,48 @@ List governance rulesets that apply to a project along with the rules that compr
 == manage_api_instance_policy
 
 Apply a new policy to an API instance and update an existing policy configuration.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|organizationId
+|The ID of the organization where instances reside. Default is the ID of the user's organization from the current session.
+|No
+
+|environmentName
+|The name of the environment where instances reside. Default is the environment for the organization specified in organizationId.
+|No
+
+|apiInstanceId
+|ID of the API instance.
+|Yes
+
+|operation
+|Operation to perform on the API instance. Valid values: `apply` and `update`.
+|Yes
+
+|policyId
+|ID of the policy to configure. Required to update an existing policy configuration.
+|No
+
+|policyConfiguration
+|Configuration object for the policy. Required to apply a new policy.
+|No
+
+|groupId
+|Group ID of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|No
+
+|assetId
+|Asset ID of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|No
+
+|assetVersion
+|Version of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|No
+
+|===
 
 [[manage-flex-gateway-policy-project]]
 == manage_flex_gateway_policy_project
@@ -251,6 +529,20 @@ Deploy and run your application locally.
 
 Search for an asset in an organization and Anypoint Exchange. Returns up to 10 assets in the user's own organization that match input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
 
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|organizationId
+|The ID of the organization you want to search. The default value is the ID of the user's organization from the current session.
+|No
+
+|searchQuery
+|The query with criteria for the search. Search results match the query exactly or partially.
+|Yes
+
+|===
+
 [[test-connection]]
 == test_connection
 
@@ -260,6 +552,100 @@ Test a connector configuration for a Mule project. For example, test connectivit
 == update_mule_application
 
 Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update runtime version, configuration, and other application settings.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|applicationId
+|The ID of the application to update with the latest Mule runtime patch release.
+|Yes
+
+|environmentId
+|The ID of the environment where the application is deployed.
+|Yes
+
+|organizationId
+|The ID of the organization where the application is deployed.
+|No
+
+|runtimeVersion
+|Mule runtime version to use. For example, `4.9.4:2e-java17`.
+|No
+
+|hasPersistentObjectStore
+|Whether to enable persistent object store.
+|No
+
+|replicaSize
+|Replica size for CloudHub 2.0 applications. Express size in vCores or instance type size.
+|No
+
+|cpuReserved
+|Reserved vCPUs for the application. For example, 1.
+|No
+
+|cpuLimit
+|Maximum vCPUs for the application. For example, 2.
+|No
+
+|memory
+|Memory allocation for the allocation in GB. For example, 1.
+|No
+
+|replicas
+|Number of replicas.
+|No
+
+|minReplicas
+|If hasHighAvailability=true or hasPerformanceOptimization=true, this value is the minimum number of replicas.
+|No
+
+|maxReplicas
+|If hasHighAvailability=true or hasPerformanceOptimization=true, this value is the maximum number of replicas.
+|No
+
+|hasAutoscaling
+|Whether to enable autoscaling.
+|No
+
+|hasTracing
+|Whether to enable application tracing.
+|No
+
+|enforceDeployingReplicasAcrossNodes
+|Whether to enforce deploying replicas across nodes (Runtime Fabric only).
+|No
+
+|deploymentModel
+|The deployment strategy for application updates. Valid values: `rolling` or `recreate`.
+|No
+
+|hasClustering
+|Whether to enable clustering for the application.
+|No
+
+|stopApplication
+|Whether to stop the application.
+|No
+
+|startApplication
+|Whether to start the application.
+|No
+
+|hasHighAvailability
+|Whether to enable high availability for the application.
+|No
+
+|hasPerformanceOptimization
+|Whether to enable performance optimization.
+|No
+
+|isSecure
+|Whether to enable advanced security features.
+|No
+
+|===
 
 [[validate-api-against-ruleset]]
 == validate_api_against_ruleset
