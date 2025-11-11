@@ -542,7 +542,7 @@ Create a flow using AI.
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
-Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request`s header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
+Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP and gRPC calls to external services, share data between requests and responses, reject requests, perform sleep operations, and the use of PDK's libraries.
 
 [%header,cols="1,3a,1"]
 |===
@@ -551,12 +551,25 @@ Get a Flex Gateway policy example to help you configure your Rust source code. Y
 |feature
 |Valid values are:
 
-* `header_manipulation` (CRUD for request/response headers)
+* `authentication` (propagate authentication information to other policies)
 * `body_manipulation` (read or update request/response body)
+* `body_stream` (read request/response body by chunks)
+* `cache` (use the cache library to share data across workers)
+* `contracts` (authenticate and authorize against the management plane)
+* `control_flow` (stop request flow and generate a custom response)
+* `cors` (use the Cross-Origin Resource Sharing library)
+* `dataweave` (define and evaluate custom DataWeave expressions)
+* `grpc` (gRPC call to external service)
+* `header_manipulation` (CRUD for request/response headers)
 * `http_call` (HTTP call to external service)
-* `control_flow` (stop request flow and generate custom response)
+* `jwt` (JSON Web Token parsing and validation)
+* `lock` (synchronize workers)
+* `logger` (print custom messages)
+* `metadata` (access metadata of the policy, api, and environment)
+* `policy_violation` (mark requests as violations in monitoring traffic)
 * `request_data` (share data between requests and responses)
 * `timer` (perform sleep operations)
+* `worker_variable` (share data across requests of a single worker)
 |Yes
 
 |===
