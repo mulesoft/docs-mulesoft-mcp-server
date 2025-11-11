@@ -1,8 +1,8 @@
 = MuleSoft MCP Server Tools
 
-These tools are available in MuleSoft MCP Server.
+MuleSoft MCP Server includes these tools.
 
-Tools are available only in the MuleSoft MCP Server included in Anypoint Code Builder IDE. Those tool descriptions include "Available only in Anypoint Code Builder."
+NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE. 
 
 == Command Summary
 
@@ -10,7 +10,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |===
 |Category |Tool |Anypoint Code Builder Only
 
-.4+|Agent Network Development
+.4+s|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 
@@ -23,7 +23,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 
-.14+|Application Development
+.14+s|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 
@@ -66,7 +66,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<validate-project,validate_project>>
 |Yes
 
-.5+|Application Management
+.5+s|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 
@@ -82,7 +82,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<update-mule-application,update_mule_application>>
 |No
 
-.3+|Governance
+.3+s|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
 
@@ -92,7 +92,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
 
-.3+Policy Management
+.3+s|Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 
@@ -102,7 +102,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 
-.2+|Usage and Insights
+.2+s|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
 
@@ -115,7 +115,9 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 [[add-governance-ruleset]]
 == add_governance_ruleset
 
-Add a governance ruleset from Anypoint Exchange to your project. To find the ruleset to add, use the search_asset tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The search_asset tool uses searchQuery=user criteria and assetFilters='ruleset' to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project. Available only in Anypoint Code Builder.
+Add a governance ruleset from Anypoint Exchange to your project. To find the ruleset to add, use the `search_asset` tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The `search_asset` tool uses `searchQuery='user'` criteria and `assetFilters=ruleset` to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
@@ -130,7 +132,7 @@ Add a governance ruleset from Anypoint Exchange to your project. To find the rul
 |Yes
 
 |version
-|Version of the asset. Example: 1.4.0.
+|Version of the asset, for example, `1.4.0`.
 |Yes
 
 |===
@@ -138,14 +140,18 @@ Add a governance ruleset from Anypoint Exchange to your project. To find the rul
 [[configure-agent-network-yaml]]
 == configure_agent_network_yaml
 
-Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (mode='configure'). Or, the tool can make minor changes to a preconfigured agent network YAML file (mode='edit'). The LLM determines the appropriate mode value from user prompts and guided setup. Available only in Anypoint Code Builder.
+Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (mode='configure'). Or, the tool can make minor changes to a preconfigured agent network YAML file (mode='edit'). The LLM determines the appropriate mode value from user prompts and guided setup.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |mode
-|The operation to perform on the agent network project YAML. Valid values are 'configure' and 'edit'. For example, use 'configure' to set up a custom agent network tailored to your environment, discover agent network components, or scaffold a new agent network. Use 'edit' to make minor changes to a configured agent network YAML file, such as renaming an existing agent.
+|The operation to perform on the agent network project YAML. Valid values are `configure` and `edit`.
+
+For example, use `configure` to set up a custom agent network tailored to your environment, discover agent network components, or scaffold a new agent network. Use `edit` to make minor changes to a configured agent network YAML file, such as renaming an existing agent.
 |Yes
 
 |prompt
@@ -157,7 +163,9 @@ Modifies an agent network project YAML file. The tool can replace placeholder YA
 [[create-agent-network-project]]
 == create_agent_network_project
 
-Create and scaffold an agent network project with a name and location you specify. Available only in Anypoint Code Builder.
+Create and scaffold an agent network project with a name and location you specify.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
@@ -191,7 +199,7 @@ Create and configure API instances in Anypoint API Manager.
 |Parameter |Description | Required?
 
 |organizationId
-|The ID of the organization where the instance resides. Default is the ID of the user's organization from the current session.
+|The ID of the organization where the instance resides. Default is the ID of the user`s organization from the current session.
 |No
 
 |environmentName
@@ -199,15 +207,17 @@ Create and configure API instances in Anypoint API Manager.
 |No
 
 |apiInstanceId
-|Required if you're configuring an API instance.
+|
 |No
+
+Required if you're configuring an API instance.
 
 |apiInstanceLabel
 |Label or name of the API instance.
 |No
 
 |operation
-|Operation to perform on the API instance. Valid values: `create` and `configureBasicEndpointInMuleApplication`.
+|Operation to perform on the API instance. Valid values are `create` and `configureBasicEndpointInMuleApplication`.
 |Yes
 
 |groupId
@@ -233,10 +243,10 @@ Required to create an API instance.
 |No
 
 |endpointUri
-|iEndpoint URI of the API instance (upstream).
+|Endpoint URI of the API instance (upstream).
 |No
 
-If muleProxyType=basicEndpoint.
+Required if `muleProxyType=basicEndpoint`.
 
 |consumerEndpoint
 |Consumer endpoint of the API instance.
@@ -258,7 +268,7 @@ Create an asset in Anypoint Exchange, update some Anypoint Exchange asset proper
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform. Valid values: `create`, `update`, `delete`.
+|Operation to perform. Valid values are `create`, `update`, and `delete`.
 |Yes
 
 |assetName
@@ -286,9 +296,11 @@ Create an asset in Anypoint Exchange, update some Anypoint Exchange asset proper
 [[create-and-manage-metadata]]
 == create_and_manage_metadata
 
-Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data. Available only in Anypoint Code Builder.
+Define metadata for a flow component, attach metadata to Mule flow components, and update existing metadata. To define metadata, provide the Mule configuration file URI and sample data or schema. To apply metadata, specify existing metadata types. To update metadata, provide new schema or sample data.
 
-[%header,cols="1,3,1"]
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
@@ -297,32 +309,46 @@ Define metadata for a flow component, attach metadata to Mule flow components, a
 |Yes
 
 |operation
-|Task to perform. Valid values: 'define' to create metadata, 'attach' to apply metadata to flow components, and 'update' to update existing metadata.
+|Task to perform. Valid values are:
+
+* `define` to create metadata.
+* `attach` to apply metadata to flow components.
+* `update` to update existing metadata.
 |Yes
 
 |metadata
-|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). Required when the operation parameter value is 'define'.
+|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). 
 |No
+
+Required when the operation parameter value is `define`.
 
 |dataFormat
 |The format of the metadata. Valid values are JSON or XML.
 |No
 
 |metadataPath
-|Path of the sample metadata or schema file. Required when the operation parameter value is 'define'.
+|Path of the sample metadata or schema file. 
 |No
+
+Required when the operation parameter value is `define`.
 
 |componentNodeDocId
-|The doc:id attribute value for the flow component node. Don't provide the child node's doc:id. Required when the operation parameter value is 'attach'.
+|The doc:id attribute value for the flow component node. Don't provide the child node's doc:id.
 |No
+
+Required when the operation parameter value is `attach`.
 
 |metadataName
-|Name of the new metadata to be defined based on a sample data JSON. Example: 'customer' if sample data is for a customer. Required when the operation parameter value is 'define'.
+|Name of the new metadata to be defined based on a sample data JSON, for example, `customer` if sample data is for a customer. 
 |No
 
+Required when the operation parameter value is `define`.
+
 |isSchema
-|Whether the metadata is a schema. Required when the operation parameter value is 'define'.
+|Whether the metadata is a schema.
 |No
+
+ Required when the operation parameter value is `define`.
 
 |===
 
@@ -344,7 +370,7 @@ Create and scaffold an API spec or fragment project. You can specify the project
 |Yes
 
 |specLanguage
-|Specification language. Valid values: `RAML`, `OAS`.
+|Specification language. Valid values are `RAML` and `OAS`.
 |Yes
 
 |===
@@ -352,7 +378,9 @@ Create and scaffold an API spec or fragment project. You can specify the project
 [[create-mcp-server]]
 == create_MCP_server
 
-Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector). Prerequisite: Install the MCP Connector.
+Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector).
+
+Prerequisite: Install the MCP Connector.
 
 [%header,cols="1,3,1"]
 |===
@@ -394,7 +422,9 @@ Create an integration project.
 [[deploy-agent-network]]
 == deploy_agent_network
 
-Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
+Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. 
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
@@ -440,7 +470,7 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 |No
 
 |target
-|Deployment target. Valid values: `CloudHub-US`, `CloudHub-EU`, `RuntimeFabric`.
+|Deployment target. Valid values are `CloudHub-US`, `CloudHub-EU`, and `RuntimeFabric`.
 |Yes
 
 |replicas
@@ -458,7 +488,7 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 
 Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials. Make sure Einstein is enabled in Access Management.
 
-[%header,cols="1,3,1"]
+[%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
@@ -467,11 +497,17 @@ Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anyp
 |Yes
 
 |languageVersion
-|If language=oas, valid value is `3.0`. If language=raml, valid value is `1.0`.
+|
+
+* If `language=oas`, valid value is `3.0`.
+* If `language=raml`, valid value is `1.0`.
 |Yes
 
 |specSyntax
-|Syntax of the generated API spec. If language=oas or oas-components, valid values are `json` and `yaml`. If language=raml or raml-fragments, valid value is `raml`.
+|Syntax of the generated API spec.
+
+* If `language=oas` or `oas-components`, valid values are `json` and `yaml`.
+* If `language=raml` or `raml-fragments`, valid value is `raml`.
 |Yes
 
 |projectType
@@ -506,14 +542,21 @@ Create a flow using AI.
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
-Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
+Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request`s header and body, make HTTP calls to external services, share data between requests and responses, reject requests, and perform sleep operations.
 
-[%header,cols="1,3,1"]
+[%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
 |feature
-|Valid values: `header_manipulation` (CRUD for request/response headers), `body_manipulation` (read or update request/response body), `http_call` (HTTP call to external service), `control_flow` (stop request flow and generate custom response), `request_data` (share data between requests and responses), and `timer` (perform sleep operations).
+|Valid values are:
+
+* `header_manipulation` (CRUD for request/response headers)
+* `body_manipulation` (read or update request/response body)
+* `http_call` (HTTP call to external service)
+* `control_flow` (stop request flow and generate custom response)
+* `request_data` (share data between requests and responses)
+* `timer` (perform sleep operations)
 |Yes
 
 |===
@@ -523,7 +566,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. Y
 
 See how your organization leverages the Anypoint Platform through usage and operational insights. These include:
 
-* Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it's early in the month, you get usage for the last full month.
+* Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it`s early in the month, you get usage for the last full month.
 * API and app call volume across consumers for last 7 days.
 * API and app performance metrics such as errors and latency for last 7 days.
 
@@ -536,7 +579,7 @@ See how your organization leverages the Anypoint Platform through usage and oper
 |No
 
 |entityType
-|Type of entity. Valid values: `application` and `api`.
+|Type of entity. Valid values are `application` and `api`.
 |No
 
 |includeFlows
@@ -564,7 +607,7 @@ See how your organization leverages the Anypoint Platform through usage and oper
 |No
 
 |latencyPercentile
-|If includeLatency=true, this parameter contains the percentile to measure latency. Valid values: `P99`, `P95`, `P90`, `P75`. Default is P99.
+|If `includeLatency=true`, this parameter contains the percentile to measure latency. Valid values are `P99`, `P95`, `P90`, and `P75`. Default is `P99`.
 |No
 
 |===
@@ -587,7 +630,9 @@ Get visibility into how assets are reused across your organization. Drive effici
 [[get-topics-agent-actions-metadata-instructions]]
 == get_topics_agent_actions_metadata_instructions
 
-Get metadata and instructions for enabling topics and agent actions from an OpenAI spec. Topics are bundles of actions and sets of instructions agents use to complete tasks. Actions are tasks that the agent can do, and instructions help the agent understand how to use actions. Available only in Anypoint Code Builder.
+Get metadata and instructions for enabling topics and agent actions from an OpenAI spec. Topics are bundles of actions and sets of instructions agents use to complete tasks. Actions are tasks that the agent can do, and instructions help the agent understand how to use actions.
+
+Available only in Anypoint Code Builder.
 
 [[list-api-instances]]
 == list_api_instances
@@ -607,8 +652,10 @@ Get information for instances in an environment. You can also filter by an insta
 |No
 
 |apiInstanceId
-|Required if includeAvailablePolicies=true.
+|
 |No
+
+Required if `includeAvailablePolicies=true`.
 
 |apiInstanceLabel
 |Label or name of the API instance.
@@ -638,7 +685,7 @@ Get information about all applications in the environment you specify. You can a
 |Parameter |Description |Required?
 
 |organizationId
-|The ID of the organization where applications reside. Default is the ID of the user's organization from the current session.
+|The ID of the organization where applications reside. Default is the ID of the user`s organization from the current session.
 |No
 
 |environmentName
@@ -654,14 +701,16 @@ Get information about all applications in the environment you specify. You can a
 [[list-governance-rulesets]]
 == list_governance_rulesets
 
-List governance rulesets that apply to a project along with the rules that comprise each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets. Available only in Anypoint Code Builder.
+List governance rulesets that apply to a project along with the rules that comprise each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use 'file:' followed by three slash characters.
+|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
 |===
@@ -688,28 +737,38 @@ Apply a new policy to an API instance and update an existing policy configuratio
 |Yes
 
 |operation
-|Operation to perform on the API instance. Valid values: `apply` and `update`.
+|Operation to perform on the API instance. Valid values are `apply` and `update`.
 |Yes
 
 |policyId
-|ID of the policy to configure. Required to update an existing policy configuration.
+|ID of the policy to configure. 
 |No
+
+Required to update an existing policy configuration.
 
 |policyConfiguration
-|Configuration object for the policy. Required to apply a new policy.
+|Configuration object for the policy. 
 |No
+
+Required to apply a new policy.
 
 |groupId
-|Group ID of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|Group ID of the policy asset in Anypoint Exchange. 
 |No
+
+Required to apply a new policy.
 
 |assetId
-|Asset ID of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|Asset ID of the policy asset in Anypoint Exchange. 
 |No
 
+Required to apply a new policy.
+
 |assetVersion
-|Version of the policy asset in Anypoint Exchange. Required to apply a new policy.
+|Version of the policy asset in Anypoint Exchange.
 |No
+
+Required to apply a new policy.
 
 |===
 
@@ -723,7 +782,7 @@ Provide instructions to the LLM on how to manage a Flex Gateway custom policy pr
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform. Valid values: `create`, `configure`, `build`, `publish-dev`, `publish-release`.
+|Operation to perform. Valid values are `create`, `configure`, `build`, `publish-dev`, and `publish-release`.
 |Yes
 
 |projectPath
@@ -739,7 +798,9 @@ Provide instructions to the LLM on how to manage a Flex Gateway custom policy pr
 [[mock-api-spec]]
 == mock_api_spec
 
-Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec. Available only in Anypoint Code Builder.
+Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
@@ -758,7 +819,7 @@ Test an endpoint's functionality by making a request through a mocking service. 
 |Yes
 
 |headers
-|Delimited string of headers sent to the endpoint. The delimiter character is \n. For example, 'Authorization: token\nOrigin: localhost'.
+|Delimited string of headers sent to the endpoint. The delimiter character is \n. For example, `Authorization: token\nOrigin: localhost`.
 |No
 
 |payload
@@ -766,7 +827,7 @@ Test an endpoint's functionality by making a request through a mocking service. 
 |No
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use 'file:' followed by three slash characters.
+|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
 |===
@@ -774,14 +835,16 @@ Test an endpoint's functionality by making a request through a mocking service. 
 [[open-project]]
 == open_project
 
-Open a project. For example, an API spec or an agent network project. Available only in Anypoint Code Builder.
+Open a project. For example, an API spec or an agent network project.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use 'file:' followed by three slash characters. For example, 'file:///Users/myUser/workspace/'.
+|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters. For example, `\file:///Users/myUser/workspace/`.
 |No
 
 |newWindow
@@ -789,7 +852,7 @@ Open a project. For example, an API spec or an agent network project. Available 
 |No
 
 |addToWorkspace
-|Whether the project opens in a new folder in the workspace (true) or not (false). If true, then newWindow=false.
+|Whether the project opens in a new folder in the workspace (true) or not (false). If true, then `newWindow=false`.
 |No
 
 |===
@@ -797,7 +860,11 @@ Open a project. For example, an API spec or an agent network project. Available 
 [[publish-agent-network-assets]]
 == publish_agent_network_assets
 
-Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group. Prerequisite: The agent network project contains a valid `exchange.json` file. Available only in Anypoint Code Builder.
+Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group.
+
+Prerequisite: The agent network project contains a valid `exchange.json` file.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
@@ -854,14 +921,16 @@ Search for an asset in an organization and Anypoint Exchange. Returns up to 10 a
 [[test-connection]]
 == test_connection
 
-Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection. Available only in Anypoint Code Builder.
+Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |configurationUri
-|Fully-qualified URI of the Mule configuration XML file that contains the connector configuration. A valid value starts with file:/// followed by the absolute path.
+|Fully qualified URI of the Mule configuration XML file that contains the connector configuration. A valid value starts with `\file:///` followed by the absolute path.
 |Yes
 
 |configurationName
@@ -920,11 +989,11 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |minReplicas
-|If hasHighAvailability=true or hasPerformanceOptimization=true, this value is the minimum number of replicas.
+|If `hasHighAvailability=true` or `hasPerformanceOptimization=true`, this value is the minimum number of replicas.
 |No
 
 |maxReplicas
-|If hasHighAvailability=true or hasPerformanceOptimization=true, this value is the maximum number of replicas.
+|If `hasHighAvailability=true` or `hasPerformanceOptimization=true`, this value is the maximum number of replicas.
 |No
 
 |hasAutoscaling
@@ -940,7 +1009,7 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |deploymentModel
-|The deployment strategy for application updates. Valid values: `rolling` or `recreate`.
+|The deployment strategy for application updates. Valid values are `rolling` or `recreate`.
 |No
 
 |hasClustering
@@ -972,14 +1041,16 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 [[validate-api-against-ruleset]]
 == validate_api_against_ruleset
 
-Validate an API specification in your project against governance rulesets or rules that you specify. If you specify all rulesets, the tool uses an empty 'rules' parameter to validate all rulesets. Similarly, if you specify no ruleset, the tool uses an empty `rules` parameter. To find rules or rulesets that you specify, this tool calls the `list_governance_rulesets` tool. Available only in Anypoint Code Builder.
+Validate an API specification in your project against governance rulesets or rules that you specify. If you specify all rulesets, the tool uses an empty `rules` parameter to validate all rulesets. Similarly, if you specify no ruleset, the tool uses an empty `rules` parameter. To find rules or rulesets that you specify, this tool calls the `list_governance_rulesets` tool.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use 'file:' followed by three slash characters.
+|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
 |rules
@@ -995,14 +1066,16 @@ Validate an API specification in your project against governance rulesets or rul
 [[validate-project]]
 == validate_project
 
-Validate the current project. For example, an API spec or an agent network project. This tool doesn't validate against API Governance rulesets. To validate against those rulesets, use the `validate_api_against_rules` tool. Available only in Anypoint Code Builder.
+Validate the current project. For example, an API spec or an agent network project. This tool doesn't validate against API Governance rulesets. To validate against those rulesets, use the `validate_api_against_rules` tool.
+
+Available only in Anypoint Code Builder.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use 'file:' followed by three slash characters. For example, 'file:///Users/myUser/workspace/'.
+|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters, for example, `\file:///Users/myUser/workspace/`.
 |No
 
 |===
