@@ -6,11 +6,11 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 
 == Command Summary
 
-[%header,cols="1h,2,1"]
+[%header,cols="1,2,1"]
 |===
 |Category |Tool |Anypoint Code Builder Only
 
-.4+|Agent Network Development
+.4h+|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 
