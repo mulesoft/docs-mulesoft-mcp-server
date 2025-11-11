@@ -10,7 +10,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |===
 |Category |Tool |Anypoint Code Builder Only
 
-.4+h|Agent Network Development
+.4+|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 
@@ -23,7 +23,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 
-.14+h|Application Development
+.14+|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 
@@ -66,7 +66,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<validate-project,validate_project>>
 |Yes
 
-.5+h|Application Management
+.5+|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 
@@ -82,7 +82,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<update-mule-application,update_mule_application>>
 |No
 
-.3+h|Governance
+.3+|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
 
@@ -92,7 +92,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
 
-.3+h|Policy Management
+.3+Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 
@@ -102,7 +102,7 @@ Tools are available only in the MuleSoft MCP Server included in Anypoint Code Bu
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 
-.2+h|Usage and Insights
+.2+|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
 
