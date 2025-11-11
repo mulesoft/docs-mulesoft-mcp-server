@@ -217,7 +217,7 @@ Required if you're configuring an API instance.
 |No
 
 |operation
-|Operation to perform on the API instance. Valid values are `create` and `configureBasicEndpointInMuleApplication`.
+|Operation to perform on the API instance. Use `create` to create a new API instance or `configureBasicEndpointInMuleApplication` to configure a basic endpoint in a Mule application.
 |Yes
 
 |groupId
@@ -268,7 +268,7 @@ Create an asset in Anypoint Exchange, update some Anypoint Exchange asset proper
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform. Valid values are `create`, `update`, and `delete`.
+|Operation to perform on the asset. Use `create` to create a new asset, `update` to modify an existing asset, or `delete` to remove an asset.
 |Yes
 
 |assetName
@@ -323,7 +323,7 @@ Available only in Anypoint Code Builder.
 Required when the operation parameter value is `define`.
 
 |dataFormat
-|The format of the metadata. Valid values are JSON or XML.
+|The format of the metadata being processed. Specify `JSON` for JSON-formatted metadata or `XML` for XML-formatted metadata.
 |No
 
 |metadataPath
@@ -370,7 +370,7 @@ Create and scaffold an API spec or fragment project. You can specify the project
 |Yes
 
 |specLanguage
-|Specification language. Valid values are `RAML` and `OAS`.
+|Specification language for the API project. Use `RAML` for RESTful API Modeling Language or `OAS` for OpenAPI Specification.
 |Yes
 
 |===
@@ -380,7 +380,7 @@ Create and scaffold an API spec or fragment project. You can specify the project
 
 Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector).
 
-Prerequisite: Install the MCP Connector.
+Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
 
 [%header,cols="1,3,1"]
 |===
@@ -470,7 +470,7 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 |No
 
 |target
-|Deployment target. Valid values are `CloudHub-US`, `CloudHub-EU`, and `RuntimeFabric`.
+|Deployment target environment. Use `CloudHub-US` for CloudHub US region, `CloudHub-EU` for CloudHub EU region, or `RuntimeFabric` for Runtime Fabric deployment.
 |Yes
 
 |replicas
@@ -493,7 +493,7 @@ Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anyp
 |Parameter |Description |Required?
 
 |language
-|Language of the API spec. Valid values: `oas` (OpenAPI specs) and `raml`.
+|Language of the API specification to generate. Use `oas` for OpenAPI specifications or `raml` for RAML specifications.
 |Yes
 
 |languageVersion
@@ -549,27 +549,27 @@ Get a Flex Gateway policy example to help you configure your Rust source code. Y
 |Parameter |Description |Required?
 
 |feature
-|Valid values are:
+|The type of policy feature to generate an example for. Valid values are:
 
-* `authentication` (propagate authentication information to other policies)
-* `body_manipulation` (read or update request/response body)
-* `body_stream` (read request/response body by chunks)
-* `cache` (use the cache library to share data across workers)
-* `contracts` (authenticate and authorize against the management plane)
-* `control_flow` (stop request flow and generate a custom response)
-* `cors` (use the Cross-Origin Resource Sharing library)
-* `dataweave` (define and evaluate custom DataWeave expressions)
-* `grpc` (gRPC call to external service)
-* `header_manipulation` (CRUD for request/response headers)
-* `http_call` (HTTP call to external service)
-* `jwt` (JSON Web Token parsing and validation)
-* `lock` (synchronize workers)
-* `logger` (print custom messages)
-* `metadata` (access metadata of the policy, api, and environment)
-* `policy_violation` (mark requests as violations in monitoring traffic)
-* `request_data` (share data between requests and responses)
-* `timer` (perform sleep operations)
-* `worker_variable` (share data across requests of a single worker)
+* `authentication` to propagate authentication information to other policies.
+* `body_manipulation` to read or update request/response body.
+* `body_stream` to read request/response body by chunks.
+* `cache` to use the cache library to share data across workers.
+* `contracts` to authenticate and authorize against the management plane.
+* `control_flow` to stop request flow and generate a custom response.
+* `cors` to use the Cross-Origin Resource Sharing library.
+* `dataweave` to define and evaluate custom DataWeave expressions.
+* `grpc` to make gRPC call to external service.
+* `header_manipulation` to perform CRUD for request/response headers.
+* `http_call` to make HTTP call to external service.
+* `jwt` to parse and validate JSON Web Token.
+* `lock` to synchronize workers.
+* `logger` to print custom messages.
+* `metadata` to access metadata of the policy, api, and environment.
+* `policy_violation` to mark requests as violations in monitoring traffic.
+* `request_data` to share data between requests and responses.
+* `timer` to perform sleep operations.
+* `worker_variable` to share data across requests of a single worker.
 |Yes
 
 |===
@@ -592,7 +592,7 @@ See how your organization leverages the Anypoint Platform through usage and oper
 |No
 
 |entityType
-|Type of entity. Valid values are `application` and `api`.
+|Type of entity to get insights for. Use `application` for Mule applications or `api` for APIs.
 |No
 
 |includeFlows
@@ -620,7 +620,7 @@ See how your organization leverages the Anypoint Platform through usage and oper
 |No
 
 |latencyPercentile
-|If `includeLatency=true`, this parameter contains the percentile to measure latency. Valid values are `P99`, `P95`, `P90`, and `P75`. Default is `P99`.
+|If `includeLatency=true`, this parameter specifies which percentile to use for latency measurements. Use `P99` for 99th percentile, `P95` for 95th percentile, `P90` for 90th percentile, or `P75` for 75th percentile. Default is `P99`.
 |No
 
 |===
@@ -750,7 +750,7 @@ Apply a new policy to an API instance and update an existing policy configuratio
 |Yes
 
 |operation
-|Operation to perform on the API instance. Valid values are `apply` and `update`.
+|Operation to perform on the API instance policy. Use `apply` to apply a new policy or `update` to update an existing policy configuration.
 |Yes
 
 |policyId
@@ -788,14 +788,16 @@ Required to apply a new policy.
 [[manage-flex-gateway-policy-project]]
 == manage_flex_gateway_policy_project
 
-Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites]
+Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. 
+
+Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform. Valid values are `create`, `configure`, `build`, `publish-dev`, and `publish-release`.
+|Operation to perform on the Flex Gateway policy project. Use `create` to create a new project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
 |Yes
 
 |projectPath
@@ -875,7 +877,7 @@ Available only in Anypoint Code Builder.
 
 Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group.
 
-Prerequisite: The agent network project contains a valid `exchange.json` file.
+Prerequisite: The agent network project must contain a valid `exchange.json` file.
 
 Available only in Anypoint Code Builder.
 
@@ -1022,7 +1024,7 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |deploymentModel
-|The deployment strategy for application updates. Valid values are `rolling` or `recreate`.
+|The deployment strategy for application updates. Use `rolling` for zero-downtime rolling updates or `recreate` to stop and restart all instances.
 |No
 
 |hasClustering
