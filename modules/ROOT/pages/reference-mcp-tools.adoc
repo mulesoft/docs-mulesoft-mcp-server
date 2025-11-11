@@ -4,131 +4,108 @@ These tools are available in MuleSoft MCP Server.
 
 Some tools are available only in the MuleSoft MCP Server included in Anypoint Code Builder IDE. Those tool descriptions include "Available only in Anypoint Code Builder."
 
+== Command Summary
+
 [cols="1,2,1"]
 |===
 |Category |Tool |Anypoint Code Builder Only
 
-|Agent Network Development
+.4+|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 
-|Agent Network Development
 |<<create-agent-network-project,create_agent_network_project>>
 |Yes
 
-|Agent Network Development
 |<<deploy-agent-network,deploy_agent_network>>
 |Yes
 
-|Agent Network Development
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 
-|Application Development
+.13+|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 
-|Application Development
 |<<create-and-manage-metadata,create_and_manage_metadata>>
 |Yes
 
-|Application Development
 |<<create-api-spec-project,create_api_spec_project>>
 |No
 
-|Application Development
 |<<create-mcp-server,create_MCP_server>>
 |No
 
-|Application Development
 |<<create-mule-project,create_mule_project>>
 |No
 
-|Application Development
 |<<generate-api-spec,generate_api_spec>>
 |No
 
-|Application Development
 |<<generate-mule-flow,generate_mule_flow>>
 |No
 
-|Application Development
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
 
-|Application Development
 |<<mock-api-spec,mock_api_spec>>
 |Yes
 
-|Application Development
 |<<open-project,open_project>>
 |Yes
 
-|Application Development
 |<<run-local-mule-application,run_local_mule_application>>
 |No
 
-|Application Development
 |<<search-asset,search_asset>>
 |No
 
-|Application Development
 |<<test-connection,test_connection>>
 |Yes
 
-|Application Development
 |<<validate-project,validate_project>>
 |Yes
 
-|Application Management
+.5+|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 
-|Application Management
 |<<deploy-mule-application,deploy_mule_application>>
 |No
 
-|Application Management
 |<<list-api-instances,list_api_instances>>
 |No
 
-|Application Management
 |<<list-applications,list_applications>>
 |No
 
-|Application Management
 |<<update-mule-application,update_mule_application>>
 |No
 
-|Governance
+.3+|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
 
-|Governance
 |<<list-governance-rulesets,list_governance_rulesets>>
 |Yes
 
-|Governance
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
 
-|Policy Management
+.3+|Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 
-|Policy Management
 |<<manage-api-instance-policy,manage_api_instance_policy>>
 |No
 
-|Policy Management
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 
-|Usage and Insights
+.2+|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
 
-|Usage and Insights
 |<<get-reuse-metrics,get_reuse_metrics>>
 |No
 
