@@ -695,7 +695,7 @@ Opens a project from a given URL, either in the current window or in a new windo
 |Parameter |Description |Required?
 
 |url
-|The URL of the project to open in the format `file://<path>`.
+|The URL of the project to open, in the format `\file://<path>`.
 |Yes
 
 |newWindow
