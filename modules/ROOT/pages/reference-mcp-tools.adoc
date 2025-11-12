@@ -729,6 +729,7 @@ Runs a DataWeave transformation using the sample data as input context and displ
 Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment.
 
 Prerequisites:
+
 * Managed Flex Gateway
 * A business group
 * A valid `exchange.json` file in the agent network project 
@@ -831,6 +832,7 @@ Generate, modify, or enhance an API spec using AI.
 
 
 Prerequisites:
+
 . Log in to Anypoint Code Builder with your Anypoint Platform credentials.
 . Enable Einstein in Access Management.
 +
