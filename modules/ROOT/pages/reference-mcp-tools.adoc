@@ -435,7 +435,7 @@ Available only in Anypoint Code Builder.
 |Parameter |Description |Required?
 
 |projectPath
-|Path of the Mule project directory where the pom.xml is located.
+|Path of the Mule project directory where the `pom.xml` file is located.
 |Yes
 
 |operation
@@ -726,7 +726,12 @@ Runs a DataWeave transformation using the sample data as input context and displ
 [[deploy-agent-network]]
 == deploy_agent_network
 
-Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment. Prerequisites: Managed Flex Gateway, a business group, and the agent network project contains a valid `exchange.json` file. 
+Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment.
+
+Prerequisites:
+* Managed Flex Gateway
+* A business group
+* A valid `exchange.json` file in the agent network project 
 
 Available only in Anypoint Code Builder.
 
@@ -824,7 +829,12 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 
 Generate, modify, or enhance an API spec using AI.
 
-Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials and enable Einstein in Access Management.
+
+Prerequisites:
+. Log in to Anypoint Code Builder with your Anypoint Platform credentials.
+. Enable Einstein in Access Management.
++
+See xref:access-management::enabling-agentforce.adoc[].
 
 [%header,cols="1,3a,1"]
 |===
@@ -902,7 +912,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 * `body_stream` to read request/response body by chunks.
 * `cache` to use the cache library to share data across workers.
 * `contracts` to authenticate and authorize against the management plane.
-* `control_flow` to stop request flow and generate a custom response.
+* `control_flow` to stop the request flow and generate a custom response.
 * `cors` to use the Cross-Origin Resource Sharing library.
 * `dataweave` to define and evaluate custom DataWeave expressions.
 * `grpc` to make gRPC call to external service.
@@ -923,11 +933,11 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 [[get-platform-insights]]
 == get_platform_insights
 
-See how your organization leverages the Anypoint Platform through usage and operational insights. These include:
+See how your organization leverages Anypoint Platform through usage and operational insights. These include:
 
 * Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it`s early in the month, you get usage for the last full month.
-* API and app call volume across consumers for last 7 days.
-* API and app performance metrics such as errors and latency for last 7 days.
+* API and app call volume across consumers for the last 7 days.
+* API and app performance metrics such as errors and latency for the last 7 days.
 
 [%header,cols="1,3a,1"]
 |===
@@ -1482,7 +1492,7 @@ Available only in Anypoint Code Builder.
 |No
 
 |rules
-|Array of API rules to validate. If empty, the tool validates all rulesets in projectPath.
+|Array of API rules to validate. If empty, the tool validates all rulesets in `projectPath`.
 |No
 
 |syncCentralizedRulesets
