@@ -558,7 +558,7 @@ Create and scaffold an API spec or fragment project. You can specify the project
 [[create-mcp-server]]
 == create_MCP_server
 
-Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using the Anypoint Connector for MCP (MCP Connector).
+Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using Anypoint Connector for MCP (MCP Connector).
 
 Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
 
@@ -915,10 +915,10 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 * `control_flow` to stop the request flow and generate a custom response.
 * `cors` to use the Cross-Origin Resource Sharing library.
 * `dataweave` to define and evaluate custom DataWeave expressions.
-* `grpc` to make gRPC call to external service.
-* `header_manipulation` to perform CRUD for request/response headers.
-* `http_call` to make HTTP call to external service.
-* `jwt` to parse and validate JSON Web Token.
+* `grpc` to make a gRPC call to an external service.
+* `header_manipulation` to perform CRUD operations for request/response headers.
+* `http_call` to make an HTTP call to an external service.
+* `jwt` to parse and validate JSON Web Tokens.
 * `lock` to synchronize workers.
 * `logger` to print custom messages.
 * `metadata` to access metadata of the policy, API, and environment.
