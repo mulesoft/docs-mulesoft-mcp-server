@@ -908,7 +908,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 * `grpc` to make a gRPC call to an external service.
 * `header_manipulation` to perform CRUD for request/response headers.
 * `http_call` to make an HTTP call to an external service.
-* `jwt` to parse and validate JSON Web Token.
+* `jwt` to parse and validate JSON Web Tokens.
 * `lock` to synchronize workers.
 * `logger` to print custom messages.
 * `metadata` to access metadata of the policy, API, and environment.
