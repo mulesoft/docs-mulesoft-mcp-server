@@ -905,7 +905,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 * `control_flow` to stop request flow and generate a custom response.
 * `cors` to use the Cross-Origin Resource Sharing library.
 * `dataweave` to define and evaluate custom DataWeave expressions.
-* `grpc` to make gRPC call to external service.
+* `grpc` to make a gRPC call to an external service.
 * `header_manipulation` to perform CRUD for request/response headers.
 * `http_call` to make HTTP call to external service.
 * `jwt` to parse and validate JSON Web Token.
