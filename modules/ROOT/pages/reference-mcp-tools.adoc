@@ -66,6 +66,28 @@ NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Bui
 |<<validate-project,validate_project>>
 |Yes
 
+.7+s|DataWeave Development
+|<<dataweave-create-documentation,dataweave-create-documentation>>
+|No
+
+|<<dataweave-create-project,dataweave-create-project>>
+|No
+
+|<<dataweave-create-sample-data,dataweave-create-sample-data>>
+|No
+
+|<<dataweave-get-module-metadata,dataweave-get-module-metadata>>
+|No
+
+|<<dataweave-get-project-metadata,dataweave-get-project-metadata>>
+|No
+
+|<<dataweave-open-project,dataweave-open-project>>
+|No
+
+|<<dataweave-run-script-tool,dataweave-run-script-tool>>
+|No
+
 .5+s|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
@@ -115,7 +137,8 @@ NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Bui
 [[add-governance-ruleset]]
 == add_governance_ruleset
 
-Add a governance ruleset from Anypoint Exchange to your project. To find the ruleset to add, use the `search_asset` tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The `search_asset` tool uses `searchQuery='user'` criteria and `assetFilters=ruleset` to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project.
+Add a governance ruleset from Anypoint Exchange to your project.
+Use the `search_asset` tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The `search_asset` tool uses `searchQuery='user'` criteria and `assetFilters=ruleset` to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project.
 
 Available only in Anypoint Code Builder.
 
@@ -172,11 +195,11 @@ Available only in Anypoint Code Builder.
 |Parameter |Description |Required?
 
 |projectName
-|Unique name of the project. The project name is used as the name of the agent network project file.
+|Unique name of the project, also used as the name of the agent network project file.
 |Yes
 
 |projectPath
-|Parent location of the project. The default is the parent folder of the current workspace. The project will reside in a subfolder of projectPath.
+|Parent location of the project. The default is the parent folder of the current workspace. The project resides in a subfolder of `projectPath`.
 |Yes
 
 |projectDescription
@@ -203,11 +226,11 @@ Create and configure API instances in Anypoint API Manager.
 |No
 
 |environmentName
-|The name of the environment where the instance resides. Default is the environment for the organization specified in organizationId.
+|The name of the environment where the instance resides. Default is the environment for the organization specified in `organizationId`.
 |No
 
 |apiInstanceId
-|
+|The instance ID of the API.
 |No
 
 Required if you're configuring an API instance.
@@ -217,7 +240,10 @@ Required if you're configuring an API instance.
 |No
 
 |operation
-|Operation to perform on the API instance. Use `create` to create a new API instance or `configureBasicEndpointInMuleApplication` to configure a basic endpoint in a Mule application.
+|Operation to perform on the API instance. Valid values are:
+
+* `create` to create an API instance.
+* `configureBasicEndpointInMuleApplication` to configure a basic endpoint in a Mule application.
 |Yes
 
 |groupId
@@ -261,34 +287,127 @@ Required if `muleProxyType=basicEndpoint`.
 [[create-and-manage-assets]]
 == create_and_manage_assets
 
-Create an asset in Anypoint Exchange, update some Anypoint Exchange asset properties without republishing the asset, and delete an asset in Anypoint Exchange. Asset properties are the asset name, description, icon, contact name, and contact email.
+Create, update, and delete assets in Anypoint Exchange.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform on the asset. Use `create` to create a new asset, `update` to modify an existing asset, or `delete` to remove an asset.
+|Operation to perform on the asset. Valid values are:
+
+* `create` to create an asset.
+* `update` to modify an existing asset.
+* `delete` to remove an asset.
 |Yes
 
-|assetName
-|Name of the asset.
-|Yes
-
-|assetDescription
-|Description of the asset.
+|groupId
+|Group ID of the asset in Anypoint Exchange.
 |No
 
-|assetIcon
-|Icon for the asset.
+|assetId
+|The ID of the asset.
+|No
+
+|version
+|Version of the asset. Example: 1.4.0.
+|No
+
+Required for asset creation.
+
+|organizationId
+|The ID of the org to publish the org to.
+|No
+
+Optional for asset creation.
+
+|classifier
+|The type of asset. Valid values are `raml-fragment`, `raml`, `oas`, `wsdl`, `http-api`, `custom`, `evented-api`, `graphql`, `mule-application`, and `mule-plugin`.
+
+|No 
+
+Required for asset creation.
+
+
+|name
+|The name of the asset.
+|No
+
+* Required for asset creation.
+* Optional for asset update.
+
+
+|description
+|The description of the asset to create or update.
+|No
+
+|assetLink
+|The URL of the asset. 
+|No
+
+Required when creating wsdl or http assets.
+
+|apiVersion
+|The product version of API assets. 
+|No
+
+Required when creating raml, oas, wsdl, or http assets.
+
+|main
+|The main file of the asset.
+|No
+
+Required when creating raml, raml-fragment, oas, and wsdl assets.
+
+|dependencies
+|A stringified array of dependency JSON objects, where each object consists of `groupId`, `assetId`, and `version`.
+|No
+
+Required when creating api-group assets.
+
+|originalFormatVersion
+|The version of the API spec format.
+|No
+
+Required for asset creation.
+
+|metadata
+|Stringified value of a Design Center JSON object describing the asset `projectId`, `branchId`, and `commitId`. Used for asset creation.
+|No
+
+|keywords
+|Stringified array of string values to save as the asset's attributes. Use to find assets by keyword. Used for asset creation.
+|No
+
+|tags
+|Stringified array of string values to save as the asset's tags. Used for asset creation.
+|No
+
+|projectPath
+|The asset project file or project root directory.
+|No
+
+Required for raml, raml-fragment, oas, evented-api, wsdl, mule-plugin, and mule-application asset creation.
+
+|deleteType
+|Type of asset deletion to perform. Valid values are:
+
+* `soft-delete` indicates logical deletion.
+* `hard-delete` indicates physical deletion.
+
+The default value is `soft-delete`.
 |No
 
 |contactName
-|Contact name for the asset.
+|New contact name for the asset. Used for updating the asset.
 |No
 
 |contactEmail
-|Contact email for the asset.
+|New contact email of the asset. Used for updating the asset.
+|No
+
+|iconFile
+|Path to the icon file (image formats such as PNG and JPG) to add to the asset. Used for updating the asset.
 |No
 
 |===
@@ -305,7 +424,7 @@ Available only in Anypoint Code Builder.
 |Parameter |Description |Required?
 
 |projectPath
-|Path of the existing Mule project where pom.xml is located.
+|Path of the Mule project directory where the pom.xml is located.
 |Yes
 
 |operation
@@ -317,45 +436,92 @@ Available only in Anypoint Code Builder.
 |Yes
 
 |metadata
-|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). 
+|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). If this metadata is for input or output, use the applyMetadataOn parameter.
 |No
 
 Required when the operation parameter value is `define`.
 
 |dataFormat
-|The format of the metadata being processed. Specify `JSON` for JSON-formatted metadata or `XML` for XML-formatted metadata.
+|The format of the metadata to process. Specify `JSON` for JSON-formatted metadata or `XML` for XML-formatted metadata.
 |No
 
 |metadataPath
-|Path of the sample metadata or schema file. 
+|Path of the sample metadata or schema file. To specify if this metadata is for input or output, use the `applyMetadataOn` parameter.
 |No
 
 Required when the operation parameter value is `define`.
 
 |componentNodeDocId
-|The doc:id attribute value for the flow component node. Don't provide the child node's doc:id.
+|The `doc:id attribute` value of the flow component. For example, if the node is `<ee:transform doc:name='Transform' doc:id='hdipfo' >`, specify `hdipfo` as the `componentNodeDocId`. 
 |No
 
-Required when the operation parameter value is `attach`.
+* Required when the operation is `apply`
+* Optional when the operation is `define`.
 
 |metadataName
-|Name of the new metadata to be defined based on a sample data JSON, for example, `customer` if sample data is for a customer. 
+|Name of the new metadata to define based on a sample data JSON, for example, `customer` if sample data is for a customer. 
 |No
 
 Required when the operation parameter value is `define`.
 
 |isSchema
-|Whether the metadata is a schema.
+|Whether the metadata is a schema. 
+|Yes
+
+Required when the operation parameter value is `define`.
+
+|applyMetadataOn
+|Specifies whether the metadata is for the component's input or output. If not specified, metadata is used for input. 
 |No
 
- Required when the operation parameter value is `define`.
+* Required when the operation is `apply`.
+* Optional when the operation is `define`.
+
+|existingMetadata
+|Name of existing metadata type to apply to the flow component node. To specify if this metadata is for input or output, use the `applyMetadataOn` parameter.
+|No
+
+Required when the operation parameter value is `apply`. 
+
+|listExistingMetadata
+|Whether to list all available metadata types in the project. Use this parameter to discover existing metadata.
+|No
+
+|updateMetadata
+|Name of existing metadata type to update. 
+|No
+
+Required when the operation parameter value is `update`.
+
+|toolSummary
+|Description of the tool.
+|No
+
+|===
+
+[[create-mule-project]]
+== create_mule_project
+
+Create a Mule project structure with optional parameters, but no flow generation.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|projectPath
+|Directory to create project in (defaults to the current workspace).
+|No
+
+|projectName
+|Name for the project (defaults to a generated name).
+|No
 
 |===
 
 [[create-api-spec-project]]
 == create_api_spec_project
 
-Create and scaffold an API spec or fragment project. You can specify the project name, location, and spec language (RAML, OAS, etc.).
+Create and scaffold an API spec or fragment project. You can specify the project name, location, and spec language (RAML or OAS).
 
 [%header,cols="1,3,1"]
 |===
@@ -366,11 +532,14 @@ Create and scaffold an API spec or fragment project. You can specify the project
 |Yes
 
 |projectLocation
-|Directory path where the project will be created.
+|Directory path in which to create the project.
 |Yes
 
 |specLanguage
-|Specification language for the API project. Use `RAML` for RESTful API Modeling Language or `OAS` for OpenAPI Specification.
+|Specification language for the API project. Valid values are:
+
+* `RAML` for RESTful API Modeling Language
+* `OAS` for OpenAPI specification
 |Yes
 
 |===
@@ -387,7 +556,7 @@ Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the Mule project folder is located.
+|Path location of the Mule project folder.
 |Yes
 
 |projectXmlPath
@@ -396,26 +565,150 @@ Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
 
 |===
 
-[[create-mule-project]]
-== create_mule_project
+[[dataweave-create-documentation]]
+== dataweave-create-documentation
 
-Create an integration project.
+Generates DataWeave documentation using the proper syntax and returns the content for manual insertion into the project.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
-|projectName
-|Name of the Mule project.
+|documentation
+|Detailed description of what the function does.
 |Yes
 
-|projectLocation
-|Directory path where the project will be created.
+|parameters
+|Any parameters applicable to the function.
 |Yes
 
-|muleVersion
-|Mule runtime version for the project.
+|example
+|An example of how to use the function.
+|Yes
+
+|===
+
+[[dataweave-create-project]]
+== dataweave-create-project
+
+Creates a new DataWeave project, returns the URL of the created project created, and prompts to open the project.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|groupId
+|The group ID of the project.
 |No
+
+|projectName
+|The project name.
+|Yes
+
+|url
+|The URL location where you want to create the new project. The default, if not specified, is `{USER_HOME}/dw-projects/`.
+|No
+
+|===
+
+[[dataweave-create-sample-data]]
+== dataweave-create-sample-data
+
+Create DataWeave input sample data for a given DataWeave transformation file and return the path where it was created. For example, use this tool to create sample data for a variable if a preview fails with `There is no variable named 'variableName'`.
+
+Prerequisite: Create the DataWeave script file before running `dataweave-create-sample-data`.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|url
+|The URL of DataWeave transformation file to create sample input for. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
+|Yes
+
+|content
+|The content of the sample input.
+|Yes
+
+|extension
+|The file extension for the sample content file type. For example `json` for a JSON file or `xml` for an XML file. The default value is `json`.
+|Yes
+
+|name
+|The name of the input to generate, such as `payload`. The default value is `payload`.
+|Yes
+
+|===
+
+[[dataweave-get-module-metadata]]
+== dataweave-get-module-metadata
+
+Returns the list of all functions available in a DataWeave module, with documentation for each function, the input parameter types, and the output types. It includes the list of labels for each function to use when searching.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|url
+|The URL of the project in the format `file://<path>`.
+|Yes
+
+|moduleUrl
+|The URL of the DataWeave module file in the format `file://<path>.dwl` or `jar://<path>.dwl` search documentation for. Use the `dataweave-get-project-metadata` tool to get the URL of a given module.
+|Yes
+
+|===
+
+[[dataweave-get-project-metadata]]
+== dataweave-get-project-metadata
+
+Returns the metadata of a DataWeave project, including the list of source folders, and test folders, that defines where to create the files. The tool output includes the list of available modules with their URL, and all the functions, variables, namespaces, and types. The output also includes the list of all the data formats supported by the project. Call this tool before generating any code.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|url
+|The URL of the project in the format `file://<path>`.
+|Yes
+
+|===
+
+[[dataweave-open-project]]
+== dataweave-open-project
+
+Opens a project from a given URL, either in the current window or in a new window.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|url
+|The URL of the project to open in the format `file://<path>`.
+|Yes
+
+|newWindow
+|Whether to open the file in a new window (`true`) or not (`false`). The tool always prompts the user.
+|No
+
+|===
+
+[[dataweave-run-script-tool]]
+== dataweave-run-script-tool
+
+Runs a DataWeave transformation using the sample data as input context and displays the output. Use to validate a script output. If the tool fails with missing input, create sample data using `dataweave-create-sample-data` tool.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|url
+|The URL of the file to run the preview. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
+|Yes
+
+|content
+|The content of the script to execute.
+|Yes
 
 |===
 
@@ -461,24 +754,56 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 |===
 |Parameter |Description |Required?
 
-|applicationName
-|Name of the application to deploy.
-|Yes
-
 |projectPath
-|Path to the Mule project directory.
+|Path to Maven project root directory.
 |No
 
-|target
-|Deployment target environment. Use `CloudHub-US` for CloudHub US region, `CloudHub-EU` for CloudHub EU region, or `RuntimeFabric` for Runtime Fabric deployment.
-|Yes
-
-|replicas
-|Number of replicas for the application.
+|appName
+|The name of the application to deploy.
 |No
 
-|vCores
-|Number of vCores to allocate.
+|environmentName
+|Name of the environment to deploy the app to.
+|No
+
+|deploymentTargetName
+|Name of the deployment target.
+|No
+
+|runtimeVersion
+|Runtime version to use.
+|No
+
+|groupId
+|Group ID of the asset in Anypoint Exchange.
+|No
+
+|artifactId
+|Artifact ID of the asset in Anypoint Exchange.
+|No
+
+|version
+|Version of the asset or application.
+|No
+
+|secure
+|Enables enhanced security features.
+|No
+
+|highAvailability
+|Enables high availability features.
+|No
+
+|performanceOptimization
+|Enables performance optimization features.
+|No
+
+|minimumReplicas
+|Minimum number of replicas if high availability or performance optimization is enabled. Minimum is 1.
+|No
+
+|organizationId
+|The ID of the organization to deploy the application to.
 |No
 
 |===
@@ -486,14 +811,20 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 [[generate-api-spec]]
 == generate_api_spec
 
-Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials. Make sure Einstein is enabled in Access Management.
+Generate, modify, or enhance an API spec using AI.
+
+Prerequisites: Log in to Anypoint Code Builder with your Anypoint Platform credentials and enable Einstein in Access Management.
 
 [%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
 |language
-|Language of the API specification to generate. Use `oas` for OpenAPI specifications or `raml` for RAML specifications.
+|Language of the API specification to generate. Valid values are:
+
+* `oas` for OpenAPI specifications
+* `raml` for RAML specifications
+
 |Yes
 
 |languageVersion
@@ -523,26 +854,30 @@ Generate, modify, or enhance an API spec using AI. Prerequisites: Log in to Anyp
 [[generate-mule-flow]]
 == generate_mule_flow
 
-Create a flow using AI.
+Generate, modify, or enhance Mule flows. Use this tool for any request involving flow changes, including Java method calls, logging, Salesforce operations, adding connectors, transformations, or any flow modifications.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
-|flowDescription
-|Description of the flow to generate.
+|projectPath
+|Path to the existing Mule project directory.
 |Yes
 
-|projectPath
-|Path to the Mule project where the flow will be created.
-|No
+|projectXmlPath
+|Path to the existing Mule project XML file.
+|Yes
+
+|originalUserPrompt
+|The original user query without any modifications. Use for requests such as updating flows, adding Java methods, logging, Salesforce operations, connectors, or any flow changes.
+|Yes
 
 |===
 
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
-Get a Flex Gateway policy example to help you configure your Rust source code. You can get example policies that manipulate a request's header and body, make HTTP and gRPC calls to external services, share data between requests and responses, reject requests, perform sleep operations, and the use of PDK's libraries.
+Get a Flex Gateway policy example to help you configure your Rust source code. Use this tool to get example policies that manipulate a request's header and body, make HTTP and gRPC calls to external services, share data between requests and responses, reject requests, perform sleep operations, and use PDK libraries.
 
 [%header,cols="1,3a,1"]
 |===
@@ -565,7 +900,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. Y
 * `jwt` to parse and validate JSON Web Token.
 * `lock` to synchronize workers.
 * `logger` to print custom messages.
-* `metadata` to access metadata of the policy, api, and environment.
+* `metadata` to access metadata of the policy, API, and environment.
 * `policy_violation` to mark requests as violations in monitoring traffic.
 * `request_data` to share data between requests and responses.
 * `timer` to perform sleep operations.
@@ -596,31 +931,38 @@ See how your organization leverages the Anypoint Platform through usage and oper
 |No
 
 |includeFlows
-|Whether app usage trends for flows are included. Default is false.
+|Whether to include app usage trends for flows. The default value is `false`.
 |No
 
 |includeMessages
-|Whether app usage trends for messages are included. Default is false.
+|Whether to include app usage trends for messages. The default value is `false`.
 |No
 
 |includeDataThroughput
-|Whether app usage trends for data throughput are included. Default is false.
+|Whether to include app usage trends for data throughput. The default value is `false`.
 |No
 
 |includeErrorCount
-|Whether error counts from apps and APIs are included. Default is false.
+|Whether to include error counts from apps and APIs. The default value is `false`.
 |No
 
 |includeCallVolume
-|Whether call volume from apps and APIs are included. Default is false.
+|Whether to include call volume from apps and APIs. The default value is `false`.
 |No
 
 |includeLatency
-|Whether P99 latency is included in the response time. Default is false.
+|Whether to include P99 latency in the response time. The default value is `false`.
 |No
 
 |latencyPercentile
-|If `includeLatency=true`, this parameter specifies which percentile to use for latency measurements. Use `P99` for 99th percentile, `P95` for 95th percentile, `P90` for 90th percentile, or `P75` for 75th percentile. Default is `P99`.
+|If `includeLatency=true`, this parameter specifies which percentile to use for latency measurements. Valid values are:
+
+* `P99` for 99th percentile
+* `P95` for 95th percentile
+* `P90` for 90th percentile
+* `P75` for 75th percentile 
+
+The default value is `P99`.
 |No
 
 |===
@@ -628,7 +970,7 @@ See how your organization leverages the Anypoint Platform through usage and oper
 [[get-reuse-metrics]]
 == get_reuse_metrics
 
-Get visibility into how assets are reused across your organization. Drive efficiency, consistency, and cost savings by reducing duplication. Includes sandbox and production environments. Metrics are a year-to-date snapshot.
+Get visibility into assets reuse across your organization. Drive efficiency, consistency, and cost savings by reducing duplication. Includes sandbox and production environments. Metrics are a year-to-date snapshot.
 
 [%header,cols="1,3,1"]
 |===
@@ -650,7 +992,9 @@ Available only in Anypoint Code Builder.
 [[list-api-instances]]
 == list_api_instances
 
-Get information for instances in an environment. You can also filter by an instance ID or label and include applied or available policies. Results are paginated using the page parameter. Prompt tip: To get information for all instances, revise results using the page parameter.
+Get information for instances in an environment. You can also filter by an instance ID or label and include applied or available policies. Use the `page` parameter to  paginate results.
+
+Prompt tip: To get information for all instances, revise results using the `page` parameter.
 
 [%header,cols="1,3,1"]
 |===
@@ -661,7 +1005,7 @@ Get information for instances in an environment. You can also filter by an insta
 |No
 
 |environmentName
-|The name of the environment where instances reside. Default is the name of the default environment for the organization specified in organizationId.
+|The name of the environment where instances reside. Default is the name of the default environment for the organization specified in `organizationId`.
 |No
 
 |apiInstanceId
@@ -691,22 +1035,50 @@ Required if `includeAvailablePolicies=true`.
 [[list-applications]]
 == list_applications
 
-Get information about all applications in the environment you specify. You can also specify an optional deployment name. Results are sorted by last update date and time, in descending order.
+Get information about all applications in the environment you specify, sorted by last update date and time, in descending order. You can also specify an optional deployment name.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
-|organizationId
-|The ID of the organization where applications reside. Default is the ID of the user`s organization from the current session.
-|No
-
 |environmentName
-|The name of the environment where applications reside. Default is the environment for the organization specified in organizationId.
+|Name of the environment to list applications from.
+|Yes
+
+|appName
+|An application to search for.
 |No
 
-|deploymentName
-|Optional deployment name to filter applications.
+|organizationId
+|ID of the organization to list applications from.
+|No
+
+|page
+|The page number of the result.
+|No
+
+|includeCpuMetrics
+|Set value to `true` to include CPU metrics when searching for an application.
+|No
+
+|includeHeapMetrics
+|Set value to `true` to include used and total heap metrics when searching for an application.
+|No
+
+|includeLogs
+|Set value to `true` to include logs from searching for an application. Maximum 500 entries.
+|No
+
+|timeFrame
+|If `includeCpuMetrics`, `includeHeapMetrics`, or `includeLogs` is true, this parameter contains the time frame for metrics. Valid values are `5m`, `15m`, `30m`, `1h`, `3h`, `6h`, `12h`, `24h`, `3d`, `5d`, `7d`, `15d`, and `30d`. The default value is `30m`.
+|No
+
+|logLevel
+|If `includeLogs` is `true`, this parameter contains the level of log detail. Valid values are `INFO`, `DEBUG`, `WARN`, and `ERROR`. The default value is `ERROR`.
+|No
+
+|logsPage
+|Page number of log. Maximum is 20. Default is 1.
 |No
 
 |===
@@ -714,7 +1086,7 @@ Get information about all applications in the environment you specify. You can a
 [[list-governance-rulesets]]
 == list_governance_rulesets
 
-List governance rulesets that apply to a project along with the rules that comprise each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets.
+List governance rulesets that apply to a project along with the rules that form each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets.
 
 Available only in Anypoint Code Builder.
 
@@ -723,7 +1095,7 @@ Available only in Anypoint Code Builder.
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
 |===
@@ -742,7 +1114,7 @@ Apply a new policy to an API instance and update an existing policy configuratio
 |No
 
 |environmentName
-|The name of the environment where instances reside. Default is the environment for the organization specified in organizationId.
+|The name of the environment where instances reside. Default is the environment for the organization specified in `organizationId`.
 |No
 
 |apiInstanceId
@@ -797,7 +1169,7 @@ Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
 |Parameter |Description |Required?
 
 |operation
-|Operation to perform on the Flex Gateway policy project. Use `create` to create a new project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
+|Operation to perform on the Flex Gateway policy project. Use `create` to create a project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
 |Yes
 
 |projectPath
@@ -842,7 +1214,7 @@ Available only in Anypoint Code Builder.
 |No
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
 |===
@@ -859,7 +1231,7 @@ Available only in Anypoint Code Builder.
 |Parameter |Description |Required?
 
 |projectPath
-|Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters. For example, `\file:///Users/myUser/workspace/`.
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters. For example, `\file:///Users/myUser/workspace/`.
 |No
 
 |newWindow
@@ -902,14 +1274,14 @@ Available only in Anypoint Code Builder.
 [[run-local-mule-application]]
 == run_local_mule_application
 
-Deploy and run your application locally.
+Run application locally in Mule runtime. This tool handles the full local deployment workflow: builds the project if needed, downloads runtime if needed, and starts the application locally.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |projectPath
-|Path to the Mule project directory.
+|Path to the Mule project directory to run locally.
 |Yes
 
 |===
@@ -917,19 +1289,43 @@ Deploy and run your application locally.
 [[search-asset]]
 == search_asset
 
-Search for an asset in an organization and Anypoint Exchange. Returns up to 10 assets in the user's own organization that match input criteria. If no assets are found in the user's organization, then the tool returns assets in Anypoint Exchange that exactly or partially match searchQuery.
+Search for an asset in Anypoint Exchange by name or other specified parameters. Returns the first asset that matches the input criteria.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
+|searchQuery
+|The query with criteria for the search. To specify multiple values, use comma-separated values as a single string. Parameter must include at least one value.
+|No
+
+|assetFilters
+|Show results that match the asset type filters.
+|No
+
+|statuses
+|Show results that match the status. Valid values are `deprecated`, `development`, and `published`.
+|No
+
 |organizationId
 |The ID of the organization you want to search. The default value is the ID of the user's organization from the current session.
 |No
 
-|searchQuery
-|The query with criteria for the search. Search results match the query exactly or partially.
-|Yes
+|sharedWithMe
+|Include shared assets in the results.
+|No
+
+|sortCriteria
+|Sort search results. Valid values are `name` or `last_modified_date`. Defaults to `last_modified_date`.
+|No
+
+|ascending
+|Sort results in ascending order.
+|No
+
+|maxResults
+|The maximum number of assets to return in the result set. Range is between 1-10. Parameter must include at least one value.
+|No
 
 |===
 
