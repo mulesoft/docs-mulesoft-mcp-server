@@ -1050,7 +1050,7 @@ Required if `includeAvailablePolicies=true`.
 |No
 
 |includeAvailablePolicies
-|Whether to include available policies in results. Requires apiInstanceId.
+|Whether to include available policies in results. Requires `apiInstanceId`.
 |No
 
 |===
