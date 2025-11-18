@@ -634,7 +634,7 @@ Prerequisite: Create the DataWeave script file before running `dataweave_create_
 |Parameter |Description |Required?
 
 |url
-|The URL of DataWeave transformation file to create sample input for. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
+|The URL of the DataWeave transformation file to create sample input for. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
 |Yes
 
 |content
