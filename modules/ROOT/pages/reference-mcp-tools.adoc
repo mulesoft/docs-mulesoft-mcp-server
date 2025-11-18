@@ -310,7 +310,7 @@ Create, update, and delete assets in Anypoint Exchange.
 |No
 
 |version
-|Version of the asset. Example: 1.4.0.
+|Version of the asset, for example, `1.4.0`.
 |No
 
 Required for asset creation.
