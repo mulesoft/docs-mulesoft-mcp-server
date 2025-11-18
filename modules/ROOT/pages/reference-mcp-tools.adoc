@@ -230,7 +230,7 @@ Create and configure API instances in Anypoint API Manager.
 |No
 
 |apiInstanceId
-|The instance ID of the API.
+|Instance ID of the API.
 |No
 
 Required if you're configuring an API instance.
@@ -252,7 +252,7 @@ Required if you're configuring an API instance.
 
 |assetId
 |ID of the API asset in Anypoint Exchange. Value can be the API name. 
-|Yes
+|No
 
 Required to create an API instance.
 
@@ -1012,6 +1012,9 @@ Get metadata and instructions for enabling topics and agent actions from an Open
 
 Available only in Anypoint Code Builder.
 
+// W-19663447
+This tool has no parameters.
+
 [[list-api-instances]]
 == list_api_instances
 
@@ -1024,15 +1027,15 @@ Prompt tip: To get information for all instances, revise results using the `page
 |Parameter |Description |Required?
 
 |organizationId
-|The ID of the organization where instances reside. Default is the ID of the default organization.
+|ID of the organization where instances reside. Default is the ID of the default organization.
 |No
 
 |environmentName
-|The name of the environment where instances reside. Default is the name of the default environment for the organization specified in `organizationId`.
+|Name of the environment where instances reside. Default is the name of the default environment for the organization specified in `organizationId`.
 |No
 
 |apiInstanceId
-|
+|Instance ID of the API.
 |No
 
 Required if `includeAvailablePolicies=true`.
