@@ -602,7 +602,7 @@ Generates DataWeave documentation using the proper syntax and returns the conten
 [[dataweave-create-project]]
 == dataweave_create_project
 
-Creates a new DataWeave project, returns the URL of the created project created, and prompts to open the project.
+Creates a new DataWeave project, returns the URL of the created project, and prompts to open the project.
 
 [%header,cols="1,3,1"]
 |===
