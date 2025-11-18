@@ -665,7 +665,7 @@ Returns the list of all functions available in a DataWeave module, with document
 |Yes
 
 |moduleUrl
-|The URL of the DataWeave module file in the format `\file://<path>.dwl` or `jar://<path>.dwl` search documentation for. Use the `dataweave_get_project_metadata` tool to get the URL of a given module.
+|The URL of the DataWeave module file in the format `\file://<path>.dwl` or `jar://<path>.dwl` to search documentation for. Use the `dataweave_get_project_metadata` tool to get the URL of a given module.
 |Yes
 
 |===
