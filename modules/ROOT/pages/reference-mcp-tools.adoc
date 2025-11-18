@@ -1506,7 +1506,7 @@ Available only in Anypoint Code Builder.
 [[validate-project]]
 == validate_project
 
-Validate the current project. For example, an API spec or an agent network project. This tool doesn't validate against API Governance rulesets. To validate against those rulesets, use the `validate_api_against_rules` tool.
+Validate the current project. For example, an API spec or an agent network project. This tool doesn't validate against API Governance rulesets. To validate against those rulesets, use the `validate_api_against_ruleset` tool.
 
 Available only in Anypoint Code Builder.
 
