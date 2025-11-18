@@ -937,7 +937,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 
 See how your organization leverages Anypoint Platform through usage and operational insights. These include:
 
-* Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it`s early in the month, you get usage for the last full month.
+* Usage trends for apps, such as flow count, message counts, and data throughput by business group and environment. Usage trends are for the current month. If it's early in the month, you get usage for the last full month.
 * API and app call volume across consumers for the last 7 days.
 * API and app performance metrics such as errors and latency for the last 7 days.
 
