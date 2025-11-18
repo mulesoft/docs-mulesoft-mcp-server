@@ -466,7 +466,7 @@ Required when the operation parameter value is `define`.
 |The `doc:id attribute` value of the flow component. For example, if the node is `<ee:transform doc:name='Transform' doc:id='hdipfo' >`, specify `hdipfo` as the `componentNodeDocId`. 
 |No
 
-* Required when the operation is `apply`
+* Required when the operation is `apply`.
 * Optional when the operation is `define`.
 
 |metadataName
