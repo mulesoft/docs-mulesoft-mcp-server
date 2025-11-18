@@ -316,7 +316,7 @@ Create, update, and delete assets in Anypoint Exchange.
 Required for asset creation.
 
 |organizationId
-|The ID of the org to publish the org to.
+|The ID of the org to publish the asset to.
 |No
 
 Optional for asset creation.
