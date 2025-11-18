@@ -163,7 +163,7 @@ Available only in Anypoint Code Builder.
 [[configure-agent-network-yaml]]
 == configure_agent_network_yaml
 
-Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (`mode='configure'`). Or, the tool can make minor changes to a preconfigured agent network YAML file (`mode='edit'`). The LLM determines the appropriate mode value from user prompts and guided setup.
+Modifies an agent network project YAML file. The tool can replace placeholder YAML created from a template with values generated from user prompts and guided setup (mode='configure'). Or, the tool can make minor changes to a preconfigured agent network YAML file (mode='edit'). The LLM determines the appropriate mode value from user prompts and guided setup.
 
 Available only in Anypoint Code Builder.
 
