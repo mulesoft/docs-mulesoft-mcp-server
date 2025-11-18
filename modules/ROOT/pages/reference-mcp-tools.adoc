@@ -67,25 +67,25 @@ NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Bui
 |Yes
 
 .7+s|DataWeave Development
-|<<dataweave-create-documentation,dataweave-create-documentation>>
+|<<dataweave-create-documentation,dataweave_create_documentation>>
 |No
 
-|<<dataweave-create-project,dataweave-create-project>>
+|<<dataweave-create-project,dataweave_create_project>>
 |No
 
-|<<dataweave-create-sample-data,dataweave-create-sample-data>>
+|<<dataweave-create-sample-data,dataweave_create_sample_data>>
 |No
 
-|<<dataweave-get-module-metadata,dataweave-get-module-metadata>>
+|<<dataweave-get-module-metadata,dataweave_get_module_metadata>>
 |No
 
-|<<dataweave-get-project-metadata,dataweave-get-project-metadata>>
+|<<dataweave-get-project-metadata,dataweave_get_project_metadata>>
 |No
 
-|<<dataweave-open-project,dataweave-open-project>>
+|<<dataweave-open-project,dataweave_open_project>>
 |No
 
-|<<dataweave-run-script-tool,dataweave-run-script-tool>>
+|<<dataweave-run-script-tool,dataweave_run_script_tool>>
 |No
 
 .5+s|Application Management
@@ -203,11 +203,11 @@ Available only in Anypoint Code Builder.
 |Yes
 
 |projectDescription
-|Optional description of the project.
+|Description of the project.
 |No
 
 |groupId
-|Optional organization or business group ID of the project.
+|Organization or business group ID of the project.
 |No
 
 |===
@@ -222,11 +222,11 @@ Create and configure API instances in Anypoint API Manager.
 |Parameter |Description | Required?
 
 |organizationId
-|The ID of the organization where the instance resides. Default is the ID of the user`s organization from the current session.
+|The ID of the organization where the instance resides. The default is the ID of the user's organization from the current session.
 |No
 
 |environmentName
-|The name of the environment where the instance resides. Default is the environment for the organization specified in `organizationId`.
+|The name of the environment where the instance resides. The default is the environment for the organization specified in `organizationId`.
 |No
 
 |apiInstanceId
@@ -251,7 +251,7 @@ Required if you're configuring an API instance.
 |No
 
 |assetId
-|ID of the API asset in Anypoint Exchange. Value can be the API name.
+|ID of the API asset in Anypoint Exchange. Value can be the API name. 
 |Yes
 
 Required to create an API instance.
@@ -577,7 +577,7 @@ Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
 |===
 
 [[dataweave-create-documentation]]
-== dataweave-create-documentation
+== dataweave_create_documentation
 
 Generates DataWeave documentation using the proper syntax and returns the content for manual insertion into the project.
 
@@ -600,7 +600,7 @@ Generates DataWeave documentation using the proper syntax and returns the conten
 |===
 
 [[dataweave-create-project]]
-== dataweave-create-project
+== dataweave_create_project
 
 Creates a new DataWeave project, returns the URL of the created project created, and prompts to open the project.
 
@@ -623,11 +623,11 @@ Creates a new DataWeave project, returns the URL of the created project created,
 |===
 
 [[dataweave-create-sample-data]]
-== dataweave-create-sample-data
+== dataweave_create_sample_data
 
 Create DataWeave input sample data for a given DataWeave transformation file and return the path where it was created. For example, use this tool to create sample data for a variable if a preview fails with `There is no variable named 'variableName'`.
 
-Prerequisite: Create the DataWeave script file before running `dataweave-create-sample-data`.
+Prerequisite: Create the DataWeave script file before running `dataweave_create_sample_data`.
 
 [%header,cols="1,3,1"]
 |===
@@ -652,7 +652,7 @@ Prerequisite: Create the DataWeave script file before running `dataweave-create-
 |===
 
 [[dataweave-get-module-metadata]]
-== dataweave-get-module-metadata
+== dataweave_get_module_metadata
 
 Returns the list of all functions available in a DataWeave module, with documentation for each function, the input parameter types, and the output types. It includes the list of labels for each function to use when searching.
 
@@ -665,13 +665,13 @@ Returns the list of all functions available in a DataWeave module, with document
 |Yes
 
 |moduleUrl
-|The URL of the DataWeave module file in the format `\file://<path>.dwl` or `jar://<path>.dwl` search documentation for. Use the `dataweave-get-project-metadata` tool to get the URL of a given module.
+|The URL of the DataWeave module file in the format `\file://<path>.dwl` or `jar://<path>.dwl` search documentation for. Use the `dataweave_get_project_metadata` tool to get the URL of a given module.
 |Yes
 
 |===
 
 [[dataweave-get-project-metadata]]
-== dataweave-get-project-metadata
+== dataweave_get_project_metadata
 
 Returns the metadata of a DataWeave project, including the list of source folders, and test folders, that defines where to create the files. The tool output includes the list of available modules with their URL, and all the functions, variables, namespaces, and types. The output also includes the list of all the data formats supported by the project. Call this tool before generating any code.
 
@@ -686,7 +686,7 @@ Returns the metadata of a DataWeave project, including the list of source folder
 |===
 
 [[dataweave-open-project]]
-== dataweave-open-project
+== dataweave_open_project
 
 Opens a project from a given URL, either in the current window or in a new window.
 
@@ -705,9 +705,9 @@ Opens a project from a given URL, either in the current window or in a new windo
 |===
 
 [[dataweave-run-script-tool]]
-== dataweave-run-script-tool
+== dataweave_run_script_tool
 
-Runs a DataWeave transformation using the sample data as input context and displays the output. Use to validate a script output. If the tool fails with missing input, create sample data using `dataweave-create-sample-data` tool.
+Runs a DataWeave transformation using the sample data as input context and displays the output. Use to validate a script output. If the tool fails with missing input, create sample data using `dataweave_create_sample_data` tool.
 
 [%header,cols="1,3,1"]
 |===
@@ -804,15 +804,15 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 |No
 
 |secure
-|Enables enhanced security features.
+|Whether to enable enhanced security features. The default is `false`.
 |No
 
 |highAvailability
-|Enables high availability features.
+|Whether to enable high availability features. The default is `false`.
 |No
 
 |performanceOptimization
-|Enables performance optimization features.
+|Whether to enable performance optimization features. The default is `false`.
 |No
 
 |minimumReplicas
@@ -1405,7 +1405,7 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |hasPersistentObjectStore
-|Whether to enable persistent object store.
+|Whether to enable persistent object store. The default is false.
 |No
 
 |replicaSize
@@ -1437,15 +1437,15 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |hasAutoscaling
-|Whether to enable autoscaling.
+|Whether to enable autoscaling. The default is false.
 |No
 
 |hasTracing
-|Whether to enable application tracing.
+|Whether to enable application tracing. The default is false.
 |No
 
 |enforceDeployingReplicasAcrossNodes
-|Whether to enforce deploying replicas across nodes (Runtime Fabric only).
+|Whether to enforce deploying replicas across nodes (Runtime Fabric only). The default is false.
 |No
 
 |deploymentModel
@@ -1453,27 +1453,27 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |hasClustering
-|Whether to enable clustering for the application.
+|Whether to enable clustering for the application. The default is false.
 |No
 
 |stopApplication
-|Whether to stop the application.
+|Whether to stop the application. The default is false.
 |No
 
 |startApplication
-|Whether to start the application.
+|Whether to start the application. The default is false.
 |No
 
 |hasHighAvailability
-|Whether to enable high availability for the application.
+|Whether to enable high availability for the application. The default is false.
 |No
 
 |hasPerformanceOptimization
-|Whether to enable performance optimization.
+|Whether to enable performance optimization. The default is false.
 |No
 
 |isSecure
-|Whether to enable advanced security features.
+|Whether to enable advanced security features. The default is false.
 |No
 
 |===
