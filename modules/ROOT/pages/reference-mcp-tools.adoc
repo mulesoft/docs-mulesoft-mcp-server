@@ -560,7 +560,7 @@ Create and scaffold an API spec or fragment project. You can specify the project
 
 Create a MuleSoft MCP server. This tool handles requests for creating MCP servers using Anypoint Connector for MCP (MCP Connector).
 
-Prerequisite: Install the xref:mcp-connector::index.adoc[MCP Connector].
+Prerequisite: Install xref:mcp-connector::index.adoc[MCP Connector].
 
 [%header,cols="1,3,1"]
 |===
