@@ -447,7 +447,7 @@ Available only in Anypoint Code Builder.
 |Yes
 
 |metadata
-|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). If this metadata is for input or output, use the applyMetadataOn parameter.
+|String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). If this metadata is for input or output, use the `applyMetadataOn` parameter.
 |No
 
 Required when the operation parameter value is `define`.
