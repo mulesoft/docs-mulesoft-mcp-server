@@ -4,4 +4,4 @@
 
 * xref:getting-started.adoc[Getting Started with MuleSoft MCP Server]
 * xref:using-mulesoft-mcp-server.adoc[Using MuleSoft MCP Server]
-* xref:reference-mcp-tools.adoc[Reference: MuleSoft MCP Server Tools]
+* xref:reference-mcp-tools.adoc[MuleSoft MCP Server Tool Reference]
