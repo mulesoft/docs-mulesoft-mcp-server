@@ -2,133 +2,184 @@
 
 MuleSoft MCP Server includes these tools.
 
-NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE. 
+NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE or Connector Builder. 
 
 == Command Summary
 
-[%header,cols="1,2,1"]
+[%header,cols="1,2,1,1"]
 |===
-|Category |Tool |Anypoint Code Builder Only
+|Category |Tool |Anypoint Code Builder Only |Connector Builder Only
 
 .4+s|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
+|No
 
 |<<create-agent-network-project,create_agent_network_project>>
 |Yes
+|No
 
 |<<deploy-agent-network,deploy_agent_network>>
 |Yes
+|No
 
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
+|No
 
 .14+s|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
+|No
 
 |<<create-and-manage-metadata,create_and_manage_metadata>>
 |Yes
+|No
 
 |<<create-api-spec-project,create_api_spec_project>>
+|No
 |No
 
 |<<create-mcp-server,create_MCP_server>>
 |No
+|No
 
 |<<create-mule-project,create_mule_project>>
+|No
 |No
 
 |<<generate-api-spec,generate_api_spec>>
 |No
+|No
 
 |<<generate-mule-flow,generate_mule_flow>>
+|No
 |No
 
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
+|No
 
 |<<mock-api-spec,mock_api_spec>>
 |Yes
+|No
 
 |<<open-project,open_project>>
 |Yes
+|No
 
 |<<run-local-mule-application,run_local_mule_application>>
+|No
 |No
 
 |<<search-asset,search_asset>>
 |No
+|No
 
 |<<test-connection,test_connection>>
 |Yes
+|No
 
 |<<validate-project,validate_project>>
+|Yes
+|No
+
+.3+s|Connector Development
+|<<uc-create-connector-workflow,uc_create_connector_workflow>>
+|No
+|Yes
+
+|<<uc-generate-api-spec,uc_generate_api_spec>>
+|No
+|Yes
+
+|<<uc-generate-connector,uc_generate_connector>>
+|No
 |Yes
 
 .7+s|DataWeave Development
 |<<dataweave-create-documentation,dataweave_create_documentation>>
 |No
+|No
 
 |<<dataweave-create-project,dataweave_create_project>>
+|No
 |No
 
 |<<dataweave-create-sample-data,dataweave_create_sample_data>>
 |No
+|No
 
 |<<dataweave-get-module-metadata,dataweave_get_module_metadata>>
+|No
 |No
 
 |<<dataweave-get-project-metadata,dataweave_get_project_metadata>>
 |No
+|No
 
 |<<dataweave-open-project,dataweave_open_project>>
 |No
+|No
 
 |<<dataweave-run-script-tool,dataweave_run_script_tool>>
+|No
 |No
 
 .5+s|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
+|No
 
 |<<deploy-mule-application,deploy_mule_application>>
+|No
 |No
 
 |<<list-api-instances,list_api_instances>>
 |No
+|No
 
 |<<list-applications,list_applications>>
 |No
+|No
 
 |<<update-mule-application,update_mule_application>>
+|No
 |No
 
 .3+s|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
+|No
 
 |<<list-governance-rulesets,list_governance_rulesets>>
 |Yes
+|No
 
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
+|No
 
 .3+s|Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
+|No
 
 |<<manage-api-instance-policy,manage_api_instance_policy>>
 |No
+|No
 
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
+|No
 |No
 
 .2+s|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
+|No
 
 |<<get-reuse-metrics,get_reuse_metrics>>
+|No
 |No
 
 |===
@@ -1382,6 +1433,107 @@ Available only in Anypoint Code Builder.
 
 |===
 
+[[uc-create-connector-workflow]]
+== uc_create_connector_workflow
+
+Create a complete LinkWeave connector end-to-end with guided workflow planning. Supports two flows: generating an API spec from documentation, or using an existing API spec file. Returns a detailed workflow plan with numbered steps to execute sequentially.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|workflowCustomization
+|Any specific workflow customizations, preferences, or requirements for the connector-creation process.
+|No
+
+|flow
+|Flow selection. Valid values are:
+
+* `generate-spec` to generate API spec from documentation
+* `existing-spec` if user has an existing API spec file
+* `auto-detect` to determine automatically
+|No
+
+|existingApiSpec
+|Absolute path to existing API spec file (OpenAPI/Swagger YAML or JSON) if using `existing-spec` flow.
+|No
+
+|===
+
+[[uc-generate-api-spec]]
+== uc_generate_api_spec
+
+Generate an OpenAPI 3.0 spec from use cases and API documentation. Analyzes documentation sources, discovers endpoints for the specified use cases, and creates both a `discovery.json` file and a complete OpenAPI YAML spec. If no parameters are used, the agent prompts for input.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|platform
+|Name of the SaaS platform or service, for example, `Salesforce`, `ServiceNow`, `PayPal`, or `Stripe`.
+|No
+
+|useCases
+|List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. Minimum 1 required.
+|No
+
+|documentation
+|List of official API documentation URLs. Must be valid URLs starting with `\http://` or `\https://`, for example, `\https://developers.stripe.com/api`. Minimum 1 required.
+|No
+
+|additionalRequirements
+|Any additional requirements, constraints, or preferences for the API spec, for example, specific authentication methods, rate limiting considerations, and version preferences.
+|No
+
+|userConfirmed
+|Confirmation that all provided information is correct and ready for processing.
+|No
+
+|===
+
+[[uc-generate-connector]]
+== uc_generate_connector
+
+Generate a complete LinkWeave connector from an API spec. Supports flexible multi-phase generation including scaffolding, CCM (Canonical Connectivity Model), and Anypoint connector. All endpoints from the API spec are used. Can execute phases individually or in combination.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|apiSpec
+|Absolute path to the API spec file (OpenAPI/Swagger YAML or JSON).
+|No
+
+Required for `ccm` phase.
+
+|projectName
+|Name for the connector project.
+|No
+
+Required for `ccm` phase.
+
+|description
+|Description for the connector project.
+|No
+
+Required for `ccm` phase.
+
+|phases
+|Array of phases to execute - any combination of 'ccm' and 'anypoint'. Phases execute in order. Valid values are:
+
+* `ccm` for canonical connectivity model 
+* `anypoint` for Anypoint connector
+
+|No
+
+|===
+
 [[update-mule-application]]
 == update_mule_application
 
@@ -1526,4 +1678,3 @@ Available only in Anypoint Code Builder.
 == See Also
 
 * xref:using-mulesoft-mcp-server.adoc[]
-

@@ -28,6 +28,9 @@ Add a new broker for employee offboarding.
 |Create an integration project
 |Create a Mule project that creates an order in NetSuite every time an opportunity in Salesforce is updated to stage Closed Won.
 
+|Create a connector using Connector Builder
+|Create an Eventbrite connector.
+
 |Deploy an agent network instance
 |Deploy the hello-world-network project to staging.
 
@@ -39,6 +42,12 @@ Add a new broker for employee offboarding.
 
 |Generate an MCP server using Anypoint connectors
 |Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
+
+|Generate an API spec for a connector using Connector Builder
+|Generate an API spec for Eventbrite.
+
+|Generate a connector using Connector Builder
+|Generate an Anypoint connector for the current connector.
 
 |List all policies
 |What policies do I have available?
