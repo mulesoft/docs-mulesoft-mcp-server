@@ -1479,11 +1479,11 @@ Available only in Connector Builder.
 |No
 
 |useCases
-|List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. Minimum 1 required.
+|List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. If specified, a minimum of one is required.
 |No
 
 |documentation
-|List of official API documentation URLs. Must be valid URLs starting with `http://` or `https://`, for example, `\https://developers.stripe.com/api`. Minimum 1 required.
+|List of official API documentation URLs. Must be valid URLs starting with `http://` or `https://`, for example, `\https://developers.stripe.com/api`. If specified, a minimum of one is required.
 |No
 
 |additionalRequirements
