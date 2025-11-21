@@ -1,10 +1,10 @@
 = MuleSoft MCP Server Overview
 
-The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can build agent networks, create and deploy Mule applications, create API specs, manage governance rulesets, get platform insights, and more.
+The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can build agent networks, create and deploy Mule applications, build connectors, create API specs, manage governance rulesets, get platform insights, and more.
 
 MuleSoft MCP Server acts as a bridge between AI-powered IDEs like Cursor, Windsurf, and VS Code and MuleSoft's platform services--enabling developers to build, deploy, and manage applications using natural language interactions in their editor.
 
-If you have Anypoint Code Builder desktop, the MuleSoft MCP Server is already included and configured.
+If you have Anypoint Code Builder desktop or Connector Builder, the MuleSoft MCP Server is already included and configured.
 
 == Deployment Targets
 You can deploy applications to CloudHub 2.0 and Runtime Fabric only.

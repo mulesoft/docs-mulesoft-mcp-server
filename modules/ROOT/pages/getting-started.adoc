@@ -3,7 +3,13 @@
 Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
 
 [IMPORTANT] 
-If you have Anypoint Code Builder, stop here. Don't perform these steps. MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent in Anypoint Code Builder. Authentication happens through the user that's logged into Anypoint Code Builder. MuleSoft Dev Agent assumes any permissions that the user has. For more information about MuleSoft Dev Agent, see xref:anypoint-code-builder::api-ai-create-spec.adoc[Creating API Specs with MuleSoft Dev Agent].
+====
+If you have Anypoint Code Builder or Connector Builder, stop here. Don't perform these steps. 
+
+MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent in Anypoint Code Builder, and Connector Builder. Authentication happens via the logged-in user and MuleSoft Dev Agent assumes any permissions that the user has.
+
+For more information about MuleSoft Dev Agent and Connector Builder, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+====
 
 == Before You Begin
 Before you install and use MuleSoft MCP Server, ensure you meet these prerequisites:
@@ -196,5 +202,3 @@ Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is on
 == See Also
 
 * xref:using-mulesoft-mcp-server.adoc[]
-
-
