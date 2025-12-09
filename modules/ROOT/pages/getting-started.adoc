@@ -64,7 +64,7 @@ To install the server with node, run:
 == Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
 
-=== https://claude.ai/download[Claude Desktop]
+=== Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -83,7 +83,9 @@ Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (option
 }
 ----
 
-=== https://cline.bot/[Cline]
+Download https://claude.ai/download[Claude Desktop].
+
+=== Cline
 Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -102,7 +104,9 @@ Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is on
 }
 ----
 
-=== https://www.cursor.com/[Cursor]
+Download https://cline.bot/[Cline].
+
+=== Cursor
 Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -121,7 +125,9 @@ Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one 
 }
 ----
 
-=== https://trae.ai/[Trae]
+Download https://www.cursor.com/[Cursor].
+
+=== Trae
 Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -140,7 +146,9 @@ Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOI
 }
 ----
 
-=== https://code.visualstudio.com/[VS Code]
+Download https://trae.ai/[Trae].
+
+=== VS Code
 Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optional) `ANYPOINT_REGION` is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -161,7 +169,9 @@ Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optiona
 }
 ----
 
-=== https://www.windsurf.com/[Windsurf]
+Download https://code.visualstudio.com/[VS Code].
+
+=== Windsurf
 Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -179,6 +189,8 @@ Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional
   }
 }
 ----
+
+Download https://www.windsurf.com/[Windsurf].
 
 === https://github.com/zed-industries/zed[Zed]
 Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
