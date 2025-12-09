@@ -64,7 +64,7 @@ To install the server with node, run:
 == Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
 
-=== https://claude.ai/download[Claude Desktop]
+=== Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -82,6 +82,8 @@ Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (option
   }
 }
 ----
+
+Download link:https://claude.ai/download[Claude Desktop].
 
 === Cline
 Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
