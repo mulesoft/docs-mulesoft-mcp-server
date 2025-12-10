@@ -192,7 +192,7 @@ Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional
 
 Download https://www.windsurf.com/[Windsurf].
 
-=== https://github.com/zed-industries/zed[Zed]
+=== Zed
 Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -210,6 +210,8 @@ Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is on
   }
 }
 ----
+
+Download https://github.com/zed-industries/zed[Zed].
 
 == See Also
 
