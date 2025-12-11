@@ -1,24 +1,23 @@
 = Getting Started with MuleSoft MCP Server
 
-Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
+MuleSoft MCP Server enables AI-powered development assistants in your IDE to interact with Anypoint Platform, helping you manage APIs, applications, and platform resources directly from your coding environment. Learn how to set up and configure MuleSoft MCP Server for your IDE. 
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, stop here. Don't perform these steps. 
-
-MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent in Anypoint Code Builder, and Connector Builder. Authentication happens via the logged-in user and MuleSoft Dev Agent assumes any permissions that the user has.
-
-For more information about MuleSoft Dev Agent and Connector Builder, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin
-Before you install and use MuleSoft MCP Server, ensure you meet these prerequisites:
+Before you install and use MuleSoft MCP Server, ensure you have installed the following software:
 
 * Anypoint Extension Pack version 1.10.0 or later
-* Git, if using MuleSoft VCS in Anypoint Code Builder
-* Node 20 or later. For more information, see link:https://nodejs.org/en/download[Download Node.js].
-* Organization administrator access (for xref:access-management::connected-apps-overview.adoc[creating a connected app])
-* To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see xref:access-management::enabling-einstein.adoc[].
+* Git
+* Node 20 or later. Download https://nodejs.org/en/download[Node.js].
+
+You also need permissions or access to perform these tasks:
+
+* Organization admistrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
+* xref:access-management::enabling-einstein.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
 
 
 == Set Up Authentication
@@ -26,36 +25,84 @@ Create a connected app that acts on its own behalf using the steps in xref:acces
 
 In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
 
-=== Anypoint Code Builder
-* Mule Developer Generative AI User
+=== Anypoint Code Builder Scopes
+[cols="1,2"]
+|===
+|Scope|Description
 
-=== Anypoint Monitoring
-* Monitoring Viewer
+|Mule Developer Generative AI User|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows.
+|===
 
-=== API Manager
-* Manage APIs Configuration
-* Manage Policies
-* View APIs Configuration
-* View Policies
+=== Anypoint Monitoring Scopes
+[cols="1,2"]
+|===
+|Scope|Description
 
-=== Exchange
-* Exchange Administrator
-* Exchange Contributor
-* Exchange Creator
-* Exchange Viewer
+|Monitoring Viewer|View but not modify content in Anypoint Monitoring.
+|===
 
-=== General
-* View Organization
-* View Connected Applications
+=== API Manager Scopes
+[cols="1,2"]
+|===
+|Scope|Description
 
-=== Runtime Manager
-* Read Applications
-* Create Applications
-* Read Runtime Fabrics
-* Cloudhub Network Viewer
+|Manage APIs Configuration|View and modify API configurations in the specified environment.
 
-=== Usage
-* Usage Viewer
+|Manage Policies|View, create, modify, and delete API policies in the specified environment.
+
+|View APIs Configuration|View API configurations in the specified environment.
+
+|View Policies|View API policies in the specified environment.
+|===
+
+=== Exchange Scopes
+[cols="1,2"]
+|===
+|Scope|Description
+
+|Exchange Administrator a|
+
+* View, create, and download assets within a business group.
+* Edit asset portal content in an existing asset version.
+
+|Exchange Contributor|View, create, and download assets within a business group. Users with this permission can edit asset portal content in an existing asset version.
+
+|Exchange Creator|Create new assets within a business group’s catalog.
+
+|Exchange Viewer|View and download assets within a business group.
+|===
+
+=== General Scopes
+[cols="1,2"]
+|===
+|Scope|Description
+
+|View Organization|View organization information.
+
+|View Connected Applications|View connected applications.
+|===
+
+=== Runtime Manager Scopes
+[cols="1,2"]
+|===
+|Scope|Description
+
+|Read Applications|View applications in a specific environment.
+
+|Create Applications|Create applications in a specific environment.
+
+|Read Runtime Fabrics|Query Runtime Fabric instances in the organization.
+
+|Cloudhub Network Viewer|View CloudHub and CloudHub 2.0 network resources.
+|===
+
+=== Usage Scopes
+[cols="1,2"]
+|===
+|Scope|Description
+
+|Usage Viewer|View usage reports.
+|===
 
 == Install MuleSoft MCP Server
 To install the server with node, run: 
