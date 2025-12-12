@@ -12,7 +12,7 @@ Before you install and use MuleSoft MCP Server, ensure you have installed the fo
 
 * Anypoint Extension Pack version 1.10.0 or later
 * Git
-* Node 20 or later. Download https://nodejs.org/en/download[Node.js].
+* Node.js 20 or later. Download https://nodejs.org/en/download[Node.js].
 
 You also need permissions or access to perform these tasks:
 
@@ -105,11 +105,14 @@ In step 6, add these scopes. Make sure that all business groups and relevant env
 |===
 
 == Install MuleSoft MCP Server
-To install the server with node, run: 
+
+To install the server with Node.js, run: 
 `npm install -g @mulesoft/mcp-server`
 
 == Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
+
+For more information about Anypoint Platform regional services, see xref:hosting-home::index.adoc#control-plane-hosting-options[].
 
 === Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
