@@ -77,6 +77,7 @@ See xref:access-management::permissions-by-product.adoc[] for more details on pe
 
 |===
 |To...|Required Permission |Associated Tool
+
 a|
 * View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
