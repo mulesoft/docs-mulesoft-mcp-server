@@ -34,7 +34,11 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User |xref:reference-mcp-tools.adoc#generate-mule-flow[]
+|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User a|
+
+* xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
+* xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
+
 |===
 
 === Anypoint Monitoring 
@@ -43,7 +47,10 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|View but not modify content in Anypoint Monitoring.|Monitoring Viewer |xref:reference-mcp-tools.adoc#get-platform-insights[] 
+|View but not modify content in Anypoint Monitoring.|Monitoring Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
 === API Manager 
@@ -52,13 +59,17 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|View and modify API configurations in the specified environment.|Manage APIs Configuration |xref:reference-mcp-tools.adoc#create-and-manage-api-instances[]
+|View and modify API configurations in the specified environment.|Manage API Configuration|xref:reference-mcp-tools.adoc#create-and-manage-api-instances[create_and_manage_api_instances]
 
-|View, create, modify, and delete API policies in the specified environment.|Manage Policies |xref:reference-mcp-tools.adoc#manage-api-instance-policy[]
+|View, create, modify, and delete API policies in the specified environment.|Manage Policies |xref:reference-mcp-tools.adoc#manage-api-instance-policy[manage_api_instance_policy]
 
-|View API configurations in the specified environment.|View APIs Configuration |xref:reference-mcp-tools.adoc#list-api-instances[]
+|View API configurations in the specified environment.|View APIs Configuration a|
 
-|View API policies in the specified environment.|View Policies |xref:reference-mcp-tools.adoc#list-api-instances[]
+* xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+
+|View API configurations in the specified environment.|View API Configurations |xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
 |===
 
 === Exchange
@@ -69,13 +80,13 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 
 |* View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
-|Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
+|Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|View, create, and download assets within a business group. |Exchange Contributor |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
+|View, create, and download assets within a business group. |Exchange Contributor |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
+|Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|View and download assets within a business group.|Exchange Viewer |xref:reference-mcp-tools.adoc#search-asset[] 
+|View and download assets within a business group.|Exchange Viewer |xref:reference-mcp-tools.adoc#search-asset[search_asset] 
 |===
 
 === General
@@ -84,9 +95,9 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|View organization information.|View Organization
+|View organization information.|View Organization |xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 
-|View connected applications.|View Connected Applications
+|View connected applications.|View Connected Applications |xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
 === Runtime Manager
@@ -95,13 +106,19 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[]
+|View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[list_applications]
 
-|Create applications in a specific environment.|Create Applications |xref:reference-mcp-tools.adoc#deploy-mule-application[]
+|Create applications in a specific environment.|Create Applications |xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
 
-|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics |xref:reference-mcp-tools.adoc#get-platform-insights[]
+|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics a|
 
-|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer |xref:reference-mcp-tools.adoc#list-applications[]
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+
+|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
 === Usage
@@ -110,7 +127,10 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 |===
 |To...|Required Permission |Associated Tool
 
-|View usage reports.|Usage Viewer |xref:reference-mcp-tools.adoc#get-platform-insights[]
+|View usage reports.|Usage Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
 == Install MuleSoft MCP Server
