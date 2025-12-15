@@ -4,7 +4,7 @@ MuleSoft MCP Server enables AI-powered development assistants in your IDE to int
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin
@@ -26,7 +26,7 @@ Using the steps in xref:access-management::creating-connected-apps-dev.adoc#crea
 
 Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Server tools. 
 
-See xref:access-management::permissions-by-product.adoc[] for more details on permissions. 
+See xref:access-management::permissions-by-product.adoc[] for details on permissions. 
 
 === Anypoint Code Builder 
 [cols="1,2,1"]
@@ -142,7 +142,7 @@ To install the server with Node.js, run:
 == Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
 
-For more information about Anypoint Platform regional services, see xref:hosting-home::index.adoc#control-plane-hosting-options[].
+For more information about Anypoint Platform regional services, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
 === Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
