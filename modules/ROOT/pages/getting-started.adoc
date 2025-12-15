@@ -4,7 +4,7 @@ MuleSoft MCP Server enables AI-powered development assistants in your IDE to int
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin
@@ -17,7 +17,7 @@ Before you install and use MuleSoft MCP Server, ensure you have installed the fo
 You also need permissions or access to perform these tasks:
 
 * Organization administrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
-* xref:access-management::enabling-einstein.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
+* xref:access-management::enabling-agentforce.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
 
 
 == Create a Connected App and Add OAuth Scopes
