@@ -24,92 +24,93 @@ You also need permissions or access to perform these tasks:
 
 Using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf], create a connected app that acts on its own behalf. In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
 
-Refer to the xref:reference-mcp-tools.adoc[] for details on which tool requires which scopes. 
+Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Server tools. 
 
 See xref:access-management::permissions-by-product.adocp[] for more details on permissions. 
 
-=== Anypoint Code Builder Scopes
-[cols="1,2"]
+=== Anypoint Code Builder 
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission
+|To...|Required Permission |Associated Tool
 
-|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User
+|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User |xref:reference-mcp-tools.adoc#generate-mule-flow[]
 |===
 
-=== Anypoint Monitoring Scopes
-[cols="1,2"]
+=== Anypoint Monitoring 
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission
+|To...|Required Permission |Associated Tool
 
-|View but not modify content in Anypoint Monitoring.|Monitoring Viewer 
+|View but not modify content in Anypoint Monitoring.|Monitoring Viewer |xref:reference-mcp-tools.adoc#get-platform-insights[] 
 |===
 
-=== API Manager Scopes
-[cols="1,2"]
+=== API Manager 
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission 
+|To...|Required Permission |Associated Tool
 
-|View and modify API configurations in the specified environment.|Manage APIs Configuration
+|View and modify API configurations in the specified environment.|Manage APIs Configuration |xref:reference-mcp-tools.adoc#create-and-manage-api-instances[]
 
-|View, create, modify, and delete API policies in the specified environment.|Manage Policies
+|View, create, modify, and delete API policies in the specified environment.|Manage Policies |xref:reference-mcp-tools.adoc#manage-api-instance-policy[]
 
-|View API configurations in the specified environment.|View APIs Configuration
+|View API configurations in the specified environment.|View APIs Configuration |xref:reference-mcp-tools.adoc#list-api-instances[]
 
-|View API policies in the specified environment.|View Policies
+|View API policies in the specified environment.|View Policies |xref:reference-mcp-tools.adoc#list-api-instances[]
 |===
 
-=== Exchange Scopes
-[cols="1,2"]
+=== Exchange
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission a|
-* View, create, and download assets within a business group.
+|To...|Required Permission |Associated Tool
+
+|* View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
-|Exchange Administrator 
+|Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
 
-|View, create, and download assets within a business group. |Exchange Contributor 
+|View, create, and download assets within a business group. |Exchange Contributor |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
 
-|Create new assets within a business group's catalog.|Exchange Creator
+|Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[]
 
-|View and download assets within a business group.|Exchange Viewer 
+|View and download assets within a business group.|Exchange Viewer |xref:reference-mcp-tools.adoc#search-asset[] 
 |===
 
-=== General Scopes
-[cols="1,2"]
+=== General
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission
+|To...|Required Permission |Associated Tool
 
 |View organization information.|View Organization
 
 |View connected applications.|View Connected Applications
 |===
 
-=== Runtime Manager Scopes
-[cols="1,2"]
+=== Runtime Manager
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission
+|To...|Required Permission |Associated Tool
 
-|View applications in a specific environment.|Read Applications
+|View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[]
 
-|Create applications in a specific environment.|Create Applications
+|Create applications in a specific environment.|Create Applications |xref:reference-mcp-tools.adoc#deploy-mule-application[]
 
-|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics
+|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics |xref:reference-mcp-tools.adoc#get-platform-insights[]
 
-|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer
+|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer |xref:reference-mcp-tools.adoc#list-applications[]
 |===
 
-=== Usage Scopes
-[cols="1,2"]
+=== Usage
+[cols="1,2,1"]
 
 |===
-|To...|Required Permission
+|To...|Required Permission |Associated Tool
 
-|View usage reports.|Usage Viewer
+|View usage reports.|Usage Viewer |xref:reference-mcp-tools.adoc#get-platform-insights[]
 |===
 
 == Install MuleSoft MCP Server
