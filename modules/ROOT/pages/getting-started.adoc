@@ -22,88 +22,94 @@ You also need permissions or access to perform these tasks:
 
 == Create a Connected App and Add OAuth Scopes
 
-. Using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf], create a connected app that acts on its own behalf .
-. In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
+Using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf], create a connected app that acts on its own behalf. In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
 
 Refer to the xref:reference-mcp-tools.adoc[] for details on which tool requires which scopes. 
 
+See xref:access-management::permissions-by-product.adocp[] for more details on permissions. 
+
 === Anypoint Code Builder Scopes
 [cols="1,2"]
-|===
-|Scope|Description
 
-|Mule Developer Generative AI User|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows.
+|===
+|To...|Required Permission
+
+|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User
 |===
 
 === Anypoint Monitoring Scopes
 [cols="1,2"]
-|===
-|Scope|Description
 
-|Monitoring Viewer|View but not modify content in Anypoint Monitoring.
+|===
+|To...|Required Permission
+
+|View but not modify content in Anypoint Monitoring.|Monitoring Viewer 
 |===
 
 === API Manager Scopes
 [cols="1,2"]
+
 |===
-|Scope|Description
+|To...|Required Permission 
 
-|Manage APIs Configuration|View and modify API configurations in the specified environment.
+|View and modify API configurations in the specified environment.|Manage APIs Configuration
 
-|Manage Policies|View, create, modify, and delete API policies in the specified environment.
+|View, create, modify, and delete API policies in the specified environment.|Manage Policies
 
-|View APIs Configuration|View API configurations in the specified environment.
+|View API configurations in the specified environment.|View APIs Configuration
 
-|View Policies|View API policies in the specified environment.
+|View API policies in the specified environment.|View Policies
 |===
 
 === Exchange Scopes
 [cols="1,2"]
+
 |===
-|Scope|Description
-
-|Exchange Administrator a|
-
+|To...|Required Permission a|
 * View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
+|Exchange Administrator 
 
-|Exchange Contributor|View, create, and download assets within a business group. Users with this permission can edit asset portal content in an existing asset version.
+|View, create, and download assets within a business group. |Exchange Contributor 
 
-|Exchange Creator|Create new assets within a business group’s catalog.
+|Create new assets within a business group's catalog.|Exchange Creator
 
-|Exchange Viewer|View and download assets within a business group.
+|View and download assets within a business group.|Exchange Viewer 
 |===
 
 === General Scopes
 [cols="1,2"]
+
 |===
-|Scope|Description
+|To...|Required Permission
 
-|View Organization|View organization information.
+|View organization information.|View Organization
 
-|View Connected Applications|View connected applications.
+|View connected applications.|View Connected Applications
 |===
 
 === Runtime Manager Scopes
 [cols="1,2"]
+
 |===
-|Scope|Description
+|To...|Required Permission
 
-|Read Applications|View applications in a specific environment.
+|View applications in a specific environment.|Read Applications
 
-|Create Applications|Create applications in a specific environment.
+|Create applications in a specific environment.|Create Applications
 
-|Read Runtime Fabrics|Query Runtime Fabric instances in the organization.
+|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics
 
-|Cloudhub Network Viewer|View CloudHub and CloudHub 2.0 network resources.
+|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer
 |===
 
 === Usage Scopes
 [cols="1,2"]
-|===
-|Scope|Description
 
-|Usage Viewer|View usage reports.
+|===
+|To...|Required Permission
+
+|View usage reports.|Usage Viewer
 |===
 
 == Install MuleSoft MCP Server
