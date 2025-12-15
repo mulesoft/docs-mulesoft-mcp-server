@@ -16,7 +16,7 @@ Before you install and use MuleSoft MCP Server, ensure you have installed the fo
 
 You also need permissions or access to perform these tasks:
 
-* Organization admistrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
+* Organization administrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
 * xref:access-management::enabling-einstein.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
 
 
@@ -26,7 +26,7 @@ Using the steps in xref:access-management::creating-connected-apps-dev.adoc#crea
 
 Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Server tools. 
 
-See xref:access-management::permissions-by-product.adocp[] for more details on permissions. 
+See xref:access-management::permissions-by-product.adoc[] for more details on permissions. 
 
 === Anypoint Code Builder 
 [cols="1,2,1"]
@@ -77,8 +77,8 @@ See xref:access-management::permissions-by-product.adocp[] for more details on p
 
 |===
 |To...|Required Permission |Associated Tool
-
-|* View, create, and download assets within a business group.
+a|
+* View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
 |Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
