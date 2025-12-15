@@ -4,6 +4,8 @@ MuleSoft MCP Server provides tools for developing agent networks, building appli
 
 NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE or Connector Builder. 
 
+See xref:getting-started.adoc#create-a-connected-app-and-add-oauth-permission-scopes[Add OAuth Permission Scopes] for details on which tools require specific permission scopes.
+
 == Command Summary
 
 [%header,cols="1,2,1,1"]
