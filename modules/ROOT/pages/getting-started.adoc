@@ -20,10 +20,12 @@ You also need permissions or access to perform these tasks:
 * xref:access-management::enabling-einstein.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
 
 
-== Set Up Authentication
-Create a connected app that acts on its own behalf using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf].
+== Create a Connected App and Add OAuth Scopes
 
-In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
+. Using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf], create a connected app that acts on its own behalf .
+. In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
+
+Refer to the xref:reference-mcp-tools.adoc[] for details on which tool requires which scopes. 
 
 === Anypoint Code Builder Scopes
 [cols="1,2"]
