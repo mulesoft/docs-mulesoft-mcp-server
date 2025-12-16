@@ -134,17 +134,18 @@ a|
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
-== Install MuleSoft MCP Server
+== Install and Configure MuleSoft MCP Server
 
-To install the server with Node.js, run: 
-`npm install -g @mulesoft/mcp-server`
+Install the MuleSoft MCP Server, then configure it in your IDE by adding the appropriate configuration snippet with your connected app credentials.
 
-== Configure MuleSoft MCP Server
+To install the server with Node.js, run: `npm install -g @mulesoft/mcp-server`.
+
+=== Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
 
-For more information about Anypoint Platform regional services, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
+For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
-=== Claude Desktop
+==== Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -165,7 +166,7 @@ Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (option
 
 Download https://claude.ai/download[Claude Desktop].
 
-=== Cline
+==== Cline
 Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -186,7 +187,7 @@ Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is on
 
 Download https://cline.bot/[Cline].
 
-=== Cursor
+==== Cursor
 Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -207,7 +208,7 @@ Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one 
 
 Download https://www.cursor.com/[Cursor].
 
-=== Trae
+==== Trae
 Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -228,7 +229,7 @@ Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOI
 
 Download https://trae.ai/[Trae].
 
-=== VS Code
+==== VS Code
 Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optional) `ANYPOINT_REGION` is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -251,7 +252,7 @@ Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optiona
 
 Download https://code.visualstudio.com/[VS Code].
 
-=== Windsurf
+==== Windsurf
 Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
@@ -272,7 +273,7 @@ Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional
 
 Download https://www.windsurf.com/[Windsurf].
 
-=== Zed
+==== Zed
 Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
 
 ----
