@@ -140,7 +140,8 @@ Install MuleSoft MCP Server and then configure it in your IDE by adding the appr
 To install with Node.js, run: `npm install -g @mulesoft/mcp-server`.
 
 === Configure Your IDE
-You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
+You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server. After you add the configuration, verify it by checking that the server has started
+in the MCP section of your IDE.
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
