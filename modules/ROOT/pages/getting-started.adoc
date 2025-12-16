@@ -134,9 +134,9 @@ a|
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
-== Install and Configure MuleSoft MCP Server
+== Install MuleSoft MCP Server
 
-Install the MuleSoft MCP Server, then configure it in your IDE by adding the appropriate configuration snippet with your connected app credentials.
+Install the MuleSoft MCP Server and then configure it in your IDE by adding the appropriate configuration snippet with your connected app credentials.
 
 To install the server with Node.js, run: `npm install -g @mulesoft/mcp-server`.
 
