@@ -1,68 +1,148 @@
 = Getting Started with MuleSoft MCP Server
 
-Learn how to set up and configure MuleSoft MCP Server for your agent-ready IDE. 
+MuleSoft MCP Server enables AI-powered development assistants in your IDE to interact with Anypoint Platform, helping you manage APIs, applications, and platform resources directly from your coding environment. Learn how to set up and configure MuleSoft MCP Server for your IDE. 
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, stop here. Don't perform these steps. 
-
-MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent in Anypoint Code Builder, and Connector Builder. Authentication happens via the logged-in user and MuleSoft Dev Agent assumes any permissions that the user has.
-
-For more information about MuleSoft Dev Agent and Connector Builder, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin
-Before you install and use MuleSoft MCP Server, ensure you meet these prerequisites:
+Before you install and use MuleSoft MCP Server, ensure you have installed the following software:
 
 * Anypoint Extension Pack version 1.10.0 or later
-* Git, if using MuleSoft VCS in Anypoint Code Builder
-* Node 20 or later. For more information, see link:https://nodejs.org/en/download[Download Node.js].
-* Organization administrator access (for xref:access-management::connected-apps-overview.adoc[creating a connected app])
-* To run the `generate_mule_flow` and `generate_api_spec` tools, enable Einstein in Access Management. For more information, see xref:access-management::enabling-einstein.adoc[].
+* Git
+* Node.js 20 or later. Download https://nodejs.org/en/download[Node.js].
+
+You also need permissions or access to perform these tasks:
+
+* Organization administrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
+* xref:access-management::enabling-agentforce.adoc[Agentforce] access: run the `generate_mule_flow` and `generate_api_spec` tools .
 
 
-== Set Up Authentication
-Create a connected app that acts on its own behalf using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf].
+== Create a Connected App and Add OAuth Permission Scopes
 
-In step 6, add these scopes. Make sure that all business groups and relevant environments are selected for these scopes.
+Using the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf], create a connected app. When prompted, add these permission scopes that enable you to use specific MuleSoft MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes. 
 
-=== Anypoint Code Builder
-* Mule Developer Generative AI User
+Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Server tools. Only tools listed in these tables require specific permission scopes. 
 
-=== Anypoint Monitoring
-* Monitoring Viewer
+See xref:access-management::permissions-by-product.adoc[] for details on permissions. 
 
-=== API Manager
-* Manage APIs Configuration
-* Manage Policies
-* View APIs Configuration
-* View Policies
+=== Anypoint Code Builder 
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|Use natural language prompts to develop and generate flows using Agentforce for Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User a|
+
+* xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
+* xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
+
+|===
+
+=== Anypoint Monitoring 
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|View but not modify content in Anypoint Monitoring.|Monitoring Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+|===
+
+=== API Manager 
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|View and modify API configurations in the specified environment.|Manage API Configuration|xref:reference-mcp-tools.adoc#create-and-manage-api-instances[create_and_manage_api_instances]
+
+|View, create, modify, and delete API policies in the specified environment.|Manage Policies |xref:reference-mcp-tools.adoc#manage-api-instance-policy[manage_api_instance_policy]
+
+|View API configurations in the specified environment.|View APIs Configuration a|
+
+* xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+
+|View API configurations in the specified environment.|View API Configurations |xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
+|===
 
 === Exchange
-* Exchange Administrator
-* Exchange Contributor
-* Exchange Creator
-* Exchange Viewer
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+a|
+* View, create, and download assets within a business group.
+* Edit asset portal content in an existing asset version.
+|Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+
+|View, create, and download assets within a business group. |Exchange Contributor |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+
+|Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+
+|View and download assets within a business group.|Exchange Viewer |xref:reference-mcp-tools.adoc#search-asset[search_asset] 
+|===
 
 === General
-* View Organization
-* View Connected Applications
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|View organization information.|View Organization |xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+
+|View connected applications.|View Connected Applications |xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+|===
 
 === Runtime Manager
-* Read Applications
-* Create Applications
-* Read Runtime Fabrics
-* Cloudhub Network Viewer
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[list_applications]
+
+|Create applications in a specific environment.|Create Applications |xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
+
+|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+
+|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+|===
 
 === Usage
-* Usage Viewer
+[cols="1,2,1"]
+
+|===
+|To...|Required Permission |Associated Tool
+
+|View usage reports.|Usage Viewer a|
+
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+|===
 
 == Install MuleSoft MCP Server
-To install the server with node, run: 
+
+To install the server with Node.js, run: 
 `npm install -g @mulesoft/mcp-server`
 
 == Configure MuleSoft MCP Server
 You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server.
+
+For more information about Anypoint Platform regional services, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
 === Claude Desktop
 Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
