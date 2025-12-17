@@ -52,6 +52,8 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Ser
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+* xref:reference-mcp-tools.adoc#list-applications[list_applications]
+
 |===
 
 === API Manager 
@@ -88,7 +90,12 @@ a|
 
 |Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|View and download assets within a business group.|Exchange Viewer |xref:reference-mcp-tools.adoc#search-asset[search_asset] 
+|View and download assets within a business group.|Exchange Viewer a|
+
+* xref:reference-mcp-tools.adoc#search-asset[search_asset]
+* xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
+* xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application] 
+
 |===
 
 === General
@@ -97,9 +104,18 @@ a|
 |===
 |To...|Required Permission |Associated Tool
 
-|View organization information.|View Organization |xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+|View organization information.|View Organization a|
 
-|View connected applications.|View Connected Applications |xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+* xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
+* xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application]
+
+|View connected applications.|View Connected Applications a| 
+
+* xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+* xref:reference-mcp-tools.adoc#list-applications[list_applications]
+* xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
+* xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application]
+
 |===
 
 === Runtime Manager
@@ -119,6 +135,8 @@ a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
+* xref:reference-mcp-tools.adoc#list-applications[list_applications]
+* xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
 
 |View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer a|
 
