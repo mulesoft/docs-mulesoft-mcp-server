@@ -38,6 +38,7 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Ser
 
 * xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
 * xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
+* xref:reference-mcp-tools.adoc#create-mpc-server[create_MCP_server]
 
 |===
 
@@ -109,7 +110,10 @@ a|
 
 |View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[list_applications]
 
-|Create applications in a specific environment.|Create Applications |xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
+|Create applications in a specific environment.|Create Applications a|
+
+* xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
+* xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application]
 
 |Query Runtime Fabric instances in the organization.|Read Runtime Fabrics a|
 
