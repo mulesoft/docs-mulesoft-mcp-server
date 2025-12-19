@@ -475,7 +475,7 @@ The default value is `soft-delete`.
 |No
 
 |assetPropertiesFilePath
-|Path to the asset properties file. File name should be pom.xml or have a .pom extension.
+|Path to the asset properties file. File name should be `pom.xml` or have a `.pom` extension.
 |No
 
 Optional for asset creation.
