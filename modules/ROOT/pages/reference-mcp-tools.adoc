@@ -163,7 +163,7 @@ a|
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 |No
-|Manage API Configuration
+|API Manager: Manage API Configuration
 
 |<<deploy-mule-application,deploy_mule_application>>
 |No
@@ -221,7 +221,7 @@ a|
 |<<manage-api-instance-policy,manage_api_instance_policy>>
 |No
 |No
-|Manage Policies
+|API Manager: Manage Policies
 
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
