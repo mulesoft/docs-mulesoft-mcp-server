@@ -71,8 +71,6 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Ser
 * xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
-
-|View API configurations in the specified environment.|View API Configurations |xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
 |===
 
 === Exchange

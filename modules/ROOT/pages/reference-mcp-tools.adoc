@@ -38,9 +38,9 @@ See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for
 |No
 |No
 a|
-* Exchange Administrator
-* Exchange Contributor
-* Exchange Creator
+* Exchange: Exchange Administrator
+* Exchange: Exchange Contributor
+* Exchange: Exchange Creator
 
 |<<create-and-manage-metadata,create_and_manage_metadata>>
 |Yes
@@ -55,9 +55,7 @@ a|
 |<<create-mcp-server,create_MCP_server>>
 |No
 |No
-a|
-* Mule Developer
-* Generative AI User
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<create-mule-project,create_mule_project>>
 |No
@@ -67,16 +65,12 @@ a|
 |<<generate-api-spec,generate_api_spec>>
 |No
 |No
-a|
-* Mule Developer
-* Generative AI User
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<generate-mule-flow,generate_mule_flow>>
 |No
 |No
-a|
-* Mule Developer
-* Generative AI User
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
@@ -101,7 +95,7 @@ a|
 |<<search-asset,search_asset>>
 |No
 |No
-|Exchange Viewer
+|Exchange: Exchange Viewer
 
 |<<test-connection,test_connection>>
 |Yes
@@ -175,32 +169,32 @@ a|
 |No
 |No
 a|
-* Exchange Viewer
-* View Connected Applications
-* Create Applications
-* Read Runtime Fabrics
+* Exchange: Exchange Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Create Applications
+* Runtime Manager: Read Runtime Fabrics
 
 |<<list-api-instances,list_api_instances>>
 |No
 |No
-|View APIs Configuration
+|API Manager: View APIs Configuration
 
 |<<list-applications,list_applications>>
 |No
 |No
 a| 
-* Monitoring Viewer
-* View Connected Applications
-* Read Applications
-* Read Runtime Fabrics
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Read Applications
+* Runtime Manager: Read Runtime Fabrics
 
 |<<update-mule-application,update_mule_application>>
 |No
 |No
 a|
-* View Organization
-* View Connected Applications
-* Create Applications
+* General: View Organization
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Create Applications
 
 .3+s|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
@@ -239,23 +233,23 @@ a|
 |No
 |No
 a|
-* Monitoring Viewer
-* View APIs Configuration
-* View Organization
-* Read Runtime Fabrics
-* CloudHub Network Viewer
-* Usage Viewer
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: Read Runtime Fabrics
+* Runtime Manager: CloudHub Network Viewer
+* General: Usage Viewer
+* General: View Organization
+* API Manager: View APIs Configuration
 
 |<<get-reuse-metrics,get_reuse_metrics>>
 |No
 |No
 a|
-* Monitoring Viewer
-* View APIs Configuration
-* View Connected Applications
-* Read Runtime Fabrics
-* CloudHub Network Viewer
-* Usage Viewer
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Read Runtime Fabrics
+* Runtime Manager: CloudHub Network Viewer
+* API Manager: View APIs Configuration
+* General: Usage Viewer
 |===
 
 
