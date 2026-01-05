@@ -8,182 +8,248 @@ See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for
 
 == Command Summary
 
-[%header,cols="1,2,1,1"]
+[%header,cols="1,2,1,1,2"]
 |===
-|Category |Tool |Anypoint Code Builder Only |Connector Builder Only
+|Category |Tool |Anypoint Code Builder Only |Connector Builder Only |Required Permission Scopes
 
 .4+s|Agent Network Development
 |<<configure-agent-network-yaml,configure_agent_network_yaml>>
 |Yes
 |No
+|None
 
 |<<create-agent-network-project,create_agent_network_project>>
 |Yes
 |No
+|None
 
 |<<deploy-agent-network,deploy_agent_network>>
 |Yes
 |No
+|None
 
 |<<publish-agent-network-assets,publish_agent_network_assets>>
 |Yes
 |No
+|None
 
 .14+s|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 |No
+a|
+* Exchange: Exchange Administrator
+* Exchange: Exchange Contributor
+* Exchange: Exchange Creator
 
 |<<create-and-manage-metadata,create_and_manage_metadata>>
 |Yes
 |No
+|None
 
 |<<create-api-spec-project,create_api_spec_project>>
 |No
 |No
+|None
 
 |<<create-mcp-server,create_MCP_server>>
 |No
 |No
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<create-mule-project,create_mule_project>>
 |No
 |No
+|None
 
 |<<generate-api-spec,generate_api_spec>>
 |No
 |No
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<generate-mule-flow,generate_mule_flow>>
 |No
 |No
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
 |No
+|None
 
 |<<mock-api-spec,mock_api_spec>>
 |Yes
 |No
+|None
 
 |<<open-project,open_project>>
 |Yes
 |No
+|None
 
 |<<run-local-mule-application,run_local_mule_application>>
 |No
 |No
+|None
 
 |<<search-asset,search_asset>>
 |No
 |No
+|Exchange: Exchange Viewer
 
 |<<test-connection,test_connection>>
 |Yes
 |No
+|None
 
 |<<validate-project,validate_project>>
 |Yes
 |No
+|None
 
 .3+s|Connector Development
 |<<uc-create-connector-workflow,uc_create_connector_workflow>>
 |No
 |Yes
+|None
 
 |<<uc-generate-api-spec,uc_generate_api_spec>>
 |No
 |Yes
+|None
 
 |<<uc-generate-connector,uc_generate_connector>>
 |No
 |Yes
+|None
 
 .7+s|DataWeave Development
 |<<dataweave-create-documentation,dataweave_create_documentation>>
 |No
 |No
+|None
 
 |<<dataweave-create-project,dataweave_create_project>>
 |No
 |No
+|None
 
 |<<dataweave-create-sample-data,dataweave_create_sample_data>>
 |No
 |No
+|None
 
 |<<dataweave-get-module-metadata,dataweave_get_module_metadata>>
 |No
 |No
+|None
 
 |<<dataweave-get-project-metadata,dataweave_get_project_metadata>>
 |No
 |No
+|None
 
 |<<dataweave-open-project,dataweave_open_project>>
 |No
 |No
+|None
 
 |<<dataweave-run-script-tool,dataweave_run_script_tool>>
 |No
 |No
+|None
 
 .5+s|Application Management
 |<<create-and-manage-api-instances,create_and_manage_api_instances>>
 |No
 |No
+|Manage API Configuration
 
 |<<deploy-mule-application,deploy_mule_application>>
 |No
 |No
+a|
+* Exchange: Exchange Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Create Applications
+* Runtime Manager: Read Runtime Fabrics
 
 |<<list-api-instances,list_api_instances>>
 |No
 |No
+|API Manager: View APIs Configuration
 
 |<<list-applications,list_applications>>
 |No
 |No
+a| 
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Read Applications
+* Runtime Manager: Read Runtime Fabrics
 
 |<<update-mule-application,update_mule_application>>
 |No
 |No
+a|
+* General: View Organization
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Create Applications
 
 .3+s|Governance
 |<<add-governance-ruleset,add_governance_ruleset>>
 |Yes
 |No
+|None
 
 |<<list-governance-rulesets,list_governance_rulesets>>
 |Yes
 |No
+|None
 
 |<<validate-api-against-ruleset,validate_api_against_ruleset>>
 |Yes
 |No
+|None
 
 .3+s|Policy Management
 |<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 |No
+|None
 
 |<<manage-api-instance-policy,manage_api_instance_policy>>
 |No
 |No
+|Manage Policies
 
 |<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 |No
+|None
 
 .2+s|Usage and Insights
 |<<get-platform-insights,get_platform_insights>>
 |No
 |No
+a|
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: Read Runtime Fabrics
+* Runtime Manager: CloudHub Network Viewer
+* General: Usage Viewer
+* General: View Organization
+* API Manager: View APIs Configuration
 
 |<<get-reuse-metrics,get_reuse_metrics>>
 |No
 |No
-
+a|
+* Runtime Manager: Monitoring Viewer
+* Runtime Manager: View Connected Applications
+* Runtime Manager: Read Runtime Fabrics
+* Runtime Manager: CloudHub Network Viewer
+* API Manager: View APIs Configuration
+* General: Usage Viewer
 |===
 
 
