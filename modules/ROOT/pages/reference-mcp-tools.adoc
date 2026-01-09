@@ -78,9 +78,9 @@ a|
 |None
 
 |<<implement-api-spec,implement-api-spec>>
-|
-|
-|
+|Yes
+|No
+|None
 
 |<<mock-api-spec,mock_api_spec>>
 |Yes
