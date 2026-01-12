@@ -33,7 +33,7 @@ See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for
 |No
 |None
 
-.14+s|Application Development
+.17+s|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 |No
