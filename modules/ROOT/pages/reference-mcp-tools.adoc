@@ -38,6 +38,7 @@ See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for
 |No
 |No
 a|
+
 * Exchange: Exchange Administrator
 * Exchange: Exchange Contributor
 * Exchange: Exchange Creator
@@ -72,12 +73,17 @@ a|
 |No
 |Anypoint Code Builder: Mule Developer Generative AI User
 
+|<<generate-munit-test,generate_munit_test>>
+|No
+|No
+|
+
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
 |No
 |None
 
-|<<implement-api-spec,implement-api-spec>>
+|<<implement-api-spec,implement_api_spec>>
 |Yes
 |No
 |None
@@ -86,6 +92,11 @@ a|
 |Yes
 |No
 |None
+
+|<<modify-munit-test,modify_munit_test>>
+|No
+|No
+|
 
 |<<open-project,open_project>>
 |Yes
@@ -174,6 +185,7 @@ a|
 |No
 |No
 a|
+
 * Exchange: Exchange Viewer
 * Runtime Manager: View Connected Applications
 * Runtime Manager: Create Applications
@@ -188,6 +200,7 @@ a|
 |No
 |No
 a| 
+
 * Runtime Manager: Monitoring Viewer
 * Runtime Manager: View Connected Applications
 * Runtime Manager: Read Applications
@@ -197,6 +210,7 @@ a|
 |No
 |No
 a|
+
 * General: View Organization
 * Runtime Manager: View Connected Applications
 * Runtime Manager: Create Applications
@@ -238,6 +252,7 @@ a|
 |No
 |No
 a|
+
 * Runtime Manager: Monitoring Viewer
 * Runtime Manager: Read Runtime Fabrics
 * Runtime Manager: CloudHub Network Viewer
@@ -249,6 +264,7 @@ a|
 |No
 |No
 a|
+
 * Runtime Manager: Monitoring Viewer
 * Runtime Manager: View Connected Applications
 * Runtime Manager: Read Runtime Fabrics
@@ -1027,6 +1043,23 @@ Generate, modify, or enhance Mule flows. Use this tool for any request involving
 
 |===
 
+[[generate-munit-test]]
+== generate_munit_test
+
+Generates MUnit test cases for Mule flows, one test scenario at a time, with support for mocks, assertions, and dependencies.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|projectSource | The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
+|munitFileName | The file name of the MUnit test. |Yes
+|prompt |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
+|minRuntimeVersion |The minimum runtime version required for the flow. |Yes
+|dependencies |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
+
+|===
+
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
@@ -1439,6 +1472,22 @@ Available only in Anypoint Code Builder.
 |projectPath
 |Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
+
+|===
+
+[[modify-munit-test]]
+== modify_munit_test
+
+Modify or fix an existing MUnit test case, including updating assertions, mocks, payloads, and test logic.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|projectSource |The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
+|prompt |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yesv
+|dependencies |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
+|existingMunit |The XML source of the existing MUnit test case that needs to be modified, including the <munit:test> element and all nested components, such as mocks, variables, and assertions. |Yes
 
 |===
 
