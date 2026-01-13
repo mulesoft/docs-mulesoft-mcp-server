@@ -1485,7 +1485,7 @@ Modify or fix an existing MUnit test case, including updating assertions, mocks,
 |Parameter |Description |Required?
 
 |projectSource |The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
-|prompt |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yesv
+|prompt |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
 |dependencies |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
 |existingMunit |The XML source of the existing MUnit test case that needs to be modified, including the <munit:test> element and all nested components, such as mocks, variables, and assertions. |Yes
 
