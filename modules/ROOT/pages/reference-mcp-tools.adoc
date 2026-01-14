@@ -256,8 +256,7 @@ a|
 [[add-governance-ruleset]]
 == add_governance_ruleset
 
-Add a governance ruleset from Anypoint Exchange to your project.
-Use the `search_asset` tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The `search_asset` tool uses `searchQuery='user'` criteria and `assetFilters=ruleset` to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project.
+Add a governance ruleset from Anypoint Exchange to your project. Use the `search_asset` tool to find a ruleset that matches an assetId, groupId, and version from user-provided criteria. The `search_asset` tool uses `searchQuery='user'` criteria and `assetFilters=ruleset` to return a ruleset meeting those criteria. Then, this tool adds the ruleset as a dependency to your project.
 
 Available only in Anypoint Code Builder.
 
@@ -265,15 +264,15 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|assetId
+|`assetId`
 |The ID of the asset.
 |Yes
 
-|groupId
+|`groupId`
 |Group ID of the asset in Anypoint Exchange.
 |Yes
 
-|version
+|`version`
 |Version of the asset, for example, `1.4.0`.
 |Yes
 
@@ -317,13 +316,13 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|mode
+|`mode`
 |The operation to perform on the agent network project YAML. Valid values are `configure` and `edit`.
 
 For example, use `configure` to set up a custom agent network tailored to your environment, discover agent network components, or scaffold a new agent network. Use `edit` to make minor changes to a configured agent network YAML file, such as renaming an existing agent.
 |Yes
 
-|prompt
+|`prompt`
 |Prompt from the user containing instructions to the agent.
 |Yes
 
@@ -393,19 +392,19 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|projectName
+|`projectName`
 |Unique name of the project, also used as the name of the agent network project file.
 |Yes
 
-|projectPath
+|`projectPath`
 |Parent location of the project. The default is the parent folder of the current workspace. The project resides in a subfolder of `projectPath`.
 |Yes
 
-|projectDescription
+|`projectDescription`
 |Description of the project.
 |No
 
-|groupId
+|`groupId`
 |Organization or business group ID of the project.
 |No
 
@@ -448,68 +447,103 @@ Create and configure API instances in Anypoint API Manager.
 |===
 |Parameter |Description | Required?
 
-|organizationId
+|`organizationId`
 |The ID of the organization where the instance resides. The default is the ID of the user's organization from the current session.
 |No
 
-|environmentName
+|`environmentName`
 |The name of the environment where the instance resides. The default is the environment for the organization specified in `organizationId`.
 |No
 
-|apiInstanceId
+|`apiInstanceId`
 |Instance ID of the API.
 |No
 
 Required if you're configuring an API instance.
 
-|apiInstanceLabel
+|`apiInstanceLabel`
 |Label or name of the API instance.
 |No
 
-|operation
+|`operation`
 |Operation to perform on the API instance. Valid values are:
 
 * `create` to create an API instance.
 * `configureBasicEndpointInMuleApplication` to configure a basic endpoint in a Mule application.
 |Yes
 
-|groupId
+|`groupId`
 |Group ID of the API asset in Anypoint Exchange.
 |No
 
-|assetId
+|`assetId`
 |ID of the API asset in Anypoint Exchange. Value can be the API name. 
 |No
 
 Required to create an API instance.
 
-|assetVersion
+|`assetVersion`
 |Version of the API asset in Anypoint Exchange.
 |No
 
-|runtimeEngine
+|`runtimeEngine`
 |Engine the API instance runs on. Valid value is `mule4`.
 |No
 
-|muleProxyType
+|`muleProxyType`
 |Valid value is `basicEndpoint`.
 |No
 
-|endpointUri
+|`endpointUri`
 |Endpoint URI of the API instance (upstream).
 |No
 
 Required if `muleProxyType=basicEndpoint`.
 
-|consumerEndpoint
+|`consumerEndpoint`
 |Consumer endpoint of the API instance.
 |No
 
-|providerId
+|`providerId`
 |Provider ID of the API instance.
 |No
 
 |===
+
+.Example request (create API instance)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_and_manage_api_instances",
+  "arguments": {
+    "operation": "create",
+    "assetId": "customer-api",
+    "assetVersion": "1.0.0",
+    "apiInstanceLabel": "Customer Management API",
+    "runtimeEngine": "mule4",
+    "muleProxyType": "basicEndpoint",
+    "endpointUri": "https://backend.example.com/api/customers",
+    "consumerEndpoint": "https://api.example.com/customers"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "apiInstanceId": "12345",
+  "apiInstanceLabel": "Customer Management API",
+  "assetId": "customer-api",
+  "assetVersion": "1.0.0",
+  "endpointUri": "https://backend.example.com/api/customers",
+  "consumerEndpoint": "https://api.example.com/customers",
+  "status": "active",
+  "message": "API instance created successfully"
+}
+----
 
 [[create-and-manage-assets]]
 == create_and_manage_assets
@@ -520,7 +554,7 @@ Create, update, and delete assets in Anypoint Exchange.
 |===
 |Parameter |Description |Required?
 
-|operation
+|`operation`
 |Operation to perform on the asset. Valid values are:
 
 * `create` to create an asset.
@@ -528,27 +562,27 @@ Create, update, and delete assets in Anypoint Exchange.
 * `delete` to remove an asset.
 |Yes
 
-|groupId
+|`groupId`
 |Group ID of the asset in Anypoint Exchange.
 |No
 
-|assetId
+|`assetId`
 |The ID of the asset.
 |No
 
-|version
+|`version`
 |Version of the asset, for example, `1.4.0`.
 |No
 
 Required for asset creation.
 
-|organizationId
+|`organizationId`
 |The ID of the org to publish the asset to.
 |No
 
 Optional for asset creation.
 
-|classifier
+|`classifier`
 |The type of asset. Valid values are:
 
 * `raml-fragment`
@@ -567,7 +601,7 @@ Optional for asset creation.
 Required for asset creation.
 
 
-|name
+|`name`
 |The name of the asset.
 |No
 
@@ -575,59 +609,59 @@ Required for asset creation.
 * Optional for asset update.
 
 
-|description
+|`description`
 |The description of the asset to create or update.
 |No
 
-|assetLink
+|`assetLink`
 |The URL of the asset. 
 |No
 
 Required when creating wsdl or http assets.
 
-|apiVersion
+|`apiVersion`
 |The product version of API assets. 
 |No
 
 Required when creating raml, oas, wsdl, or http assets.
 
-|main
+|`main`
 |The main file of the asset.
 |No
 
 Required when creating raml, raml-fragment, oas, and wsdl assets.
 
-|dependencies
+|`dependencies`
 |A stringified array of dependency JSON objects, where each object consists of `groupId`, `assetId`, and `version`.
 |No
 
 Required when creating api-group assets.
 
-|originalFormatVersion
+|`originalFormatVersion`
 |The version of the API spec format.
 |No
 
 Required for asset creation.
 
-|metadata
+|`metadata`
 |Stringified value of a Design Center JSON object describing the asset `projectId`, `branchId`, and `commitId`. Used for asset creation.
 |No
 
-|keywords
+|`keywords`
 |Stringified array of string values to save as the asset's attributes. Use to find assets by keyword. Used for asset creation.
 |No
 
-|tags
+|`tags`
 |Stringified array of string values to save as the asset's tags. Used for asset creation.
 |No
 
-|projectPath
+|`projectPath`
 |The asset project file or project root directory.
 |No
 
 Required for raml, raml-fragment, oas, evented-api, wsdl, mule-plugin, and mule-application asset creation.
 
-|deleteType
+|`deleteType`
 |Type of asset deletion to perform. Valid values are:
 
 * `soft-delete` indicates logical deletion.
@@ -636,25 +670,96 @@ Required for raml, raml-fragment, oas, evented-api, wsdl, mule-plugin, and mule-
 The default value is `soft-delete`.
 |No
 
-|contactName
+|`contactName`
 |New contact name for the asset. Used for updating the asset.
 |No
 
-|contactEmail
+|`contactEmail`
 |New contact email of the asset. Used for updating the asset.
 |No
 
-|iconFile
+|`iconFile`
 |Path to the icon file (image formats such as PNG and JPG) to add to the asset. Used for updating the asset.
 |No
 
-|assetPropertiesFilePath
+|`assetPropertiesFilePath`
 |Path to the asset properties file. File name should be `pom.xml` or have a `.pom` extension.
 |No
 
 Optional for asset creation.
 
 |===
+
+.Example request (create asset)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_and_manage_assets",
+  "arguments": {
+    "operation": "create",
+    "groupId": "com.mycompany.apis",
+    "assetId": "customer-management-api",
+    "version": "1.0.0",
+    "classifier": "raml",
+    "name": "Customer Management API",
+    "description": "RESTful API for managing customer data and operations",
+    "apiVersion": "v1",
+    "main": "customer-api.raml",
+    "originalFormatVersion": "1.0",
+    "projectPath": "/Users/developer/customer-api-project",
+    "keywords": "[\"customer\", \"management\", \"rest\", \"api\"]",
+    "tags": "[\"v1\", \"production-ready\"]"
+  }
+}
+----
+
+.Example request (update asset)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_and_manage_assets",
+  "arguments": {
+    "operation": "update",
+    "groupId": "com.mycompany.apis",
+    "assetId": "customer-management-api",
+    "description": "Updated RESTful API for managing customer data with enhanced features",
+    "contactName": "API Team",
+    "contactEmail": "api-team@mycompany.com"
+  }
+}
+----
+
+.Example response (create)
+[source,json]
+----
+{
+  "success": true,
+  "operation": "create",
+  "groupId": "com.mycompany.apis",
+  "assetId": "customer-management-api",
+  "version": "1.0.0",
+  "classifier": "raml",
+  "name": "Customer Management API",
+  "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.mycompany.apis/customer-management-api/1.0.0/",
+  "status": "published",
+  "message": "Asset created successfully in Anypoint Exchange"
+}
+----
+
+.Example response (update)
+[source,json]
+----
+{
+  "success": true,
+  "operation": "update",
+  "groupId": "com.mycompany.apis",
+  "assetId": "customer-management-api",
+  "updatedFields": ["description", "contactName", "contactEmail"],
+  "message": "Asset updated successfully in Anypoint Exchange"
+}
+----
 
 [[create-and-manage-metadata]]
 == create_and_manage_metadata
@@ -667,11 +772,11 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path of the Mule project directory where the `pom.xml` file is located.
 |Yes
 
-|operation
+|`operation`
 |Task to perform. Valid values are:
 
 * `define` to create metadata.
@@ -679,88 +784,1017 @@ Available only in Anypoint Code Builder.
 * `update` to update existing metadata.
 |Yes
 
-|metadata
+|`metadata`
 |String value of sample data or schema JSON object. JSON original format is required (no conversion from other formats). If this metadata is for input or output, use the `applyMetadataOn` parameter.
 |No
 
 Required when the operation parameter value is `define`.
 
-|dataFormat
+|`dataFormat`
 |The format of the metadata to process. Specify `JSON` for JSON-formatted metadata or `XML` for XML-formatted metadata.
 |No
 
-|metadataPath
+|`metadataPath`
 |Path of the sample metadata or schema file. To specify if this metadata is for input or output, use the `applyMetadataOn` parameter.
 |No
 
 Required when the operation parameter value is `define`.
 
-|componentNodeDocId
+|`componentNodeDocId`
 |The `doc:id attribute` value of the flow component. For example, if the node is `<ee:transform doc:name='Transform' doc:id='hdipfo' >`, specify `hdipfo` as the `componentNodeDocId`. 
 |No
 
 * Required when the operation is `apply`.
 * Optional when the operation is `define`.
 
-|metadataName
+|`metadataName`
 |Name of the new metadata to define based on a sample data JSON, for example, `customer` if sample data is for a customer. 
 |No
 
 Required when the operation parameter value is `define`.
 
-|isSchema
+|`isSchema`
 |Whether the metadata is a schema. 
 |Yes
 
 Required when the operation parameter value is `define`.
 
-|applyMetadataOn
+|`applyMetadataOn`
 |Specifies whether the metadata is for the component's input or output. If not specified, metadata is used for input. 
 |No
 
 * Required when the operation is `apply`.
 * Optional when the operation is `define`.
 
-|existingMetadata
+|`existingMetadata`
 |Name of existing metadata type to apply to the flow component node. To specify if this metadata is for input or output, use the `applyMetadataOn` parameter.
 |No
 
 Required when the operation parameter value is `apply`. 
 
-|listExistingMetadata
+|`listExistingMetadata`
 |Whether to list all available metadata types in the project. Use this parameter to discover existing metadata.
 |No
 
-|updateMetadata
+|`updateMetadata`
 |Name of existing metadata type to update. 
 |No
 
 Required when the operation parameter value is `update`.
 
-|toolSummary
+|`toolSummary`
 |Description of the tool.
 |No
 
 |===
 
-[[create-mule-project]]
-== create_mule_project
+.Example request (define metadata)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_and_manage_metadata",
+  "arguments": {
+    "projectPath": "/Users/developer/customer-api-project",
+    "operation": "define",
+    "metadataName": "CustomerData",
+    "metadata": "{\"customerId\": \"CUST-001\", \"firstName\": \"John\", \"lastName\": \"Doe\", \"email\": \"john.doe@example.com\", \"phone\": \"+1-555-123-4567\"}",
+    "dataFormat": "JSON",
+    "isSchema": false
+  }
+}
+----
 
-Create a Mule project structure with optional parameters, but no flow generation.
+.Example request (apply metadata)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_and_manage_metadata",
+  "arguments": {
+    "projectPath": "/Users/developer/customer-api-project",
+    "operation": "apply",
+    "componentNodeDocId": "transform-customer-data",
+    "existingMetadata": "CustomerData",
+    "applyMetadataOn": "input",
+    "isSchema": false
+  }
+}
+----
+
+.Example response (define)
+[source,json]
+----
+{
+  "success": true,
+  "operation": "define",
+  "metadataName": "CustomerData",
+  "dataFormat": "JSON",
+  "metadataPath": "/Users/developer/customer-api-project/src/main/resources/metadata/CustomerData.json",
+  "message": "Metadata 'CustomerData' defined successfully"
+}
+----
+
+[[list-applications]]
+== list_applications
+
+Get information about all applications in the environment you specify, sorted by last update date and time, in descending order. You can also specify an optional deployment name.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
-|projectPath
-|Directory to create project in (defaults to the current workspace).
+|`environmentName`
+|Name of the environment to list applications from.
+|Yes
+
+|`appName`
+|An application to search for.
 |No
 
-|projectName
-|Name for the project (defaults to a generated name).
+|`organizationId`
+|ID of the organization to list applications from.
+|No
+
+|`page`
+|The page number of the result.
+|No
+
+|`includeCpuMetrics`
+|Set value to `true` to include CPU metrics when searching for an application.
+|No
+
+|`includeHeapMetrics`
+|Set value to `true` to include used and total heap metrics when searching for an application.
+|No
+
+|`includeLogs`
+|Set value to `true` to include logs from searching for an application. Maximum 500 entries.
+|No
+
+|`timeFrame`
+|If `includeCpuMetrics`, `includeHeapMetrics`, or `includeLogs` is true, this parameter contains the time frame for metrics. 
+
+Valid values are `5m`, `15m`, `30m`, `1h`, `3h`, `6h`, `12h`, `24h`, `3d`, `5d`, `7d`, `15d`, and `30d`.
+
+The default value is `30m`.
+|No
+
+|`logLevel`
+|If `includeLogs` is `true`, this parameter contains the level of log detail. Valid values are `INFO`, `DEBUG`, `WARN`, and `ERROR`. The default value is `ERROR`.
+|No
+
+|`logsPage`
+|Page number of log. Maximum is 20. Default is 1.
 |No
 
 |===
+
+.Example request (basic application list)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "list_applications",
+  "arguments": {
+    "environmentName": "Production",
+    "page": 1
+  }
+}
+----
+
+.Example request (with metrics and logs)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "list_applications",
+  "arguments": {
+    "environmentName": "Production",
+    "appName": "customer-integration-app",
+    "includeCpuMetrics": true,
+    "includeHeapMetrics": true,
+    "includeLogs": true,
+    "timeFrame": "1h",
+    "logLevel": "ERROR"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "environmentName": "Production",
+  "page": 1,
+  "totalApplications": 15,
+  "applications": [
+    {
+      "applicationId": "app-12345",
+      "applicationName": "customer-integration-app",
+      "status": "RUNNING",
+      "runtimeVersion": "4.9.4:2e-java17",
+      "lastUpdated": "2024-01-15T14:30:00Z",
+      "replicas": 2,
+      "vcoresUsed": 1.0,
+      "memoryUsed": "1GB",
+      "cpuMetrics": {
+        "averageCpuUsage": 45.2,
+        "maxCpuUsage": 78.5,
+        "timeFrame": "1h"
+      },
+      "heapMetrics": {
+        "usedHeapMB": 512,
+        "totalHeapMB": 1024,
+        "timeFrame": "1h"
+      },
+      "logs": [
+        {
+          "timestamp": "2024-01-15T14:25:00Z",
+          "level": "ERROR",
+          "message": "Connection timeout to external service",
+          "thread": "processor-thread-1"
+        }
+      ]
+    },
+    {
+      "applicationId": "app-67890",
+      "applicationName": "order-processing-app",
+      "status": "RUNNING",
+      "runtimeVersion": "4.9.4:2e-java17",
+      "lastUpdated": "2024-01-14T09:15:00Z",
+      "replicas": 1,
+      "vcoresUsed": 0.5,
+      "memoryUsed": "512MB"
+    }
+  ]
+}
+----
+
+[[list-governance-rulesets]]
+== list_governance_rulesets
+
+List governance rulesets that apply to a project along with the rules that form each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets.
+
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectPath`
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_governance_rulesets",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/pet-store-api"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "rulesets": [
+    {
+      "name": "API Governance Ruleset",
+      "assetId": "api-governance-ruleset",
+      "groupId": "com.mulesoft.governance",
+      "version": "1.4.0",
+      "type": "dependency",
+      "rules": [
+        {
+          "name": "api-title-required",
+          "description": "API title is required",
+          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-title-required.js",
+          "severity": "error"
+        },
+        {
+          "name": "api-version-required",
+          "description": "API version is required",
+          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-version-required.js",
+          "severity": "error"
+        }
+      ]
+    },
+    {
+      "name": "Centralized Security Ruleset",
+      "type": "centralized",
+      "rules": [
+        {
+          "name": "https-required",
+          "description": "HTTPS is required for all endpoints",
+          "absolutePath": "/Users/developer/.mule/rulesets/centralized/security/https-required.js",
+          "severity": "warning"
+        }
+      ]
+    }
+  ]
+}
+----
+
+[[manage-api-instance-policy]]
+== manage_api_instance_policy
+
+Apply a new policy to an API instance and update an existing policy configuration.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`organizationId`
+|The ID of the organization where instances reside. Default is the ID of the user's organization from the current session.
+|No
+
+|`environmentName`
+|The name of the environment where instances reside. Default is the environment for the organization specified in `organizationId`.
+|No
+
+|`apiInstanceId`
+|ID of the API instance.
+|Yes
+
+|`operation`
+|Operation to perform on the API instance policy. Use `apply` to apply a new policy or `update` to update an existing policy configuration.
+|Yes
+
+|`policyId`
+|ID of the policy to configure. 
+|No
+
+Required to update an existing policy configuration.
+
+|`policyConfiguration`
+|Configuration object for the policy. 
+|No
+
+Required to apply a new policy.
+
+|`groupId`
+|Group ID of the policy asset in Anypoint Exchange. 
+|No
+
+Required to apply a new policy.
+
+|`assetId`
+|Asset ID of the policy asset in Anypoint Exchange. 
+|No
+
+Required to apply a new policy.
+
+|`assetVersion`
+|Version of the policy asset in Anypoint Exchange.
+|No
+
+Required to apply a new policy.
+
+|===
+
+.Example request (apply new policy)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "manage_api_instance_policy",
+  "arguments": {
+    "apiInstanceId": "12345",
+    "operation": "apply",
+    "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+    "assetId": "rate-limiting-sla-based",
+    "assetVersion": "1.2.0",
+    "policyConfiguration": "{\"rateLimits\": [{\"maximumRequests\": 100, \"timePeriodInMilliseconds\": 60000}], \"clusterizable\": true}"
+  }
+}
+----
+
+.Example request (update existing policy)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "manage_api_instance_policy",
+  "arguments": {
+    "apiInstanceId": "12345",
+    "operation": "update",
+    "policyId": "policy-67890",
+    "policyConfiguration": "{\"rateLimits\": [{\"maximumRequests\": 200, \"timePeriodInMilliseconds\": 60000}], \"clusterizable\": true}"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "operation": "apply",
+  "apiInstanceId": "12345",
+  "policyId": "policy-new-123",
+  "policyName": "Rate Limiting - SLA Based",
+  "assetId": "rate-limiting-sla-based",
+  "version": "1.2.0",
+  "status": "applied",
+  "configuration": {
+    "rateLimits": [
+      {
+        "maximumRequests": 100,
+        "timePeriodInMilliseconds": 60000
+      }
+    ],
+    "clusterizable": true
+  },
+  "message": "Policy applied successfully to API instance"
+}
+----
+
+[[manage-flex-gateway-policy-project]]
+== manage_flex_gateway_policy_project
+
+Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. 
+
+Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`operation`
+|Operation to perform on the Flex Gateway policy project. Use `create` to create a project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
+|Yes
+
+|`projectPath`
+|Path to the Flex Gateway policy project directory.
+|No
+
+|`policyName`
+|Name of the policy project.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "manage_flex_gateway_policy_project",
+  "arguments": {
+    "operation": "create",
+    "projectPath": "/Users/developer/flex-policies",
+    "policyName": "custom-auth-policy"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "operation": "create",
+  "instructions": [
+    "1. Install Rust and Cargo (if not already installed):",
+    "   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh",
+    "",
+    "2. Install the PDK CLI:",
+    "   cargo install pdk-cli",
+    "",
+    "3. Create a new policy project:",
+    "   pdk new custom-auth-policy --path /Users/developer/flex-policies",
+    "",
+    "4. Navigate to the project directory:",
+    "   cd /Users/developer/flex-policies/custom-auth-policy",
+    "",
+    "5. Edit src/lib.rs to implement your policy logic",
+    "",
+    "6. Update Cargo.toml with policy metadata",
+    "",
+    "7. Test the policy:",
+    "   cargo test",
+    "",
+    "8. Build the policy:",
+    "   pdk build"
+  ],
+  "projectStructure": {
+    "src/lib.rs": "Main policy implementation",
+    "Cargo.toml": "Project configuration and dependencies",
+    "definition/gcl.yaml": "Policy definition for API Manager",
+    "tests/": "Policy test files"
+  },
+  "nextSteps": "After creating the project, implement your custom authentication logic in src/lib.rs and define the policy schema in definition/gcl.yaml"
+}
+----
+
+[[mock-api-spec]]
+== mock_api_spec
+
+Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec.
+
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`endpointUrl`
+|URL of the endpoint.
+|Yes
+
+|`method`
+|HTTP method to create the request to the mocking service.
+|Yes
+
+|`id`
+|Random, agent-generated UUID number that identifies the request to the mocking service.
+|Yes
+
+|`headers`
+|Delimited string of headers sent to the endpoint. The delimiter character is \n. For example, `Authorization: token\nOrigin: localhost`.
+|No
+
+|`payload`
+|Body content sent to the endpoint as a string. Make sure to consider the endpoint's expected media type.
+|No
+
+|`projectPath`
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
+|No
+
+|===
+
+.Example request (GET)
+[source,json]
+----
+{
+  "name": "mock_api_spec",
+  "arguments": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "endpointUrl": "https://api.example.com/pets",
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "headers": "Authorization: Bearer token123\nAccept: application/json"
+  }
+}
+----
+
+.Example request (POST)
+[source,json]
+----
+{
+  "name": "mock_api_spec",
+  "arguments": {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "method": "POST",
+    "endpointUrl": "https://api.example.com/pets",
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "headers": "Authorization: Bearer token123\nContent-Type: application/json",
+    "payload": "{\"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "requestId": "550e8400-e29b-41d4-a716-446655440000",
+  "statusCode": 200,
+  "responseHeaders": {
+    "Content-Type": "application/json",
+    "X-Request-ID": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "responseBody": "{\"pets\": [{\"id\": \"1\", \"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}, {\"id\": \"2\", \"name\": \"Buddy\", \"category\": \"dog\", \"status\": \"available\"}]}",
+  "responseTime": 45,
+  "message": "Mock request completed successfully"
+}
+----
+
+[[open-project]]
+== open_project
+
+Open a project. For example, an API spec or an agent network project.
+
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectPath`
+|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters. For example, `\file:///Users/myUser/workspace/`.
+|No
+
+|`newWindow`
+|Whether the project opens in a new VS Code window (true) or not (false). The default is false.
+|No
+
+|`addToWorkspace`
+|Whether the project opens in a new folder in the workspace (true) or not (false). If true, then `newWindow=false`.
+|No
+
+|===
+
+.Example request (open in current window)
+[source,json]
+----
+{
+  "name": "open_project",
+  "arguments": {
+    "projectPath": "file:///Users/developer/projects/pet-store-api",
+    "newWindow": false,
+    "addToWorkspace": false
+  }
+}
+----
+
+.Example request (add to workspace)
+[source,json]
+----
+{
+  "name": "open_project",
+  "arguments": {
+    "projectPath": "file:///Users/developer/projects/customer-api",
+    "newWindow": false,
+    "addToWorkspace": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "file:///Users/developer/projects/pet-store-api",
+  "openedInNewWindow": false,
+  "addedToWorkspace": false,
+  "message": "Project opened successfully in current window"
+}
+----
+
+[[publish-agent-network-assets]]
+== publish_agent_network_assets
+
+Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group.
+
+Prerequisite: The agent network project must contain a valid `exchange.json` file.
+
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectPath`
+|Path to the agent network project to publish.
+|No
+
+|`assetVersion`
+|Semantic version for the asset (such as `1.0.0`).
+|Yes
+
+|`groupId`
+|Organization/business group ID (falls back to project configuration).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "publish_agent_network_assets",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/my-agent-network",
+    "assetVersion": "1.0.0",
+    "groupId": "com.example.organization"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "assetId": "my-agent-network",
+  "groupId": "com.example.organization",
+  "version": "1.0.0",
+  "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.example.organization/my-agent-network/1.0.0/",
+  "message": "Agent network assets published successfully to Exchange"
+}
+----
+
+[[run-local-mule-application]]
+== run_local_mule_application
+
+Run application locally in Mule runtime. This tool handles the full local deployment workflow: builds the project if needed, downloads runtime if needed, and starts the application locally.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectPath`
+|Path to the Mule project directory to run locally.
+|Yes
+
+|`javaHome`
+|Get JAVA_HOME from JDK from \"AnypointCodeBuilder\" (grep for exact name) installation if exists. Installation is usually located in user home directory. If installation does not exist, get user's java_home. If multiple JDKs exist, choose the latest one that matches javaSpecificationVersions in mule-artifacts.json. If JDK version does not match any of the versions in mule-artifacts.json, return 'No JAVA_HOME found. Don't retry.'.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "run_local_mule_application",
+  "arguments": {
+    "projectPath": "/Users/developer/customer-integration-app",
+    "javaHome": "/Users/developer/.anypoint/AnypointCodeBuilder/jdk-17.0.9+9"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/customer-integration-app",
+  "javaHome": "/Users/developer/.anypoint/AnypointCodeBuilder/jdk-17.0.9+9",
+  "runtimeVersion": "4.9.4-2e",
+  "runtimePath": "/Users/developer/.mule/runtimes/mule-enterprise-standalone-4.9.4",
+  "deploymentStatus": "starting",
+  "applicationUrl": "http://localhost:8081",
+  "pid": 12345,
+  "logFile": "/Users/developer/.mule/logs/mule_ee.log",
+  "message": "Mule application is starting locally. Check logs for deployment status."
+}
+----
+
+[[search-asset]]
+== search_asset
+
+Search for an asset in Anypoint Exchange by name or other specified parameters. Returns the first asset that matches the input criteria.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`searchQuery`
+|The query with criteria for the search. To specify multiple values, use comma-separated values as a single string. Parameter must include at least one value.
+|No
+
+|`assetFilters`
+|Show results that match the asset type filters.
+|No
+
+|`statuses`
+|Show results that match the status. Valid values are `deprecated`, `development`, and `published`.
+|No
+
+|`organizationId`
+|The ID of the organization you want to search. The default value is the ID of the user's organization from the current session.
+|No
+
+|`sharedWithMe`
+|Include shared assets in the results.
+|No
+
+|`sortCriteria`
+|Sort search results.
+
+Valid values are `name` or `last_modified_date`. Defaults to `last_modified_date`.
+|No
+
+|`ascending`
+|Sort results in ascending order.
+|No
+
+|`maxResults`
+|The maximum number of assets to return in the result set. Range is between 1-10. Parameter must include at least one value.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "search_asset",
+  "arguments": {
+    "searchQuery": "customer API",
+    "assetFilters": ["raml", "oas"],
+    "statuses": ["published"],
+    "maxResults": 5,
+    "sortCriteria": "name",
+    "ascending": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "searchQuery": "customer API",
+  "totalResults": 3,
+  "maxResults": 5,
+  "assets": [
+    {
+      "groupId": "com.mycompany.apis",
+      "assetId": "customer-management-api",
+      "version": "1.0.0",
+      "name": "Customer Management API",
+      "type": "raml",
+      "status": "published",
+      "description": "RESTful API for managing customer data and operations",
+      "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.mycompany.apis/customer-management-api/1.0.0/",
+      "lastModified": "2024-01-15T10:30:00Z",
+      "createdBy": "developer@mycompany.com"
+    },
+    {
+      "groupId": "com.example.apis",
+      "assetId": "customer-data-api",
+      "version": "2.1.0",
+      "name": "Customer Data API",
+      "type": "oas",
+      "status": "published",
+      "description": "OpenAPI specification for customer data services",
+      "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.example.apis/customer-data-api/2.1.0/",
+      "lastModified": "2024-01-12T14:20:00Z",
+      "createdBy": "api-team@example.com"
+    }
+  ]
+}
+----
+
+[[test-connection]]
+== test_connection
+
+Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection.
+
+Available only in Anypoint Code Builder.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`configurationUri`
+|Fully qualified URI of the Mule configuration XML file that contains the connector configuration. A valid value starts with `\file:///` followed by the absolute path.
+|Yes
+
+|`configurationName`
+|Value of the name attribute of the connection configuration component in the Mule configuration XML. XPath expressions aren't supported.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "test_connection",
+  "arguments": {
+    "configurationUri": "file:///Users/developer/customer-integration-app/src/main/mule/global.xml",
+    "configurationName": "HTTP_Listener_config"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "configurationName": "HTTP_Listener_config",
+  "connectionTest": "PASSED",
+  "testDuration": 1250,
+  "message": "Connection test successful",
+  "details": {
+    "host": "0.0.0.0",
+    "port": 8081,
+    "protocol": "HTTP",
+    "status": "Available"
+  }
+}
+----
+
+[[uc-create-connector-workflow]]
+== uc_create_connector_workflow
+
+Create a complete LinkWeave connector end-to-end with guided workflow planning. Supports two flows: generating an API spec from documentation, or using an existing API spec file. Returns a detailed workflow plan with numbered steps to execute sequentially.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`workflowCustomization`
+|Any specific workflow customizations, preferences, or requirements for the connector-creation process.
+|No
+
+|`flow`
+|Flow selection. Valid values are:
+
+* `generate-spec` to generate API spec from documentation
+* `existing-spec` if user has an existing API spec file
+* `auto-detect` to determine automatically
+
+|No
+
+|`existingApiSpec`
+|Absolute path to existing API spec file (OpenAPI/Swagger YAML or JSON) if using `existing-spec` flow.
+|No
+
+|===
+
+.Example request (generate spec flow)
+[source,json]
+----
+{
+  "name": "uc_create_connector_workflow",
+  "arguments": {
+    "flow": "generate-spec",
+    "workflowCustomization": "I want to create a connector for Salesforce CRM with focus on lead and opportunity management. Include authentication setup and error handling best practices."
+  }
+}
+----
+
+.Example request (existing spec flow)
+[source,json]
+----
+{
+  "name": "uc_create_connector_workflow",
+  "arguments": {
+    "flow": "existing-spec",
+    "existingApiSpec": "/Users/developer/apis/salesforce-leads-api.yaml",
+    "workflowCustomization": "Use this Salesforce API spec to generate a connector with enhanced lead management capabilities."
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "flow": "generate-spec",
+  "workflowPlan": [
+    {
+      "step": 1,
+      "title": "Gather API Documentation",
+      "description": "Collect official API documentation URLs and identify key use cases",
+      "tool": "uc_generate_api_spec",
+      "estimatedTime": "5-10 minutes"
+    },
+    {
+      "step": 2,
+      "title": "Generate API Specification",
+      "description": "Create OpenAPI 3.0 specification from documentation and use cases",
+      "tool": "uc_generate_api_spec",
+      "estimatedTime": "10-15 minutes"
+    },
+    {
+      "step": 3,
+      "title": "Generate Connector Project",
+      "description": "Create LinkWeave connector project with CCM and Anypoint phases",
+      "tool": "uc_generate_connector",
+      "estimatedTime": "15-20 minutes"
+    },
+    {
+      "step": 4,
+      "title": "Test and Validate",
+      "description": "Test connector functionality and validate against use cases",
+      "tool": "test_connection",
+      "estimatedTime": "10-15 minutes"
+    }
+  ],
+  "totalEstimatedTime": "40-60 minutes",
+  "nextSteps": "Begin with step 1 by providing the platform name, use cases, and documentation URLs to the uc_generate_api_spec tool.",
+  "customizations": [
+    "Focus on lead and opportunity management endpoints",
+    "Include OAuth 2.0 authentication configuration",
+    "Implement comprehensive error handling",
+    "Add retry logic for rate limiting"
+  ]
+}
+----
 
 [[create-api-spec-project]]
 == create_api_spec_project
@@ -771,15 +1805,15 @@ Create and scaffold an API spec or fragment project. You can specify the project
 |===
 |Parameter |Description |Required?
 
-|projectName
+|`projectName`
 |Name of the API spec project.
 |Yes
 
-|projectLocation
+|`projectLocation`
 |Directory path in which to create the project.
 |Yes
 
-|specLanguage
+|`specLanguage`
 |Specification language for the API project. Valid values are:
 
 * `RAML` for RESTful API Modeling Language
@@ -852,6 +1886,55 @@ Create and scaffold an API spec or fragment project. You can specify the project
 }
 ----
 
+[[create-mule-project]]
+== create_mule_project
+
+Create a new Mule project without flow generation. This tool focuses on just the project structure setup with optional parameters.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectPath`
+|Directory to create project in. Default is the current workspace.
+|No
+
+|`projectName`
+|Name for the project. Default is a generated name.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_mule_project",
+  "arguments": {
+    "projectPath": "/Users/developer/projects",
+    "projectName": "customer-integration-app"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/projects/customer-integration-app",
+  "projectName": "customer-integration-app",
+  "filesCreated": [
+    "pom.xml",
+    "src/main/mule/app.xml",
+    "src/main/resources/application.properties",
+    "src/test/munit/test-suite.xml"
+  ],
+  "message": "Mule project created successfully"
+}
+----
+
 [[create-mcp-server]]
 == create_MCP_server
 
@@ -863,15 +1946,49 @@ Prerequisite: Install xref:mcp-connector::index.adoc[MCP Connector].
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path location of the Mule project folder.
 |Yes
 
-|projectXmlPath
+|`projectXmlPath`
 |Path to the Mule project XML file.
 |Yes
 
+|`originalPrompt`
+|The original user input without modifications. Use this for requests to create MCP servers.
+|Yes
+
 |===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "create_mcp_server",
+  "arguments": {
+    "projectPath": "/Users/developer/mcp-server-project",
+    "projectXmlPath": "/Users/developer/mcp-server-project/src/main/mule/app.xml",
+    "originalPrompt": "Create an MCP server that provides weather data integration capabilities"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/mcp-server-project",
+  "mcpServerCreated": true,
+  "connectorAdded": true,
+  "configurationFiles": [
+    "src/main/mule/mcp-server-config.xml",
+    "src/main/resources/mcp-server.properties"
+  ],
+  "message": "MCP server created successfully with MCP Connector integration"
+}
+----
 
 [[dataweave-create-documentation]]
 == dataweave_create_documentation
@@ -882,19 +1999,57 @@ Generates DataWeave documentation using the proper syntax and returns the conten
 |===
 |Parameter |Description |Required?
 
-|documentation
+|`documentation`
 |Detailed description of what the function does.
 |Yes
 
-|parameters
+|`parameters`
 |Any parameters applicable to the function.
 |Yes
 
-|example
+|`example`
 |An example of how to use the function.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_create_documentation",
+   "arguments": {
+    "documentation": "Calculates the total price including tax for a list of items. This function takes an array of items with price and quantity, applies the tax rate, and returns the total amount.",
+    "parameters": [
+      {
+        "name": "items",
+        "typeExpression": "Array<{price: Number, quantity: Number}>",
+        "documentation": "Array of items containing price per unit and quantity for each item"
+      },
+      {
+        "name": "taxRate",
+        "typeExpression": "Number",
+        "documentation": "Tax rate as a decimal (e.g., 0.08 for 8% tax)"
+      }
+    ],
+    "example": {
+      "documentation": "Calculate total with tax for shopping cart items",
+      "code": "calculateTotalWithTax([{price: 10.50, quantity: 2}, {price: 25.00, quantity: 1}], 0.08)",
+      "output": "46.44"
+    }
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "documentation": "/**\n * Calculates the total price including tax for a list of items. This function takes an array of items with price and quantity, applies the tax rate, and returns the total amount.\n *\n * @param items Array of items containing price per unit and quantity for each item\n * @param taxRate Tax rate as a decimal (e.g., 0.08 for 8% tax)\n * @return Number The total amount including tax\n *\n * @example Calculate total with tax for shopping cart items\n * calculateTotalWithTax([{price: 10.50, quantity: 2}, {price: 25.00, quantity: 1}], 0.08)\n * // Returns: 46.44\n */",
+  "message": "DataWeave documentation generated successfully"
+}
+----
 
 [[dataweave-create-project]]
 == dataweave_create_project
@@ -905,19 +2060,50 @@ Creates a new DataWeave project, returns the URL of the created project, and pro
 |===
 |Parameter |Description |Required?
 
-|groupId
+|`groupId`
 |The group ID of the project.
 |No
 
-|projectName
+|`projectName`
 |The project name.
 |Yes
 
-|url
+|`url`
 |The URL location where you want to create the new project. The default, if not specified, is `{USER_HOME}/dw-projects/`.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_create_project",
+  "arguments": {
+    "groupId": "com.mycompany.dataweave",
+    "projectName": "customer-data-transformer",
+    "url": "file:///Users/developer/dataweave-projects/"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectUrl": "file:///Users/developer/dataweave-projects/customer-data-transformer",
+  "projectName": "customer-data-transformer",
+  "groupId": "com.mycompany.dataweave",
+  "filesCreated": [
+    "pom.xml",
+    "src/main/dw/transform.dwl",
+    "src/test/dw/transformTest.dwl",
+    "README.md"
+  ],
+  "message": "DataWeave project created successfully. Would you like to open the project?"
+}
+----
 
 [[dataweave-create-sample-data]]
 == dataweave_create_sample_data
@@ -930,23 +2116,50 @@ Prerequisite: Create the DataWeave script file before running `dataweave_create_
 |===
 |Parameter |Description |Required?
 
-|url
+|`url`
 |The URL of the DataWeave transformation file to create sample input for. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
 |Yes
 
-|content
+|`content`
 |The content of the sample input.
 |Yes
 
-|extension
+|`extension`
 |The file extension for the sample content file type. For example `json` for a JSON file or `xml` for an XML file. The default value is `json`.
 |Yes
 
-|name
+|`name`
 |The name of the input to generate, such as `payload`. The default value is `payload`.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_create_sample_data",
+  "arguments": {
+    "url": "file:///Users/developer/my-dataweave-project/src/main/dw/customer-transform.dwl",
+    "content": "{\n  \"customerId\": \"CUST-001\",\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"address\": {\n    \"street\": \"123 Main St\",\n    \"city\": \"Anytown\",\n    \"state\": \"CA\",\n    \"zipCode\": \"12345\"\n  },\n  \"orders\": [\n    {\n      \"orderId\": \"ORD-001\",\n      \"amount\": 99.99,\n      \"status\": \"completed\"\n    }\n  ]\n}",
+    "extension": "json",
+    "name": "payload"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "sampleDataPath": "file:///Users/developer/my-dataweave-project/src/test/resources/sample_data/json/payload.json",
+  "fileName": "payload.json",
+  "extension": "json",
+  "variableName": "payload",
+  "message": "Sample data created successfully for variable 'payload'"
+}
+----
 
 [[dataweave-get-module-metadata]]
 == dataweave_get_module_metadata
@@ -957,15 +2170,130 @@ Returns the list of all functions available in a DataWeave module, with document
 |===
 |Parameter |Description |Required?
 
-|url
+|`url`
 |The URL of the project in the format `\file://<path>`.
 |Yes
 
-|moduleUrl
+|`moduleUrl`
 |The URL of the DataWeave module file in the format `\file://<path>.dwl` or `jar://<path>.dwl` to search documentation for. Use the `dataweave_get_project_metadata` tool to get the URL of a given module.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_get_module_metadata",
+  "arguments": {
+    "url": "file:///Users/developer/my-dataweave-project",
+    "moduleUrl": "file:///Users/developer/my-dataweave-project/src/main/dw/utils/StringUtils.dwl"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "moduleUrl": "file:///Users/developer/my-dataweave-project/src/main/dw/utils/StringUtils.dwl",
+  "moduleName": "StringUtils",
+  "functions": [
+    {
+      "name": "capitalize",
+      "documentation": "Capitalizes the first letter of each word in a string",
+      "inputParameters": [
+        {
+          "name": "text",
+          "type": "String",
+          "description": "The input string to capitalize"
+        }
+      ],
+      "outputType": "String",
+      "labels": ["string", "text", "format", "capitalize"],
+      "signature": "capitalize(text: String): String",
+      "example": {
+        "input": "capitalize(\"hello world\")",
+        "output": "\"Hello World\""
+      }
+    },
+    {
+      "name": "removeWhitespace",
+      "documentation": "Removes all whitespace characters from a string",
+      "inputParameters": [
+        {
+          "name": "input",
+          "type": "String",
+          "description": "The string to remove whitespace from"
+        }
+      ],
+      "outputType": "String",
+      "labels": ["string", "whitespace", "clean", "trim"],
+      "signature": "removeWhitespace(input: String): String",
+      "example": {
+        "input": "removeWhitespace(\"  hello   world  \")",
+        "output": "\"helloworld\""
+      }
+    },
+    {
+      "name": "splitAndFilter",
+      "documentation": "Splits a string by delimiter and filters out empty values",
+      "inputParameters": [
+        {
+          "name": "text",
+          "type": "String",
+          "description": "The string to split"
+        },
+        {
+          "name": "delimiter",
+          "type": "String",
+          "description": "The delimiter to split by"
+        }
+      ],
+      "outputType": "Array<String>",
+      "labels": ["string", "split", "array", "filter"],
+      "signature": "splitAndFilter(text: String, delimiter: String): Array<String>",
+      "example": {
+        "input": "splitAndFilter(\"a,,b,c,\", \",\")",
+        "output": "[\"a\", \"b\", \"c\"]"
+      }
+    }
+  ],
+  "variables": [
+    {
+      "name": "DEFAULT_DELIMITER",
+      "type": "String",
+      "value": "\",\"",
+      "documentation": "Default delimiter used for string operations"
+    }
+  ],
+  "namespaces": [
+    {
+      "prefix": "str",
+      "uri": "dw::core::Strings"
+    }
+  ],
+  "types": [
+    {
+      "name": "ProcessingOptions",
+      "type": "Object",
+      "properties": [
+        {
+          "name": "caseSensitive",
+          "type": "Boolean",
+          "optional": true
+        },
+        {
+          "name": "trimWhitespace",
+          "type": "Boolean",
+          "optional": true
+        }
+      ]
+    }
+  ]
+}
+----
 
 [[dataweave-get-project-metadata]]
 == dataweave_get_project_metadata
@@ -976,11 +2304,86 @@ Returns the metadata of a DataWeave project, including the list of source folder
 |===
 |Parameter |Description |Required?
 
-|url
+|`url`
 |The URL of the project in the format `\file://<path>`.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_get_project_metadata",
+  "arguments": {
+    "url": "file:///Users/developer/my-dataweave-project"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectUrl": "file:///Users/developer/my-dataweave-project",
+  "sourceDirectories": [
+    "src/main/dw",
+    "src/main/resources"
+  ],
+  "testDirectories": [
+    "src/test/dw",
+    "src/test/resources"
+  ],
+  "modules": [
+    {
+      "name": "dw::core::Arrays",
+      "url": "jar://dw-core-modules-2.4.0-20211109.jar!/dw/core/Arrays.dwl",
+      "functions": [
+        {
+          "name": "join",
+          "signature": "join(Array<T>, String): String"
+        },
+        {
+          "name": "reduce",
+          "signature": "reduce(Array<T>, (item: T, accumulator: R) -> R): R -> R"
+        }
+      ]
+    },
+    {
+      "name": "StringUtils",
+      "url": "file:///Users/developer/my-dataweave-project/src/main/dw/utils/StringUtils.dwl",
+      "functions": [
+        {
+          "name": "capitalize",
+          "signature": "capitalize(String): String"
+        }
+      ]
+    }
+  ],
+  "supportedFormats": [
+    "json",
+    "xml", 
+    "csv",
+    "yaml",
+    "java",
+    "multipart"
+  ],
+  "variables": [
+    {
+      "name": "PROJECT_VERSION",
+      "type": "String",
+      "value": "1.0.0"
+    }
+  ],
+  "types": [
+    {
+      "name": "Customer",
+      "definition": "{customerId: String, name: String, email: String}"
+    }
+  ]
+}
+----
 
 [[dataweave-open-project]]
 == dataweave_open_project
@@ -991,15 +2394,38 @@ Opens a project from a given URL, either in the current window or in a new windo
 |===
 |Parameter |Description |Required?
 
-|url
+|`url`
 |The URL of the project to open, in the format `\file://<path>`.
 |Yes
 
-|newWindow
+|`newWindow`
 |Whether to open the file in a new window (`true`) or not (`false`). The tool always prompts the user.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_open_project",
+  "arguments": {
+    "url": "file:///Users/developer/my-dataweave-project",
+    "newWindow": false
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectUrl": "file:///Users/developer/my-dataweave-project",
+  "openedInNewWindow": false,
+  "message": "DataWeave project opened successfully in current window"
+}
+----
 
 [[dataweave-run-script-tool]]
 == dataweave_run_script_tool
@@ -1010,15 +2436,40 @@ Runs a DataWeave transformation using the sample data as input context and displ
 |===
 |Parameter |Description |Required?
 
-|url
+|`url`
 |The URL of the file to run the preview. The file must be in the format of `file:://path`. For example, `\file:///home/mdeachaval/test.dwl`. By default, uses the currently open file.
 |Yes
 
-|content
+|`content`
 |The content of the script to execute.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "dataweave_run_script_tool",
+  "arguments": {
+    "url": "file:///Users/developer/my-dataweave-project/src/main/dw/customer-transform.dwl",
+    "content": "%dw 2.0\noutput application/json\n---\n{\n  fullName: payload.firstName ++ \" \" ++ payload.lastName,\n  contact: {\n    email: payload.email,\n    phone: payload.phoneNumber\n  },\n  customerType: if (payload.orders sizeOf > 5) \"premium\" else \"standard\"\n}"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "scriptUrl": "file:///Users/developer/my-dataweave-project/src/main/dw/customer-transform.dwl",
+  "output": "{\n  \"fullName\": \"John Doe\",\n  \"contact\": {\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+1-555-123-4567\"\n  },\n  \"customerType\": \"standard\"\n}",
+  "executionTime": 45,
+  "outputMimeType": "application/json",
+  "message": "DataWeave script executed successfully"
+}
+----
 
 [[deploy-agent-network]]
 == deploy_agent_network
@@ -1037,23 +2488,23 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path to the agent network project to deploy.
 |No
 
-|environmentName
+|`environmentName`
 |Target environment name (prompts for selection if not provided).
 |No
 
-|privateSpaceName
+|`privateSpaceName`
 |Private space name (prompts for selection if not provided).
 |No
 
-|ingressGatewayName
+|`ingressGatewayName`
 |Ingress gateway name (prompts for selection if not provided).
 |No
 
-|egressGatewayName
+|`egressGatewayName`
 |Egress gateway name (prompts for selection if not provided).
 |No
 
@@ -1094,59 +2545,120 @@ Deploy your application to CloudHub 2.0 or Runtime Fabric and run it. You can de
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path to Maven project root directory.
 |No
 
-|appName
+|`appName`
 |The name of the application to deploy.
 |No
 
-|environmentName
+|`environmentName`
 |Name of the environment to deploy the app to.
 |No
 
-|deploymentTargetName
+|`deploymentTargetName`
 |Name of the deployment target.
 |No
 
-|runtimeVersion
+|`runtimeVersion`
 |Runtime version to use.
 |No
 
-|groupId
+|`groupId`
 |Group ID of the asset in Anypoint Exchange.
 |No
 
-|artifactId
+|`artifactId`
 |Artifact ID of the asset in Anypoint Exchange.
 |No
 
-|version
+|`version`
 |Version of the asset or application.
 |No
 
-|secure
+|`secure`
 |Whether to enable enhanced security features. The default is `false`.
 |No
 
-|highAvailability
+|`highAvailability`
 |Whether to enable high availability features. The default is `false`.
 |No
 
-|performanceOptimization
+|`performanceOptimization`
 |Whether to enable performance optimization features. The default is `false`.
 |No
 
-|minimumReplicas
+|`minimumReplicas`
 |Minimum number of replicas if high availability or performance optimization is enabled. Minimum is 1.
 |No
 
-|organizationId
+|`organizationId`
 |The ID of the organization to deploy the application to.
 |No
 
 |===
+
+.Example request (local project deployment)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "deploy_mule_application",
+  "arguments": {
+    "projectPath": "/Users/developer/customer-integration-app",
+    "appName": "customer-integration-prod",
+    "environmentName": "Production",
+    "deploymentTargetName": "CloudHub 2.0",
+    "runtimeVersion": "4.9.4:2e-java17",
+    "highAvailability": true,
+    "performanceOptimization": true,
+    "minimumReplicas": 2,
+    "secure": true
+  }
+}
+----
+
+.Example request (Exchange asset deployment)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "deploy_mule_application",
+  "arguments": {
+    "groupId": "com.mycompany.apps",
+    "artifactId": "customer-integration-app",
+    "version": "1.0.0",
+    "appName": "customer-integration-staging",
+    "environmentName": "Staging",
+    "deploymentTargetName": "CloudHub 2.0",
+    "runtimeVersion": "4.9.4:2e-java17"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "deploymentId": "d7f4c8b2-9e1a-4f5b-8c3d-2a6b9e4f7c1a",
+  "appName": "customer-integration-prod",
+  "environmentName": "Production",
+  "deploymentTargetName": "CloudHub 2.0",
+  "runtimeVersion": "4.9.4:2e-java17",
+  "status": "deploying",
+  "applicationUrl": "https://customer-integration-prod.us-e2.cloudhub.io",
+  "replicas": 2,
+  "features": {
+    "highAvailability": true,
+    "performanceOptimization": true,
+    "secure": true
+  },
+  "estimatedDeploymentTime": "5-8 minutes",
+  "message": "Application deployment initiated successfully"
+}
+----
 
 [[generate-api-spec]]
 == generate_api_spec
@@ -1165,7 +2677,7 @@ See xref:access-management::enabling-agentforce.adoc[].
 |===
 |Parameter |Description |Required?
 
-|language
+|`language`
 |Language of the API specification to generate. Valid values are:
 
 * `oas` for OpenAPI specifications
@@ -1173,25 +2685,25 @@ See xref:access-management::enabling-agentforce.adoc[].
 
 |Yes
 
-|languageVersion
+|`languageVersion`
 |
 
 * If `language=oas`, valid value is `3.0`.
 * If `language=raml`, valid value is `1.0`.
 |Yes
 
-|specSyntax
+|`specSyntax`
 |Syntax of the generated API spec.
 
 * If `language=oas` or `oas-components`, valid values are `json` and `yaml`.
 * If `language=raml` or `raml-fragments`, valid value is `raml`.
 |Yes
 
-|projectType
+|`projectType`
 |Valid value is `API_SPEC`.
 |Yes
 
-|naturalLanguagePrompt
+|`naturalLanguagePrompt`
 |Input to the Large Language Model (LLM).
 |Yes
 
@@ -1246,19 +2758,64 @@ Generate, modify, or enhance Mule flows. Use this tool for any request involving
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path to the existing Mule project directory.
 |Yes
 
-|projectXmlPath
+|`projectXmlPath`
 |Path to the existing Mule project XML file.
 |Yes
 
-|originalUserPrompt
+|`originalUserPrompt`
 |The original user query without any modifications. Use for requests such as updating flows, adding Java methods, logging, Salesforce operations, connectors, or any flow changes.
 |Yes
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "generate_mule_flow",
+  "arguments": {
+    "projectPath": "/Users/developer/customer-integration-app",
+    "projectXmlPath": "/Users/developer/customer-integration-app/src/main/mule/app.xml",
+    "originalUserPrompt": "Add a flow that receives customer data via HTTP POST, validates the email format, transforms the data to match our internal schema, and saves it to Salesforce. Include error handling for validation failures."
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/customer-integration-app",
+  "flowsGenerated": [
+    {
+      "name": "customer-data-processing-flow",
+      "description": "Processes incoming customer data with validation and Salesforce integration",
+      "components": [
+        "HTTP Listener",
+        "Email Validator",
+        "Transform Message",
+        "Salesforce Create",
+        "Error Handler"
+      ]
+    }
+  ],
+  "connectorsAdded": [
+    "Salesforce Connector"
+  ],
+  "configurationsCreated": [
+    "HTTP Listener Config",
+    "Salesforce Config"
+  ],
+  "xmlUpdated": "/Users/developer/customer-integration-app/src/main/mule/app.xml",
+  "message": "Mule flow generated successfully with customer data processing capabilities"
+}
+----
 
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
@@ -1269,7 +2826,7 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 |===
 |Parameter |Description |Required?
 
-|feature
+|`feature`
 |The type of policy feature to generate an example for. Valid values are:
 
 * `authentication` to propagate authentication information to other policies.
@@ -1295,6 +2852,77 @@ Get a Flex Gateway policy example to help you configure your Rust source code. U
 
 |===
 
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "get_flex_gateway_policy_example",
+  "arguments": {
+    "feature": "header_manipulation"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "feature": "header_manipulation",
+  "exampleCode": [
+  "use pdk::api::*;",
+  "use pdk::logger::info;",
+  "",
+  "#[entrypoint]",
+  "async fn configure(launcher: Launcher) -> Result<(), LaunchError> {",
+  "    let filter = on_request(|request| {",
+  "        // Add custom header to request",
+  "        request.headers_mut().insert(",
+  "            \"X-Custom-Header\",",
+  "            \"custom-value\".parse().unwrap()",
+  "        );",
+  "        ",
+  "        // Log the operation",
+  "        info!(\"Added custom header to request\");",
+  "        ",
+  "        Ok(request)",
+  "    });",
+  "    ",
+  "    launcher.launch(filter).await",
+  "}",
+  "",
+  "#[cfg(test)]",
+  "mod tests {",
+  "    use super::*;",
+  "    use pdk::test::*;",
+  "    ",
+  "    #[tokio::test]",
+  "    async fn test_header_manipulation() {",
+  "        let request = TestRequestBuilder::new()",
+  "            .method(\"GET\")",
+  "            .uri(\"/api/test\")",
+  "            .build();",
+  "            ",
+  "        let response = execute_policy(request).await.unwrap();",
+  "        ",
+  "        assert!(response.headers().contains_key(\"X-Custom-Header\"));",
+  "        assert_eq!(",
+  "            response.headers()[\"X-Custom-Header\"],",
+  "            \"custom-value\"",
+  "        );",
+  "    }",
+  "}"
+],
+  "description": "Example Rust policy for manipulating request headers using the Flex Gateway Policy Development Kit (PDK)",
+  "dependencies": [
+    "pdk = { version = \"0.1.0\" }",
+    "tokio = { version = \"1.0\", features = [\"full\"] }"
+  ],
+  "explanation": "This example demonstrates how to add custom headers to incoming requests using the PDK API. The policy uses the on_request filter to intercept requests and modify headers before they reach the backend service."
+}
+----
+
 [[get-platform-insights]]
 == get_platform_insights
 
@@ -1308,39 +2936,39 @@ See how your organization leverages Anypoint Platform through usage and operatio
 |===
 |Parameter |Description |Required?
 
-|entityName
+|`entityName`
 |Name of the application or API.
 |No
 
-|entityType
+|`entityType`
 |Type of entity to get insights for. Use `application` for Mule applications or `api` for APIs.
 |No
 
-|includeFlows
+|`includeFlows`
 |Whether to include app usage trends for flows. The default value is `false`.
 |No
 
-|includeMessages
+|`includeMessages`
 |Whether to include app usage trends for messages. The default value is `false`.
 |No
 
-|includeDataThroughput
+|`includeDataThroughput`
 |Whether to include app usage trends for data throughput. The default value is `false`.
 |No
 
-|includeErrorCount
+|`includeErrorCount`
 |Whether to include error counts from apps and APIs. The default value is `false`.
 |No
 
-|includeCallVolume
+|`includeCallVolume`
 |Whether to include call volume from apps and APIs. The default value is `false`.
 |No
 
-|includeLatency
+|`includeLatency`
 |Whether to include P99 latency in the response time. The default value is `false`.
 |No
 
-|latencyPercentile
+|`latencyPercentile`
 |If `includeLatency=true`, this parameter specifies which percentile to use for latency measurements. Valid values are:
 
 * `P99` for 99th percentile
@@ -1353,6 +2981,135 @@ The default value is `P99`.
 
 |===
 
+.Example request (organization overview)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "get_platform_insights",
+  "arguments": {
+    "includeFlows": true,
+    "includeMessages": true,
+    "includeDataThroughput": true,
+    "includeCallVolume": true,
+    "includeLatency": true,
+    "latencyPercentile": "P95"
+  }
+}
+----
+
+.Example request (specific application)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "get_platform_insights",
+  "arguments": {
+    "entityName": "customer-integration-app",
+    "entityType": "application",
+    "includeErrorCount": true,
+    "includeCallVolume": true,
+    "includeLatency": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "timeRange": {
+    "usageTrends": "2024-01-01 to 2024-01-31",
+    "performanceMetrics": "2024-01-24 to 2024-01-31"
+  },
+  "usageTrends": {
+    "flows": {
+      "totalFlows": 245,
+      "activeFlows": 198,
+      "flowsById": [
+        {
+          "businessGroup": "Sales",
+          "environment": "Production",
+          "flowCount": 45
+        },
+        {
+          "businessGroup": "Marketing",
+          "environment": "Production", 
+          "flowCount": 32
+        }
+      ]
+    },
+    "messages": {
+      "totalMessages": 1250000,
+      "messagesByBusinessGroup": [
+        {
+          "businessGroup": "Sales",
+          "messageCount": 650000
+        },
+        {
+          "businessGroup": "Marketing",
+          "messageCount": 400000
+        }
+      ]
+    },
+    "dataThroughput": {
+      "totalGB": 125.5,
+      "throughputByEnvironment": [
+        {
+          "environment": "Production",
+          "throughputGB": 98.2
+        },
+        {
+          "environment": "Staging",
+          "throughputGB": 27.3
+        }
+      ]
+    }
+  },
+  "performanceMetrics": {
+    "callVolume": {
+      "totalCalls": 875000,
+      "dailyAverage": 125000,
+      "topConsumers": [
+        {
+          "consumerName": "Mobile App",
+          "calls": 325000
+        },
+        {
+          "consumerName": "Web Portal",
+          "calls": 250000
+        }
+      ]
+    },
+    "latency": {
+      "percentile": "P95",
+      "averageLatencyMs": 145,
+      "latencyByApp": [
+        {
+          "appName": "customer-integration-app",
+          "p95LatencyMs": 89
+        }
+      ]
+    },
+    "errors": {
+      "totalErrors": 1250,
+      "errorRate": 0.14,
+      "errorsByType": [
+        {
+          "errorType": "Timeout",
+          "count": 450
+        },
+        {
+          "errorType": "Connection",
+          "count": 320
+        }
+      ]
+    }
+  }
+}
+----
+
 [[get-reuse-metrics]]
 == get_reuse_metrics
 
@@ -1362,11 +3119,97 @@ Get visibility into assets reuse across your organization. Drive efficiency, con
 |===
 |Parameter |Description |Required?
 
-|includeReuseMetrics
+|`includeReuseMetrics`
 |Whether the output includes reuse metrics for applications. Default is false.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "get_reuse_metrics",
+  "arguments": {
+    "includeReuseMetrics": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "reportingPeriod": "2024 Year-to-Date",
+  "summary": {
+    "totalAssets": 156,
+    "reusedAssets": 89,
+    "reuseRate": "57%",
+    "costSavingsEstimate": "$45,000"
+  },
+  "reuseMetrics": {
+    "byAssetType": [
+      {
+        "assetType": "mule-application",
+        "totalAssets": 45,
+        "reusedAssets": 28,
+        "reuseRate": "62%",
+        "avgReusesPerAsset": 3.2
+      },
+      {
+        "assetType": "raml",
+        "totalAssets": 32,
+        "reusedAssets": 25,
+        "reuseRate": "78%",
+        "avgReusesPerAsset": 4.1
+      },
+      {
+        "assetType": "connector",
+        "totalAssets": 18,
+        "reusedAssets": 15,
+        "reuseRate": "83%",
+        "avgReusesPerAsset": 5.7
+      }
+    ],
+    "byBusinessGroup": [
+      {
+        "businessGroup": "Sales",
+        "assetsCreated": 34,
+        "assetsReused": 67,
+        "reuseRatio": 1.97
+      },
+      {
+        "businessGroup": "Marketing",
+        "assetsCreated": 28,
+        "assetsReused": 45,
+        "reuseRatio": 1.61
+      }
+    ],
+    "topReusedAssets": [
+      {
+        "assetName": "Customer API",
+        "assetType": "raml",
+        "reuseCount": 12,
+        "lastReused": "2024-01-28"
+      },
+      {
+        "assetName": "HTTP Basic Auth Policy",
+        "assetType": "policy",
+        "reuseCount": 8,
+        "lastReused": "2024-01-30"
+      }
+    ]
+  },
+  "environments": ["Production", "Staging", "Development"],
+  "recommendations": [
+    "Consider promoting 'Payment Processing Flow' template to Exchange for wider reuse",
+    "Customer API shows high reuse - consider creating additional variants",
+    "15 assets have not been reused - review for consolidation opportunities"
+  ]
+}
+----
 
 [[get-topics-agent-actions-metadata-instructions]]
 == get_topics_agent_actions_metadata_instructions
@@ -1425,117 +3268,64 @@ Prompt tip: To get information for all instances, revise results using the `page
 |===
 |Parameter |Description |Required?
 
-|organizationId
+|`organizationId`
 |ID of the organization where instances reside. Default is the ID of the default organization.
 |No
 
-|environmentName
+|`environmentName`
 |Name of the environment where instances reside. Default is the name of the default environment for the organization specified in `organizationId`.
 |No
 
-|apiInstanceId
+|`apiInstanceId`
 |Instance ID of the API.
 |No
 
 Required if `includeAvailablePolicies=true`.
 
-|apiInstanceLabel
+|`apiInstanceLabel`
 |Label or name of the API instance.
 |No
 
-|page
+|`page`
 |Page number of the results. Each page contains information for up to 10 instances.
 |Yes
 
-|includeAppliedPolicies
+|`includeAppliedPolicies`
 |Whether to include applied policies in results.
 |No
 
-|includeAvailablePolicies
+|`includeAvailablePolicies`
 |Whether to include available policies in results. Requires `apiInstanceId`.
 |No
 
 |===
 
-[[list-applications]]
-== list_applications
-
-Get information about all applications in the environment you specify, sorted by last update date and time, in descending order. You can also specify an optional deployment name.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|environmentName
-|Name of the environment to list applications from.
-|Yes
-
-|appName
-|An application to search for.
-|No
-
-|organizationId
-|ID of the organization to list applications from.
-|No
-
-|page
-|The page number of the result.
-|No
-
-|includeCpuMetrics
-|Set value to `true` to include CPU metrics when searching for an application.
-|No
-
-|includeHeapMetrics
-|Set value to `true` to include used and total heap metrics when searching for an application.
-|No
-
-|includeLogs
-|Set value to `true` to include logs from searching for an application. Maximum 500 entries.
-|No
-
-|timeFrame
-|If `includeCpuMetrics`, `includeHeapMetrics`, or `includeLogs` is true, this parameter contains the time frame for metrics. 
-
-Valid values are `5m`, `15m`, `30m`, `1h`, `3h`, `6h`, `12h`, `24h`, `3d`, `5d`, `7d`, `15d`, and `30d`.
-
-The default value is `30m`.
-|No
-
-|logLevel
-|If `includeLogs` is `true`, this parameter contains the level of log detail. Valid values are `INFO`, `DEBUG`, `WARN`, and `ERROR`. The default value is `ERROR`.
-|No
-
-|logsPage
-|Page number of log. Maximum is 20. Default is 1.
-|No
-
-|===
-
-[[list-governance-rulesets]]
-== list_governance_rulesets
-
-List governance rulesets that apply to a project along with the rules that form each ruleset. Includes rulesets added as project dependencies and centralized governance rulesets.
-
-Available only in Anypoint Code Builder.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|projectPath
-|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
-|No
-
-|===
-
-.Example request
+.Example request (list all instances)
 [source,json]
 ----
 {
-  "name": "list_governance_rulesets",
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "list_api_instances",
   "arguments": {
-    "projectPath": "/Users/developer/projects/pet-store-api"
+    "environmentName": "Production",
+    "page": 1,
+    "includeAppliedPolicies": true
+  }
+}
+----
+
+.Example request (specific instance with available policies)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "list_api_instances",
+  "arguments": {
+    "environmentName": "Production",
+    "apiInstanceId": "12345",
+    "page": 1,
+    "includeAppliedPolicies": true,
+    "includeAvailablePolicies": true
   }
 }
 ----
@@ -1544,399 +3334,61 @@ Available only in Anypoint Code Builder.
 [source,json]
 ----
 {
-  "rulesets": [
+  "success": true,
+  "environmentName": "Production",
+  "page": 1,
+  "totalPages": 3,
+  "totalInstances": 25,
+  "instances": [
     {
-      "name": "API Governance Ruleset",
-      "assetId": "api-governance-ruleset",
-      "groupId": "com.mulesoft.governance",
-      "version": "1.4.0",
-      "type": "dependency",
-      "rules": [
+      "apiInstanceId": "12345",
+      "apiInstanceLabel": "Customer Management API",
+      "assetId": "customer-api",
+      "assetVersion": "1.0.0",
+      "groupId": "com.mycompany.apis",
+      "runtimeEngine": "mule4",
+      "endpointUri": "https://backend.example.com/api/customers",
+      "consumerEndpoint": "https://api.example.com/customers",
+      "status": "active",
+      "appliedPolicies": [
         {
-          "name": "api-title-required",
-          "description": "API title is required",
-          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-title-required.js",
-          "severity": "error"
+          "policyId": "rate-limiting-001",
+          "policyName": "Rate Limiting",
+          "version": "1.2.0",
+          "status": "applied"
         },
         {
-          "name": "api-version-required",
-          "description": "API version is required",
-          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-version-required.js",
-          "severity": "error"
+          "policyId": "basic-auth-002",
+          "policyName": "HTTP Basic Authentication",
+          "version": "1.0.0",
+          "status": "applied"
+        }
+      ],
+      "availablePolicies": [
+        {
+          "policyName": "OAuth 2.0 Access Token Enforcement",
+          "assetId": "oauth-2-access-token-enforcement",
+          "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+          "version": "3.2.2",
+          "description": "Validates OAuth 2.0 access tokens"
         }
       ]
     },
     {
-      "name": "Centralized Security Ruleset",
-      "type": "centralized",
-      "rules": [
-        {
-          "name": "https-required",
-          "description": "HTTPS is required for all endpoints",
-          "absolutePath": "/Users/developer/.mule/rulesets/centralized/security/https-required.js",
-          "severity": "warning"
-        }
-      ]
+      "apiInstanceId": "67890", 
+      "apiInstanceLabel": "Product Catalog API",
+      "assetId": "product-api",
+      "assetVersion": "2.1.0",
+      "groupId": "com.mycompany.apis",
+      "runtimeEngine": "mule4",
+      "endpointUri": "https://backend.example.com/api/products",
+      "consumerEndpoint": "https://api.example.com/products",
+      "status": "active",
+      "appliedPolicies": []
     }
   ]
 }
 ----
-
-[[manage-api-instance-policy]]
-== manage_api_instance_policy
-
-Apply a new policy to an API instance and update an existing policy configuration.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|organizationId
-|The ID of the organization where instances reside. Default is the ID of the user's organization from the current session.
-|No
-
-|environmentName
-|The name of the environment where instances reside. Default is the environment for the organization specified in `organizationId`.
-|No
-
-|apiInstanceId
-|ID of the API instance.
-|Yes
-
-|operation
-|Operation to perform on the API instance policy. Use `apply` to apply a new policy or `update` to update an existing policy configuration.
-|Yes
-
-|policyId
-|ID of the policy to configure. 
-|No
-
-Required to update an existing policy configuration.
-
-|policyConfiguration
-|Configuration object for the policy. 
-|No
-
-Required to apply a new policy.
-
-|groupId
-|Group ID of the policy asset in Anypoint Exchange. 
-|No
-
-Required to apply a new policy.
-
-|assetId
-|Asset ID of the policy asset in Anypoint Exchange. 
-|No
-
-Required to apply a new policy.
-
-|assetVersion
-|Version of the policy asset in Anypoint Exchange.
-|No
-
-Required to apply a new policy.
-
-|===
-
-[[manage-flex-gateway-policy-project]]
-== manage_flex_gateway_policy_project
-
-Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. 
-
-Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|operation
-|Operation to perform on the Flex Gateway policy project. Use `create` to create a project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
-|Yes
-
-|projectPath
-|Path to the Flex Gateway policy project directory.
-|No
-
-|policyName
-|Name of the policy project.
-|No
-
-|===
-
-[[mock-api-spec]]
-== mock_api_spec
-
-Test an endpoint's functionality by making a request through a mocking service. Specify the endpoint, method, and payload sent to the endpoint as body content. If you don't specify body content, then the tool looks for examples in the endpoint information in the API spec.
-
-Available only in Anypoint Code Builder.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|endpointUrl
-|URL of the endpoint.
-|Yes
-
-|method
-|HTTP method to create the request to the mocking service.
-|Yes
-
-|id
-|Random, agent-generated UUID number that identifies the request to the mocking service.
-|Yes
-
-|headers
-|Delimited string of headers sent to the endpoint. The delimiter character is \n. For example, `Authorization: token\nOrigin: localhost`.
-|No
-
-|payload
-|Body content sent to the endpoint as a string. Make sure to consider the endpoint's expected media type.
-|No
-
-|projectPath
-|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
-|No
-
-|===
-
-.Example request (GET)
-[source,json]
-----
-{
-  "name": "mock_api_spec",
-  "arguments": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "method": "GET",
-    "endpointUrl": "https://api.example.com/pets",
-    "projectPath": "/Users/developer/projects/pet-store-api",
-    "headers": "Authorization: Bearer token123\nAccept: application/json"
-  }
-}
-----
-
-.Example request (POST)
-[source,json]
-----
-{
-  "name": "mock_api_spec",
-  "arguments": {
-    "id": "550e8400-e29b-41d4-a716-446655440001",
-    "method": "POST",
-    "endpointUrl": "https://api.example.com/pets",
-    "projectPath": "/Users/developer/projects/pet-store-api",
-    "headers": "Authorization: Bearer token123\nContent-Type: application/json",
-    "payload": "{\"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}"
-  }
-}
-----
-
-.Example response
-[source,json]
-----
-{
-  "success": true,
-  "requestId": "550e8400-e29b-41d4-a716-446655440000",
-  "statusCode": 200,
-  "responseHeaders": {
-    "Content-Type": "application/json",
-    "X-Request-ID": "550e8400-e29b-41d4-a716-446655440000"
-  },
-  "responseBody": "{\"pets\": [{\"id\": \"1\", \"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}, {\"id\": \"2\", \"name\": \"Buddy\", \"category\": \"dog\", \"status\": \"available\"}]}",
-  "responseTime": 45,
-  "message": "Mock request completed successfully"
-}
-----
-
-[[open-project]]
-== open_project
-
-Open a project. For example, an API spec or an agent network project.
-
-Available only in Anypoint Code Builder.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|projectPath
-|Path to the project folder. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters. For example, `\file:///Users/myUser/workspace/`.
-|No
-
-|newWindow
-|Whether the project opens in a new VS Code window (true) or not (false). The default is false.
-|No
-
-|addToWorkspace
-|Whether the project opens in a new folder in the workspace (true) or not (false). If true, then `newWindow=false`.
-|No
-
-|===
-
-[[publish-agent-network-assets]]
-== publish_agent_network_assets
-
-Publish agent network assets to Anypoint Exchange for reuse. Specify the location, asset version, and optional organization or business group.
-
-Prerequisite: The agent network project must contain a valid `exchange.json` file.
-
-Available only in Anypoint Code Builder.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|projectPath
-|Path to the agent network project to publish.
-|No
-
-|assetVersion
-|Semantic version for the asset (such as `1.0.0`).
-|Yes
-
-|groupId
-|Organization/business group ID (falls back to project configuration).
-|No
-
-|===
-
-.Example request
-[source,json]
-----
-{
-  "name": "publish_agent_network_assets",
-  "arguments": {
-    "projectPath": "/Users/developer/projects/my-agent-network",
-    "assetVersion": "1.0.0",
-    "groupId": "com.example.organization"
-  }
-}
-----
-
-.Example response
-[source,json]
-----
-{
-  "success": true,
-  "assetId": "my-agent-network",
-  "groupId": "com.example.organization",
-  "version": "1.0.0",
-  "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.example.organization/my-agent-network/1.0.0/",
-  "message": "Agent network assets published successfully to Exchange"
-}
-----
-
-[[run-local-mule-application]]
-== run_local_mule_application
-
-Run application locally in Mule runtime. This tool handles the full local deployment workflow: builds the project if needed, downloads runtime if needed, and starts the application locally.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|projectPath
-|Path to the Mule project directory to run locally.
-|Yes
-
-|===
-
-[[search-asset]]
-== search_asset
-
-Search for an asset in Anypoint Exchange by name or other specified parameters. Returns the first asset that matches the input criteria.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|searchQuery
-|The query with criteria for the search. To specify multiple values, use comma-separated values as a single string. Parameter must include at least one value.
-|No
-
-|assetFilters
-|Show results that match the asset type filters.
-|No
-
-|statuses
-|Show results that match the status. Valid values are `deprecated`, `development`, and `published`.
-|No
-
-|organizationId
-|The ID of the organization you want to search. The default value is the ID of the user's organization from the current session.
-|No
-
-|sharedWithMe
-|Include shared assets in the results.
-|No
-
-|sortCriteria
-|Sort search results.
-
-Valid values are `name` or `last_modified_date`. Defaults to `last_modified_date`.
-|No
-
-|ascending
-|Sort results in ascending order.
-|No
-
-|maxResults
-|The maximum number of assets to return in the result set. Range is between 1-10. Parameter must include at least one value.
-|No
-
-|===
-
-[[test-connection]]
-== test_connection
-
-Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection.
-
-Available only in Anypoint Code Builder.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|configurationUri
-|Fully qualified URI of the Mule configuration XML file that contains the connector configuration. A valid value starts with `\file:///` followed by the absolute path.
-|Yes
-
-|configurationName
-|Value of the name attribute of the connection configuration component in the Mule configuration XML. XPath expressions aren't supported.
-|Yes
-
-|===
-
-[[uc-create-connector-workflow]]
-== uc_create_connector_workflow
-
-Create a complete LinkWeave connector end-to-end with guided workflow planning. Supports two flows: generating an API spec from documentation, or using an existing API spec file. Returns a detailed workflow plan with numbered steps to execute sequentially.
-
-Available only in Connector Builder.
-
-[%header,cols="1,3a,1"]
-|===
-|Parameter |Description |Required?
-
-|workflowCustomization
-|Any specific workflow customizations, preferences, or requirements for the connector-creation process.
-|No
-
-|flow
-|Flow selection. Valid values are:
-
-* `generate-spec` to generate API spec from documentation
-* `existing-spec` if user has an existing API spec file
-* `auto-detect` to determine automatically
-
-|No
-
-|existingApiSpec
-|Absolute path to existing API spec file (OpenAPI/Swagger YAML or JSON) if using `existing-spec` flow.
-|No
-
-|===
 
 [[uc-generate-api-spec]]
 == uc_generate_api_spec
@@ -1945,28 +3397,27 @@ Generate an OpenAPI 3.0 spec from use cases and API documentation. Analyzes docu
 
 Available only in Connector Builder.
 
-
 [%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
-|platform
+|`platform`
 |Name of the SaaS platform or service, for example, `Salesforce`, `ServiceNow`, `PayPal`, or `Stripe`.
 |No
 
-|useCases
+|`useCases`
 |List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. If specified, a minimum of one is required.
 |No
 
-|documentation
+|`documentation`
 |List of official API documentation URLs. Must be valid URLs starting with `http://` or `https://`, for example, `\https://developers.stripe.com/api`. If specified, a minimum of one is required.
 |No
 
-|additionalRequirements
+|`additionalRequirements`
 |Any additional requirements, constraints, or preferences for the API spec, for example, specific authentication methods, rate limiting considerations, and version preferences.
 |No
 
-|userConfirmed
+|`userConfirmed`
 |Confirmation that all provided information is correct and ready for processing.
 |No
 
@@ -2018,25 +3469,25 @@ Available only in Connector Builder.
 |===
 |Parameter |Description |Required?
 
-|apiSpec
+|`apiSpec`
 |Absolute path to the API spec file (OpenAPI/Swagger YAML or JSON).
 |No
 
 Required for `ccm` phase.
 
-|projectName
+|`projectName`
 |Name for the connector project.
 |No
 
 Required for `ccm` phase.
 
-|description
+|`description`
 |Description for the connector project.
 |No
 
 Required for `ccm` phase.
 
-|phases
+|`phases`
 |Array of phases to execute - any combination of `ccm` and `anypoint`. Phases execute in order. Valid values are:
 
 * `ccm` for Canonical Connectivity Model 
@@ -2050,15 +3501,12 @@ Required for `ccm` phase.
 [source,json]
 ----
 {
-  "name": "uc_generate_connector",
+  "tool_name": "uc_generate_connector",
   "arguments": {
-    "apiSpec": "/Users/you/workspace/stripe-spec/openapi.yaml",
-    "projectName": "Stripe Connector",
-    "description": "Connector for syncing customers and handling charges/refunds.",
-    "phases": [
-      "ccm",
-      "anypoint"
-    ]
+    "apiSpec": "/Users/developer/apis/salesforce-api.yaml",
+    "projectName": "Salesforce Integration Connector",
+    "description": "Custom connector for Salesforce CRM integration with enhanced features.",
+    "phases": ["ccm"]
   }
 }
 ----
@@ -2086,91 +3534,91 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |===
 |Parameter |Description |Required?
 
-|applicationId
+|`applicationId`
 |The ID of the application to update with the latest Mule runtime patch release.
 |Yes
 
-|environmentId
+|`environmentId`
 |The ID of the environment where the application is deployed.
 |Yes
 
-|organizationId
+|`organizationId`
 |The ID of the organization where the application is deployed.
 |No
 
-|runtimeVersion
+|`runtimeVersion`
 |Mule runtime version to use. For example, `4.9.4:2e-java17`.
 |No
 
-|hasPersistentObjectStore
+|`hasPersistentObjectStore`
 |Whether to enable persistent object store. The default is false.
 |No
 
-|replicaSize
+|`replicaSize`
 |Replica size for CloudHub 2.0 applications. Express size in vCores or instance type size.
 |No
 
-|cpuReserved
+|`cpuReserved`
 |Reserved vCPUs for the application. For example, 1.
 |No
 
-|cpuLimit
+|`cpuLimit`
 |Maximum vCPUs for the application. For example, 2.
 |No
 
-|memory
+|`memory`
 |Memory allocation for the allocation in GB. For example, 1.
 |No
 
-|replicas
+|`replicas`
 |Number of replicas.
 |No
 
-|minReplicas
+|`minReplicas`
 |If `hasHighAvailability=true` or `hasPerformanceOptimization=true`, this value is the minimum number of replicas.
 |No
 
-|maxReplicas
+|`maxReplicas`
 |If `hasHighAvailability=true` or `hasPerformanceOptimization=true`, this value is the maximum number of replicas.
 |No
 
-|hasAutoscaling
+|`hasAutoscaling`
 |Whether to enable autoscaling. The default is false.
 |No
 
-|hasTracing
+|`hasTracing`
 |Whether to enable application tracing. The default is false.
 |No
 
-|enforceDeployingReplicasAcrossNodes
+|`enforceDeployingReplicasAcrossNodes`
 |Whether to enforce deploying replicas across nodes (Runtime Fabric only). The default is false.
 |No
 
-|deploymentModel
+|`deploymentModel`
 |The deployment strategy for application updates. Use `rolling` for zero-downtime rolling updates or `recreate` to stop and restart all instances.
 |No
 
-|hasClustering
+|`hasClustering`
 |Whether to enable clustering for the application. The default is false.
 |No
 
-|stopApplication
+|`stopApplication`
 |Whether to stop the application. The default is false.
 |No
 
-|startApplication
+|`startApplication`
 |Whether to start the application. The default is false.
 |No
 
-|hasHighAvailability
+|`hasHighAvailability`
 |Whether to enable high availability for the application. The default is false.
 |No
 
-|hasPerformanceOptimization
+|`hasPerformanceOptimization`
 |Whether to enable performance optimization. The default is false.
 |No
 
-|isSecure
+|`isSecure`
 |Whether to enable advanced security features. The default is false.
 |No
 
@@ -2220,15 +3668,15 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters.
 |No
 
-|rules
+|`rules`
 |Array of API rules to validate. If empty, the tool validates all rulesets in `projectPath`.
 |No
 
-|syncCentralizedRulesets
+|`syncCentralizedRulesets`
 |Whether the tool syncs centralized rulesets before validating the API specification. The default value is true.
 |No
 
@@ -2312,7 +3760,7 @@ Available only in Anypoint Code Builder.
 |===
 |Parameter |Description |Required?
 
-|projectPath
+|`projectPath`
 |Path where the project folder is located. The default is the current workspace. For absolute paths, use `file:` followed by three slash characters, for example, `\file:///Users/myUser/workspace/`.
 |No
 
