@@ -279,6 +279,33 @@ Available only in Anypoint Code Builder.
 
 |===
 
+.Example request
+[source,json]
+----
+{
+  "name": "add_governance_ruleset",
+  "arguments": {
+    "assetId": "api-governance-ruleset",
+    "groupId": "com.mulesoft.governance",
+    "version": "1.4.0"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "assetId": "api-governance-ruleset",
+  "groupId": "com.mulesoft.governance",
+  "version": "1.4.0",
+  "dependencyAdded": true,
+  "projectPath": "/Users/developer/projects/pet-store-api",
+  "message": "Governance ruleset added successfully to project"
+}
+----
+
 [[configure-agent-network-yaml]]
 == configure_agent_network_yaml
 
@@ -301,6 +328,59 @@ For example, use `configure` to set up a custom agent network tailored to your e
 |Yes
 
 |===
+
+.Example request (configure mode)
+[source,json]
+----
+{
+  "name": "configure_agent_network_yaml",
+  "arguments": {
+    "prompt": "configure this agent network with a new agent called 'api-manager'",
+    "mode": "configure"
+  }
+}
+----
+
+.Example request (edit mode)
+[source,json]
+----
+{
+  "name": "configure_agent_network_yaml",
+  "arguments": {
+    "prompt": "remove the connection between agent1 and agent2",
+    "mode": "edit"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "instructions": [
+    "1. Open the agent-network.yaml file in your project",
+    "2. Locate the 'agents' section",
+    "3. Add the following agent configuration:",
+    "   - name: api-manager",
+    "     type: llm",
+    "     provider: openai",
+    "     model: gpt-4",
+    "4. Save the file",
+    "5. Validate the YAML syntax"
+  ],
+  "mode": "configure",
+  "yamlSnippet": {
+    "agents": [
+      {
+        "name": "api-manager",
+        "type": "llm",
+        "provider": "openai",
+        "model": "gpt-4"
+      }
+    ]
+  }
+}
+----
 
 [[create-agent-network-project]]
 == create_agent_network_project
@@ -330,6 +410,34 @@ Available only in Anypoint Code Builder.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_agent_network_project",
+  "arguments": {
+    "projectName": "my-agent-network",
+    "projectPath": "/Users/developer/projects",
+    "projectDescription": "A sample agent network for API management"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/projects/my-agent-network",
+  "filesCreated": [
+    "agent-network.yaml",
+    "exchange.json",
+    "README.md"
+  ],
+  "message": "Agent network project created successfully"
+}
+----
 
 [[create-and-manage-api-instances]]
 == create_and_manage_api_instances
@@ -680,6 +788,70 @@ Create and scaffold an API spec or fragment project. You can specify the project
 
 |===
 
+.Example request (OAS 3.0)
+[source,json]
+----
+{
+  "name": "create_api_spec_project",
+  "arguments": {
+    "projectName": "Pet Store API",
+    "projectPath": "/Users/developer/projects",
+    "language": "oas",
+    "languageVersion": "3.0",
+    "format": "yaml",
+    "isApiEnabledForTopicsAndActions": true
+  }
+}
+----
+
+.Example request (RAML 1.0)
+[source,json]
+----
+{
+  "name": "create_api_spec_project",
+  "arguments": {
+    "projectName": "User Management API",
+    "projectPath": "/Users/developer/projects",
+    "language": "raml",
+    "languageVersion": "1.0",
+    "format": "yaml"
+  }
+}
+----
+
+.Example request (RAML Fragment)
+[source,json]
+----
+{
+  "name": "create_api_spec_project",
+  "arguments": {
+    "projectName": "Common Traits",
+    "projectPath": "/Users/developer/projects",
+    "language": "raml-fragment",
+    "languageVersion": "1.0",
+    "fragmentType": "trait",
+    "format": "yaml"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/developer/projects/pet-store-api",
+  "filesCreated": [
+    "pet-store-api.yaml",
+    "exchange.json",
+    "README.md"
+  ],
+  "specType": "oas",
+  "specVersion": "3.0",
+  "message": "API spec project created successfully"
+}
+----
+
 [[create-mcp-server]]
 == create_MCP_server
 
@@ -887,6 +1059,32 @@ Available only in Anypoint Code Builder.
 
 |===
 
+.Example request
+[source,json]
+----
+{
+  "name": "deploy_agent_network",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/my-agent-network"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "deploymentId": "deployment-12345",
+  "projectPath": "/Users/developer/projects/my-agent-network",
+  "environment": "production",
+  "status": "deployed",
+  "deploymentUrl": "https://agent-network.example.com",
+  "deploymentTime": "2024-01-15T10:30:00Z",
+  "message": "Agent network deployed successfully"
+}
+----
+
 [[deploy-mule-application]]
 == deploy_mule_application
 
@@ -998,6 +1196,46 @@ See xref:access-management::enabling-agentforce.adoc[].
 |Yes
 
 |===
+
+.Example request (OAS)
+[source,json]
+----
+{
+  "name": "generate_api_spec",
+  "arguments": {
+    "naturalLanguagePrompt": "Create a REST API for a pet store with endpoints to list pets, get pet by ID, create a new pet, update a pet, and delete a pet. Include proper error responses.",
+    "language": "OAS",
+    "languageVersion": "3.0",
+    "projectType": "API_SPEC",
+    "specSyntax": "yaml"
+  }
+}
+----
+
+.Example request (RAML)
+[source,json]
+----
+{
+  "name": "generate_api_spec",
+  "arguments": {
+    "naturalLanguagePrompt": "Create a RAML 1.0 API for user management with authentication endpoints and user CRUD operations.",
+    "language": "RAML",
+    "languageVersion": "1.0",
+    "projectType": "API_SPEC",
+    "specSyntax": "RAML"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "specContent": "openapi: 3.0.0\ninfo:\n  title: Pet Store API\n  version: 1.0.0\npaths:\n  /pets:\n    get:\n      summary: List all pets\n      responses:\n        '200':\n          description: Successful response\n    post:\n      summary: Create a new pet\n      requestBody:\n        required: true\n        content:\n          application/json:\n            schema:\n              type: object\n              properties:\n                name:\n                  type: string\n                category:\n                  type: string\n  /pets/{id}:\n    get:\n      summary: Get pet by ID\n      parameters:\n        - name: id\n          in: path\n          required: true\n          schema:\n            type: string\n      responses:\n        '200':\n          description: Successful response\n        '404':\n          description: Pet not found",
+  "message": "API spec generated successfully"
+}
+----
 
 [[generate-mule-flow]]
 == generate_mule_flow
@@ -1140,6 +1378,42 @@ Available only in Anypoint Code Builder.
 // W-19663447
 This tool has no parameters.
 
+.Example request
+[source,json]
+----
+{
+  "name": "get_topics_agent_actions_metadata_instructions",
+  "arguments": {}
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "topics": [
+    {
+      "id": "api-management",
+      "name": "API Management",
+      "description": "Topics related to API management operations",
+      "actions": [
+        {
+          "id": "create-api",
+          "name": "Create API",
+          "description": "Create a new API specification",
+          "instructions": "Use this action to create a new API specification. Provide the API name, version, and specification format."
+        }
+      ],
+      "instructions": "Use these actions to manage APIs in your organization."
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2024-01-15T10:30:00Z"
+  }
+}
+----
+
 [[list-api-instances]]
 == list_api_instances
 
@@ -1254,6 +1528,59 @@ Available only in Anypoint Code Builder.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_governance_rulesets",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/pet-store-api"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "rulesets": [
+    {
+      "name": "API Governance Ruleset",
+      "assetId": "api-governance-ruleset",
+      "groupId": "com.mulesoft.governance",
+      "version": "1.4.0",
+      "type": "dependency",
+      "rules": [
+        {
+          "name": "api-title-required",
+          "description": "API title is required",
+          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-title-required.js",
+          "severity": "error"
+        },
+        {
+          "name": "api-version-required",
+          "description": "API version is required",
+          "absolutePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-version-required.js",
+          "severity": "error"
+        }
+      ]
+    },
+    {
+      "name": "Centralized Security Ruleset",
+      "type": "centralized",
+      "rules": [
+        {
+          "name": "https-required",
+          "description": "HTTPS is required for all endpoints",
+          "absolutePath": "/Users/developer/.mule/rulesets/centralized/security/https-required.js",
+          "severity": "warning"
+        }
+      ]
+    }
+  ]
+}
+----
 
 [[manage-api-instance-policy]]
 == manage_api_instance_policy
@@ -1374,6 +1701,54 @@ Available only in Anypoint Code Builder.
 
 |===
 
+.Example request (GET)
+[source,json]
+----
+{
+  "name": "mock_api_spec",
+  "arguments": {
+    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "method": "GET",
+    "endpointUrl": "https://api.example.com/pets",
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "headers": "Authorization: Bearer token123\nAccept: application/json"
+  }
+}
+----
+
+.Example request (POST)
+[source,json]
+----
+{
+  "name": "mock_api_spec",
+  "arguments": {
+    "id": "550e8400-e29b-41d4-a716-446655440001",
+    "method": "POST",
+    "endpointUrl": "https://api.example.com/pets",
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "headers": "Authorization: Bearer token123\nContent-Type: application/json",
+    "payload": "{\"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "requestId": "550e8400-e29b-41d4-a716-446655440000",
+  "statusCode": 200,
+  "responseHeaders": {
+    "Content-Type": "application/json",
+    "X-Request-ID": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "responseBody": "{\"pets\": [{\"id\": \"1\", \"name\": \"Fluffy\", \"category\": \"cat\", \"status\": \"available\"}, {\"id\": \"2\", \"name\": \"Buddy\", \"category\": \"dog\", \"status\": \"available\"}]}",
+  "responseTime": 45,
+  "message": "Mock request completed successfully"
+}
+----
+
 [[open-project]]
 == open_project
 
@@ -1425,6 +1800,32 @@ Available only in Anypoint Code Builder.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "publish_agent_network_assets",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/my-agent-network",
+    "assetVersion": "1.0.0",
+    "groupId": "com.example.organization"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "assetId": "my-agent-network",
+  "groupId": "com.example.organization",
+  "version": "1.0.0",
+  "exchangeUrl": "https://anypoint.mulesoft.com/exchange/com.example.organization/my-agent-network/1.0.0/",
+  "message": "Agent network assets published successfully to Exchange"
+}
+----
 
 [[run-local-mule-application]]
 == run_local_mule_application
@@ -1733,6 +2134,73 @@ Available only in Anypoint Code Builder.
 
 |===
 
+.Example request (validate all rulesets)
+[source,json]
+----
+{
+  "name": "validate_api_against_ruleset",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "rules": [],
+    "syncCentralizedRulesets": true
+  }
+}
+----
+
+.Example request (validate specific rules)
+[source,json]
+----
+{
+  "name": "validate_api_against_ruleset",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/pet-store-api",
+    "rules": [
+      {
+        "name": "api-title-required",
+        "rulePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-title-required.js"
+      },
+      {
+        "name": "api-version-required",
+        "rulePath": "/Users/developer/.mule/rulesets/api-governance-ruleset/rules/api-version-required.js"
+      }
+    ],
+    "syncCentralizedRulesets": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "validationResults": {
+    "totalRules": 2,
+    "passed": 1,
+    "failed": 1,
+    "warnings": 0
+  },
+  "results": [
+    {
+      "ruleName": "api-title-required",
+      "status": "passed",
+      "message": "API title is present"
+    },
+    {
+      "ruleName": "api-version-required",
+      "status": "failed",
+      "message": "API version is missing",
+      "severity": "error",
+      "location": {
+        "file": "pet-store-api.yaml",
+        "line": 2,
+        "column": 5
+      }
+    }
+  ],
+  "summary": "Validation completed with 1 error"
+}
+----
+
 [[validate-project]]
 == validate_project
 
@@ -1749,6 +2217,41 @@ Available only in Anypoint Code Builder.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "validate_project",
+  "arguments": {
+    "projectPath": "/Users/developer/projects/pet-store-api"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "projectType": "api-spec",
+  "validationResults": {
+    "syntaxValid": true,
+    "structureValid": true,
+    "errors": [],
+    "warnings": [
+      {
+        "message": "Missing description for endpoint /pets",
+        "location": {
+          "file": "pet-store-api.yaml",
+          "line": 15
+        }
+      }
+    ]
+  },
+  "message": "Project validation completed successfully"
+}
+----
 
 == See Also
 
