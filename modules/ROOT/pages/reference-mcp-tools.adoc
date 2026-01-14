@@ -1945,6 +1945,7 @@ Generate an OpenAPI 3.0 spec from use cases and API documentation. Analyzes docu
 
 Available only in Connector Builder.
 
+
 [%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
@@ -1970,6 +1971,41 @@ Available only in Connector Builder.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "uc_generate_api_spec",
+  "arguments": {
+    "platform": "Stripe",
+    "useCases": [
+      "Sync customers into our CRM",
+      "Create a charge and issue a refund"
+    ],
+    "documentation": [
+      "https://docs.stripe.com/api",
+      "https://docs.stripe.com/api/customers",
+      "https://docs.stripe.com/api/charges",
+      "https://docs.stripe.com/api/refunds"
+    ],
+    "additionalRequirements": "OpenAPI 3.0 YAML. Use bearer token auth (Authorization: Bearer <apiKey>). Include common error responses (400/401/403/404/409/429/500). Model pagination where applicable.",
+    "userConfirmed": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Generated discovery.json and OpenAPI 3.0 spec from documentation and use cases.",
+  "platform": "Stripe",
+  "discoveryJsonPath": "/Users/you/workspace/stripe-spec/discovery.json",
+  "openApiYamlPath": "/Users/you/workspace/stripe-spec/openapi.yaml"
+}
+----
 
 [[uc-generate-connector]]
 == uc_generate_connector
@@ -2009,6 +2045,37 @@ Required for `ccm` phase.
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "uc_generate_connector",
+  "arguments": {
+    "apiSpec": "/Users/you/workspace/stripe-spec/openapi.yaml",
+    "projectName": "Stripe Connector",
+    "description": "Connector for syncing customers and handling charges/refunds.",
+    "phases": [
+      "ccm",
+      "anypoint"
+    ]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Connector generated successfully.",
+  "projectPath": "/Users/you/workspace/stripe-connector",
+  "phasesExecuted": [
+    "ccm",
+    "anypoint"
+  ]
+}
+----
 
 [[update-mule-application]]
 == update_mule_application
@@ -2108,6 +2175,39 @@ Update a Mule application deployed to CloudHub 2.0 or Runtime Fabric. Update run
 |No
 
 |===
+
+.Example request
+[source,json]
+----
+{
+  "name": "update_mule_application",
+  "arguments": {
+    "applicationId": "3f2d8b1a-0f2e-4f6c-9e44-6f3b2c1a9c10",
+    "environmentId": "b7c9f6f2-1f8d-4c2e-a7b0-3d6c9a1b2e34",
+    "runtimeVersion": "4.9.4:2e-java17",
+    "replicaSize": "0.5",
+    "replicas": 2,
+    "hasAutoscaling": true,
+    "minReplicas": 2,
+    "maxReplicas": 4,
+    "hasTracing": true,
+    "deploymentModel": "rolling"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Application update initiated.",
+  "applicationId": "3f2d8b1a-0f2e-4f6c-9e44-6f3b2c1a9c10",
+  "environmentId": "b7c9f6f2-1f8d-4c2e-a7b0-3d6c9a1b2e34",
+  "deploymentModel": "rolling",
+  "status": "updating"
+}
+----
 
 [[validate-api-against-ruleset]]
 == validate_api_against_ruleset
