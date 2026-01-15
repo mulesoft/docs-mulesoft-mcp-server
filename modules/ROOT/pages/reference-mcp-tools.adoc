@@ -1410,6 +1410,82 @@ Modify or fix an existing MUnit test case, including updating assertions, mocks,
 
 |===
 
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "manage_flex_gateway_policy_project",
+  "arguments": {
+    "projectSource": "<flow name=\"customer-api-flow\" doc:id=\"abc123\">\n  <http:listener doc:name=\"Listener\" doc:id=\"def456\" config-ref=\"HTTP_Listener_config\" path=\"/customers/{customerId}\" allowedMethods=\"GET\"/>\n  <logger level=\"INFO\" doc:name=\"Log Request\" doc:id=\"ghi789\" message=\"Processing request for customer: #[attributes.uriParams.customerId]\"/>\n  <flow-ref doc:name=\"validate-customer-id\" doc:id=\"jkl012\" name=\"validate-customer-id\"/>\n  <db:select doc:name=\"Get Customer\" doc:id=\"mno345\" config-ref=\"Database_Config\">\n    <db:sql><![CDATA[SELECT * FROM customers WHERE id = :customerId AND status = 'ACTIVE']]></db:sql>\n    <db:input-parameters><![CDATA[#[{customerId: attributes.uriParams.customerId}]]]></db:input-parameters>\n  </db:select>\n  <choice doc:name=\"Choice\" doc:id=\"pqr678\">\n    <when expression=\"#[sizeOf(payload) > 0]\">\n      <ee:transform doc:name=\"Transform Customer\" doc:id=\"stu901\">\n        <ee:message>\n          <ee:set-payload><![CDATA[%dw 2.0\noutput application/json\n---\n{\n  customerId: payload[0].id,\n  customerName: payload[0].name,\n  emailAddress: payload[0].email,\n  accountStatus: \"active\",\n  lastUpdated: now()\n}]]></ee:set-payload>\n        </ee:message>\n      </ee:transform>\n    </when>\n    <otherwise>\n      <set-payload value='#[{\"error\": \"Customer not found or inactive\", \"code\": \"CUSTOMER_NOT_FOUND\"}]' doc:name=\"Customer Not Found\" doc:id=\"vwx234\"/>\n      <set-variable value=\"404\" doc:name=\"Set Status\" doc:id=\"yz567\" variableName=\"httpStatus\"/>\n    </otherwise>\n  </choice>\n</flow>",
+    "prompt": "The existing test is failing because the flow was updated to include a status filter in the database query and the response structure changed. Update the test to use the new field names (customerId instead of id, customerName instead of name, emailAddress instead of email) and add the lastUpdated field validation. Also update the mock to include the status field in the database response.",
+    "dependencies": {
+      "flowDependencies": [
+        {
+          "source": "<sub-flow name=\"validate-customer-id\" doc:id=\"validate123\">\n  <validation:is-not-empty doc:name=\"Validate ID Not Empty\" doc:id=\"val456\" value=\"#[attributes.uriParams.customerId]\" message=\"Customer ID is required\"/>\n  <validation:matches-regex doc:name=\"Validate ID Format\" doc:id=\"val789\" value=\"#[attributes.uriParams.customerId]\" regex=\"^[0-9]+$\" message=\"Customer ID must be numeric\"/>\n</sub-flow>",
+          "name": "validate-customer-id"
+        }
+      ]
+    },
+    "existingMunit": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>"
+  }
+} 
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "MUnit test case modified successfully",
+  "details": {
+    "testCaseName": "customer-api-flow-successful-retrieval",
+    "modificationType": "field_mapping_update",
+    "changesApplied": [
+      "Updated database mock to include status field",
+      "Changed assertion field names to match new response structure",
+      "Added validation for lastUpdated field",
+      "Updated mock data to reflect active status requirement"
+    ],
+    "modifiedTestCase": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.customerId]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.customerName]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.emailAddress]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Account Status\" actual=\"#[payload.accountStatus]\" expected=\"#[\\\"active\\\"]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated Exists\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated is DateTime\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::instanceOf(DateTime)]\"/>\n    </munit:validation>\n  </munit:test>",
+    "beforeAfterComparison": {
+      "mockChanges": {
+        "before": "Mock returned: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}",
+        "after": "Mock returns: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}"
+      },
+      "assertionChanges": [
+        {
+          "before": "payload.id",
+          "after": "payload.customerId",
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "before": "payload.name",
+          "after": "payload.customerName", 
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "before": "payload.email",
+          "after": "payload.emailAddress",
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "added": "payload.lastUpdated validation",
+          "reason": "New field added to flow output"
+        }
+      ]
+    },
+    "testExecutionReady": true,
+    "nextSteps": [
+      "Replace the existing test case in the MUnit file with this modified version",
+      "Run the test to verify it passes with the updated flow",
+      "Consider adding additional test cases for inactive customer scenarios",
+      "Verify all related test cases are updated for consistency"
+    ]
+  }
+}
+----
+
 [[open-project]]
 == open_project
 
@@ -2869,6 +2945,90 @@ Generates MUnit test cases for Mule flows, one test scenario at a time, with sup
 
 |===
 
+.Example request
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "generate_munit_test",
+  "arguments": {
+    "projectSource": "<flow name=\"customer-api-flow\" doc:id=\"abc123\">\n  <http:listener doc:name=\"Listener\" doc:id=\"def456\" config-ref=\"HTTP_Listener_config\" path=\"/customers/{customerId}\" allowedMethods=\"GET\"/>\n  <logger level=\"INFO\" doc:name=\"Log Request\" doc:id=\"ghi789\" message=\"Processing request for customer: #[attributes.uriParams.customerId]\"/>\n  <flow-ref doc:name=\"validate-customer-id\" doc:id=\"jkl012\" name=\"validate-customer-id\"/>\n  <db:select doc:name=\"Get Customer\" doc:id=\"mno345\" config-ref=\"Database_Config\">\n    <db:sql><![CDATA[SELECT * FROM customers WHERE id = :customerId]]></db:sql>\n    <db:input-parameters><![CDATA[#[{customerId: attributes.uriParams.customerId}]]]></db:input-parameters>\n  </db:select>\n  <choice doc:name=\"Choice\" doc:id=\"pqr678\">\n    <when expression=\"#[sizeOf(payload) > 0]\">\n      <ee:transform doc:name=\"Transform Customer\" doc:id=\"stu901\">\n        <ee:message>\n          <ee:set-payload><![CDATA[%dw 2.0\noutput application/json\n---\n{\n  id: payload[0].id,\n  name: payload[0].name,\n  email: payload[0].email,\n  status: \"active\"\n}]]></ee:set-payload>\n        </ee:message>\n      </ee:transform>\n    </when>\n    <otherwise>\n      <set-payload value='#[{\"error\": \"Customer not found\"}]' doc:name=\"Customer Not Found\" doc:id=\"vwx234\"/>\n      <set-variable value=\"404\" doc:name=\"Set Status\" doc:id=\"yz567\" variableName=\"httpStatus\"/>\n    </otherwise>\n  </choice>\n</flow>",
+    "munitFileName": "customer-api-test-suite.xml",
+    "prompt": "Generate a successful test case that verifies the flow returns customer data when a valid customer ID is provided. The test should mock the database response and validate the JSON transformation output.",
+    "minMuleVersion": "4.5.0",
+    "dependencies": {
+      "flowDependencies": [
+        {
+          "source": "<sub-flow name=\"validate-customer-id\" doc:id=\"validate123\">\n  <validation:is-not-empty doc:name=\"Validate ID Not Empty\" doc:id=\"val456\" value=\"#[attributes.uriParams.customerId]\" message=\"Customer ID is required\"/>\n  <validation:matches-regex doc:name=\"Validate ID Format\" doc:id=\"val789\" value=\"#[attributes.uriParams.customerId]\" regex=\"^[0-9]+$\" message=\"Customer ID must be numeric\"/>\n</sub-flow>",
+          "name": "validate-customer-id"
+        }
+      ]
+    }
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "MUnit test case generated successfully",
+  "details": {
+    "testCaseName": "customer-api-flow-successful-retrieval",
+    "munitFileName": "customer-api-test-suite.xml",
+    "testFilePath": "src/test/munit/customer-api-test-suite.xml",
+    "generatedTestCase": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<mule xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n     xmlns:munit=\"http://www.mulesoft.org/schema/mule/munit\"\n     xmlns:munit-tools=\"http://www.mulesoft.org/schema/mule/munit-tools\"\n     xmlns:db=\"http://www.mulesoft.org/schema/mule/db\"\n     xmlns=\"http://www.mulesoft.org/schema/mule/core\"\n     xsi:schemaLocation=\"http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd\n                         http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd\n                         http://www.mulesoft.org/schema/mule/munit-tools http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd\n                         http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd\">\n\n  <munit:config name=\"customer-api-test-suite.xml\"/>\n\n  <munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <!-- Test Setup -->\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n\n    <!-- Test Execution -->\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n\n    <!-- Test Verification -->\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>\n\n</mule>",
+    "mockComponents": [
+      {
+        "component": "db:select",
+        "docId": "mno345",
+        "mockType": "database_response",
+        "description": "Mocks database query response for customer retrieval"
+      }
+    ],
+    "assertions": [
+      {
+        "type": "not_null",
+        "target": "payload",
+        "description": "Verifies response payload is not null"
+      },
+      {
+        "type": "equals",
+        "target": "payload.id",
+        "expected": "12345",
+        "description": "Validates customer ID in response"
+      },
+      {
+        "type": "equals",
+        "target": "payload.name", 
+        "expected": "John Doe",
+        "description": "Validates customer name in response"
+      },
+      {
+        "type": "equals",
+        "target": "payload.email",
+        "expected": "john.doe@example.com",
+        "description": "Validates customer email in response"
+      },
+      {
+        "type": "equals",
+        "target": "payload.status",
+        "expected": "active",
+        "description": "Validates customer status in response"
+      }
+    ],
+    "testScenario": "successful_retrieval",
+    "nextSteps": [
+      "Append this test case to the MUnit test file",
+      "Generate additional test cases for error scenarios",
+      "Run the test to verify it passes",
+      "Add more assertions if needed for complete coverage"
+    ]
+  }
+}
+----
+
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
@@ -3370,6 +3530,97 @@ Use APIkit flows to implement an API specification in a new integration project.
 |The Maven group ID for the project. Defaults to the group ID of the API specification or workspace setting.
 |No
 |===
+
+.Example request
+[source,json]
+----
+
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "implement_api_spec",
+  "arguments": {
+    "groupId": "com.acme.apis",
+    "assetId": "customer-management-api",
+    "version": "1.2.0",
+    "projectName": "customer-management-implementation",
+    "projectLocation": "/Users/developer/mule-projects",
+    "classifier": "raml",
+    "type": "zip",
+    "main": "api.raml",
+    "runtimeVersion": "4.6.0",
+    "jdkVersion": "17",
+    "mavenGroupId": "com.acme.implementations"
+  }
+} 
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Mule project successfully scaffolded from API specification",
+  "details": {
+    "projectPath": "/Users/developer/mule-projects/customer-management-implementation",
+    "apiSpecification": {
+      "groupId": "com.acme.apis",
+      "assetId": "customer-management-api",
+      "version": "1.2.0",
+      "classifier": "raml",
+      "mainFile": "api.raml"
+    },
+    "projectConfiguration": {
+      "name": "customer-management-implementation",
+      "runtimeVersion": "4.6.0",
+      "jdkVersion": "17",
+      "mavenGroupId": "com.acme.implementations",
+      "artifactId": "customer-management-implementation"
+    },
+    "generatedFiles": [
+      "pom.xml",
+      "mule-artifact.json",
+      "src/main/mule/implementation.xml",
+      "src/main/resources/api/api.raml",
+      "src/main/resources/application.yaml",
+      "src/test/munit/implementation-test-suite.xml"
+    ],
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "/customers",
+        "description": "Get all customers"
+      },
+      {
+        "method": "POST",
+        "path": "/customers",
+        "description": "Create a new customer"
+      },
+      {
+        "method": "GET",
+        "path": "/customers/{customerId}",
+        "description": "Get customer by ID"
+      },
+      {
+        "method": "PUT",
+        "path": "/customers/{customerId}",
+        "description": "Update customer"
+      },
+      {
+        "method": "DELETE",
+        "path": "/customers/{customerId}",
+        "description": "Delete customer"
+      }
+    ],
+    "nextSteps": [
+      "Open the project in your workspace using the open_project tool",
+      "Implement business logic for each endpoint",
+      "Configure database connections if needed",
+      "Add error handling and validation",
+      "Test the implementation using MUnit"
+    ]
+  }
+}
+----
 
 [[list-api-instances]]
 == list_api_instances
