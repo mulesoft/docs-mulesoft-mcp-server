@@ -3309,23 +3309,6 @@ This tool has no parameters.
 }
 ----
 
-[[generate-munit-test]]
-== generate_munit_test
-
-Generates MUnit test cases for Mule flows, one test scenario at a time, with support for mocks, assertions, and dependencies.
-
-[%header,cols="1,3a,1"]
-|===
-|Parameter |Description |Required?
-
-|projectSource | The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
-|munitFileName | The file name of the MUnit test. |Yes
-|prompt |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
-|minRuntimeVersion |The minimum runtime version required for the flow. |Yes
-|dependencies |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
-
-|===
-
 [[implement-api-spec]]
 == implement_api_spec
 
