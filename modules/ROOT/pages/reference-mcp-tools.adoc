@@ -72,13 +72,13 @@ a|
 |No
 |Anypoint Code Builder: Mule Developer Generative AI User
 
-|<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
-|Yes
+|<<generate-munit-test,generate_munit_test>>
+|No
 |No
 |None
 
-|<<generate-munit-test,generate_munit_test>>
-|No
+|<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
+|Yes
 |No
 |None
 
@@ -1427,7 +1427,7 @@ Modify or fix an existing MUnit test case, including updating assertions, mocks,
         }
       ]
     },
-    "existingMunit": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>"
+      "existingMunit": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>"
   }
 } 
 ----
@@ -1446,7 +1446,7 @@ Modify or fix an existing MUnit test case, including updating assertions, mocks,
       "Changed assertion field names to match new response structure",
       "Added validation for lastUpdated field",
       "Updated mock data to reflect active status requirement"
-    ],
+      ],
     "modifiedTestCase": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.customerId]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.customerName]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.emailAddress]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Account Status\" actual=\"#[payload.accountStatus]\" expected=\"#[\\\"active\\\"]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated Exists\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated is DateTime\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::instanceOf(DateTime)]\"/>\n    </munit:validation>\n  </munit:test>",
     "beforeAfterComparison": {
       "mockChanges": {
