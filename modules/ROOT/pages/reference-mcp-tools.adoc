@@ -1498,7 +1498,11 @@ Available only in Anypoint Code Builder.
 [[run-local-mule-application]]
 == run_local_mule_application
 
-Run application locally in Mule runtime. This tool handles the full local deployment workflow: builds the project if needed, downloads runtime if needed, and starts the application locally.
+Run application locally in Mule runtime. This tool handles the full local deployment workflow: 
+
+* If needed, it builds the project.
+* If needed, it downloads runtime.
+* It starts the application locally.
 
 [%header,cols="1,3,1"]
 |===
@@ -1509,7 +1513,7 @@ Run application locally in Mule runtime. This tool handles the full local deploy
 |Yes
 
 |`javaHome`
-|Get JAVA_HOME from JDK from \"AnypointCodeBuilder\" (grep for exact name) installation if exists. Installation is usually located in user home directory. If installation does not exist, get user's java_home. If multiple JDKs exist, choose the latest one that matches javaSpecificationVersions in mule-artifacts.json. If JDK version does not match any of the versions in mule-artifacts.json, return 'No JAVA_HOME found. Don't retry.'.
+|Get JAVA_HOME from JDK from `\"AnypointCodeBuilder\"` (grep for exact name) installation if it exists. Installation is usually located in the user's home directory. If the installation doesn't exist, get the user's `java_home`. If multiple JDKs exist, choose the latest one that matches `javaSpecificationVersions` in `mule-artifacts.json`. If the JDK version doesn't match any of the versions in `mule-artifacts.json`, return 'No JAVA_HOME found. Don't retry.'.
 |Yes
 
 |===
@@ -1646,7 +1650,7 @@ Valid values are `name` or `last_modified_date`. Defaults to `last_modified_date
 [[test-connection]]
 == test_connection
 
-Test a connector configuration for a Mule project. For example, test connectivity for a HTTP listener connection.
+Test a connector configuration for a Mule project. For example, test connectivity for an HTTP listener connection.
 
 Available only in Anypoint Code Builder.
 
@@ -1712,8 +1716,8 @@ Available only in Connector Builder.
 |`flow`
 |Flow selection. Valid values are:
 
-* `generate-spec` to generate API spec from documentation
-* `existing-spec` if user has an existing API spec file
+* `generate-spec` to generate an API spec from documentation
+* `existing-spec` if the user has an existing API spec file
 * `auto-detect` to determine automatically
 
 |No
@@ -1889,14 +1893,14 @@ Create and scaffold an API spec or fragment project. You can specify the project
 [[create-mule-project]]
 == create_mule_project
 
-Create a new Mule project without flow generation. This tool focuses on just the project structure setup with optional parameters.
+Create a new Mule project without flow generation. This tool focuses only on the project structure setup with optional parameters.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
 |`projectPath`
-|Directory to create project in. Default is the current workspace.
+|Directory to create the project in. Default is the current workspace.
 |No
 
 |`projectName`
@@ -2110,7 +2114,7 @@ Creates a new DataWeave project, returns the URL of the created project, and pro
 
 Create DataWeave input sample data for a given DataWeave transformation file and return the path where it was created. For example, use this tool to create sample data for a variable if a preview fails with `There is no variable named 'variableName'`.
 
-Prerequisite: Create the DataWeave script file before running `dataweave_create_sample_data`.
+Prerequisite: Create the DataWeave script file before running `dataweave_create_sample_data`. For information about DataWeave scripts, see xref:dataweave::dataweave-language-introduction.adoc[]
 
 [%header,cols="1,3,1"]
 |===
@@ -2298,7 +2302,7 @@ Returns the list of all functions available in a DataWeave module, with document
 [[dataweave-get-project-metadata]]
 == dataweave_get_project_metadata
 
-Returns the metadata of a DataWeave project, including the list of source folders, and test folders, that defines where to create the files. The tool output includes the list of available modules with their URL, and all the functions, variables, namespaces, and types. The output also includes the list of all the data formats supported by the project. Call this tool before generating any code.
+Returns the metadata of a DataWeave project (including the list of source folders and test folders) that defines where to create the files. The tool output includes the list of available modules with their URL, and all the functions, variables, namespaces, and types. The output also includes the list of all the data formats supported by the project. Call this tool before generating any code.
 
 [%header,cols="1,3,1"]
 |===
