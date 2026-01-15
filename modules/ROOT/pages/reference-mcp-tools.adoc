@@ -33,7 +33,7 @@ See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for
 |No
 |None
 
-.14+s|Application Development
+.17+s|Application Development
 |<<create-and-manage-assets,create_and_manage_assets>>
 |No
 |No
@@ -77,8 +77,23 @@ a|
 |No
 |None
 
+|<<generate-munit-test,generate_munit_test>>
+|No
+|No
+|None
+
+|<<implement-api-spec,implement_api_spec>>
+|Yes
+|No
+|None
+
 |<<mock-api-spec,mock_api_spec>>
 |Yes
+|No
+|None
+
+|<<modify-munit-test,modify_munit_test>>
+|No
 |No
 |None
 
@@ -1378,6 +1393,22 @@ Available only in Anypoint Code Builder.
   "message": "Mock request completed successfully"
 }
 ----
+
+[[modify-munit-test]]
+== modify_munit_test
+
+Modify or fix an existing MUnit test case, including updating assertions, mocks, payloads, and test logic.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectSource` |The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
+|`prompt` |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
+|`dependencies` |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
+|`existingMunit` |The XML source of the existing MUnit test case that needs to be modified, including the <munit:test> element and all nested components, such as mocks, variables, and assertions. |Yes
+
+|===
 
 [[open-project]]
 == open_project
@@ -2821,6 +2852,23 @@ Generate, modify, or enhance Mule flows. Use this tool for any request involving
 }
 ----
 
+[[generate-munit-test]]
+== generate_munit_test
+
+Generates MUnit test cases for Mule flows, one test scenario at a time, with support for mocks, assertions, and dependencies.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`projectSource` | The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
+|`munitFileName` | The file name of the MUnit test. |Yes
+|`prompt` |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
+|`minRuntimeVersion` |The minimum runtime version required for the flow. |Yes
+|`dependencies` |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
+
+|===
+
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
@@ -3260,6 +3308,68 @@ This tool has no parameters.
   }
 }
 ----
+
+[[implement-api-spec]]
+== implement_api_spec
+
+Use APIkit flows to implement an API specification in a new integration project. You can implement a specification from a local project or an Anypoint Exchange asset.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required?
+
+|`mode`
+|Determines the operation type. To implement API specs in a local workspace, use `local_scaffolding` mode. For APIs published to Anypoint Exchange, use `exchange_api_scaffolding`.
+|Yes
+
+|`projectName`
+|The name for the integration project. Also used as the project folder name.
+|Yes
+
+|`projectLocation`
+|The path where the project folder is located. The default is the current workspace.
+|Yes
+
+|`projectPath`
+|[`local_scaffolding` mode] The absolute path to the local API project to scaffold. The API project must contain a valid exchange.json and classifier.
+|Yes
+
+|`groupId`
+|[`exchange_api_scaffolding` mode] The group ID of the API specification in Anypoint Exchange.
+|Yes
+
+|`assetId`
+|[`exchange_api_scaffolding` mode] The asset ID of the API specification in Anypoint Exchange.
+|Yes
+
+|`version`
+|[`exchange_api_scaffolding` mode] The version of the API specification, for example '1.4.0'.
+|Yes
+
+|`classifier`
+|[`exchange_api_scaffolding` mode] The classifier of the API specification. Fetched from Anypoint Exchange if not provided.
+|No
+
+|`type`
+|[`exchange_api_scaffolding` mode] The type or packaging of the API specification. Fetched from Anypoint Exchange if not provided.
+|No
+
+|`main`
+|[`exchange_api_scaffolding` mode] The main file of the API specification. Fetched from Anypoint Exchange if not provided.
+|No
+
+|`runtimeVersion`
+|The runtime version to use. Uses the workspace configuration or the latest version available if not specified.
+|No
+
+|`jdkVersion`
+|The JDK version to use. Uses the workspace configuration or the latest available if not specified.
+|No
+
+|`mavenGroupId`
+|The Maven group ID for the project. Defaults to the group ID of the API specification or workspace setting.
+|No
+|===
 
 [[list-api-instances]]
 == list_api_instances
