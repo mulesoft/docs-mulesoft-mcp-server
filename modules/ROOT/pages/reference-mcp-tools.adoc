@@ -73,9 +73,9 @@ a|
 |Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<generate-munit-test,generate_munit_test>>
+|Yes
 |No
-|No
-|None
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<get-topics-agent-actions-metadata-instructions,get_topics_agent_actions_metadata_instructions>>
 |Yes
@@ -85,7 +85,7 @@ a|
 |<<implement-api-spec,implement_api_spec>>
 |Yes
 |No
-|None
+|Exchange: Exchange Viewer
 
 |<<mock-api-spec,mock_api_spec>>
 |Yes
@@ -93,9 +93,9 @@ a|
 |None
 
 |<<modify-munit-test,modify_munit_test>>
+|Yes
 |No
-|No
-|None
+|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<open-project,open_project>>
 |Yes
