@@ -1,0 +1,87 @@
+//
+// tag::intro[]
+
+Use these example prompts to guide MuleSoft Dev Agent in completing common tasks. Customize the values to match your project or environment.
+
+// end::intro[]
+
+// tag::app-deployment[]
+[[app-deployment]]
+== Application Deployment and Projects
+* Task: Deploy an app to CloudHub or Runtime Fabric.
++
+Prompt: Deploy the [application_name] app from Anypoint Exchange.
+
+* Task: Create an integration project.
++
+Prompt: Create a Mule project that creates an order in NetSuite every time an opportunity in Salesforce is updated to the ‘Closed Won’ stage.
+
+* Task: Deploy an integration application.
++
+Prompt: Deploy [application_name] app in the current project. Deploy it with high security, high availability, and performance optimized settings.
+
+* Task: Modify an existing application.
++
+Prompt: Update [application_name] so that it meets [specific business requirements].
+
+* Task: Generate an MCP server using Anypoint connectors.
++
+Prompt: Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
+// end::app-deployment[]
+
+// tag::exchange-asset-management[]
+[[exchange-asset-management]]
+== Exchange Asset Management
+* Task: Create an asset in Exchange.
++
+Prompt: Publish [this asset type] in Exchange using this [name].
+
+* Task: Search for an asset in Exchange.
++
+Prompt: Do I have any assets for order notifications in Exchange?
+
+* Task: Search for an asset within a specific organization.
++
+Prompt: Find [asset name] in [organization name].
+// end::exchange-asset-management[]
+
+// tag::api-instances[]
+[[api-instances]]
+== API Instances
+* Task: Create an app instance and apply a policy.
++
+Prompt: Create an instance for the [application_name] and apply the rate limiting policy to that instance.
+
+* Task: View performance metrics for your APIs or apps.
++
+Prompt: Which apps generated the most errors this month?
+// end::api-instances[]
+
+// tag::custom-metadata[]
+[[custom-metadata]]
+== Custom Metadata
+* Task: Set custom metadata that uses sample data.
++
+Prompt: Can you help me define custom metadata on the following component? This is how the sample data looks: [sample data].
+
+* Task: Set custom metadata using a file.
++
+Prompt: Define custom metadata using the sample file below and attach it to [processor_name] @[path_to_file].
+// end::custom-metadata[]
+
+// tag::agent-network-operations[]
+[[agent-network-operations]]
+== Agent Network Operations
+* Task: Create an Agent Network
++
+Prompt: Create an Agent Network for called "Employee Onboarding".
+
+* Task: Publish an Agent Network.
++
+Prompt: Publish the "Employee Onboarding" Agent Network project to Exchange.
+
+* Task: Deploy an instance of the "Employee Onboarding" Agent Network to staging.
++
+Prompt: Deploy this Agent Network project.
+// end::agent-network-operations[]
+//
