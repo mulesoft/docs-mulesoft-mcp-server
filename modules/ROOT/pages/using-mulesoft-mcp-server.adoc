@@ -1,77 +1,68 @@
 = Using the MuleSoft MCP Server
 
-Whether you're using Cursor, Windsurf, or any MCP-compatible IDE, you have direct access to the full lifecycle of Mule application development without leaving your editor. 
+The MuleSoft MCP Server integrates with the xref:anypoint-code-builder::api-ai-design-spec.adoc[MuleSoft Dev Agent]. Through this integration, you can build, deploy, and manage your projects using natural language prompts.Whether you're using Anypoint Code Builder, Cursor, Windsurf, or any MCP-compatible IDE, you have direct access to the full lifecycle of Mule application development without leaving your editor. 
+
+To learn more about the MuleSoft Dev Agent, see xref:anypoint-code-builder::a4d-get-started.adoc[Get Started with MuleSoft Dev Agent].
+
+To learn more about the MuleSoft MCP Server tools, see xref:reference-mcp-tools.adoc[]
+ 
+== Before You Begin
+
+Before you get started, make sure you meet these prerequisites.
+
+* If you're using Anypoint Code Builder, make sure that you:
+** xref:start-acb.adoc[Set up and access the desktop IDE].  
+** Set the xref:start-configure-permissions.adoc#permissions[required Anypoint Code Builder permissions], including the Mule Developer Generative AI User permission. 
+** xref:access-management::enabling-agentforce.adoc[Enable Agentforce Einstein in Access Management].
+ * If you're using Cursor, Windsurf, or any MCP-compatible IDE, make sure you set up and configure MuleSoft MCP Server for your IDE, including all permissions. See xref:getting-started.adoc[]. 
+
+== Example: Create a Network Using the MuleSoft Dev Agent
+
+. In the Anypoint Code Builder activity bar (or similar location in your IDE), click the agent icon image:af-acb-dev-agent-icon.png["",18,18].
+. In the prompt field, describe your agent network, including the brokers, agents, MCP servers, and LLMs you want to connect. MuleSoft Dev Agent does the rest.
+
+For example, consider this prompt entered using the agent's xref:anypoint-code-builder::a4d-get-started.adoc#plan-and-act-modes[Plan mode]: `Create a new agent network project called "Employee Onboarding." Add HR agent and CRM agent.`
+
+The agent asks for `projectPath`, which is a required parameter for the xref:reference-mcp-tools.adoc#create-agent-network-project[`create_agent_network_project`] tool. 
+
+After successfully running, the agent creates a `agent-network.yaml` file and responds with a final success summary.
+
+[source,json]
+----
+{
+  "success": true,
+  "projectPath": "/Users/test/src/mulesoft/mulesoft-mcp-server/Employee Onboarding",
+  "message": "Employee Onboarding agent network created successfully",
+  "components": {
+    "agents": ["hr-agent", "crm-agent"],
+    "brokers": ["onboarding-coordinator"],
+    "connections": 1,
+    "filesCreated": [
+      "agent-network.yaml",
+      "exchange.json", 
+      "README.md"
+    ]
+  },
+  "nextSteps": [
+    "Deploy to runtime environment using deploy_agent_network",
+    "Publish to Exchange using publish_agent_network_assets", 
+    "Open project in workspace using open_project"
+  ],
+  "validationStatus": "passed"
+}
+----
 
 == Example Prompts
 
-[cols="1,1"]
-|===
-|If you want to... |Try this... 
+include::partial$agent-prompts.adoc[tag=intro]
 
-|Apply a policy
-|Apply the rate-limiting policy to this API instance. 
+include::partial$agent-prompts.adoc[tag=app-deployment,leveloffset=+1]
 
-|Configure or update an agent network project
-|Help me build an agent network project. +
-OR +
-Add a new broker for employee offboarding.
+include::partial$agent-prompts.adoc[tag=exchange-asset-management,leveloffset=+1]
 
-|Create an agent network project
-|Create an agent network project called hello-world-network. 
+include::partial$agent-prompts.adoc[tag=api-instances,leveloffset=+1]
 
-|Create an asset in Exchange
-|I want to publish this API to Exchange.
+include::partial$agent-prompts.adoc[tag=custom-metadata,leveloffset=+1]
 
-|Create an instance
-|Create an instance for this application.
+include::partial$agent-prompts.adoc[tag=agent-network-operations,leveloffset=+1]
 
-|Create an integration project
-|Create a Mule project that creates an order in NetSuite every time an opportunity in Salesforce is updated to stage Closed Won.
-
-|Create a connector using Connector Builder
-|Create an Eventbrite connector.
-
-|Deploy an agent network instance
-|Deploy the hello-world-network project to staging.
-
-|Deploy an application
-|Deploy Mule application in current project. Deploy with high security, high availability, and performance-optimized settings.
-
-|Deploy an existing asset in Anypoint Exchange to CloudHub 2.0 or Runtime Fabric
-|Deploy app using `sample-asset-name` from Anypoint Exchange.  
-
-|Generate an MCP server using Anypoint connectors
-|Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
-
-|Generate an API spec for a connector using Connector Builder
-|Generate an API spec for Eventbrite.
-
-|Generate a connector using Connector Builder
-|Generate an Anypoint connector for the current connector.
-
-|List all policies
-|What policies do I have available?
-
-|Publish agent network assets to Exchange
-|Publish my agent network project version 1.0.0 +
-OR +
-Publish the hello-world-network project to Exchange.
-
-|Search for assets in Exchange
-|Do I have any assets for order notification in Exchange? +
-OR +
-Find all assets related to product synchronization.
-
-|View performance metrics for your APIs or apps   
-|Which apps generated the most errors? +
-OR +
-Which apps have the highest latency? +
-OR +
-Show top APIs by call volume.
-
-|View reuse metrics
-|Show reuse metrics.
-
-|View usage for your runtime applications
-|Show me trends for flows, messages and data throughput.
-|===
