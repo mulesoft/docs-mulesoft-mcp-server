@@ -13,7 +13,7 @@ Before you get started, make sure you meet these prerequisites.
 * If you're using Anypoint Code Builder, make sure that you:
 ** xref:start-acb.adoc[Set up and access the desktop IDE].  
 ** Set the xref:start-configure-permissions.adoc#permissions[required Anypoint Code Builder permissions], including the Mule Developer Generative AI User permission. 
-** xref:access-management::enabling-agentforce.adoc[Enable Agentforce Einstein in Access Management].
+** xref:access-management::enabling-agentforce.adoc[Enable Agentforce in Access Management].
  * If you're using Cursor, Windsurf, or any MCP-compatible IDE, make sure you set up and configure MuleSoft MCP Server for your IDE, including all permissions. See xref:getting-started.adoc[]. 
 
 == Example: Create a Network Using the MuleSoft Dev Agent
