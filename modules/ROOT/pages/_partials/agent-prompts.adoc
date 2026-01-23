@@ -26,7 +26,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 * *Task*: Generate an MCP server using Anypoint connectors.
 +
-*Prompt*: Generate an MCP server that exposes 3 tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
+*Prompt*: Generate an MCP server that exposes three tools from the following operations: Workday - Absence Management - Get Time Off Plan Balances, Workday - Absence Management - Enter Time Off, and Google Calendar - Create Calendar Event.
 // end::app-deployment[]
 
 // tag::exchange-asset-management[]
