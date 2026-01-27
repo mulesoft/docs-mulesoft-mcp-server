@@ -7,7 +7,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 // tag::app-deployment[]
 [[app-deployment]]
-== Application Deployment and Projects
+= Application Deployment and Projects
 * *Task*: Deploy an app to CloudHub or Runtime Fabric.
 +
 *Prompt*: Deploy the [application_name] app from Anypoint Exchange.
@@ -31,7 +31,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 // tag::exchange-asset-management[]
 [[exchange-asset-management]]
-== Exchange Asset Management
+= Exchange Asset Management
 * *Task*: Create an asset in Exchange.
 +
 *Prompt*: Publish [this asset type] in Exchange using this [name].
@@ -47,7 +47,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 // tag::api-instances[]
 [[api-instances]]
-== API Instances
+= API Instances
 * *Task*: Create an app instance and apply a policy.
 +
 *Prompt*: Create an instance for the [application_name] and apply the rate limiting policy to that instance.
@@ -59,7 +59,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 // tag::custom-metadata[]
 [[custom-metadata]]
-== Custom Metadata
+= Custom Metadata
 * *Task*: Set custom metadata that uses sample data.
 +
 *Prompt*: Can you help me define custom metadata on the following component? This is how the sample data looks: [sample data].
@@ -71,7 +71,7 @@ Use these example prompts to guide MuleSoft Dev Agent in completing common tasks
 
 // tag::agent-network-operations[]
 [[agent-network-operations]]
-== Agent Network Operations
+= Agent Network Operations
 * *Task*: Create an Agent Network
 +
 *Prompt*: Create an Agent Network for called "Employee Onboarding".
