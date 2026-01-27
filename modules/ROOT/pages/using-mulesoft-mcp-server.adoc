@@ -56,13 +56,13 @@ After successfully running, the agent creates a `agent-network.yaml` file and re
 
 include::partial$agent-prompts.adoc[tag=intro]
 
-include::partial$agent-prompts.adoc[tag=app-deployment,leveloffset=+1]
+include::partial$agent-prompts.adoc[tag=app-deployment,leveloffset=+2]
 
-include::partial$agent-prompts.adoc[tag=exchange-asset-management,leveloffset=+1]
+include::partial$agent-prompts.adoc[tag=exchange-asset-management,leveloffset=+2]
 
-include::partial$agent-prompts.adoc[tag=api-instances,leveloffset=+1]
+include::partial$agent-prompts.adoc[tag=api-instances,leveloffset=+2]
 
-include::partial$agent-prompts.adoc[tag=custom-metadata,leveloffset=+1]
+include::partial$agent-prompts.adoc[tag=custom-metadata,leveloffset=+2]
 
-include::partial$agent-prompts.adoc[tag=agent-network-operations,leveloffset=+1]
+include::partial$agent-prompts.adoc[tag=agent-network-operations,leveloffset=+2]
 
