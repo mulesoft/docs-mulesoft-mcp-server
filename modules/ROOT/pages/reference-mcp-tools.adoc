@@ -3472,7 +3472,7 @@ This tool has no parameters.
 [[implement-api-spec]]
 == implement_api_spec
 
-Use APIkit flows to implement an API specification in a new integration project from anAnypoint Exchange asset.
+Use APIkit flows to implement an API specification in a new integration project from an Anypoint Exchange asset.
 
 [%header,cols="1,3,1"]
 |===
