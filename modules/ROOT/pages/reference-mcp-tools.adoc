@@ -3472,15 +3472,11 @@ This tool has no parameters.
 [[implement-api-spec]]
 == implement_api_spec
 
-Use APIkit flows to implement an API specification in a new integration project. You can implement a specification from a local project or an Anypoint Exchange asset.
+Use APIkit flows to implement an API specification in a new integration project from an Anypoint Exchange asset.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
-
-|`mode`
-|Determines the operation type. To implement API specs in a local workspace, use `local_scaffolding` mode. For APIs published to Anypoint Exchange, use `exchange_api_scaffolding`.
-|Yes
 
 |`projectName`
 |The name for the integration project. Also used as the project folder name.
@@ -3490,32 +3486,28 @@ Use APIkit flows to implement an API specification in a new integration project.
 |The path where the project folder is located. The default is the current workspace.
 |Yes
 
-|`projectPath`
-|[`local_scaffolding` mode] The absolute path to the local API project to scaffold. The API project must contain a valid exchange.json and classifier.
-|Yes
-
 |`groupId`
-|[`exchange_api_scaffolding` mode] The group ID of the API specification in Anypoint Exchange.
+|The group ID of the API specification in Anypoint Exchange.
 |Yes
 
 |`assetId`
-|[`exchange_api_scaffolding` mode] The asset ID of the API specification in Anypoint Exchange.
+|The asset ID of the API specification in Anypoint Exchange.
 |Yes
 
 |`version`
-|[`exchange_api_scaffolding` mode] The version of the API specification, for example '1.4.0'.
+|The version of the API specification, for example '1.4.0'.
 |Yes
 
 |`classifier`
-|[`exchange_api_scaffolding` mode] The classifier of the API specification. Fetched from Anypoint Exchange if not provided.
+|The classifier of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`type`
-|[`exchange_api_scaffolding` mode] The type or packaging of the API specification. Fetched from Anypoint Exchange if not provided.
+|The type or packaging of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`main`
-|[`exchange_api_scaffolding` mode] The main file of the API specification. Fetched from Anypoint Exchange if not provided.
+|The main file of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`runtimeVersion`
