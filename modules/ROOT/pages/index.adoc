@@ -2,15 +2,24 @@
 
 The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can build agent networks, create and deploy Mule applications, build connectors, create API specs, manage governance rulesets, get platform insights, and more.
 
-MuleSoft MCP Server acts as a bridge between AI-powered IDEs like Cursor, Windsurf, and VS Code and MuleSoft's platform services--enabling developers to build, deploy, and manage applications using natural language interactions in their editor.
+MuleSoft MCP Server acts as a bridge between AI-powered IDEs like Cursor, Windsurf, and VS Code and MuleSoft's platform services--enabling you to build, deploy, and manage applications using natural language interactions in your editor.
 
-If you have Anypoint Code Builder desktop or Connector Builder, the MuleSoft MCP Server is already included and configured.
+MuleSoft MCP Server integrates with MuleSoft Dev Agent and provides a set of agentic tools that connect Dev Agent directly to your MuleSoft environment, enabling capabilities such as:
 
-== Deployment Targets
-You can deploy applications to CloudHub 2.0 and Runtime Fabric only.
+* API specification development
+* Application creation and configuration
+* Agent network creation
+* Asset publication in Exchange
+* Instance deployment and management to CloudHub 2.0 and Runtime Fabric
+* Application security
 
 == Next Steps
 
-* xref:getting-started.adoc[]
-* xref:using-mulesoft-mcp-server.adoc[]
-* xref:reference-mcp-tools.adoc[]
+If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft MCP Server for your IDE, see xref:getting-started.adoc[].
+
+To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. Also check out the xref:reference-mcp-tools.adoc[] for a complete list of tools for interacting with Anypoint Platform. 
+
+
+
+
+
