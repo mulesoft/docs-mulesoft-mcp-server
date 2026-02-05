@@ -17,7 +17,7 @@ MuleSoft MCP Server integrates with MuleSoft Dev Agent and provides a set of age
 
 If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft MCP Server for your IDE, see xref:getting-started.adoc[].
 
-To start using MuleSoft MCP server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. Also check out the xref:reference-mcp-tools.adoc[] for a complete list of tools for interacting with Anypoint Platform. 
+To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. Also check out the xref:reference-mcp-tools.adoc[] for a complete list of tools for interacting with Anypoint Platform. 
 
 
 
