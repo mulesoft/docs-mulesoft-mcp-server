@@ -72,7 +72,7 @@ a|
 |No
 |Anypoint Code Builder: Mule Developer Generative AI User
 
-|<<generate-munit-test,generate_munit_test>>
+|<<generate-or-modify-munit-test,generate_or_modify_munit_test>>
 |Yes
 |No
 |Anypoint Code Builder: Mule Developer Generative AI User
@@ -91,11 +91,6 @@ a|
 |Yes
 |No
 |None
-
-|<<modify-munit-test,modify_munit_test>>
-|Yes
-|No
-|Anypoint Code Builder: Mule Developer Generative AI User
 
 |<<open-project,open_project>>
 |Yes
@@ -1394,98 +1389,6 @@ Available only in Anypoint Code Builder.
 }
 ----
 
-[[modify-munit-test]]
-== modify_munit_test
-
-Modify or fix an existing MUnit test case, including updating assertions, mocks, payloads, and test logic.
-
-[%header,cols="1,3,1"]
-|===
-|Parameter |Description |Required?
-
-|`projectSource` |The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
-|`prompt` |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
-|`dependencies` |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
-|`existingMunit` |The XML source of the existing MUnit test case that needs to be modified, including the <munit:test> element and all nested components, such as mocks, variables, and assertions. |Yes
-
-|===
-
-.Example request
-[source,json]
-----
-{
-  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
-  "tool_name": "manage_flex_gateway_policy_project",
-  "arguments": {
-    "projectSource": "<flow name=\"customer-api-flow\" doc:id=\"abc123\">\n  <http:listener doc:name=\"Listener\" doc:id=\"def456\" config-ref=\"HTTP_Listener_config\" path=\"/customers/{customerId}\" allowedMethods=\"GET\"/>\n  <logger level=\"INFO\" doc:name=\"Log Request\" doc:id=\"ghi789\" message=\"Processing request for customer: #[attributes.uriParams.customerId]\"/>\n  <flow-ref doc:name=\"validate-customer-id\" doc:id=\"jkl012\" name=\"validate-customer-id\"/>\n  <db:select doc:name=\"Get Customer\" doc:id=\"mno345\" config-ref=\"Database_Config\">\n    <db:sql><![CDATA[SELECT * FROM customers WHERE id = :customerId AND status = 'ACTIVE']]></db:sql>\n    <db:input-parameters><![CDATA[#[{customerId: attributes.uriParams.customerId}]]]></db:input-parameters>\n  </db:select>\n  <choice doc:name=\"Choice\" doc:id=\"pqr678\">\n    <when expression=\"#[sizeOf(payload) > 0]\">\n      <ee:transform doc:name=\"Transform Customer\" doc:id=\"stu901\">\n        <ee:message>\n          <ee:set-payload><![CDATA[%dw 2.0\noutput application/json\n---\n{\n  customerId: payload[0].id,\n  customerName: payload[0].name,\n  emailAddress: payload[0].email,\n  accountStatus: \"active\",\n  lastUpdated: now()\n}]]></ee:set-payload>\n        </ee:message>\n      </ee:transform>\n    </when>\n    <otherwise>\n      <set-payload value='#[{\"error\": \"Customer not found or inactive\", \"code\": \"CUSTOMER_NOT_FOUND\"}]' doc:name=\"Customer Not Found\" doc:id=\"vwx234\"/>\n      <set-variable value=\"404\" doc:name=\"Set Status\" doc:id=\"yz567\" variableName=\"httpStatus\"/>\n    </otherwise>\n  </choice>\n</flow>",
-    "prompt": "The existing test is failing because the flow was updated to include a status filter in the database query and the response structure changed. Update the test to use the new field names (customerId instead of id, customerName instead of name, emailAddress instead of email) and add the lastUpdated field validation. Also update the mock to include the status field in the database response.",
-    "dependencies": {
-      "flowDependencies": [
-        {
-          "source": "<sub-flow name=\"validate-customer-id\" doc:id=\"validate123\">\n  <validation:is-not-empty doc:name=\"Validate ID Not Empty\" doc:id=\"val456\" value=\"#[attributes.uriParams.customerId]\" message=\"Customer ID is required\"/>\n  <validation:matches-regex doc:name=\"Validate ID Format\" doc:id=\"val789\" value=\"#[attributes.uriParams.customerId]\" regex=\"^[0-9]+$\" message=\"Customer ID must be numeric\"/>\n</sub-flow>",
-          "name": "validate-customer-id"
-        }
-      ]
-    },
-      "existingMunit": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>"
-  }
-} 
-----
-
-.Example response
-[source,json]
-----
-{
-  "success": true,
-  "message": "MUnit test case modified successfully",
-  "details": {
-    "testCaseName": "customer-api-flow-successful-retrieval",
-    "modificationType": "field_mapping_update",
-    "changesApplied": [
-      "Updated database mock to include status field",
-      "Changed assertion field names to match new response structure",
-      "Added validation for lastUpdated field",
-      "Updated mock data to reflect active status requirement"
-      ],
-    "modifiedTestCase": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.customerId]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.customerName]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.emailAddress]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Account Status\" actual=\"#[payload.accountStatus]\" expected=\"#[\\\"active\\\"]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated Exists\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated is DateTime\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::instanceOf(DateTime)]\"/>\n    </munit:validation>\n  </munit:test>",
-    "beforeAfterComparison": {
-      "mockChanges": {
-        "before": "Mock returned: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}",
-        "after": "Mock returns: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}"
-      },
-      "assertionChanges": [
-        {
-          "before": "payload.id",
-          "after": "payload.customerId",
-          "reason": "Field renamed in flow transformation"
-        },
-        {
-          "before": "payload.name",
-          "after": "payload.customerName", 
-          "reason": "Field renamed in flow transformation"
-        },
-        {
-          "before": "payload.email",
-          "after": "payload.emailAddress",
-          "reason": "Field renamed in flow transformation"
-        },
-        {
-          "added": "payload.lastUpdated validation",
-          "reason": "New field added to flow output"
-        }
-      ]
-    },
-    "testExecutionReady": true,
-    "nextSteps": [
-      "Replace the existing test case in the MUnit file with this modified version",
-      "Run the test to verify it passes with the updated flow",
-      "Consider adding additional test cases for inactive customer scenarios",
-      "Verify all related test cases are updated for consistency"
-    ]
-  }
-}
-----
-
 [[open-project]]
 == open_project
 
@@ -1660,7 +1563,7 @@ Run application locally in Mule runtime. This tool handles the full local deploy
 
 Search for an asset in Anypoint Exchange by name or other specified parameters. Returns the first asset that matches the input criteria.
 
-[%header,cols="1,3,1"]
+[%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
@@ -1696,6 +1599,14 @@ Valid values are `name` or `last_modified_date`. Defaults to `last_modified_date
 
 |`maxResults`
 |The maximum number of assets to return in the result set. Range is between 1-10. Parameter must include at least one value.
+|No
+
+|`exchangeScope`
+|Determines the scope of an asset search in Exchange. Set the appropriate scope:
+
+* For MuleSoft provided assets: `exchangeScope: public`
+* For private assets (default): `exchangeScope: private`
+
 |No
 
 |===
@@ -2928,24 +2839,25 @@ Generate, modify, or enhance Mule flows. Use this tool for any request involving
 }
 ----
 
-[[generate-munit-test]]
-== generate_munit_test
+[[generate-or-modify-munit-test]]
+== generate_or_modify_munit_test
 
-Generates MUnit test cases for Mule flows, one test scenario at a time, with support for mocks, assertions, and dependencies.
+Generate, modify, or fix MUnit tests for Mule flows. Provide the flow XML, test scenario description, and dependencies for accurate test generation.
 
 [%header,cols="1,3a,1"]
 |===
 |Parameter |Description |Required?
 
-|`projectSource` | The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. |Yes
-|`munitFileName` | The file name of the MUnit test. |Yes
-|`prompt` |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes
-|`minRuntimeVersion` |The minimum runtime version required for the flow. |Yes
+|`projectSource` | The Mule flow definition, in XML format, for which an MUnit test needs to be generated. Do not include the namespace declaration. Only send the complete flow definition. Required for generating, modifying or fixing an MUnit test. |Yes
+|`munitFileName` | The file name of the MUnit test. Generate the file name from the source file name in the format `<mule-configuration-file-name>-test-suite.xml`. |Yes for generating an MUnit test
+|`prompt` |A prompt that explains the validation of the test case, for example, "Verify the flow returns a 400 error when an invalid payload is received." |Yes for generating, modifying or fixing an MUnit test
+|`minRuntimeVersion` |The minimum runtime version required for the flow. |Yes for generating an MUnit test
 |`dependencies` |A JSON object containing flow dependencies referenced by the main flow. The object must include `flowDependencies`: An array of flow dependency objects that contain the `source` (the source of the dependency) and`name` (the name of the dependency) properties. |Yes
+|`existingMunit` |The XML source of the existing MUnit test case that needs to be modified, including the `<munit:test>` element and all nested components, such as mocks, variables, and assertions. |Yes for modifying or fixing an MUnit test.
 
 |===
 
-.Example request
+.Example request (generate)
 [source,json]
 ----
 {
@@ -2968,7 +2880,7 @@ Generates MUnit test cases for Mule flows, one test scenario at a time, with sup
 }
 ----
 
-.Example response
+.Example response (generate)
 [source,json]
 ----
 {
@@ -3024,6 +2936,82 @@ Generates MUnit test cases for Mule flows, one test scenario at a time, with sup
       "Generate additional test cases for error scenarios",
       "Run the test to verify it passes",
       "Add more assertions if needed for complete coverage"
+    ]
+  }
+}
+----
+
+.Example request (modify)
+[source,json]
+----
+{
+  "server_name": "https://www.npmjs.com/package/@mulesoft/mcp-server",
+  "tool_name": "modify_munit_test",
+  "arguments": {
+    "projectSource": "<flow name=\"customer-api-flow\" doc:id=\"abc123\">\n  <http:listener doc:name=\"Listener\" doc:id=\"def456\" config-ref=\"HTTP_Listener_config\" path=\"/customers/{customerId}\" allowedMethods=\"GET\"/>\n  <logger level=\"INFO\" doc:name=\"Log Request\" doc:id=\"ghi789\" message=\"Processing request for customer: #[attributes.uriParams.customerId]\"/>\n  <flow-ref doc:name=\"validate-customer-id\" doc:id=\"jkl012\" name=\"validate-customer-id\"/>\n  <db:select doc:name=\"Get Customer\" doc:id=\"mno345\" config-ref=\"Database_Config\">\n    <db:sql><![CDATA[SELECT * FROM customers WHERE id = :customerId AND status = 'ACTIVE']]></db:sql>\n    <db:input-parameters><![CDATA[#[{customerId: attributes.uriParams.customerId}]]]></db:input-parameters>\n  </db:select>\n  <choice doc:name=\"Choice\" doc:id=\"pqr678\">\n    <when expression=\"#[sizeOf(payload) > 0]\">\n      <ee:transform doc:name=\"Transform Customer\" doc:id=\"stu901\">\n        <ee:message>\n          <ee:set-payload><![CDATA[%dw 2.0\noutput application/json\n---\n{\n  customerId: payload[0].id,\n  customerName: payload[0].name,\n  emailAddress: payload[0].email,\n  accountStatus: \"active\",\n  lastUpdated: now()\n}]]></ee:set-payload>\n        </ee:message>\n      </ee:transform>\n    </when>\n    <otherwise>\n      <set-payload value='#[{\"error\": \"Customer not found or inactive\", \"code\": \"CUSTOMER_NOT_FOUND\"}]' doc:name=\"Customer Not Found\" doc:id=\"vwx234\"/>\n      <set-variable value=\"404\" doc:name=\"Set Status\" doc:id=\"yz567\" variableName=\"httpStatus\"/>\n    </otherwise>\n  </choice>\n</flow>",
+    "prompt": "The existing test is failing because the flow was updated to include a status filter in the database query and the response structure changed. Update the test to use the new field names (customerId instead of id, customerName instead of name, emailAddress instead of email) and add the lastUpdated field validation. Also update the mock to include the status field in the database response.",
+    "dependencies": {
+      "flowDependencies": [
+        {
+          "source": "<sub-flow name=\"validate-customer-id\" doc:id=\"validate123\">\n  <validation:is-not-empty doc:name=\"Validate ID Not Empty\" doc:id=\"val456\" value=\"#[attributes.uriParams.customerId]\" message=\"Customer ID is required\"/>\n  <validation:matches-regex doc:name=\"Validate ID Format\" doc:id=\"val789\" value=\"#[attributes.uriParams.customerId]\" regex=\"^[0-9]+$\" message=\"Customer ID must be numeric\"/>\n</sub-flow>",
+          "name": "validate-customer-id"
+        }
+      ]
+    },
+    "existingMunit": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.id]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.name]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.email]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Status\" actual=\"#[payload.status]\" expected=\"#[\\\"active\\\"]\"/>\n    </munit:validation>\n  </munit:test>"
+  }
+}
+----
+
+.Example response (modify)
+[source,json]
+----
+{
+  "success": true,
+  "message": "MUnit test case modified successfully",
+  "details": {
+    "testCaseName": "customer-api-flow-successful-retrieval",
+    "modificationType": "field_mapping_update",
+    "changesApplied": [
+      "Updated database mock to include status field",
+      "Changed assertion field names to match new response structure",
+      "Added validation for lastUpdated field",
+      "Updated mock data to reflect active status requirement"
+    ],
+    "modifiedTestCase": "<munit:test name=\"customer-api-flow-successful-retrieval\" description=\"Verify the flow returns customer data when a valid customer ID is provided\">\n    <munit:behavior>\n      <set-variable variableName=\"testCustomerId\" value=\"12345\"/>\n      <munit-tools:mock-when doc:name=\"Mock Database Response\" processor=\"db:select\">\n        <munit-tools:with-attributes>\n          <munit-tools:with-attribute whereValue=\"mno345\" attributeName=\"doc:id\"/>\n        </munit-tools:with-attributes>\n        <munit-tools:then-return>\n          <munit-tools:payload value='#[[{\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}]]'/>\n        </munit-tools:then-return>\n      </munit-tools:mock-when>\n    </munit:behavior>\n    <munit:execution>\n      <flow-ref name=\"customer-api-flow\"/>\n    </munit:execution>\n    <munit:validation>\n      <munit-tools:assert-that doc:name=\"Assert Payload is Not Empty\" expression=\"#[payload]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer ID\" actual=\"#[payload.customerId]\" expected=\"#[12345]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Name\" actual=\"#[payload.customerName]\" expected=\"#[\\\"John Doe\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Customer Email\" actual=\"#[payload.emailAddress]\" expected=\"#[\\\"john.doe@example.com\\\"]\"/>\n      <munit-tools:assert-equals doc:name=\"Assert Account Status\" actual=\"#[payload.accountStatus]\" expected=\"#[\\\"active\\\"]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated Exists\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::notNullValue()]\"/>\n      <munit-tools:assert-that doc:name=\"Assert Last Updated is DateTime\" expression=\"#[payload.lastUpdated]\" is=\"#[MunitTools::instanceOf(DateTime)]\"/>\n    </munit:validation>\n  </munit:test>",
+    "beforeAfterComparison": {
+      "mockChanges": {
+        "before": "Mock returned: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\"}",
+        "after": "Mock returns: {\"id\": 12345, \"name\": \"John Doe\", \"email\": \"john.doe@example.com\", \"status\": \"ACTIVE\"}"
+      },
+      "assertionChanges": [
+        {
+          "before": "payload.id",
+          "after": "payload.customerId",
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "before": "payload.name",
+          "after": "payload.customerName",
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "before": "payload.email",
+          "after": "payload.emailAddress",
+          "reason": "Field renamed in flow transformation"
+        },
+        {
+          "added": "payload.lastUpdated validation",
+          "reason": "New field added to flow output"
+        }
+      ]
+    },
+    "testExecutionReady": true,
+    "nextSteps": [
+      "Replace the existing test case in the MUnit file with this modified version",
+      "Run the test to verify it passes with the updated flow",
+      "Consider adding additional test cases for inactive customer scenarios",
+      "Verify all related test cases are updated for consistency"
     ]
   }
 }
@@ -3472,14 +3460,22 @@ This tool has no parameters.
 [[implement-api-spec]]
 == implement_api_spec
 
-Use APIkit flows to implement an API specification in a new integration project from an Anypoint Exchange asset.
+Use APIkit flows to implement an API specification in a new integration project. You can implement a specification from a local project or an Anypoint Exchange asset.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required?
 
+|`mode`
+|Determines the operation type. To implement API specs in a local workspace, use `local_scaffolding` mode. For APIs published to Anypoint Exchange, use `exchange_api_scaffolding`.
+|Yes
+
 |`projectName`
 |The name for the integration project. Also used as the project folder name.
+|Yes
+
+|`projectPath`
+|[`local_scaffolding` mode] The absolute path to the local API project to scaffold. The API project must contain a valid exchange.json and classifier.
 |Yes
 
 |`projectLocation`
@@ -3487,27 +3483,27 @@ Use APIkit flows to implement an API specification in a new integration project 
 |Yes
 
 |`groupId`
-|The group ID of the API specification in Anypoint Exchange.
+|[`exchange_api_scaffolding` mode] The group ID of the API specification in Anypoint Exchange.
 |Yes
 
 |`assetId`
-|The asset ID of the API specification in Anypoint Exchange.
+|[`exchange_api_scaffolding` mode] The asset ID of the API specification in Anypoint Exchange.
 |Yes
 
 |`version`
-|The version of the API specification, for example '1.4.0'.
+|[`exchange_api_scaffolding` mode] The version of the API specification, for example '1.4.0'.
 |Yes
 
 |`classifier`
-|The classifier of the API specification. Fetched from Anypoint Exchange if not provided.
+|[`exchange_api_scaffolding` mode] The classifier of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`type`
-|The type or packaging of the API specification. Fetched from Anypoint Exchange if not provided.
+|[`exchange_api_scaffolding` mode] The type or packaging of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`main`
-|The main file of the API specification. Fetched from Anypoint Exchange if not provided.
+|[`exchange_api_scaffolding` mode] The main file of the API specification. Fetched from Anypoint Exchange if not provided.
 |No
 
 |`runtimeVersion`
