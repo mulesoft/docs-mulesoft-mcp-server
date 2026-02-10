@@ -4,7 +4,7 @@ The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that fa
 
 MuleSoft MCP Server acts as a bridge between AI-powered IDEs like Cursor, Windsurf, and VS Code and MuleSoft's platform services--enabling you to build, deploy, and manage applications using natural language interactions in your editor.
 
-MuleSoft MCP Server integrates with MuleSoft Dev Agent and provides a set of agentic tools that connect Dev Agent directly to your MuleSoft environment, enabling capabilities such as:
+MuleSoft MCP Server integrates with MuleSoft Vibes and provides a set of agentic tools for direct access to your MuleSoft environment, enabling capabilities such as:
 
 * API specification development
 * Application creation and configuration

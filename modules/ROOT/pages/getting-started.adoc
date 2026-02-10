@@ -4,7 +4,7 @@ MuleSoft MCP Server enables AI-powered development assistants in your IDE to int
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Dev Agent. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Vibes. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin

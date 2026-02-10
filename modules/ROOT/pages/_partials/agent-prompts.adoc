@@ -1,7 +1,7 @@
 //
 // tag::intro[]
 
-Use these example prompts to guide MuleSoft Dev Agent in completing common tasks. Customize the values to match your project or environment.
+Use these example prompts to guide MuleSoft Vibes in completing common tasks. Customize the values to match your project or environment.
 
 // end::intro[]
 
