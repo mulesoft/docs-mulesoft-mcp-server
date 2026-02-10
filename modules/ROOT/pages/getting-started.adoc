@@ -186,7 +186,7 @@ Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (option
 }
 ----
 
-Download https://claude.ai/download[Claude Desktop].
+Download https://claude.com/download[Claude Desktop].
 
 ==== Cline
 Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
@@ -228,7 +228,7 @@ Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one 
 }
 ----
 
-Download https://www.cursor.com/[Cursor].
+Download https://cursor.com/[Cursor].
 
 ==== Trae
 Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
@@ -249,7 +249,7 @@ Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOI
 }
 ----
 
-Download https://trae.ai/[Trae].
+Download https://www.trae.ai/[Trae].
 
 ==== VS Code
 Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optional) `ANYPOINT_REGION` is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
@@ -293,7 +293,7 @@ Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional
 }
 ----
 
-Download https://www.windsurf.com/[Windsurf].
+Download https://windsurf.com/[Windsurf].
 
 ==== Zed
 Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is one of these values: `PROD_US`, `PROD_EU`, `PROD_CA`, or `PROD_JP`.
