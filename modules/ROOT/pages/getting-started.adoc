@@ -175,7 +175,7 @@ Add this snippet to `claude_desktop_config.json` where `ANYPOINT_REGION` (option
   "mcpServers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
@@ -196,7 +196,7 @@ Add this snippet to Cline `config.json` where `ANYPOINT_REGION` (optional) is on
   "mcpServers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YOUR_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CLIENT_SECRET>",
@@ -217,7 +217,7 @@ Add this snippet to Cursor `mcp.json` where `ANYPOINT_REGION` (optional) is one 
   "mcpServers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YOUR_CONNECTED_APP_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
@@ -238,7 +238,7 @@ Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOI
   "mcpServers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YYOUR_CONNECTED_APP_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
@@ -260,7 +260,7 @@ Add this snippet to VS Code `settings.json` or `.vscode/mcp.json` where (optiona
     "servers": {
       "mulesoft": {
         "command": "npx",
-        "args": ["-y", "@mulesoft/mcp-server", "start"],
+        "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
         "env": {
           "ANYPOINT_CLIENT_ID": "<YOUR_CONNECTED_APP_CLIENT_ID>",
           "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
@@ -282,7 +282,7 @@ Add this snippet to Windsurf `mcp_config.json` where `ANYPOINT_REGION` (optional
   "mcpServers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@salesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YOUR_CONNECTED_APP_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
@@ -303,7 +303,7 @@ Add this snippet to Zed `settings.json` where `ANYPOINT_REGION` (optional) is on
   "context_servers": {
     "mulesoft": {
       "command": "npx",
-      "args": ["-y", "@mulesoft/mcp-server", "start"],
+      "args": ["-y", "@msalesforce/mulesoft-mcp-server", "start"],
       "env": {
         "ANYPOINT_CLIENT_ID": "<YOUR_CONNECTED_APP_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
