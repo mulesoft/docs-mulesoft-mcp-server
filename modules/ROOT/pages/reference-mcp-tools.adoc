@@ -117,7 +117,12 @@ a|
 |No
 |None
 
-.3+s|Connector Development
+.7+s|Connector Development
+|<<uc-add-pagination,uc_add_pagination>>
+|No
+|Yes
+|None
+
 |<<uc-create-connector-workflow,uc_create_connector_workflow>>
 |No
 |Yes
@@ -129,6 +134,21 @@ a|
 |None
 
 |<<uc-generate-connector,uc_generate_connector>>
+|No
+|Yes
+|None
+
+|<<uc-list-connection-profiles,uc_list_connection_profiles>>
+|No
+|Yes
+|None
+
+|<<uc-manage-operations,uc_manage_operations>>
+|No
+|Yes
+|None
+
+|<<uc-publish-connector,uc_publish_connector>>
 |No
 |Yes
 |None
@@ -1716,6 +1736,95 @@ Available only in Anypoint Code Builder.
 }
 ----
 
+[[uc-add-pagination]]
+== uc_add_pagination
+
+Add pagination support to a specific CCM operation. Provide the operation file path and pagination configuration so the tool can create a paginated operation module.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`operationFilePath`
+|URI of the operation file. Must be a valid path to an operation file in the CCM operations directory.
+|Yes
+
+|`type`
+|Pagination type to apply. Valid values:
+
+* `offset`
+* `cursor`
+* `page`
+* `timestamp`
+* `custom`
+|Yes
+
+|`itemsField`
+|Path to the array of items in the response (for example, `data.items` or `results`). Specifies where paginated items appear in the API response.
+|No
+
+|`offsetParam`
+|Name of the offset parameter in the API request (for example, `offset` or `skip`).
+|Yes, when `type` is `offset`.
+
+|`initialOffsetValue`
+|Initial value for the offset parameter (typically `0`).
+|Yes, when `type` is `offset`.
+
+|`pageNumberParam`
+|Name of the page number parameter in the API request (for example, `page` or `pageNumber`).
+|Yes, when `type` is `page`.
+
+|`initialPageNumber`
+|Initial page number (typically `0` or `1`, depending on the API).
+|Yes, when `type` is `page`.
+
+|`timestampParam`
+|Name of the timestamp parameter in the API request (for example, `since` or `after`).
+|Yes, when `type` is `timestamp`.
+
+|`cursorParam`
+|Name of the cursor parameter in the API request (for example, `cursor` or `nextToken`).
+|Yes, when `type` is `cursor`.
+
+|`referenceType`
+|Reference type for cursor pagination. Use `marker` for a simple marker or token value, or `uri` for a URI or URL that contains the next page reference.
+|Yes, when `type` is `cursor`.
+
+|`referenceExpression`
+|Expression that extracts the next cursor value from the API response (for example, `pagination.nextCursor`). Use a path expression that points to the cursor value in the response payload.
+|Yes, when `type` is `cursor`.
+
+|===
+
+.Example request (offset pagination)
+[source,json]
+----
+{
+  "name": "uc_add_pagination",
+  "arguments": {
+    "operationFilePath": "file:///Users/developer/my-connector/src/main/resources/ccm/operations/listItems.json",
+    "type": "offset",
+    "itemsField": "data.results",
+    "offsetParam": "offset",
+    "initialOffsetValue": "0"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Pagination module created for operation listItems.",
+  "operationFilePath": "/Users/developer/my-connector/src/main/resources/ccm/operations/listItems.json",
+  "paginationType": "offset"
+}
+----
+
 [[uc-create-connector-workflow]]
 == uc_create_connector_workflow
 
@@ -1815,6 +1924,300 @@ Available only in Connector Builder.
     "Implement comprehensive error handling",
     "Add retry logic for rate limiting"
   ]
+}
+----
+
+[[uc-generate-api-spec]]
+== uc_generate_api_spec
+
+Generate an OpenAPI 3.0 spec from use cases and API documentation. Analyzes documentation sources, discovers endpoints for the specified use cases, and creates both a `discovery.json` file and a complete OpenAPI YAML spec. If no parameters are used, the agent prompts for input.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`platform`
+|Name of the SaaS platform or service, for example, `Salesforce`, `ServiceNow`, `PayPal`, or `Stripe`.
+|No
+
+|`useCases`
+|List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. If specified, a minimum of one is required.
+|No
+
+|`documentation`
+|List of official API documentation URLs. Must be valid URLs starting with `http://` or `https://`, for example, `\https://developers.stripe.com/api`. If specified, a minimum of one is required.
+|No
+
+|`additionalRequirements`
+|Any additional requirements, constraints, or preferences for the API spec, for example, specific authentication methods, rate limiting considerations, and version preferences.
+|No
+
+|`userConfirmed`
+|Confirmation that all provided information is correct and ready for processing.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "uc_generate_api_spec",
+  "arguments": {
+    "platform": "Stripe",
+    "useCases": [
+      "Sync customers into our CRM",
+      "Create a charge and issue a refund"
+    ],
+    "documentation": [
+      "https://docs.stripe.com/api",
+      "https://docs.stripe.com/api/customers",
+      "https://docs.stripe.com/api/charges",
+      "https://docs.stripe.com/api/refunds"
+    ],
+    "additionalRequirements": "OpenAPI 3.0 YAML. Use bearer token auth (Authorization: Bearer <apiKey>). Include common error responses (400/401/403/404/409/429/500). Model pagination where applicable.",
+    "userConfirmed": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Generated discovery.json and OpenAPI 3.0 spec from documentation and use cases.",
+  "platform": "Stripe",
+  "discoveryJsonPath": "/Users/you/workspace/stripe-spec/discovery.json",
+  "openApiYamlPath": "/Users/you/workspace/stripe-spec/openapi.yaml"
+}
+----
+
+[[uc-generate-connector]]
+== uc_generate_connector
+
+Generate a complete LinkWeave connector from an API spec. Supports flexible multi-phase generation including scaffolding, CCM (Canonical Connectivity Model), and Anypoint Connector. All endpoints from the API spec are used. Can execute phases individually or in combination.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`apiSpec`
+|Absolute path to the API spec file (OpenAPI/Swagger YAML or JSON).
+|No
+
+Required for `ccm` phase.
+
+|`projectName`
+|Name for the connector project.
+|No
+
+Required for `ccm` phase.
+
+|`description`
+|Description for the connector project.
+|No
+
+Required for `ccm` phase.
+
+|`phases`
+|Array of phases to execute - any combination of `ccm` and `anypoint`. Phases execute in order. Valid values are:
+
+* `ccm` for Canonical Connectivity Model 
+* `anypoint` for Anypoint Connector
+
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "tool_name": "uc_generate_connector",
+  "arguments": {
+    "apiSpec": "/Users/developer/apis/salesforce-api.yaml",
+    "projectName": "Salesforce Integration Connector",
+    "description": "Custom connector for Salesforce CRM integration with enhanced features.",
+    "phases": ["ccm"]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "message": "Connector generated successfully.",
+  "projectPath": "/Users/you/workspace/stripe-connector",
+  "phasesExecuted": [
+    "ccm",
+    "anypoint"
+  ]
+}
+----
+
+[[uc-list-connection-profiles]]
+== uc_list_connection_profiles
+
+List available connection profiles with their IDs, names, authentication types, and descriptions. Use this tool to see which profiles you can use when executing connector operations. The profile ID returned here is required for the `execute` type in <<uc-manage-operations,`uc_manage_operations`>>.
+
+Available only in Connector Builder.
+
+This tool has no parameters.
+
+.Example request
+[source,json]
+----
+{
+  "name": "uc_list_connection_profiles",
+  "arguments": {}
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "success": true,
+  "profiles": [
+    {
+      "id": "profile-sandbox-01",
+      "name": "Sandbox API Key",
+      "authType": "apiKey",
+      "description": "Sandbox environment with API key authentication"
+    }
+  ]
+}
+----
+
+[[uc-manage-operations]]
+== uc_manage_operations
+
+Manage connector operations: list operations, get details (including input and output schemas), or execute an operation using a connection profile. To execute an operation, first call <<uc-list-connection-profiles,`uc_list_connection_profiles`>> to obtain a profile ID, then call this tool with `type` set to `execute`, the operation name, the profile ID, and an `input` object containing the operation parameters.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`type`
+|Action to perform. Valid values:
+
+* `list` to list all operations
+* `get` to get details for one operation (including schemas)
+* `execute` to run an operation with a connection profile
+|Yes
+
+|`operationName`
+|Name or ID of the operation (for example, from a prior `list` or `get` call).
+|Yes, when `type` is `get` or `execute`.
+
+|`profileId`
+|Connection profile ID from `uc_list_connection_profiles` to use for authentication.
+|Yes, when `type` is `execute`.
+
+|`input`
+|When `type` is `execute`, operation parameters as a JSON object. Use `type`=`get` with the operation name first to see the required or optional input fields.
+|No
+
+|===
+
+.Example request (list operations)
+[source,json]
+----
+{
+  "name": "uc_manage_operations",
+  "arguments": {
+    "type": "list"
+  }
+}
+----
+
+.Example request (execute operation)
+[source,json]
+----
+{
+  "name": "uc_manage_operations",
+  "arguments": {
+    "type": "execute",
+    "operationName": "listAccounts",
+    "profileId": "profile-sandbox-01",
+    "input": {
+      "limit": 10
+    }
+  }
+}
+----
+
+.Example response (execute)
+[source,json]
+----
+{
+  "success": true,
+  "operationName": "listAccounts",
+  "output": {
+    "accounts": []
+  }
+}
+----
+
+[[uc-publish-connector]]
+== uc_publish_connector
+
+Publish the connector to Anypoint Exchange. The tool chooses execution mode from your configuration: if `organizationId` or `repositoryId` is missing and not found in the project POM, it runs in workflow mode and returns a plan to collect configuration; if the required configuration is present, it runs in granular mode and performs the publish.
+
+Available only in Connector Builder.
+
+[%header,cols="1,3a,1"]
+|===
+|Parameter |Description |Required?
+
+|`workflowCustomization`
+|Optional preferences or requirements for the publish workflow.
+|No
+
+|`organizationId`
+|Anypoint Exchange organization ID. If omitted, the tool reads the POM. If the ID is still missing, workflow mode is used.
+|No
+
+|`repositoryId`
+|Private Exchange repository ID. If omitted, the tool reads the POM. If the ID is still missing, workflow mode is used.
+|No
+
+|`profiles`
+|Maven profiles to use for deployment. Defaults to `private-exchange-deploy` if not specified.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "uc_publish_connector",
+  "arguments": {
+    "organizationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "repositoryId": "my-private-exchange-repo"
+  }
+}
+----
+
+.Example response (granular mode)
+[source,json]
+----
+{
+  "success": true,
+  "message": "Connector published to Anypoint Exchange.",
+  "mode": "granular",
+  "assetId": "my-saas-connector",
+  "version": "1.0.0"
 }
 ----
 
@@ -3743,141 +4146,6 @@ Required if `includeAvailablePolicies=true`.
       "status": "active",
       "appliedPolicies": []
     }
-  ]
-}
-----
-
-[[uc-generate-api-spec]]
-== uc_generate_api_spec
-
-Generate an OpenAPI 3.0 spec from use cases and API documentation. Analyzes documentation sources, discovers endpoints for the specified use cases, and creates both a `discovery.json` file and a complete OpenAPI YAML spec. If no parameters are used, the agent prompts for input.
-
-Available only in Connector Builder.
-
-[%header,cols="1,3a,1"]
-|===
-|Parameter |Description |Required?
-
-|`platform`
-|Name of the SaaS platform or service, for example, `Salesforce`, `ServiceNow`, `PayPal`, or `Stripe`.
-|No
-
-|`useCases`
-|List of integration use cases, ordered by priority. Each use case describes a specific integration scenario, for example, `Sync customer data` or `Process invoices`. If specified, a minimum of one is required.
-|No
-
-|`documentation`
-|List of official API documentation URLs. Must be valid URLs starting with `http://` or `https://`, for example, `\https://developers.stripe.com/api`. If specified, a minimum of one is required.
-|No
-
-|`additionalRequirements`
-|Any additional requirements, constraints, or preferences for the API spec, for example, specific authentication methods, rate limiting considerations, and version preferences.
-|No
-
-|`userConfirmed`
-|Confirmation that all provided information is correct and ready for processing.
-|No
-
-|===
-
-.Example request
-[source,json]
-----
-{
-  "name": "uc_generate_api_spec",
-  "arguments": {
-    "platform": "Stripe",
-    "useCases": [
-      "Sync customers into our CRM",
-      "Create a charge and issue a refund"
-    ],
-    "documentation": [
-      "https://docs.stripe.com/api",
-      "https://docs.stripe.com/api/customers",
-      "https://docs.stripe.com/api/charges",
-      "https://docs.stripe.com/api/refunds"
-    ],
-    "additionalRequirements": "OpenAPI 3.0 YAML. Use bearer token auth (Authorization: Bearer <apiKey>). Include common error responses (400/401/403/404/409/429/500). Model pagination where applicable.",
-    "userConfirmed": true
-  }
-}
-----
-
-.Example response
-[source,json]
-----
-{
-  "success": true,
-  "message": "Generated discovery.json and OpenAPI 3.0 spec from documentation and use cases.",
-  "platform": "Stripe",
-  "discoveryJsonPath": "/Users/you/workspace/stripe-spec/discovery.json",
-  "openApiYamlPath": "/Users/you/workspace/stripe-spec/openapi.yaml"
-}
-----
-
-[[uc-generate-connector]]
-== uc_generate_connector
-
-Generate a complete LinkWeave connector from an API spec. Supports flexible multi-phase generation including scaffolding, CCM (Canonical Connectivity Model), and Anypoint Connector. All endpoints from the API spec are used. Can execute phases individually or in combination.
-
-Available only in Connector Builder.
-
-[%header,cols="1,3a,1"]
-|===
-|Parameter |Description |Required?
-
-|`apiSpec`
-|Absolute path to the API spec file (OpenAPI/Swagger YAML or JSON).
-|No
-
-Required for `ccm` phase.
-
-|`projectName`
-|Name for the connector project.
-|No
-
-Required for `ccm` phase.
-
-|`description`
-|Description for the connector project.
-|No
-
-Required for `ccm` phase.
-
-|`phases`
-|Array of phases to execute - any combination of `ccm` and `anypoint`. Phases execute in order. Valid values are:
-
-* `ccm` for Canonical Connectivity Model 
-* `anypoint` for Anypoint Connector
-
-|No
-
-|===
-
-.Example request
-[source,json]
-----
-{
-  "tool_name": "uc_generate_connector",
-  "arguments": {
-    "apiSpec": "/Users/developer/apis/salesforce-api.yaml",
-    "projectName": "Salesforce Integration Connector",
-    "description": "Custom connector for Salesforce CRM integration with enhanced features.",
-    "phases": ["ccm"]
-  }
-}
-----
-
-.Example response
-[source,json]
-----
-{
-  "success": true,
-  "message": "Connector generated successfully.",
-  "projectPath": "/Users/you/workspace/stripe-connector",
-  "phasesExecuted": [
-    "ccm",
-    "anypoint"
   ]
 }
 ----
