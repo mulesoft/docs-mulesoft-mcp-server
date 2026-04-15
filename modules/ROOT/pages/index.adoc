@@ -1,10 +1,8 @@
 = MuleSoft MCP Server Overview
 
-The Mulesoft MCP Server is a Model Context Protocol (MCP) implementation that facilitates interaction between large language models (LLMs) and the Mulesoft Anypoint Platform. Through natural language interactions, you can build agent networks, create and deploy Mule applications, build connectors, create API specs, manage governance rulesets, get platform insights, and more.
+MuleSoft MCP Server implements the Model Context Protocol (MCP) so AI assistants in your IDE can work with Anypoint Platform on your behalf through structured, permission-scoped tool calls. You state goals in natural language while the server automates work across API design, integration assets, deployments, governance, and operational insight. It integrates with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
 
-MuleSoft MCP Server acts as a bridge between AI-powered IDEs like Cursor, Windsurf, and VS Code and MuleSoft's platform services--enabling you to build, deploy, and manage applications using natural language interactions in your editor.
-
-MuleSoft MCP Server integrates with MuleSoft Vibes and provides a set of agentic tools for direct access to your MuleSoft environment, enabling capabilities such as:
+Typical lifecycle areas you address through the tools include:
 
 * API specification development
 * Application creation and configuration
@@ -17,7 +15,7 @@ MuleSoft MCP Server integrates with MuleSoft Vibes and provides a set of agentic
 
 If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft MCP Server for your IDE, see xref:getting-started.adoc[].
 
-To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. Also check out the xref:reference-mcp-tools.adoc[] for a complete list of tools for interacting with Anypoint Platform. 
+To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. For a complete list of tools for interacting with Anypoint Platform, see xref:reference-mcp-tools.adoc[]. 
 
 
 
