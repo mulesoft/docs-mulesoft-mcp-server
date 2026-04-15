@@ -1,6 +1,6 @@
 = MuleSoft MCP Server Tool Reference
 
-MuleSoft MCP Server provides tools for developing agent networks, building applications, creating connectors, managing deployments, governing APIs, and more. Each tool accepts specific parameters to automate tasks across the Anypoint Platform. Use these tools to accelerate development workflows, streamline governance, and gain operational insights into your integrations.
+MuleSoft MCP Server exposes tools for developing agent networks, building applications, creating connectors, managing deployments, governing APIs, and more. Each tool accepts specific parameters so assistants can automate tasks across Anypoint Platform APIs. Run them from your IDE to speed up delivery, tighten governance, and surface operational insight for your integrations.
 
 NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE or Connector Builder. 
 
