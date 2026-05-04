@@ -1,6 +1,6 @@
-= MuleSoft MCP Server Overview
+= MuleSoft DX MCP Server Overview
 
-MuleSoft MCP Server implements the Model Context Protocol (MCP) so AI assistants in your IDE can work with Anypoint Platform on your behalf through structured, permission-scoped tool calls. You state goals in natural language while the server automates work across API design, integration assets, deployments, governance, and operational insight. It integrates with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
+MuleSoft DX MCP Server implements the Model Context Protocol (MCP) so AI assistants in your IDE can work with Anypoint Platform on your behalf through structured, permission-scoped tool calls. You state goals in natural language while the server automates work across API design, integration assets, deployments, governance, and operational insight. It integrates with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
 
 Typical lifecycle areas you address through the tools include:
 
@@ -13,9 +13,9 @@ Typical lifecycle areas you address through the tools include:
 
 == Next Steps
 
-If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft MCP Server for your IDE, see xref:getting-started.adoc[].
+If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft DX MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft DX MCP Server for your IDE, see xref:getting-started.adoc[].
 
-To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. For a complete list of tools for interacting with Anypoint Platform, see xref:reference-mcp-tools.adoc[]. 
+To start using MuleSoft DX MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. For a complete list of tools for interacting with Anypoint Platform, see xref:reference-mcp-tools.adoc[]. 
 
 
 
