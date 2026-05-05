@@ -203,7 +203,7 @@ Download https://cursor.com/[Cursor].
 
 In Windsurf:
 
-1. Click Settings > Cascade > Open MCP Registry.
+1. Click **Settings** > **Cascade** > **Open MCP Registry**.
 2. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet:
 
 ----
