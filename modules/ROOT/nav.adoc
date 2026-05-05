@@ -4,4 +4,6 @@
 ** xref:using-mulesoft-mcp-server.adoc[Using MuleSoft DX MCP Server]
 ** xref:reference-mcp-tools.adoc[MuleSoft DX MCP Server Tool Reference]
 * xref:getting-started-platform.adoc[Getting Started with MuleSoft Platform MCP Server]
+** xref:using-mulesoft-platform-mcp-server.adoc[Using MuleSoft Platform MCP Server]
+** xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server Tool Reference]
 * xref:mulesoft-mcp-server-release-notes.adoc[Release Notes]
