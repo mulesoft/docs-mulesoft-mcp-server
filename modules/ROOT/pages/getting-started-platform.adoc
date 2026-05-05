@@ -1,0 +1,261 @@
+= Getting Started with MuleSoft Platform MCP Server
+
+MuleSoft Platform MCP Server provides governed access to your entire IT landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale. It helps you scan, discover, govern, and monitor services across the infrastructure you already run.
+
+== Create a Connected App
+
+Follow the steps in https://docs.mulesoft.com/access-management/creating-connected-apps-dev#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app. 
+
+Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes.
+
+Required Permissions: https://docs.google.com/document/d/1itDfXW8pgrVdm7O2v94Z0n7atMKGp9rf/edit?usp=sharing&ouid=108919147889696723628&rtpof=true&sd=true[See link]
+
+Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform  MCP Server tools. Only tools listed in these tables require specific permission scopes.
+
+=== Exchange
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|exchange:exchange_viewer a|
+* xref:reference-mcp-tools-platform.adoc#fetch-service-facets[fetch_service_facets]
+* xref:reference-mcp-tools-platform.adoc#fetch-services[fetch_services]
+* xref:reference-mcp-tools-platform.adoc#list-agents[list_agents]
+* xref:reference-mcp-tools-platform.adoc#list-apis[list_apis]
+* xref:reference-mcp-tools-platform.adoc#list-llms[list_llms]
+* xref:reference-mcp-tools-platform.adoc#list-mcp-servers[list_mcp_servers]
+* xref:reference-mcp-tools-platform.adoc#search-assets-semantic[search_assets_semantic]
+* xref:reference-mcp-tools-platform.adoc#search-global-assets[search_global_assets]
+* xref:reference-mcp-tools-platform.adoc#search-global-content[search_global_content]
+* xref:reference-mcp-tools-platform.adoc#search-portfolio-services[search_portfolio_services]
+* xref:reference-mcp-tools-platform.adoc#search-repository-knowledge[search_repository_knowledge]
+* xref:reference-mcp-tools-platform.adoc#view-agent-details[view_agent_details]
+* xref:reference-mcp-tools-platform.adoc#view-api-version-details[view_api_version_details]
+* xref:reference-mcp-tools-platform.adoc#view-llm-details[view_llm_details]
+* xref:reference-mcp-tools-platform.adoc#view-mcp-server-details[view_mcp_server_details]
+
+|exchange:exchange_contributor a|
+* xref:reference-mcp-tools-platform.adoc#get-mcp-server-state[get_mcp_server_state]
+* xref:reference-mcp-tools-platform.adoc#get-provision-status[get_provision_status]
+* xref:reference-mcp-tools-platform.adoc#get-trusted-mcp-catalog[get_trusted_mcp_catalog]
+* xref:reference-mcp-tools-platform.adoc#provision-mcp-server[provision_mcp_server]
+* xref:reference-mcp-tools-platform.adoc#resume-provision-job[resume_provision_job]
+* xref:reference-mcp-tools-platform.adoc#update-mcp-server[update_mcp_server]
+|===
+
+=== API Manager
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|apimanager:environment_viewer a|
+* xref:reference-mcp-tools-platform.adoc#check-guardrail-scope-targets[check_guardrail_scope_targets]
+* xref:reference-mcp-tools-platform.adoc#fetch-automated-policy-template[fetch_automated_policy_template]
+* xref:reference-mcp-tools-platform.adoc#fetch-guardrail-ruleset[fetch_guardrail_ruleset]
+* xref:reference-mcp-tools-platform.adoc#get-policy-template-form[get_policy_template_form]
+* xref:reference-mcp-tools-platform.adoc#list-governance-strategies[list_governance_strategies]
+* xref:reference-mcp-tools-platform.adoc#list-provider-gateways[list_provider_gateways]
+* xref:reference-mcp-tools-platform.adoc#prepare-automated-policy-creation[prepare_automated_policy_creation]
+* xref:reference-mcp-tools-platform.adoc#prepare-guardrail-creation[prepare_guardrail_creation]
+* xref:reference-mcp-tools-platform.adoc#prepare-policy-creation[prepare_policy_creation]
+* xref:reference-mcp-tools-platform.adoc#view-api-instance-details[view_api_instance_details]
+* xref:reference-mcp-tools-platform.adoc#view-api-instance-policies[view_api_instance_policies]
+* xref:reference-mcp-tools-platform.adoc#view-api-version-instances[view_api_version_instances]
+
+|apimanager:environment_admin a|
+* xref:reference-mcp-tools-platform.adoc#apply-policy-to-instance[apply_policy_to_instance]
+* xref:reference-mcp-tools-platform.adoc#create-automated-policy-strategy[create_automated_policy_strategy]
+* xref:reference-mcp-tools-platform.adoc#delete-automated-policy-strategy[delete_automated_policy_strategy]
+|===
+
+=== Anypoint Monitoring
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|monitoring:viewer a|
+* xref:reference-mcp-tools-platform.adoc#fetch-monitoring-drill-down[fetch_monitoring_drill_down]
+* xref:reference-mcp-tools-platform.adoc#fetch-monitoring-instance[fetch_monitoring_instance]
+* xref:reference-mcp-tools-platform.adoc#fetch-monitoring-overview[fetch_monitoring_overview]
+* xref:reference-mcp-tools-platform.adoc#show-observability-performance[show_observability_performance]
+* xref:reference-mcp-tools-platform.adoc#view-api-instance-monitoring[view_api_instance_monitoring]
+|===
+
+=== Governance
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|governance:viewer a|
+* xref:reference-mcp-tools-platform.adoc#check-policy-conformance[check_policy_conformance]
+* xref:reference-mcp-tools-platform.adoc#fetch-governance-service-report[fetch_governance_service_report]
+* xref:reference-mcp-tools-platform.adoc#fetch-governance-services[fetch_governance_services]
+* xref:reference-mcp-tools-platform.adoc#view-api-version-governance-report[view_api_version_governance_report]
+* xref:reference-mcp-tools-platform.adoc#view-governance-report[view_governance_report]
+
+|governance:administrator a|
+* xref:reference-mcp-tools-platform.adoc#create-guardrail[create_guardrail]
+* xref:reference-mcp-tools-platform.adoc#delete-governance-strategy[delete_governance_strategy]
+|===
+
+=== Runtime Manager
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|runtime:deploy_applications a|
+* xref:reference-mcp-tools-platform.adoc#create-omni-gateway[create_omni_gateway]
+* xref:reference-mcp-tools-platform.adoc#create-scanner[create_scanner]
+* xref:reference-mcp-tools-platform.adoc#get-omni-gateway-target-domains[get_omni_gateway_target_domains]
+* xref:reference-mcp-tools-platform.adoc#get-omni-gateway-usage-report[get_omni_gateway_usage_report]
+* xref:reference-mcp-tools-platform.adoc#list-omni-gateway-environments[list_omni_gateway_environments]
+* xref:reference-mcp-tools-platform.adoc#list-omni-gateway-targets[list_omni_gateway_targets]
+* xref:reference-mcp-tools-platform.adoc#list-scanner-providers[list_scanner_providers]
+* xref:reference-mcp-tools-platform.adoc#test-scanner-connection[test_scanner_connection]
+|===
+
+=== General
+[cols="1,3"]
+|===
+|Required Permission |Associated Tools
+
+|organization_read (implicit) a|
+* xref:reference-mcp-tools-platform.adoc#get-business-group[get_business_group]
+* xref:reference-mcp-tools-platform.adoc#list-business-groups[list_business_groups]
+* xref:reference-mcp-tools-platform.adoc#select-active-business-group[select_active_business_group]
+* xref:reference-mcp-tools-platform.adoc#select-active-environment[select_active_environment]
+* xref:reference-mcp-tools-platform.adoc#select-active-provider[select_active_provider]
+* xref:reference-mcp-tools-platform.adoc#select-api-version[select_api_version]
+|===
+
+== Configure Your IDE
+
+Configure Claude Desktop, Cursor, Windsurf, Zed, or other IDEs to work with MuleSoft Platform MCP Server. After you add the configuration, verify it by checking that the server has started in the MCP section of your IDE.
+
+=== Available Client Connections
+
+When configuring your AI tool, you need to change the URL according to what region you're in. 
+
+Use `/mcp` but fall back to `/mcp/sse` if the client doesn’t connect. 
++
+* http://omni.mulesoft.com/mcp
+* http://omni.mulesoft.com/mcp/sse
+
+[cols="1,3"]
+|===
+|Type |URL
+|US Prod
+|http://omni.mulesoft.com[omni.mulesoft.com] (alias) / http://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
+|EU Prod
+|http://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
+|CA Prod
+|http://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
+|JP Prod
+|http://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
+|IN Prod
+|in1.omni.mulesoft.com
+|AU Prod
+|au1.omni.mulesoft.com
+|AE Prod
+|ae1.omni.mulesoft.com
+|===
+
+For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
+
+=== Claude Desktop
+
+In Claude Desktop:
+
+1. Click **Customize** > **Connectors**.
+2. Click the add (**+**) icon, and then click **Add Custom Connector**.
+3. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
+
+OR run this command in your terminal:
+
+`claude mcp add --transport sse mulesoft-platform <URL for your region>.`
+
+Download https://claude.com/download[Claude Desktop].
+
+=== Cursor
+
+In Cursor:
+
+1. Click **Settings** -> **Tools and MCPs** -> **Add a Custom MCP Server**.
+2. Add the following code snippet:
+
+----
+{
+  "mcpServers": {
+    "mulesoft-platform": {
+      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "auth": {
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
+----
+
+Download https://cursor.com/[Cursor].
+
+=== Windsurf
+
+In Windsurf:
+
+1. Click Settings > Cascade > Open MCP Registry.
+2. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet:
+
+----
+{
+  "mcpServers": {
+    "mulesoft-platform": {
+      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "headers": {
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
+----
+
+Download https://windsurf.com/[Windsurf].
+
+=== Cline
+
+In Cline:
+
+1. Click the MCP Servers icon, and select the **Remote Servers** tab,
+2. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
+3. When prompted, authenticate your connection.
+
+Download https://cline.bot/[Cline].
+
+=== VS Code
+
+In VS Code:
+
+In your user profile, configure a custom MCP server in the `mcp.json` file.
+
+----
+{
+  "servers": {
+    "mulesoft-platform": {
+      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "headers": {
+        "CLIENT_ID": "your-client-id",
+        "CLIENT_SECRET": "your-client-secret"
+      }
+    }
+  }
+}
+----
+
+Alternatively, run `MCP: Add Server` in the Command Palette (⇧⌘P) to add a server through a guided flow.
+
+Download https://code.visualstudio.com/[VS Code].
+
+== See Also
+
+* xref:using-mulesoft-mcp-server-platform.adoc[]

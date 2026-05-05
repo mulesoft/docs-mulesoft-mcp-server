@@ -1,9 +1,11 @@
-= MuleSoft MCP Server Overview
+= MuleSoft MCP Servers Overview
 
-MuleSoft MCP Server implements the Model Context Protocol (MCP) so AI assistants in your IDE can work with Anypoint Platform on your behalf through structured, permission-scoped tool calls. You state goals in natural language while the server automates work across API design, integration assets, deployments, governance, and operational insight. It integrates with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
+MuleSoft offers two MCP servers that implement the Model Context Protocol (MCP) for AI assistants:
 
-Typical lifecycle areas you address through the tools include:
-
+* *MuleSoft DX MCP Server*: Provides structured, permission-scoped access to Anypoint Platform from AI assistants in your IDE to help you design, build, publish, deploy, and secure MuleSoft assets by turning natural-language goals into production-ready actions.
++
+Typical lifecycle areas you address with MuleSoft DX MCP Server include:
++
 * API specification development
 * Application creation and configuration
 * Agent network creation
@@ -11,11 +13,24 @@ Typical lifecycle areas you address through the tools include:
 * Instance deployment and management to CloudHub 2.0 and Runtime Fabric
 * Application security
 
+* *MuleSoft Platform MCP Server*: Provides governed access to your entire IT landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale. It helps you scan, discover, govern, and monitor services across the infrastructure you already run.
++
+Typical platform areas you address with MuleSoft Platform MCP Server include:
++
+* Service scanning across agentic platforms
+* Discovery of APIs, agents, MCP servers, and LLMs in one place
+* Policy enforcement for PII detection, semantic routing, and token controls
+* Monitoring of traffic, cost, and performance across services
+
+Both MCP servers integrate with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
+
 == Next Steps
 
-If you have Anypoint Code Builder desktop or Connector Builder, MuleSoft MCP Server is already included, configured, and ready to use. If you want to learn how to set up and configure MuleSoft MCP Server for your IDE, see xref:getting-started.adoc[].
+If you have Anypoint Code Builder desktop or Connector Builder, the MuleSoft MCP servers are already included, configured, and ready to use. If you want to learn how to set up and configure an MCP Server for your IDE, see the appropriate doc:
++
+* xref:getting-started.adoc[].
+* xref:getting-started-platform.adoc[].
 
-To start using MuleSoft MCP Server, see xref:using-mulesoft-mcp-server.adoc[] for some example prompts. For a complete list of tools for interacting with Anypoint Platform, see xref:reference-mcp-tools.adoc[]. 
 
 
 

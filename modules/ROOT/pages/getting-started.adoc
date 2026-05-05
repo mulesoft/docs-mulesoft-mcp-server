@@ -1,6 +1,6 @@
 = Getting Started with MuleSoft MCP Server
 
-MuleSoft MCP Server enables AI-powered development assistants in your IDE to interact with Anypoint Platform, helping you manage APIs, applications, and platform resources directly from your coding environment. Install prerequisites, create a connected app with the scopes your tools require, and register the server in the IDE so assistants can call Anypoint Platform with your environments and identities. 
+MuleSoft DX MCP Server Provides structured, permission-scoped access to Anypoint Platform from AI assistants in your IDE to help you design, build, publish, deploy, and secure MuleSoft assets by turning natural-language goals into production-ready actions. 
 
 [IMPORTANT] 
 ====

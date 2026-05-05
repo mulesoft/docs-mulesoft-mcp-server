@@ -1,0 +1,3499 @@
+= MuleSoft Platform MCP Server Tool Reference
+
+MuleSoft Platform MCP Server exposes tools for managing APIs, agents, LLMs, MCP servers, governance strategies, policies, gateways, observability, and cost optimization across Anypoint Platform. Each tool accepts specific input parameters so assistants can search the portfolio, inspect resources, and apply changes on your behalf. Use these tools from your IDE or another MCP client to automate platform administration and surface operational insight.
+
+See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Server] for setup and authentication, including the Connected App scopes that map to each permission tier.
+
+== Command Summary
+
+[%header,cols="1,2,2"]
+|===
+|Category |Tool |Required Permission Scopes
+
+.2+s|Authentication
+|<<login,login>>
+|None
+
+|<<logout,logout>>
+|None
+
+.5+s|Business Group & Org
+|<<get-business-group,get_business_group>>
+|organization_read
+
+|<<list-business-groups,list_business_groups>>
+|organization_read
+
+|<<select-active-business-group,select_active_business_group>>
+|organization_read
+
+|<<select-active-environment,select_active_environment>>
+|organization_read
+
+|<<select-active-provider,select_active_provider>>
+|organization_read
+
+.8+s|API Management
+|<<list-apis,list_apis>>
+|exchange:exchange_viewer
+
+|<<select-api-version,select_api_version>>
+|organization_read
+
+|<<list-provider-gateways,list_provider_gateways>>
+|apimanager:environment_viewer
+
+|<<view-api-instance-details,view_api_instance_details>>
+|apimanager:environment_viewer
+
+|<<view-api-instance-monitoring,view_api_instance_monitoring>>
+|monitoring:viewer
+
+|<<view-api-instance-policies,view_api_instance_policies>>
+|apimanager:environment_viewer
+
+|<<view-api-version-details,view_api_version_details>>
+|exchange:exchange_viewer
+
+|<<view-api-version-instances,view_api_version_instances>>
+|apimanager:environment_viewer
+
+.8+s|Policy Management
+|<<apply-policy-to-instance,apply_policy_to_instance>>
+|apimanager:environment_admin
+
+|<<create-automated-policy-strategy,create_automated_policy_strategy>>
+|apimanager:environment_admin
+
+|<<delete-automated-policy-strategy,delete_automated_policy_strategy>>
+|apimanager:environment_admin
+
+|<<fetch-automated-policy-template,fetch_automated_policy_template>>
+|apimanager:environment_viewer
+
+|<<get-policy-template-form,get_policy_template_form>>
+|apimanager:environment_viewer
+
+|<<list-governance-strategies,list_governance_strategies>>
+|apimanager:environment_viewer
+
+|<<prepare-automated-policy-creation,prepare_automated_policy_creation>>
+|apimanager:environment_viewer
+
+|<<prepare-policy-creation,prepare_policy_creation>>
+|apimanager:environment_viewer
+
+.10+s|Governance
+|<<check-guardrail-scope-targets,check_guardrail_scope_targets>>
+|apimanager:environment_viewer
+
+|<<check-policy-conformance,check_policy_conformance>>
+|governance:viewer
+
+|<<create-guardrail,create_guardrail>>
+|governance:administrator
+
+|<<delete-governance-strategy,delete_governance_strategy>>
+|governance:administrator
+
+|<<fetch-governance-service-report,fetch_governance_service_report>>
+|governance:viewer
+
+|<<fetch-governance-services,fetch_governance_services>>
+|governance:viewer
+
+|<<fetch-guardrail-ruleset,fetch_guardrail_ruleset>>
+|apimanager:environment_viewer
+
+|<<prepare-guardrail-creation,prepare_guardrail_creation>>
+|apimanager:environment_viewer
+
+|<<view-api-version-governance-report,view_api_version_governance_report>>
+|governance:viewer
+
+|<<view-governance-report,view_governance_report>>
+|governance:viewer
+
+.4+s|Monitoring & Observability
+|<<fetch-monitoring-drill-down,fetch_monitoring_drill_down>>
+|monitoring:viewer
+
+|<<fetch-monitoring-instance,fetch_monitoring_instance>>
+|monitoring:viewer
+
+|<<fetch-monitoring-overview,fetch_monitoring_overview>>
+|monitoring:viewer
+
+|<<show-observability-performance,show_observability_performance>>
+|monitoring:viewer
+
+.7+s|Search & Discovery
+|<<fetch-service-facets,fetch_service_facets>>
+|exchange:exchange_viewer
+
+|<<fetch-services,fetch_services>>
+|exchange:exchange_viewer
+
+|<<search-assets-semantic,search_assets_semantic>>
+|exchange:exchange_viewer
+
+|<<search-global-assets,search_global_assets>>
+|exchange:exchange_viewer
+
+|<<search-global-content,search_global_content>>
+|exchange:exchange_viewer
+
+|<<search-portfolio-services,search_portfolio_services>>
+|exchange:exchange_viewer
+
+|<<search-repository-knowledge,search_repository_knowledge>>
+|exchange:exchange_viewer
+
+.8+s|MCP Servers
+|<<get-mcp-server-state,get_mcp_server_state>>
+|exchange:exchange_contributor
+
+|<<get-provision-status,get_provision_status>>
+|exchange:exchange_contributor
+
+|<<get-trusted-mcp-catalog,get_trusted_mcp_catalog>>
+|exchange:exchange_contributor
+
+|<<list-mcp-servers,list_mcp_servers>>
+|exchange:exchange_viewer
+
+|<<provision-mcp-server,provision_mcp_server>>
+|exchange:exchange_contributor
+
+|<<resume-provision-job,resume_provision_job>>
+|exchange:exchange_contributor
+
+|<<update-mcp-server,update_mcp_server>>
+|exchange:exchange_contributor
+
+|<<view-mcp-server-details,view_mcp_server_details>>
+|exchange:exchange_viewer
+
+.2+s|Agents
+|<<list-agents,list_agents>>
+|exchange:exchange_viewer
+
+|<<view-agent-details,view_agent_details>>
+|exchange:exchange_viewer
+
+.2+s|LLMs
+|<<list-llms,list_llms>>
+|exchange:exchange_viewer
+
+|<<view-llm-details,view_llm_details>>
+|exchange:exchange_viewer
+
+.4+s|Cost Management
+|<<fetch-cost-instance-timeseries,fetch_cost_instance_timeseries>>
+|None
+
+|<<fetch-cost-instances,fetch_cost_instances>>
+|None
+
+|<<fetch-cost-optimization-recommendations,fetch_cost_optimization_recommendations>>
+|None
+
+|<<fetch-cost-overview,fetch_cost_overview>>
+|None
+
+.5+s|Omni Gateway
+|<<create-omni-gateway,create_omni_gateway>>
+|runtime:deploy_applications
+
+|<<get-omni-gateway-target-domains,get_omni_gateway_target_domains>>
+|runtime:deploy_applications
+
+|<<get-omni-gateway-usage-report,get_omni_gateway_usage_report>>
+|runtime:deploy_applications
+
+|<<list-omni-gateway-environments,list_omni_gateway_environments>>
+|runtime:deploy_applications
+
+|<<list-omni-gateway-targets,list_omni_gateway_targets>>
+|runtime:deploy_applications
+
+.3+s|Scanners
+|<<create-scanner,create_scanner>>
+|runtime:deploy_applications
+
+|<<list-scanner-providers,list_scanner_providers>>
+|runtime:deploy_applications
+
+|<<test-scanner-connection,test_scanner_connection>>
+|runtime:deploy_applications
+
+|===
+
+[[apply-policy-to-instance]]
+== apply_policy_to_instance
+
+Apply the selected policy to the target asset instance using the provided configuration data.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Api Instance Id (string).
+|Yes
+
+|`asset_id`
+|Asset Id (string or null).
+|No
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`configuration_data`
+|Configuration Data (PolicyConfigurationData or null).
+|No
+
+|`disabled`
+|Disabled (boolean or null).
+|No
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`group_id`
+|Group Id (string or null).
+|No
+
+|`order`
+|Order (integer or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`pointcut_data`
+|Pointcut Data (PolicyPointcutData or null).
+|No
+
+|`policy_template_id`
+|Policy Template Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "apply_policy_to_instance",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "api_instance_id": "<api_instance_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[check-guardrail-scope-targets]]
+== check_guardrail_scope_targets
+
+Preview APIs matched by a guardrail scope filter.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`scope_filter`
+|Scope Filter (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "check_guardrail_scope_targets",
+  "arguments": {
+    "scope_filter": "apis:*"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[check-policy-conformance]]
+== check_policy_conformance
+
+Convert the selected policy application payload to JSON-LD and print it in backend logs.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Api Instance Id (string).
+|Yes
+
+|`asset_id`
+|Asset Id (string or null).
+|No
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`configuration_data`
+|Configuration Data (PolicyConfigurationData or null).
+|No
+
+|`disabled`
+|Disabled (boolean or null).
+|No
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`group_id`
+|Group Id (string or null).
+|No
+
+|`order`
+|Order (integer or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`pointcut_data`
+|Pointcut Data (PolicyPointcutData or null).
+|No
+
+|`policy_template_id`
+|Policy Template Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "check_policy_conformance",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "api_instance_id": "<api_instance_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[create-automated-policy-strategy]]
+== create_automated_policy_strategy
+
+Create a new automated-policy governance strategy from wizard inputs.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`tool_kwargs`
+|Tool Kwargs (any).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_automated_policy_strategy",
+  "arguments": {
+    "tool_kwargs": null
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[create-guardrail]]
+== create_guardrail
+
+Create a new guardrail strategy from wizard inputs.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`description`
+|Description (string).
+|No
+
+|`governance_target_type`
+|Governance Target Type (string).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`position`
+|Position (integer or null).
+|No
+
+|`rules`
+|Rules (array or null).
+|No
+
+|`rulesets`
+|Rulesets (array or null).
+|No
+
+|`schedule_config`
+|Schedule Config (object or null).
+|No
+
+|`scope_condition_mode`
+|Scope Condition Mode (string).
+|No
+
+|`scope_conditions`
+|Scope Conditions (array or null).
+|No
+
+|`scope_filter`
+|Scope Filter (string or null).
+|No
+
+|`strategy_status`
+|Strategy Status (string).
+|No
+
+|`strategy_type`
+|Strategy Type (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_guardrail",
+  "arguments": {
+    "description": "",
+    "governance_target_type": "service-assets",
+    "name": "<name>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[create-omni-gateway]]
+== create_omni_gateway
+
+Launch the managed gateway creation wizard for the active MuleSoft provider. When fully configured, creates the gateway in Anypoint Platform.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment Id (string or null).
+|No
+
+|`environment_name`
+|Environment Name (string or null).
+|No
+
+|`environment_type`
+|Environment Type (string or null).
+|No
+
+|`governance_override_warnings`
+|Governance Override Warnings (boolean).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`payload`
+|Payload (FlexGatewayCreatePayload or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|`target_type`
+|Target Type (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_omni_gateway",
+  "arguments": {
+    "environment_id": "<environment_id>",
+    "environment_name": "<environment_name>",
+    "environment_type": "<environment_type>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[create-scanner]]
+== create_scanner
+
+Launch the scanner creation wizard to configure and create a new agent scanner. The wizard will guide you through provider selection, authentication, and configuration. On success, returns the created scanner details including scannerId. Pass organization_id when calling this tool. Call WITHOUT name/provider to display the interactive wizard.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`auth_fields`
+|Auth Fields (ScannerAuthFields or null).
+|No
+
+|`auth_fields_alias`
+|Auth Fields Alias (ScannerAuthFields or null).
+|No
+
+|`auth_method`
+|Auth Method (string or null).
+|No
+
+|`auth_method_alias`
+|Auth Method Alias (string or null).
+|No
+
+|`description`
+|Description (string).
+|No
+
+|`filters`
+|Filters (array or null).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|`notifications`
+|Notifications (ScannerNotifications or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`owner_id`
+|Owner Id (string or null).
+|No
+
+|`provider`
+|Provider (string or null).
+|No
+
+|`schedule`
+|Schedule (ScannerSchedule or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_scanner",
+  "arguments": {
+    "auth_fields": {},
+    "auth_fields_alias": {},
+    "auth_method": "<auth_method>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[delete-automated-policy-strategy]]
+== delete_automated_policy_strategy
+
+Delete one automated-policy governance strategy by strategy ID.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`strategy_id`
+|Strategy Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "delete_automated_policy_strategy",
+  "arguments": {
+    "strategy_id": "<strategy_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[delete-governance-strategy]]
+== delete_governance_strategy
+
+Delete one governance strategy by strategy id.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`strategy_id`
+|Strategy Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "delete_governance_strategy",
+  "arguments": {
+    "strategy_id": "<strategy_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-automated-policy-template]]
+== fetch_automated_policy_template
+
+Fetch one policy template by templateId for configuration details.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`template_id`
+|Template Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_automated_policy_template",
+  "arguments": {
+    "template_id": "<template_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-cost-instance-timeseries]]
+== fetch_cost_instance_timeseries
+
+Use this tool to get token usage and response time timeseries for a single MCP server instance. Returns time-bucketed data points with totalTokens, tokenDelta, and avgResponseTimeMs per bucket. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Example: fetch_cost_instance_timeseries(organization_id=<org_id>, instance_id=<instance_id>, time_range='7d'). For org-wide overview, use fetch_cost_overview instead.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`instance_id`
+|Instance Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_cost_instance_timeseries",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "instance_id": "<instance_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-cost-instances]]
+== fetch_cost_instances
+
+Use this tool to get per-instance token usage with optimization coverage. Each instance includes totalTokens, tokenDelta (tokens saved), avgResponseTimeMs, toolsListTokens, toolsCallTokens, environmentId, organizationId, appliedPolicies, appliedCostPolicyIds, unappliedCostPolicyIds, and optimizationCoverage (0-1). Response also includes a policyTemplates lookup (templateId -> name, description). Use filter_unoptimized=true to find instances with unapplied cost policies. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use top_n to limit results (default 10, max 50). Use sort_by to change ordering (totalTokens, tokenDelta, avgResponseTimeMs, totalCalls, tokensPerCall). To optimize a specific instance, use the unappliedCostPolicyIds list with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policy_id>). Example: fetch_cost_instances(organization_id=<org_id>, time_range='30d', filter_unoptimized=true).
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`filter_unoptimized`
+|Filter Unoptimized (boolean).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`sort_by`
+|Sort By (string).
+|No
+
+|`time_range`
+|Time Range (string).
+|No
+
+|`top_n`
+|Top N (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_cost_instances",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-cost-optimization-recommendations]]
+== fetch_cost_optimization_recommendations
+
+Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Filters to active instances (usage in window) that have at least one unapplied cost policy, projects token savings from Exchange tool metadata using the same rate analyzers as the UI, and returns the top N by projected savings. Each recommendation includes instanceId, instanceName, serverName, assetId, environment, totalTokens, projectedTokensSaved, projectedSavingsPercent, unappliedCostPolicyIds, and perPolicyProjections (policyId, policyName, rate 0-1, tokensSaved). Supports time_range values: 1h, 6h, 24h, 7d, 30d. top_n defaults to 3, max 10. Answers questions like 'what should I optimize next?', 'biggest token savings opportunities?', 'where is the most waste?'. Follow up with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policyId>) to apply a policy. Example: fetch_cost_optimization_recommendations(organization_id=<org_id>, time_range='30d', top_n=3).
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`savings_pool_size`
+|Savings Pool Size (integer).
+|No
+
+|`time_range`
+|Time Range (string).
+|No
+
+|`top_n`
+|Top N (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_cost_optimization_recommendations",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-cost-overview]]
+== fetch_cost_overview
+
+Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls. Optionally includes token usage timeseries. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use include_timeseries=true for chart data (increases response size). Example: fetch_cost_overview(organization_id=<org_id>, time_range='30d'). For per-instance breakdown, use fetch_cost_instances instead.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`include_timeseries`
+|Include Timeseries (boolean).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_cost_overview",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-governance-service-report]]
+== fetch_governance_service_report
+
+Use this tool to get detailed governance conformance data for a single service. Returns the service summary, per-ruleset details with violation/warning counts, rule-level messages, and instance-level policy conformance when available. Use this after fetch_governance_services to drill into one service, or when the user asks about a specific service's governance status. Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>). Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>, api_version=<version>, include_rule_messages=true).
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`include_rule_messages`
+|Include Rule Messages (boolean).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`service_id`
+|Service Id (string).
+|Yes
+
+|`version`
+|Version (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_governance_service_report",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "service_id": "<service_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-governance-services]]
+== fetch_governance_services
+
+Use this tool to search, filter, and count governance conformance across services. Returns lightweight rows with conformance status, concern-area breakdowns, error/warning/info counts, and violated rulesets for each matched service. Supports filtering by conformance status, concern area, ruleset, provider, service type, severity thresholds, and text query. Returns aggregate totals alongside paged results. Canonical conformance values: compliant, non-compliant, pending. Concern area IDs include: security-privacy, consumption-economic-governance, structural-conformity-lifecycle. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_governance_services(organization_id=<organization_id>, conformance_status_in=[<status>]). Example: fetch_governance_services(organization_id=<organization_id>, provider_in=[<provider>], limit=<n>). For detailed drill-down into one service, use fetch_governance_service_report instead. IMPORTANT: The totals object already contains aggregate counts for all matched services (statusTotals, concernTotals, providerTotals, messageTotals). providerTotals breaks down services per provider with compliant/non-compliant/pending counts. Do NOT paginate through all pages to count services yourself — use the totals. Synthesize your answer from the first page of results plus the totals. Only call again with different filters if the first result set doesn't match the user's question.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`concern_area_ids`
+|Concern Area Ids (array or string or null).
+|No
+
+|`conformance_status_in`
+|Conformance Status In (array or string or null).
+|No
+
+|`include_rule_messages`
+|Include Rule Messages (boolean).
+|No
+
+|`include_rulesets`
+|Include Rulesets (boolean).
+|No
+
+|`limit`
+|Limit (integer).
+|No
+
+|`min_errors`
+|Min Errors (integer or null).
+|No
+
+|`min_infos`
+|Min Infos (integer or null).
+|No
+
+|`min_warnings`
+|Min Warnings (integer or null).
+|No
+
+|`offset`
+|Offset (integer).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`provider_in`
+|Provider In (array or string or null).
+|No
+
+|`q`
+|Q (string or null).
+|No
+
+|`ruleset_ids_in`
+|Ruleset Ids In (array or string or null).
+|No
+
+|`service_ids`
+|Service Ids (array or string or null).
+|No
+
+|`service_type_in`
+|Service Type In (array or string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_governance_services",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-guardrail-ruleset]]
+== fetch_guardrail_ruleset
+
+Fetch a guardrail ruleset payload by sourceRulesetKey.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`source_ruleset_key`
+|Source Ruleset Key (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_guardrail_ruleset",
+  "arguments": {
+    "source_ruleset_key": "<source_ruleset_key>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-monitoring-drill-down]]
+== fetch_monitoring_drill_down
+
+Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, or policyViolations). Use this tool to answer queries such as, "Which services are driving errors?" or "Rank instances by latency." Filter by entity_type (apis/agents/mcp-servers/llms), service_id (narrow to one service's instances), instance_id (single instance), environments list, or providers list. Free-text `search` matches service/instance/environment names. Returns MetricContributorRow[] plus pagination metadata (totalRows, offset, pageSize). Example: fetch_monitoring_drill_down(metric='errorRate', time_range='24h'). Example: fetch_monitoring_drill_down(metric='avgLatency', entity_type='apis', sort_dir='desc').
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`entity_type`
+|Entity Type (string or null).
+|No
+
+|`environment`
+|Environment (string).
+|No
+
+|`environments`
+|Environments (array or null).
+|No
+
+|`instance_id`
+|Instance Id (string or null).
+|No
+
+|`limit`
+|Limit (integer).
+|No
+
+|`metric`
+|Metric (string).
+|Yes
+
+|`offset`
+|Offset (integer).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`providers`
+|Providers (array or null).
+|No
+
+|`search`
+|Search (string).
+|No
+
+|`service_id`
+|Service Id (string or null).
+|No
+
+|`sort_dir`
+|Sort Dir (string).
+|No
+
+|`sort_field`
+|Sort Field (string).
+|No
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_monitoring_drill_down",
+  "arguments": {
+    "metric": "availability"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-monitoring-instance]]
+== fetch_monitoring_instance
+
+Use this tool to get monitoring data for a single API instance: time-series charts (requests, error rate, latency, policy violations), top endpoints by traffic, and top clients by traffic. Requires organization_id, asset_id, and ideally instance_id. If instance_id is omitted, the first available instance is selected. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Only MuleSoft-managed instances have monitoring data. Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>, instance_id=<instance_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>). For org-wide health overview, use fetch_monitoring_overview instead.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`environment`
+|Environment (string).
+|No
+
+|`instance_id`
+|Instance Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_monitoring_instance",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-monitoring-overview]]
+== fetch_monitoring_overview
+
+Use this tool to get an org-wide monitoring health snapshot: total requests, error rate, average latency, availability, reliability, and compact trend charts. Returns KPI summary plus time-series data for request volume, error rate, average latency, and error volume over the selected time range and environment. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Supports provider filter: currently only 'mulesoft' returns monitoring data. Other providers (kong, apigee, aws, azure) will return empty results. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>, provider=<provider>). For instance-level monitoring drill-down, use fetch_monitoring_instance instead.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment`
+|Environment (string).
+|No
+
+|`include_charts`
+|Include Charts (boolean).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`provider`
+|Provider (string or null).
+|No
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_monitoring_overview",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-service-facets]]
+== fetch_service_facets
+
+Use this tool when you need aggregate counts/buckets for summaries, dashboards, or filter panels, not full service-row hydration. Prefer this tool over fetch_services when the user asks 'how many', 'breakdown by type/status/provider', or other distribution insights. Fetches facet aggregates for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp, and common aliases are normalized before filtering. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example (typed facets): fetch_service_facets(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], aggregates={'totalHits': True, 'byType': True, 'byProvider': True}). Example (query facets): fetch_service_facets(business_group_id=<business_group_id>, q=<search_query>). Do not send aggregates as shorthand strings like 'type,provider'. Returns structured payload with aggregates, total, and query context metadata. If the user then asks for specific assets, follow with fetch_services.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`aggregates`
+|Aggregates (AssetSearchAggregatesRequest or string or array or null).
+|No
+
+|`asset_types`
+|Asset Types (array or string or null).
+|No
+
+|`business_group_id`
+|Business Group Id (string).
+|Yes
+
+|`filters`
+|Filters (AssetSearchFilters or string or null).
+|No
+
+|`q`
+|Q (string or null).
+|No
+
+|`size`
+|Size (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_service_facets",
+  "arguments": {
+    "business_group_id": "<business_group_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[fetch-services]]
+== fetch_services
+
+Use this tool when you need concrete service rows (for example asset IDs/names, detail selection, or navigation affordances). Prefer this tool over fetch_service_facets when the user asks 'which assets' or requests item-level results. Fetches lightweight services for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp. The tool normalizes common aliases/plurals (for example api/apis, rest, openapi, asyncapi, agents, mcp-servers) to canonical values before filtering. Returns structured payload with services, assets (alias), total, and optional aggregates. Service rows include a provider field. Canonical provider values: mulesoft, kong, apigee, aws, azure. If you only need counts/buckets (no row hydration), use fetch_service_facets instead. Example (typed rows): fetch_services(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], size=<n>). Example (text search): fetch_services(business_group_id=<business_group_id>, q=<search_query>, size=<n>). Service rows include affordances and links for downstream navigation/actions. IMPORTANT: Do NOT paginate through all results by calling this tool multiple times with different offsets. Use the first page of results to synthesize your answer. Only call again with different filters if the first result set is clearly irrelevant to the user's question.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`aggregates`
+|Aggregates (AssetSearchAggregatesRequest or string or array or null).
+|No
+
+|`asset_types`
+|Asset Types (array or string or null).
+|No
+
+|`business_group_id`
+|Business Group Id (string).
+|Yes
+
+|`filters`
+|Filters (AssetSearchFilters or string or null).
+|No
+
+|`include_affordances`
+|Include Affordances (boolean).
+|No
+
+|`q`
+|Q (string or null).
+|No
+
+|`size`
+|Size (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_services",
+  "arguments": {
+    "business_group_id": "<business_group_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-business-group]]
+== get_business_group
+
+Get full metadata for a business group by its ID.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`group_id`
+|Group Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_business_group",
+  "arguments": {
+    "group_id": "<group_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-mcp-server-state]]
+== get_mcp_server_state
+
+Read the deployed state of a catalog-managed MCP server. Returns current systems, tools, and upstream IDs needed for editing.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_mcp_server_state",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-omni-gateway-target-domains]]
+== get_omni_gateway_target_domains
+
+Get ingress domains and app unique id for a managed Omni Gateway target.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|`target_id`
+|Target Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_omni_gateway_target_domains",
+  "arguments": {
+    "environment_id": "<environment_id>",
+    "target_id": "<target_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-omni-gateway-usage-report]]
+== get_omni_gateway_usage_report
+
+Get current managed Omni Gateway size entitlement usage.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_omni_gateway_usage_report",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "provider_id": "<provider_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-policy-template-form]]
+== get_policy_template_form
+
+Load one policy template detail, including configuration schema, to dynamically render the creation form. Use this immediately after the user selects a policy in prepare_policy_creation.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Api Instance Id (string).
+|Yes
+
+|`asset_id`
+|Asset Id (string or null).
+|No
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`direction`
+|Direction (string).
+|No
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`group_id`
+|Group Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`template_id`
+|Template Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_policy_template_form",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "api_instance_id": "<api_instance_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-provision-status]]
+== get_provision_status
+
+Poll the status of a provisioning or update job. Returns status (running/complete/failed), progress step, completed steps, result (MCP URL on success), and can_resume flag.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`job_id`
+|Job Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_provision_status",
+  "arguments": {
+    "job_id": "<job_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[get-trusted-mcp-catalog]]
+== get_trusted_mcp_catalog
+
+Return the catalog of SaaS systems available for MCP server provisioning. Each item includes tools, auth type, credential fields, and upstream config.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_trusted_mcp_catalog",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-agents]]
+== list_agents
+
+List agents registered in the Omni Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting agents.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider`
+|Provider (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_agents",
+  "arguments": {
+    "name": "<name>",
+    "organization_id": "<organization_id>",
+    "provider": "mulesoft"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-apis]]
+== list_apis
+
+List APIs from the Omni Platform catalog for a given organization. Presents an interactive UI for browsing, filtering, and selecting APIs.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_category`
+|Api Category (string or null).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider`
+|Provider (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_apis",
+  "arguments": {
+    "api_category": "<api_category>",
+    "name": "<name>",
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-business-groups]]
+== list_business_groups
+
+List available business groups, optionally filtering by name.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`name`
+|Name (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_business_groups",
+  "arguments": {
+    "name": "<name>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-governance-strategies]]
+== list_governance_strategies
+
+List governance strategies for an organization. Shows the same searchable and filterable table style as the main web app.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`strategy_type`
+|Strategy Type (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_governance_strategies",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "strategy_type": "<strategy_type>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-llms]]
+== list_llms
+
+List LLM models registered in the Omni Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting LLMs.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`category`
+|Category (string or null).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider`
+|Provider (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_llms",
+  "arguments": {
+    "category": "<category>",
+    "name": "<name>",
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-mcp-servers]]
+== list_mcp_servers
+
+List MCP servers registered in the Omni Platform for a given organization. Presents an interactive UI for browsing, filtering, and selecting MCP servers.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`protocol`
+|Protocol (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_mcp_servers",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-omni-gateway-environments]]
+== list_omni_gateway_environments
+
+List Anypoint environments available for managed Omni Gateway creation.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_omni_gateway_environments",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "provider_id": "<provider_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-omni-gateway-targets]]
+== list_omni_gateway_targets
+
+List managed Omni Gateway deployment targets for an environment.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_omni_gateway_targets",
+  "arguments": {
+    "environment_id": "<environment_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-provider-gateways]]
+== list_provider_gateways
+
+List gateways for the active provider. Currently returns Flex Gateways when the active provider is MuleSoft.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_provider_gateways",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "provider_id": "<provider_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[list-scanner-providers]]
+== list_scanner_providers
+
+Get the list of available scanner providers (Google Vertex, Microsoft Copilot, etc.)
+
+This tool does not accept any input parameters.
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_scanner_providers",
+  "arguments": {}
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[login]]
+== login
+
+Authenticate with Omni Platform. MUST be called before any other tool. Call WITHOUT arguments to display the interactive login panel where the user enters their credentials. Do NOT ask the user for username/password in the chat.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`password`
+|Password (string or null).
+|No
+
+|`username`
+|Username (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "login",
+  "arguments": {
+    "password": "<password>",
+    "username": "<username>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[logout]]
+== logout
+
+Clear the stored authentication token.
+
+This tool does not accept any input parameters.
+
+.Example request
+[source,json]
+----
+{
+  "name": "logout",
+  "arguments": {}
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[prepare-automated-policy-creation]]
+== prepare_automated_policy_creation
+
+Open the automated-policy creation wizard with scope options and policy templates.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "prepare_automated_policy_creation",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[prepare-guardrail-creation]]
+== prepare_guardrail_creation
+
+Open the guardrail creation wizard with scope options and guardrail rule catalog data, using the same scope, selection, and naming flow as the web app.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "prepare_guardrail_creation",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[prepare-policy-creation]]
+== prepare_policy_creation
+
+Load policy options for one asset instance. Returns only policies that are not already applied. Accepts api_instance_id (numeric) or asset_id (Exchange asset ID) — when asset_id is provided the numeric instance ID is resolved automatically. Pass policy_name_hint to filter the list to policies matching a name — use this when the user names a specific policy. After the user selects a policy from the selector UI, call get_policy_template_form with the same organization_id, environment_id, api_instance_id, plus the selected template_id/asset_id/group_id/asset_version/direction to open the policy form UI.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Api Instance Id (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string or null).
+|No
+
+|`environment_id`
+|Environment Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`policy_name_hint`
+|Policy Name Hint (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "prepare_policy_creation",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[provision-mcp-server]]
+== provision_mcp_server
+
+Provision a composite MCP server on Flex Gateway from selected catalog systems. Returns a job_id — poll with get_provision_status until complete or failed. Requires organization_id, environment_id, server_name, target_id, target_name, base_path, and a servers array with system selections and credentials.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`base_path`
+|Base Path (string).
+|Yes
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`server_name`
+|Server Name (string).
+|Yes
+
+|`servers`
+|Servers (array).
+|Yes
+
+|`target_id`
+|Target Id (string).
+|Yes
+
+|`target_name`
+|Target Name (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "provision_mcp_server",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "server_name": "<server_name>",
+    "target_id": "<target_id>",
+    "target_name": "<target_name>",
+    "base_path": "/<base_path>",
+    "servers": [
+      {}
+    ]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[resume-provision-job]]
+== resume_provision_job
+
+Resume a failed provisioning or update job from its last checkpoint. Only works on jobs with status 'failed' that have completed steps.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`job_id`
+|Job Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "resume_provision_job",
+  "arguments": {
+    "job_id": "<job_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[search-assets-semantic]]
+== search_assets_semantic
+
+Search portfolio assets using natural language semantic search. Use this when the user asks for assets related to a concept or use case, not just keyword matching. Examples: 'Find services for payment processing', 'Search for customer authentication services'. Returns asset names, descriptions, relevance scores, and types.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_type`
+|Asset Type (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`query`
+|Query (string).
+|Yes
+
+|`rows`
+|Rows (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_assets_semantic",
+  "arguments": {
+    "query": "payment processing"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[search-global-assets]]
+== search_global_assets
+
+Compatibility alias for global content search. Searches across agents, MCP servers, and APIs in one business group. You must pass exactly one business_group_id.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`business_group_id`
+|Business Group Id (string).
+|Yes
+
+|`query`
+|Query (string).
+|Yes
+
+|`size`
+|Size (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_global_assets",
+  "arguments": {
+    "query": "payment processing",
+    "business_group_id": "<business_group_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[search-global-content]]
+== search_global_content
+
+UI tool for embedded agents to search content across agents, MCP servers, and APIs in the Omni Platform. Returns ranked results and an embeddable command-palette UI. You must pass exactly one business_group_id (Anypoint business group ID) for each search request.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`business_group_id`
+|Business Group Id (string).
+|Yes
+
+|`query`
+|Query (string).
+|Yes
+
+|`size`
+|Size (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_global_content",
+  "arguments": {
+    "query": "payment processing",
+    "business_group_id": "<business_group_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[search-portfolio-services]]
+== search_portfolio_services
+
+🔍 PRIMARY DISCOVERY TOOL - ALWAYS USE THIS FIRST when user wants to FIND/SEARCH/DISCOVER assets by what they DO or their capabilities.
+
+USE THIS TOOL WHEN USER ASKS:
+- 'find [type] that can [action]' → e.g., 'find agents that can automate invoices', 'find APIs that handle payments'
+- 'search for [capability] [type]' → e.g., 'search for customer support agents', 'search for fraud detection APIs'
+- '[type] for [use case]' → e.g., 'agents for employee wellbeing', 'LLMs for code generation'
+- 'what [type] are available for [use case]' → e.g., 'what MCP servers are available for data transformation'
+- 'which [type] can [capability]' → e.g., 'which agents can automate approval', 'which LLMs generate SQL'
+- '[type] that [action]' → e.g., 'agents that automate workflows', 'APIs that detect fraud'
+
+EXAMPLES REQUIRING THIS TOOL:
+✓ 'find payment APIs' ← semantic match by purpose
+✓ 'search for customer support agents' ← capability-based discovery
+✓ 'agents for employee wellbeing' ← use case discovery
+✓ 'LLMs that can generate SQL queries' ← capability matching
+✓ 'APIs for fraud detection' ← functional discovery
+✓ 'what MCP servers handle data transformation' ← capability query
+✓ 'agents that automate invoice approval' ← workflow discovery
+
+DO NOT USE fetch_services FOR DISCOVERY:
+❌ fetch_services only lists ALL assets without semantic/capability matching
+❌ fetch_services cannot find assets by what they DO
+✅ Use THIS tool (search_portfolio_services) for discovery by capability/use case
+✅ Only use fetch_services AFTER this tool, if you need additional metadata
+
+DO NOT USE THIS TOOL FOR:
+✗ Performance metrics (use fetch_monitoring_*)
+✗ Cost analysis (use fetch_cost_*)
+✗ Governance/policy data (use fetch_governance_*)
+✗ Listing all deployed instances (use fetch_services)
+✗ Documentation/how-to guides (use search_repository_knowledge)
+
+Returns: Semantically matched assets with names, descriptions, versions, and relevance scores.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_type`
+|Asset Type (string).
+|No
+
+|`max_results`
+|Max Results (integer).
+|No
+
+|`query`
+|Query (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_portfolio_services",
+  "arguments": {
+    "query": "payment processing"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[search-repository-knowledge]]
+== search_repository_knowledge
+
+Use this tool for repository-grounded conceptual questions. It searches a curated static corpus (policy/governance/security docs and rulesets) and returns cited snippets. Prefer this tool for prompts like 'what policies can I use to secure access to my APIs' or 'where is X documented'. Returns structured matches with sourcePath, snippet, lexical/semantic scores, and metadata. This tool is read-only and does not modify repository files. Use top_k to bound result size and source_path_prefixes for targeted lookup.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`lexical_top_n`
+|Lexical Top N (integer).
+|No
+
+|`query`
+|Query (string).
+|Yes
+
+|`source_path_prefixes`
+|Source Path Prefixes (array or null).
+|No
+
+|`top_k`
+|Top K (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_repository_knowledge",
+  "arguments": {
+    "query": "payment processing"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[select-active-business-group]]
+== select_active_business_group
+
+Get the current active business group context and optionally set a new active business group by passing business_group_id. Use this for app-level context updates without launching the business group selector UI.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`business_group_id`
+|Business Group Id (string or null).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "select_active_business_group",
+  "arguments": {
+    "business_group_id": "<business_group_id>",
+    "name": "<name>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[select-active-environment]]
+== select_active_environment
+
+Browse the available Anypoint environments for the active MuleSoft provider and set one as the active environment context.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "select_active_environment",
+  "arguments": {
+    "environment_id": "<environment_id>",
+    "organization_id": "<organization_id>",
+    "provider_id": "<provider_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[select-active-provider]]
+== select_active_provider
+
+Browse the available providers and set one as the active provider context for follow-on provider tools.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`provider_id`
+|Provider Id (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "select_active_provider",
+  "arguments": {
+    "provider_id": "<provider_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[select-api-version]]
+== select_api_version
+
+Show an interactive version selector for an API and notify the host when the user picks a version.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "select_api_version",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[show-observability-performance]]
+== show_observability_performance
+
+Load observability dashboards data for embedded MCP app rendering.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment`
+|Environment (string).
+|No
+
+|`provider`
+|Provider (string or null).
+|No
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "show_observability_performance",
+  "arguments": {
+    "environment": "sandbox",
+    "provider": "mulesoft",
+    "time_range": "7d"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[test-scanner-connection]]
+== test_scanner_connection
+
+Test connection to a scanner provider before creating the scanner
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`auth_fields`
+|Auth Fields (ScannerAuthFields or null).
+|No
+
+|`auth_method`
+|Auth Method (string).
+|No
+
+|`provider`
+|Provider (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "test_scanner_connection",
+  "arguments": {
+    "provider": "mulesoft"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[update-mcp-server]]
+== update_mcp_server
+
+Update an existing catalog-managed MCP server. Diffs new configuration against deployed state and applies incremental changes. Returns a job_id for status polling. Requires state from get_mcp_server_state.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_id`
+|Api Id (integer).
+|Yes
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`current_upstream_ids`
+|Current Upstream Ids (object or null).
+|No
+
+|`deployed_systems`
+|Deployed Systems (array or null).
+|No
+
+|`environment_id`
+|Environment Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`server_name`
+|Server Name (string).
+|Yes
+
+|`servers`
+|Servers (array).
+|Yes
+
+|`target_id`
+|Target Id (string).
+|Yes
+
+|`target_name`
+|Target Name (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "update_mcp_server",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "asset_id": "<asset_id>",
+    "api_id": "<api_id>",
+    "server_name": "<server_name>",
+    "target_id": "<target_id>",
+    "target_name": "<target_name>",
+    "servers": [
+      {}
+    ]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-agent-details]]
+== view_agent_details
+
+Show read-only details for one agent, including versions, instances, and metadata.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_agent_details",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-instance-details]]
+== view_api_instance_details
+
+Show details for one API instance with a web-aligned header. Accepts either an instance object or identifiers to resolve it.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`instance`
+|Instance (object or null).
+|No
+
+|`instance_id`
+|Instance Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_instance_details",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-instance-monitoring]]
+== view_api_instance_monitoring
+
+Show instance monitoring charts, traffic, and clients for one API instance.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`instance`
+|Instance (object or null).
+|No
+
+|`instance_id`
+|Instance Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`time_range`
+|Time Range (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_instance_monitoring",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-instance-policies]]
+== view_api_instance_policies
+
+Show the applied policies for one API instance with the same grouping UI as the web app.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`instance`
+|Instance (object or null).
+|No
+
+|`instance_id`
+|Instance Id (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_instance_policies",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-version-details]]
+== view_api_version_details
+
+Show read-only details for one API version, including instances, metadata, and lifecycle fields.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string or null).
+|No
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`version`
+|Version (object).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_version_details",
+  "arguments": {
+    "version": "1.0.0"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-version-governance-report]]
+== view_api_version_governance_report
+
+Show governance ruleset report summary and findings for one API version.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_name`
+|Api Name (string or null).
+|No
+
+|`api_version`
+|Api Version (string or null).
+|No
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`group_id`
+|Group Id (string).
+|Yes
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|`version`
+|Version (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_version_governance_report",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "group_id": "<group_id>",
+    "asset_id": "<asset_id>",
+    "version": "1.0.0"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-api-version-instances]]
+== view_api_version_instances
+
+Show available instances for one API version and allow selecting instances to send back to the host.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_version`
+|Api Version (string).
+|Yes
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_api_version_instances",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>",
+    "api_version": "v1"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-governance-report]]
+== view_governance_report
+
+Fetch the latest Governance Governance Strategy report for an organization and render it in an interactive MCP app panel.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_governance_report",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-llm-details]]
+== view_llm_details
+
+Show read-only details for one LLM model, including versions, instances, and metadata.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_llm_details",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
+
+[[view-mcp-server-details]]
+== view_mcp_server_details
+
+Show read-only details for one MCP server, including versions, instances, and metadata.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset_id`
+|Asset Id (string).
+|Yes
+
+|`asset_version`
+|Asset Version (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "view_mcp_server_details",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok"
+}
+----
