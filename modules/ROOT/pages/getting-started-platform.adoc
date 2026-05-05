@@ -13,10 +13,11 @@ Required Permissions: https://docs.google.com/document/d/1itDfXW8pgrVdm7O2v94Z0n
 Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
 
 === Exchange
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|View and download assets within a business group.
 |exchange:exchange_viewer a|
 * xref:reference-mcp-tools-platform.adoc#fetch-service-facets[fetch_service_facets]
 * xref:reference-mcp-tools-platform.adoc#fetch-services[fetch_services]
@@ -34,6 +35,7 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 * xref:reference-mcp-tools-platform.adoc#view-llm-details[view_llm_details]
 * xref:reference-mcp-tools-platform.adoc#view-mcp-server-details[view_mcp_server_details]
 
+|View, create, and download assets within a business group, including editing asset portal content in an existing asset version.
 |exchange:exchange_contributor a|
 * xref:reference-mcp-tools-platform.adoc#get-mcp-server-state[get_mcp_server_state]
 * xref:reference-mcp-tools-platform.adoc#get-provision-status[get_provision_status]
@@ -44,10 +46,11 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 |===
 
 === API Manager
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|View API configurations and policies in the specified environment.
 |apimanager:environment_viewer a|
 * xref:reference-mcp-tools-platform.adoc#check-guardrail-scope-targets[check_guardrail_scope_targets]
 * xref:reference-mcp-tools-platform.adoc#fetch-automated-policy-template[fetch_automated_policy_template]
@@ -62,6 +65,7 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 * xref:reference-mcp-tools-platform.adoc#view-api-instance-policies[view_api_instance_policies]
 * xref:reference-mcp-tools-platform.adoc#view-api-version-instances[view_api_version_instances]
 
+|View, create, modify, and delete APIs in the specified environment.
 |apimanager:environment_admin a|
 * xref:reference-mcp-tools-platform.adoc#apply-policy-to-instance[apply_policy_to_instance]
 * xref:reference-mcp-tools-platform.adoc#create-automated-policy-strategy[create_automated_policy_strategy]
@@ -69,10 +73,11 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 |===
 
 === Anypoint Monitoring
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|View but not modify content in Anypoint Monitoring.
 |monitoring:viewer a|
 * xref:reference-mcp-tools-platform.adoc#fetch-monitoring-drill-down[fetch_monitoring_drill_down]
 * xref:reference-mcp-tools-platform.adoc#fetch-monitoring-instance[fetch_monitoring_instance]
@@ -82,10 +87,11 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 |===
 
 === Governance
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|View reports.
 |governance:viewer a|
 * xref:reference-mcp-tools-platform.adoc#check-policy-conformance[check_policy_conformance]
 * xref:reference-mcp-tools-platform.adoc#fetch-governance-service-report[fetch_governance_service_report]
@@ -93,16 +99,18 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 * xref:reference-mcp-tools-platform.adoc#view-api-version-governance-report[view_api_version_governance_report]
 * xref:reference-mcp-tools-platform.adoc#view-governance-report[view_governance_report]
 
+|Manage profiles and view reports.
 |governance:administrator a|
 * xref:reference-mcp-tools-platform.adoc#create-guardrail[create_guardrail]
 * xref:reference-mcp-tools-platform.adoc#delete-governance-strategy[delete_governance_strategy]
 |===
 
 === Runtime Manager
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|Create applications in a specific environment.
 |runtime:deploy_applications a|
 * xref:reference-mcp-tools-platform.adoc#create-omni-gateway[create_omni_gateway]
 * xref:reference-mcp-tools-platform.adoc#create-scanner[create_scanner]
@@ -115,10 +123,11 @@ Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[M
 |===
 
 === General
-[cols="1,3"]
+[cols="2,1,3"]
 |===
-|Required Permission |Associated Tools
+|To... |Required Permission |Associated Tools
 
+|View organization information.
 |organization_read (implicit) a|
 * xref:reference-mcp-tools-platform.adoc#get-business-group[get_business_group]
 * xref:reference-mcp-tools-platform.adoc#list-business-groups[list_business_groups]
