@@ -10,7 +10,7 @@ Additionally, when prompted, add the following permission scopes. These scopes e
 
 Required Permissions: https://docs.google.com/document/d/1itDfXW8pgrVdm7O2v94Z0n7atMKGp9rf/edit?usp=sharing&ouid=108919147889696723628&rtpof=true&sd=true[See link]
 
-Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform  MCP Server tools. Only tools listed in these tables require specific permission scopes.
+Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
 
 === Exchange
 [cols="1,3"]
@@ -134,30 +134,30 @@ Configure Claude Desktop, Cursor, Windsurf, Zed, or other IDEs to work with Mule
 
 === Available Client Connections
 
-When configuring your AI tool, you need to change the URL according to what region you're in. 
+When configuring your AI tool, use the endpoint for your region.
 
-Use `/mcp` but fall back to `/mcp/sse` if the client doesn’t connect. 
+Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
 +
-* http://omni.mulesoft.com/mcp
-* http://omni.mulesoft.com/mcp/sse
+* https://omni.mulesoft.com/mcp
+* https://omni.mulesoft.com/mcp/sse
 
 [cols="1,3"]
 |===
 |Type |URL
 |US Prod
-|http://omni.mulesoft.com[omni.mulesoft.com] (alias) / http://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
+|https://omni.mulesoft.com[omni.mulesoft.com] (alias) / https://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
 |EU Prod
-|http://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
+|https://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
 |CA Prod
-|http://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
+|https://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
 |JP Prod
-|http://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
+|https://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
 |IN Prod
-|in1.omni.mulesoft.com
+|https://in1.omni.mulesoft.com[in1.omni.mulesoft.com]
 |AU Prod
-|au1.omni.mulesoft.com
+|https://au1.omni.mulesoft.com[au1.omni.mulesoft.com]
 |AE Prod
-|ae1.omni.mulesoft.com
+|https://ae1.omni.mulesoft.com[ae1.omni.mulesoft.com]
 |===
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
@@ -172,7 +172,7 @@ In Claude Desktop:
 
 OR run this command in your terminal:
 
-`claude mcp add --transport sse mulesoft-platform <URL for your region>.`
+`claude mcp add --transport sse mulesoft-platform <URL for your region>`
 
 Download https://claude.com/download[Claude Desktop].
 
@@ -187,7 +187,7 @@ In Cursor:
 {
   "mcpServers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
       "auth": {
         "CLIENT_ID": "your-client-id",
         "CLIENT_SECRET": "your-client-secret"
@@ -210,7 +210,7 @@ In Windsurf:
 {
   "mcpServers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
       "headers": {
         "CLIENT_ID": "your-client-id",
         "CLIENT_SECRET": "your-client-secret"
@@ -226,7 +226,7 @@ Download https://windsurf.com/[Windsurf].
 
 In Cline:
 
-1. Click the MCP Servers icon, and select the **Remote Servers** tab,
+1. Click the MCP Servers icon, and select the **Remote Servers** tab.
 2. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
 3. When prompted, authenticate your connection.
 
@@ -242,7 +242,7 @@ In your user profile, configure a custom MCP server in the `mcp.json` file.
 {
   "servers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example `https://omni.mulesoft.com/mcp`>",
+      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
       "headers": {
         "CLIENT_ID": "your-client-id",
         "CLIENT_SECRET": "your-client-secret"
@@ -258,4 +258,4 @@ Download https://code.visualstudio.com/[VS Code].
 
 == See Also
 
-* xref:using-mulesoft-mcp-server-platform.adoc[]
+* xref:using-mulesoft-platform-mcp-server.adoc[]

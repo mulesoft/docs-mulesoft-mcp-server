@@ -2136,7 +2136,7 @@ List gateways for the active provider. Currently returns Flex Gateways when the 
 [[list-scanner-providers]]
 == list_scanner_providers
 
-Get the list of available scanner providers (Google Vertex, Microsoft Copilot, etc.)
+Get the list of available scanner providers (Google Vertex, Microsoft Copilot, and others).
 
 This tool does not accept any input parameters.
 
@@ -2573,39 +2573,7 @@ UI tool for embedded agents to search content across agents, MCP servers, and AP
 [[search-portfolio-services]]
 == search_portfolio_services
 
-🔍 PRIMARY DISCOVERY TOOL - ALWAYS USE THIS FIRST when user wants to FIND/SEARCH/DISCOVER assets by what they DO or their capabilities.
-
-USE THIS TOOL WHEN USER ASKS:
-- 'find [type] that can [action]' → e.g., 'find agents that can automate invoices', 'find APIs that handle payments'
-- 'search for [capability] [type]' → e.g., 'search for customer support agents', 'search for fraud detection APIs'
-- '[type] for [use case]' → e.g., 'agents for employee wellbeing', 'LLMs for code generation'
-- 'what [type] are available for [use case]' → e.g., 'what MCP servers are available for data transformation'
-- 'which [type] can [capability]' → e.g., 'which agents can automate approval', 'which LLMs generate SQL'
-- '[type] that [action]' → e.g., 'agents that automate workflows', 'APIs that detect fraud'
-
-EXAMPLES REQUIRING THIS TOOL:
-✓ 'find payment APIs' ← semantic match by purpose
-✓ 'search for customer support agents' ← capability-based discovery
-✓ 'agents for employee wellbeing' ← use case discovery
-✓ 'LLMs that can generate SQL queries' ← capability matching
-✓ 'APIs for fraud detection' ← functional discovery
-✓ 'what MCP servers handle data transformation' ← capability query
-✓ 'agents that automate invoice approval' ← workflow discovery
-
-DO NOT USE fetch_services FOR DISCOVERY:
-❌ fetch_services only lists ALL assets without semantic/capability matching
-❌ fetch_services cannot find assets by what they DO
-✅ Use THIS tool (search_portfolio_services) for discovery by capability/use case
-✅ Only use fetch_services AFTER this tool, if you need additional metadata
-
-DO NOT USE THIS TOOL FOR:
-✗ Performance metrics (use fetch_monitoring_*)
-✗ Cost analysis (use fetch_cost_*)
-✗ Governance/policy data (use fetch_governance_*)
-✗ Listing all deployed instances (use fetch_services)
-✗ Documentation/how-to guides (use search_repository_knowledge)
-
-Returns: Semantically matched assets with names, descriptions, versions, and relevance scores.
+Use this tool to discover assets based on capabilities and use cases.
 
 [%header,cols="1,3,1"]
 |===
@@ -2893,7 +2861,7 @@ Load observability dashboards data for embedded MCP app rendering.
 [[test-scanner-connection]]
 == test_scanner_connection
 
-Test connection to a scanner provider before creating the scanner
+Test connection to a scanner provider before creating the scanner.
 
 [%header,cols="1,3,1"]
 |===
@@ -3249,7 +3217,7 @@ Show read-only details for one API version, including instances, metadata, and l
 |No
 
 |`version`
-|Version (object).
+|Version (string).
 |Yes
 
 |===
@@ -3381,7 +3349,7 @@ Show available instances for one API version and allow selecting instances to se
 [[view-governance-report]]
 == view_governance_report
 
-Fetch the latest Governance Governance Strategy report for an organization and render it in an interactive MCP app panel.
+Fetch the latest Governance Strategy report for an organization and render it in an interactive MCP app panel.
 
 [%header,cols="1,3,1"]
 |===

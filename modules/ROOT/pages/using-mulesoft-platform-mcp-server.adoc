@@ -2,7 +2,7 @@
 
 MuleSoft Platform MCP Server provides governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale. It helps you scan, discover, govern, and monitor services across the infrastructure you already run.
 
-To learn more about setting up MuleSoft Platform MCP Server, see xref:getting-started-platform.adoc[].
+To learn more about how to set up MuleSoft Platform MCP Server, see xref:getting-started-platform.adoc[].
 
 To learn more about MuleSoft Platform MCP Server tools, see xref:reference-mcp-tools-platform.adoc[].
 
@@ -29,7 +29,7 @@ For global search, the agent uses `search_global_assets`, which requires both `q
 }
 ----
 
-The `search_global_assets` tool is an embedded UI search experience for agents, MCP servers, and APIs. It returns ranked results and uses a command-palette style UI.
+The `search_global_assets` tool searches for agents, MCP servers, and APIs. It returns ranked results.
 
 == Example Prompts
 
