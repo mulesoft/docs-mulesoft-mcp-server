@@ -253,7 +253,7 @@ a|
 |No
 |API Manager: Manage Policies
 
-|<<manage-flex-gateway-policy-project,manage_omni_gateway_policy_project>>
+|<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
 |No
 |No
 |None
