@@ -841,30 +841,30 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 [[fetch-cost-instances]]
 == fetch_cost_instances
 
-Use this tool to get per-instance token usage with optimization coverage. Each instance includes totalTokens, tokenDelta (tokens saved), avgResponseTimeMs, toolsListTokens, toolsCallTokens, environmentId, organizationId, appliedPolicies, appliedCostPolicyIds, unappliedCostPolicyIds, and optimizationCoverage (0-1). Response also includes a policyTemplates lookup (templateId -> name, description). Use filter_unoptimized=true to find instances with unapplied cost policies. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use top_n to limit results (default 10, max 50). Use sort_by to change ordering (totalTokens, tokenDelta, avgResponseTimeMs, totalCalls, tokensPerCall). To optimize a specific instance, use the unappliedCostPolicyIds list with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policy_id>). Example: fetch_cost_instances(organization_id=<org_id>, time_range='30d', filter_unoptimized=true).
+Use this tool to get per-instance token usage with optimization coverage.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`filter_unoptimized`
-|Filter Unoptimized (boolean).
+|Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty); use this to find optimization candidates quickly.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID to query for per-instance token usage and optimization coverage.
 |Yes
 
 |`sort_by`
-|Sort By (string).
+|Sort field for results. Supported values: `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `totalCalls`, `tokensPerCall`.
 |No
 
 |`time_range`
-|Time Range (string).
+|Time window for usage analysis. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |`top_n`
-|Top N (integer).
+|Maximum number of instances to return. Defaults to `10`; maximum is `50`.
 |No
 
 |===
@@ -891,26 +891,26 @@ Use this tool to get per-instance token usage with optimization coverage. Each i
 [[fetch-cost-optimization-recommendations]]
 == fetch_cost_optimization_recommendations
 
-Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Filters to active instances (usage in window) that have at least one unapplied cost policy, projects token savings from Exchange tool metadata using the same rate analyzers as the UI, and returns the top N by projected savings. Each recommendation includes instanceId, instanceName, serverName, assetId, environment, totalTokens, projectedTokensSaved, projectedSavingsPercent, unappliedCostPolicyIds, and perPolicyProjections (policyId, policyName, rate 0-1, tokensSaved). Supports time_range values: 1h, 6h, 24h, 7d, 30d. top_n defaults to 3, max 10. Answers questions like 'what should I optimize next?', 'biggest token savings opportunities?', 'where is the most waste?'. Follow up with prepare_policy_creation(asset_id=<assetId>, policy_name_hint=<policyId>) to apply a policy. Example: fetch_cost_optimization_recommendations(organization_id=<org_id>, time_range='30d', top_n=3).
+Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Use this tool to answer questions, such as "What should I optimize next?', "What are the biggest token savings opportunities?"", "Where is the most waste?".
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID to query for optimization recommendations.
 |Yes
 
 |`savings_pool_size`
-|Savings Pool Size (integer).
+|Number of candidate instances to evaluate before ranking the final recommendations; increase this when you want broader coverage before taking the top results.
 |No
 
 |`time_range`
-|Time Range (string).
+|Time window used to detect active instances and estimate projected token savings. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |`top_n`
-|Top N (integer).
+|Maximum number of ranked recommendations to return. Defaults to `3`; maximum is `10`.
 |No
 
 |===
@@ -937,22 +937,22 @@ Use this tool to get a ranked list of MCP server instances that should be optimi
 [[fetch-cost-overview]]
 == fetch_cost_overview
 
-Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls. Optionally includes token usage timeseries. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Use include_timeseries=true for chart data (increases response size). Example: fetch_cost_overview(organization_id=<org_id>, time_range='30d'). For per-instance breakdown, use fetch_cost_instances instead.
+Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`include_timeseries`
-|Include Timeseries (boolean).
+|Set to `true` to include token usage timeseries for charting; this increases response size.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID to query for org-wide MCP token usage KPIs.
 |Yes
 
 |`time_range`
-|Time Range (string).
+|Time window for KPI aggregation. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |===
@@ -979,30 +979,30 @@ Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, sa
 [[fetch-governance-service-report]]
 == fetch_governance_service_report
 
-Use this tool to get detailed governance conformance data for a single service. Returns the service summary, per-ruleset details with violation/warning counts, rule-level messages, and instance-level policy conformance when available. Use this after fetch_governance_services to drill into one service, or when the user asks about a specific service's governance status. Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>). Example: fetch_governance_service_report(organization_id=<organization_id>, service_id=<service_id>, api_version=<version>, include_rule_messages=true).
+Use this tool to get detailed governance conformance data for a single service.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|Optional API version to scope the report when a service has multiple versions.
 |No
 
 |`include_rule_messages`
-|Include Rule Messages (boolean).
+|Set to `true` to include per-rule conformance messages in the response.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID that owns the service.
 |Yes
 
 |`service_id`
-|Service Id (string).
+|Service ID to retrieve detailed governance conformance for.
 |Yes
 
 |`version`
-|Version (string or null).
+|Optional service version selector (legacy alias). Use when you need a specific version's conformance view.
 |No
 
 |===
@@ -1030,70 +1030,70 @@ Use this tool to get detailed governance conformance data for a single service. 
 [[fetch-governance-services]]
 == fetch_governance_services
 
-Use this tool to search, filter, and count governance conformance across services. Returns lightweight rows with conformance status, concern-area breakdowns, error/warning/info counts, and violated rulesets for each matched service. Supports filtering by conformance status, concern area, ruleset, provider, service type, severity thresholds, and text query. Returns aggregate totals alongside paged results. Canonical conformance values: compliant, non-compliant, pending. Concern area IDs include: security-privacy, consumption-economic-governance, structural-conformity-lifecycle. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_governance_services(organization_id=<organization_id>, conformance_status_in=[<status>]). Example: fetch_governance_services(organization_id=<organization_id>, provider_in=[<provider>], limit=<n>). For detailed drill-down into one service, use fetch_governance_service_report instead. IMPORTANT: The totals object already contains aggregate counts for all matched services (statusTotals, concernTotals, providerTotals, messageTotals). providerTotals breaks down services per provider with compliant/non-compliant/pending counts. Do NOT paginate through all pages to count services yourself — use the totals. Synthesize your answer from the first page of results plus the totals. Only call again with different filters if the first result set doesn't match the user's question.
+Use this tool to search, filter, and count governance conformance across services.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`concern_area_ids`
-|Concern Area Ids (array or string or null).
+|Filter to one or more concern area IDs (for example `security-privacy`, `consumption-economic-governance`, `structural-conformity-lifecycle`).
 |No
 
 |`conformance_status_in`
-|Conformance Status In (array or string or null).
+|Filter to one or more conformance states. Canonical values: `compliant`, `non-compliant`, `pending`.
 |No
 
 |`include_rule_messages`
-|Include Rule Messages (boolean).
+|Set to `true` to include rule-level messages in each returned service row.
 |No
 
 |`include_rulesets`
-|Include Rulesets (boolean).
+|Set to `true` to include violated ruleset details in each service row.
 |No
 
 |`limit`
-|Limit (integer).
+|Page size for results.
 |No
 
 |`min_errors`
-|Min Errors (integer or null).
+|Minimum error count threshold for matched services.
 |No
 
 |`min_infos`
-|Min Infos (integer or null).
+|Minimum info count threshold for matched services.
 |No
 
 |`min_warnings`
-|Min Warnings (integer or null).
+|Minimum warning count threshold for matched services.
 |No
 
 |`offset`
-|Offset (integer).
+|Result offset for pagination.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID to search for governance conformance data.
 |Yes
 
 |`provider_in`
-|Provider In (array or string or null).
+|Filter to one or more gateway/provider values. Canonical values include `mulesoft`, `kong`, `apigee`, `aws`, `azure`.
 |No
 
 |`q`
-|Q (string or null).
+|Free-text search across service metadata.
 |No
 
 |`ruleset_ids_in`
-|Ruleset Ids In (array or string or null).
+|Filter to services associated with one or more ruleset IDs.
 |No
 
 |`service_ids`
-|Service Ids (array or string or null).
+|Filter to specific service IDs.
 |No
 
 |`service_type_in`
-|Service Type In (array or string or null).
+|Filter to one or more service types.
 |No
 
 |===
@@ -1158,66 +1158,66 @@ Fetch a guardrail ruleset payload by sourceRulesetKey.
 [[fetch-monitoring-drill-down]]
 == fetch_monitoring_drill_down
 
-Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, or policyViolations). Use this tool to answer queries such as, "Which services are driving errors?" or "Rank instances by latency." Filter by entity_type (apis/agents/mcp-servers/llms), service_id (narrow to one service's instances), instance_id (single instance), environments list, or providers list. Free-text `search` matches service/instance/environment names. Returns MetricContributorRow[] plus pagination metadata (totalRows, offset, pageSize). Example: fetch_monitoring_drill_down(metric='errorRate', time_range='24h'). Example: fetch_monitoring_drill_down(metric='avgLatency', entity_type='apis', sort_dir='desc').
+Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, or policyViolations). Use this tool to answer queries such as, "Which services are driving errors?" or "Rank instances by latency." 
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`entity_type`
-|Entity Type (string or null).
+|Optional entity category to rank. Supported values: `apis`, `agents`, `mcp-servers`, `llms`.
 |No
 
 |`environment`
-|Environment (string).
+|Optional single environment filter (legacy convenience field).
 |No
 
 |`environments`
-|Environments (array or null).
+|Optional list of environments to filter contributors by.
 |No
 
 |`instance_id`
-|Instance Id (string or null).
+|Optional instance ID to narrow results to a single instance.
 |No
 
 |`limit`
-|Limit (integer).
+|Page size for ranked contributors.
 |No
 
 |`metric`
-|Metric (string).
+|Metric used for ranking. Supported values: `availability`, `reliability`, `avgLatency`, `requestVolume`, `errorRate`, `policyViolations`.
 |Yes
 
 |`offset`
-|Offset (integer).
+|Result offset for pagination.
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Optional organization ID scope (required in multi-org contexts).
 |No
 
 |`providers`
-|Providers (array or null).
+|Optional list of provider filters.
 |No
 
 |`search`
-|Search (string).
+|Free-text filter matching service, instance, or environment names.
 |No
 
 |`service_id`
-|Service Id (string or null).
+|Optional service ID to narrow the ranking to one service's instances.
 |No
 
 |`sort_dir`
-|Sort Dir (string).
+|Sort direction for ranked results, typically `asc` or `desc`.
 |No
 
 |`sort_field`
-|Sort Field (string).
+|Field to sort by in the drill-down result set.
 |No
 
 |`time_range`
-|Time Range (string).
+|Time window for metric calculation (for example `24h`).
 |No
 
 |===
@@ -1244,38 +1244,38 @@ Use this tool to rank services or instances contributing to a specific performan
 [[fetch-monitoring-instance]]
 == fetch_monitoring_instance
 
-Use this tool to get monitoring data for a single API instance: time-series charts (requests, error rate, latency, policy violations), top endpoints by traffic, and top clients by traffic. Requires organization_id, asset_id, and ideally instance_id. If instance_id is omitted, the first available instance is selected. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Only MuleSoft-managed instances have monitoring data. Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>, instance_id=<instance_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_instance(organization_id=<organization_id>, asset_id=<asset_id>). For org-wide health overview, use fetch_monitoring_overview instead.
+Use this tool to get monitoring data for a single API instance: time-series charts (requests, error rate, latency, policy violations), top endpoints by traffic, and top clients by traffic. 
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|Optional API version selector for the target asset.
 |No
 
 |`asset_id`
-|Asset Id (string).
+|API asset ID to retrieve instance monitoring for.
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Optional asset version selector.
 |No
 
 |`environment`
-|Environment (string).
+|Target environment for monitoring data. Supported values: `production`, `sandbox`, `development`.
 |No
 
 |`instance_id`
-|Instance Id (string or null).
+|Optional instance ID. If omitted, the first available instance is selected.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID that owns the API asset and instance.
 |Yes
 
 |`time_range`
-|Time Range (string).
+|Time window for charts and summaries. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |===
@@ -1303,30 +1303,30 @@ Use this tool to get monitoring data for a single API instance: time-series char
 [[fetch-monitoring-overview]]
 == fetch_monitoring_overview
 
-Use this tool to get an org-wide monitoring health snapshot: total requests, error rate, average latency, availability, reliability, and compact trend charts. Returns KPI summary plus time-series data for request volume, error rate, average latency, and error volume over the selected time range and environment. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Supports environment values: production, sandbox, development. Supports provider filter: currently only 'mulesoft' returns monitoring data. Other providers (kong, apigee, aws, azure) will return empty results. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>). Example: fetch_monitoring_overview(organization_id=<organization_id>, time_range=<time_range>, environment=<environment>, provider=<provider>). For instance-level monitoring drill-down, use fetch_monitoring_instance instead.
+Use this tool to get an org-wide monitoring health snapshot: total requests, error rate, average latency, availability, reliability, and compact trend charts.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`environment`
-|Environment (string).
+|Environment scope for KPI and trend data. Supported values: `production`, `sandbox`, `development`.
 |No
 
 |`include_charts`
-|Include Charts (boolean).
+|Set to `true` to include compact time-series chart data with the KPI summary.
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID to query for org-wide monitoring health metrics.
 |Yes
 
 |`provider`
-|Provider (string or null).
+|Optional provider filter. Monitoring data is currently available for `mulesoft`; other canonical providers (`kong`, `apigee`, `aws`, `azure`) return empty results.
 |No
 
 |`time_range`
-|Time Range (string).
+|Time window for KPI and trend calculations. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |===
@@ -1353,34 +1353,34 @@ Use this tool to get an org-wide monitoring health snapshot: total requests, err
 [[fetch-service-facets]]
 == fetch_service_facets
 
-Use this tool when you need aggregate counts/buckets for summaries, dashboards, or filter panels, not full service-row hydration. Prefer this tool over fetch_services when the user asks 'how many', 'breakdown by type/status/provider', or other distribution insights. Fetches facet aggregates for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp, and common aliases are normalized before filtering. Canonical provider values: mulesoft, kong, apigee, aws, azure. Example (typed facets): fetch_service_facets(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], aggregates={'totalHits': True, 'byType': True, 'byProvider': True}). Example (query facets): fetch_service_facets(business_group_id=<business_group_id>, q=<search_query>). Do not send aggregates as shorthand strings like 'type,provider'. Returns structured payload with aggregates, total, and query context metadata. If the user then asks for specific assets, follow with fetch_services.
+Use this tool when you need aggregate counts/buckets for summaries, dashboards, or filter panels, not full service-row hydration.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`aggregates`
-|Aggregates (AssetSearchAggregatesRequest or string or array or null).
+|Facet buckets/metrics to compute (for example `totalHits`, `byType`, `byProvider`). Use structured aggregate fields; do not send shorthand strings like `type,provider`.
 |No
 
 |`asset_types`
-|Asset Types (array or string or null).
+|Optional typed asset filter. Canonical values include API classifiers (`rest-api`, `http-api`, `graphql`, `soap-api`, `grpc-api`, `evented-api`) plus `agent` and `mcp`.
 |No
 
 |`business_group_id`
-|Business Group Id (string).
+|Business group ID to scope the facet query.
 |Yes
 
 |`filters`
-|Filters (AssetSearchFilters or string or null).
+|Optional structured typed filters. Do not combine with `q`.
 |No
 
 |`q`
-|Q (string or null).
+|Optional text query mode. When provided, do not send typed `filters` or `aggregates`.
 |No
 
 |`size`
-|Size (integer).
+|Optional limit for returned facet buckets/results.
 |No
 
 |===
@@ -1407,38 +1407,38 @@ Use this tool when you need aggregate counts/buckets for summaries, dashboards, 
 [[fetch-services]]
 == fetch_services
 
-Use this tool when you need concrete service rows (for example asset IDs/names, detail selection, or navigation affordances). Prefer this tool over fetch_service_facets when the user asks 'which assets' or requests item-level results. Fetches lightweight services for exactly one required business_group_id. Supports either text query (q) OR typed filtering/aggregates; when q is provided, do not send filters or aggregates. Canonical typed values are api classifiers (rest-api, http-api, graphql, soap-api, grpc-api, evented-api) plus agent and mcp. The tool normalizes common aliases/plurals (for example api/apis, rest, openapi, asyncapi, agents, mcp-servers) to canonical values before filtering. Returns structured payload with services, assets (alias), total, and optional aggregates. Service rows include a provider field. Canonical provider values: mulesoft, kong, apigee, aws, azure. If you only need counts/buckets (no row hydration), use fetch_service_facets instead. Example (typed rows): fetch_services(business_group_id=<business_group_id>, asset_types=[<asset_type>, ...], size=<n>). Example (text search): fetch_services(business_group_id=<business_group_id>, q=<search_query>, size=<n>). Service rows include affordances and links for downstream navigation/actions. IMPORTANT: Do NOT paginate through all results by calling this tool multiple times with different offsets. Use the first page of results to synthesize your answer. Only call again with different filters if the first result set is clearly irrelevant to the user's question.
+Use this tool when you need concrete service rows (for example asset IDs/names, detail selection, or navigation affordances).
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`aggregates`
-|Aggregates (AssetSearchAggregatesRequest or string or array or null).
+|Optional aggregate blocks to return alongside service rows (for example counts by type/provider). Use structured aggregate fields, not shorthand strings.
 |No
 
 |`asset_types`
-|Asset Types (array or string or null).
+|Optional typed asset filter. Canonical values include API classifiers (`rest-api`, `http-api`, `graphql`, `soap-api`, `grpc-api`, `evented-api`) plus `agent` and `mcp`.
 |No
 
 |`business_group_id`
-|Business Group Id (string).
+|Business group ID to scope the service search.
 |Yes
 
 |`filters`
-|Filters (AssetSearchFilters or string or null).
+|Optional structured typed filters. Do not combine with `q`.
 |No
 
 |`include_affordances`
-|Include Affordances (boolean).
+|Set to `true` to include navigation/action affordances in each service row.
 |No
 
 |`q`
-|Q (string or null).
+|Optional text query mode. When provided, do not send typed `filters` or `aggregates`.
 |No
 
 |`size`
-|Size (integer).
+|Page size for returned service rows.
 |No
 
 |===
@@ -2291,7 +2291,7 @@ Open the guardrail creation wizard with scope options and guardrail rule catalog
 [[prepare-policy-creation]]
 == prepare_policy_creation
 
-Load policy options for one asset instance. Returns only policies that are not already applied. Accepts api_instance_id (numeric) or asset_id (Exchange asset ID) — when asset_id is provided the numeric instance ID is resolved automatically. Pass policy_name_hint to filter the list to policies matching a name — use this when the user names a specific policy. After the user selects a policy from the selector UI, call get_policy_template_form with the same organization_id, environment_id, api_instance_id, plus the selected template_id/asset_id/group_id/asset_version/direction to open the policy form UI.
+Load policy options for one asset instance. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2341,7 +2341,7 @@ Load policy options for one asset instance. Returns only policies that are not a
 [[provision-mcp-server]]
 == provision_mcp_server
 
-Provision a composite MCP server on Flex Gateway from selected catalog systems. Returns a job_id — poll with get_provision_status until complete or failed. Requires organization_id, environment_id, server_name, target_id, target_name, base_path, and a servers array with system selections and credentials.
+Provision a composite MCP server on Flex Gateway from selected catalog systems. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2530,7 +2530,7 @@ Compatibility alias for global content search. Searches across agents, MCP serve
 [[search-global-content]]
 == search_global_content
 
-UI tool for embedded agents to search content across agents, MCP servers, and APIs in the Omni Platform. Returns ranked results and an embeddable command-palette UI. You must pass exactly one business_group_id (Anypoint business group ID) for each search request.
+UI tool for embedded agents to search content across agents, MCP servers, and APIs in the Omni Platform. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2615,7 +2615,7 @@ Use this tool to discover assets based on capabilities and use cases.
 [[search-repository-knowledge]]
 == search_repository_knowledge
 
-Use this tool for repository-grounded conceptual questions. It searches a curated static corpus (policy/governance/security docs and rulesets) and returns cited snippets. Prefer this tool for prompts like 'what policies can I use to secure access to my APIs' or 'where is X documented'. Returns structured matches with sourcePath, snippet, lexical/semantic scores, and metadata. This tool is read-only and does not modify repository files. Use top_k to bound result size and source_path_prefixes for targeted lookup.
+Use this tool for repository-grounded conceptual questions. It searches a curated static corpus (policy/governance/security docs and rulesets) and returns cited snippets.
 
 [%header,cols="1,3,1"]
 |===
@@ -2661,7 +2661,7 @@ Use this tool for repository-grounded conceptual questions. It searches a curate
 [[select-active-business-group]]
 == select_active_business_group
 
-Get the current active business group context and optionally set a new active business group by passing business_group_id. Use this for app-level context updates without launching the business group selector UI.
+Set the current active business group context and optionally set a new active business group by passing business_group_id.
 
 [%header,cols="1,3,1"]
 |===
