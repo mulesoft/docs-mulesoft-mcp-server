@@ -243,7 +243,7 @@ a|
 |None
 
 .3+s|Policy Management
-|<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
+|<<get-flex-gateway-policy-example,get_omni_gateway_policy_example>>
 |No
 |No
 |None
@@ -253,7 +253,7 @@ a|
 |No
 |API Manager: Manage Policies
 
-|<<manage-flex-gateway-policy-project,manage_flex_gateway_policy_project>>
+|<<manage-flex-gateway-policy-project,manage_omni_gateway_policy_project>>
 |No
 |No
 |None
@@ -1249,7 +1249,7 @@ Required to apply a new policy.
 [[manage-flex-gateway-policy-project]]
 == manage_flex_gateway_policy_project
 
-Provide instructions to the LLM on how to manage a Flex Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. 
+Provide instructions to the LLM on how to manage an Omni Gateway custom policy project. Instructions include how to create the project, set up the configuration, build the project, publish a development version of the project, and publish a release version of the project. 
 
 Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
 
@@ -1258,11 +1258,11 @@ Prerequisites: See xref:pdk::policies-pdk-prerequisites.adoc[Prerequisites].
 |Parameter |Description |Required?
 
 |`operation`
-|Operation to perform on the Flex Gateway policy project. Use `create` to create a project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
+|Operation to perform on the Omni Gateway policy project. Use `create` to create a project, `configure` to set up project configuration, `build` to compile the project, `publish-dev` to publish to development environment, or `publish-release` to publish a release version.
 |Yes
 
 |`projectPath`
-|Path to the Flex Gateway policy project directory.
+|Path to the Omni Gateway policy project directory.
 |No
 
 |`policyName`
@@ -2414,11 +2414,11 @@ Runs a DataWeave transformation using the sample data as input context and displ
 [[deploy-agent-network]]
 == deploy_agent_network
 
-Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Flex Gateway configuration for deployment.
+Deploy an agent network instance to a runtime environment. Specify the project path, target environment, deployment target, and Managed Omni Gateway configuration for deployment.
 
 Prerequisites:
 
-* Managed Flex Gateway
+* Managed Omni Gateway
 * A business group
 * A valid `exchange.json` file in the agent network project 
 
@@ -2938,7 +2938,7 @@ Generate, modify, or fix MUnit tests for Mule flows. Provide the flow XML, test 
 [[get-flex-gateway-policy-example]]
 == get_flex_gateway_policy_example
 
-Get a Flex Gateway policy example to help you configure your Rust source code. Use this tool to get example policies that manipulate a request's header and body, make HTTP and gRPC calls to external services, share data between requests and responses, reject requests, perform sleep operations, and use PDK libraries.
+Get an Omni Gateway policy example to help you configure your Rust source code. Use this tool to get example policies that manipulate a request's header and body, make HTTP and gRPC calls to external services, share data between requests and responses, reject requests, perform sleep operations, and use PDK libraries.
 
 [%header,cols="1,3a,1"]
 |===
