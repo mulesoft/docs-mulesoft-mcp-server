@@ -4,11 +4,11 @@ MuleSoft Platform MCP Server provides governed access to your entire IT landscap
 
 == Create a Connected App
 
-Follow the steps in https://docs.mulesoft.com/access-management/creating-connected-apps-dev#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app. 
+Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app.
 
 Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes.
 
-Refer to the https://docs.mulesoft.com/mulesoft-mcp-server/reference-mcp-tools[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
+Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
 
 === Exchange
 [cols="2,1,3"]
