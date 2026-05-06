@@ -243,7 +243,7 @@ a|
 |None
 
 .3+s|Policy Management
-|<<get-flex-gateway-policy-example,get_omni_gateway_policy_example>>
+|<<get-flex-gateway-policy-example,get_flex_gateway_policy_example>>
 |No
 |No
 |None
