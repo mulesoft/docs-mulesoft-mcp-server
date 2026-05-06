@@ -1,6 +1,6 @@
 = Getting Started with MuleSoft Platform MCP Server
 
-MuleSoft Platform MCP Server provides governed access to your entire IT landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale. It helps you scan, discover, govern, and monitor services across the infrastructure you already run.
+Scan, discover, govern, and monitor APIs, agents, MCP servers, and LLMs across your entire IT landscape from a single AI-accessible interface. MuleSoft Platform MCP Server gives AI tools governed access to your infrastructure to accelerate production-ready AI deployment. Connect your IDE in minutes using any MCP-compatible client.
 
 == Create a Connected App
 
@@ -144,7 +144,7 @@ Configure Claude Desktop, Cursor, Windsurf, Zed, or other IDEs to work with Mule
 When configuring your AI tool, use the endpoint for your region.
 
 Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
-+
+
 * https://omni.mulesoft.com/mcp
 * https://omni.mulesoft.com/mcp/sse
 
@@ -177,7 +177,7 @@ In Claude Desktop:
 2. Click the add (**+**) icon, and then click **Add Custom Connector**.
 3. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
 
-OR run this command in your terminal:
+Or run this command in your terminal:
 
 `claude mcp add --transport sse mulesoft-platform <URL for your region>`
 

@@ -1,6 +1,6 @@
 = Using MuleSoft Platform MCP Server
 
-MuleSoft Platform MCP Server provides governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale. It helps you scan, discover, govern, and monitor services across the infrastructure you already run.
+ Get governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale using MuleSoft Platform MCP Server. Use it to you scan, discover, govern, and monitor services across the infrastructure you already run. Integrations with MuleSoft Vibes or various AI clients, including Claude, Windsurf, and Cursor enables you to access your assets wherever you want.  
 
 To learn more about how to set up MuleSoft Platform MCP Server, see xref:getting-started-platform.adoc[].
 
@@ -10,26 +10,29 @@ To learn more about MuleSoft Platform MCP Server tools, see xref:reference-mcp-t
 
 Before you get started, make sure you complete the setup and configuration steps, including permissions, in xref:getting-started-platform.adoc[].
 
-== Example: Search Assets Across MuleSoft Platform
+== Example: Applying Policies Across MuleSoft Platform
 
 . In your MCP-compatible IDE, open the agent panel.
 . Sign in. MuleSoft Platform MCP Server requires authentication through the `login` tool before using other tools.
-. In the prompt field, ask the agent to search for assets in your organization.
+. In the prompt field, ask the agent to apply a policy to a specific API.
 
-For example, use this prompt: `Show me all payment-related APIs across my organization.`
+For example, use this prompt: `Help me set up a rate-limiting policy on my Stripe API.`
 
-For global search, the agent uses `search_global_assets`, which requires both `query` and `business_group_id`.
+The agent calls `prepare_policy_creation` to fetch available policies for the target API instance:
 
 [source,json]
 ----
 {
-  "query": "payment-related APIs",
-  "business_group_id": "<business_group_id>",
-  "size": 20
+  "name": "prepare_policy_creation",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>",
+    "policy_name_hint": "rate-limiting"
+  }
 }
 ----
 
-The `search_global_assets` tool searches for agents, MCP servers, and APIs. It returns ranked results.
+This returns a list of applicable policies for the target API instance. The user selects a policy, and the agent calls `get_policy_template_form` to present configuration options. After the user specifies the policy configuration, the agent calls `apply_policy_to_instance` to apply the policy immediately.
 
 == Example Prompts
 
