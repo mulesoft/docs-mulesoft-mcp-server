@@ -856,7 +856,7 @@ Fetch one policy template by templateId for configuration details.
 [[fetch-cost-instance-timeseries]]
 == fetch_cost_instance_timeseries
 
-Use this tool to get token usage and response time timeseries for a single MCP server instance. Returns time-bucketed data points with totalTokens, tokenDelta, and avgResponseTimeMs per bucket. Supports time_range values: 1h, 6h, 24h, 7d, 30d. Example: fetch_cost_instance_timeseries(organization_id=<org_id>, instance_id=<instance_id>, time_range='7d'). For org-wide overview, use fetch_cost_overview instead.
+Use this tool to get token usage and response time timeseries for a single MCP server instance. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2625,7 +2625,7 @@ This tool does not accept any input parameters.
 [[login]]
 == login
 
-Authenticate with Omni Platform. MUST be called before any other tool. Call WITHOUT arguments to display the interactive login panel where the user enters their credentials. Do NOT ask the user for username/password in the chat.
+Authenticate with Omni Platform. MUST be called before any other tool. 
 
 [%header,cols="1,3,1"]
 |===
