@@ -301,7 +301,14 @@ Apply the selected policy to the target asset instance using the provided config
 [source,json]
 ----
 {
-  "status": "ok"
+  "policyId": "p_4f8a91d2",
+  "apiInstanceId": "16834521",
+  "policyTemplateId": "client-id-enforcement",
+  "assetId": "client-id-enforcement",
+  "assetVersion": "1.3.3",
+  "order": 1,
+  "disabled": false,
+  "status": "applied"
 }
 ----
 
@@ -339,7 +346,14 @@ Preview APIs matched by a guardrail scope filter.
 [source,json]
 ----
 {
-  "status": "ok"
+  "scopeFilter": "apis:*",
+  "matchedCount": 47,
+  "matches": [
+    { "assetId": "orders-api", "assetVersion": "2.1.0", "name": "Orders API" },
+    { "assetId": "payments-api", "assetVersion": "1.4.2", "name": "Payments API" },
+    { "assetId": "customers-api", "assetVersion": "3.0.1", "name": "Customers API" }
+  ],
+  "truncated": true
 }
 ----
 
@@ -415,7 +429,16 @@ Convert the selected policy application payload to JSON-LD and print it in backe
 [source,json]
 ----
 {
-  "status": "ok"
+  "apiInstanceId": "16834521",
+  "policyTemplateId": "client-id-enforcement",
+  "conformant": true,
+  "violations": [],
+  "jsonLd": {
+    "@context": "https://anypoint.mulesoft.com/governance/policy/v1",
+    "@type": "PolicyApplication",
+    "policy": "client-id-enforcement",
+    "target": "16834521"
+  }
 }
 ----
 
@@ -449,7 +472,11 @@ Create a new automated-policy governance strategy from wizard inputs.
 [source,json]
 ----
 {
-  "status": "ok"
+  "strategyId": "strat_a91f2c4d",
+  "strategyType": "automated-policy",
+  "name": "Auto-apply rate limiting",
+  "status": "active",
+  "createdDate": "2026-05-07T14:32:18.412Z"
 }
 ----
 
@@ -533,7 +560,13 @@ Create a new guardrail strategy from wizard inputs.
 [source,json]
 ----
 {
-  "status": "ok"
+  "guardrailId": "gr_72bd1e3a",
+  "name": "PII redaction in OpenAPI specs",
+  "governanceTargetType": "service-assets",
+  "scopeFilter": "apis:*",
+  "rulesets": ["openapi-best-practices", "pii-redaction"],
+  "status": "active",
+  "createdDate": "2026-05-07T14:32:18.412Z"
 }
 ----
 
@@ -597,7 +630,13 @@ Launch the managed gateway creation wizard for the active MuleSoft provider. Whe
 [source,json]
 ----
 {
-  "status": "ok"
+  "gatewayId": "fg_8c4e92a1",
+  "name": "prod-omni-gateway",
+  "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+  "targetType": "cloudhub2",
+  "status": "creating",
+  "ingressDomains": ["prod-omni-gateway.us-e1.cloudhub.io"],
+  "createdDate": "2026-05-07T14:32:18.412Z"
 }
 ----
 
@@ -677,7 +716,13 @@ Launch the scanner creation wizard to configure and create a new agent scanner. 
 [source,json]
 ----
 {
-  "status": "ok"
+  "scannerId": "sc_3d7a4f81",
+  "name": "vertex-prod-scanner",
+  "provider": "google-vertex",
+  "authMethod": "service-account",
+  "status": "active",
+  "schedule": { "frequency": "daily", "hour": 2 },
+  "createdDate": "2026-05-07T14:32:18.412Z"
 }
 ----
 
@@ -715,7 +760,8 @@ Delete one automated-policy governance strategy by strategy ID.
 [source,json]
 ----
 {
-  "status": "ok"
+  "strategyId": "strat_a91f2c4d",
+  "deleted": true
 }
 ----
 
@@ -753,7 +799,8 @@ Delete one governance strategy by strategy id.
 [source,json]
 ----
 {
-  "status": "ok"
+  "strategyId": "gs_5e2f9a18",
+  "deleted": true
 }
 ----
 
@@ -791,7 +838,18 @@ Fetch one policy template by templateId for configuration details.
 [source,json]
 ----
 {
-  "status": "ok"
+  "templateId": "rate-limiting",
+  "name": "Rate Limiting",
+  "category": "Quality of Service",
+  "version": "1.4.0",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "configurationSchema": {
+    "type": "object",
+    "properties": {
+      "rateLimits": { "type": "array" },
+      "exposeHeaders": { "type": "boolean" }
+    }
+  }
 }
 ----
 
@@ -834,7 +892,13 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 [source,json]
 ----
 {
-  "status": "ok"
+  "instanceId": "16834521",
+  "timeRange": "7d",
+  "buckets": [
+    { "timestamp": "2026-04-30T00:00:00Z", "totalTokens": 142318, "tokenDelta": 21405, "avgResponseTimeMs": 312 },
+    { "timestamp": "2026-05-01T00:00:00Z", "totalTokens": 158902, "tokenDelta": 24817, "avgResponseTimeMs": 298 },
+    { "timestamp": "2026-05-02T00:00:00Z", "totalTokens": 134210, "tokenDelta": 19503, "avgResponseTimeMs": 305 }
+  ]
 }
 ----
 
@@ -884,7 +948,30 @@ Use this tool to get per-instance token usage with optimization coverage.
 [source,json]
 ----
 {
-  "status": "ok"
+  "instances": [
+    {
+      "instanceId": "16834521",
+      "instanceName": "orders-mcp-prod",
+      "assetId": "orders-mcp-server",
+      "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+      "totalTokens": 4218903,
+      "tokenDelta": 612418,
+      "avgResponseTimeMs": 287,
+      "totalCalls": 5142,
+      "tokensPerCall": 820,
+      "toolsListTokens": 1402189,
+      "toolsCallTokens": 2816714,
+      "appliedPolicies": ["client-id-enforcement"],
+      "appliedCostPolicyIds": [],
+      "unappliedCostPolicyIds": ["tool-output-truncation", "response-caching"],
+      "optimizationCoverage": 0.0
+    }
+  ],
+  "policyTemplates": {
+    "tool-output-truncation": { "name": "Tool Output Truncation", "description": "Caps tool response token usage." },
+    "response-caching": { "name": "Response Caching", "description": "Caches identical tool calls." }
+  },
+  "total": 18
 }
 ----
 
@@ -930,7 +1017,25 @@ Use this tool to get a ranked list of MCP server instances that should be optimi
 [source,json]
 ----
 {
-  "status": "ok"
+  "recommendations": [
+    {
+      "instanceId": "16834521",
+      "instanceName": "orders-mcp-prod",
+      "serverName": "Orders MCP Server",
+      "assetId": "orders-mcp-server",
+      "environment": "production",
+      "totalTokens": 4218903,
+      "projectedTokensSaved": 1180294,
+      "projectedSavingsPercent": 27.97,
+      "unappliedCostPolicyIds": ["tool-output-truncation", "response-caching"],
+      "perPolicyProjections": [
+        { "policyId": "tool-output-truncation", "policyName": "Tool Output Truncation", "rate": 0.18, "tokensSaved": 759402 },
+        { "policyId": "response-caching", "policyName": "Response Caching", "rate": 0.10, "tokensSaved": 420892 }
+      ]
+    }
+  ],
+  "savingsPoolSize": 3,
+  "timeRange": "30d"
 }
 ----
 
@@ -972,7 +1077,18 @@ Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, sa
 [source,json]
 ----
 {
-  "status": "ok"
+  "timeRange": "30d",
+  "kpis": {
+    "totalTokens": 18472310,
+    "savedTokens": 3214087,
+    "totalToolCalls": 24158,
+    "tokensPerCall": 765,
+    "savingsPercent": 14.8
+  },
+  "timeseries": [
+    { "timestamp": "2026-04-08T00:00:00Z", "totalTokens": 612430, "savedTokens": 98215 },
+    { "timestamp": "2026-04-09T00:00:00Z", "totalTokens": 587102, "savedTokens": 104812 }
+  ]
 }
 ----
 
@@ -1023,7 +1139,28 @@ Use this tool to get detailed governance conformance data for a single service.
 [source,json]
 ----
 {
-  "status": "ok"
+  "service": {
+    "serviceId": "orders-api",
+    "name": "Orders API",
+    "provider": "mulesoft",
+    "version": "2.1.0",
+    "conformanceStatus": "non-compliant"
+  },
+  "rulesets": [
+    {
+      "rulesetId": "openapi-best-practices",
+      "name": "OpenAPI Best Practices",
+      "errorCount": 2,
+      "warningCount": 5,
+      "infoCount": 1,
+      "rules": [
+        { "ruleId": "operation-success-response", "severity": "error", "message": "Operation 'POST /orders' is missing a 2xx response." }
+      ]
+    }
+  ],
+  "instanceConformance": [
+    { "instanceId": "16834521", "environment": "production", "conformant": false }
+  ]
 }
 ----
 
@@ -1113,7 +1250,42 @@ Use this tool to search, filter, and count governance conformance across service
 [source,json]
 ----
 {
-  "status": "ok"
+  "services": [
+    {
+      "serviceId": "orders-api",
+      "name": "Orders API",
+      "provider": "mulesoft",
+      "serviceType": "rest-api",
+      "conformanceStatus": "non-compliant",
+      "errorCount": 2,
+      "warningCount": 5,
+      "violatedRulesets": ["openapi-best-practices"]
+    },
+    {
+      "serviceId": "payments-api",
+      "name": "Payments API",
+      "provider": "mulesoft",
+      "serviceType": "rest-api",
+      "conformanceStatus": "compliant",
+      "errorCount": 0,
+      "warningCount": 0,
+      "violatedRulesets": []
+    }
+  ],
+  "totals": {
+    "statusTotals": { "compliant": 38, "non-compliant": 9, "pending": 2 },
+    "concernTotals": {
+      "security-privacy": { "errorCount": 4, "warningCount": 11 },
+      "structural-conformity-lifecycle": { "errorCount": 2, "warningCount": 5 }
+    },
+    "providerTotals": {
+      "mulesoft": { "compliant": 32, "non-compliant": 7, "pending": 1 },
+      "kong": { "compliant": 6, "non-compliant": 2, "pending": 1 }
+    }
+  },
+  "total": 49,
+  "limit": 25,
+  "offset": 0
 }
 ----
 
@@ -1151,7 +1323,13 @@ Fetch a guardrail ruleset payload by sourceRulesetKey.
 [source,json]
 ----
 {
-  "status": "ok"
+  "sourceRulesetKey": "openapi-best-practices",
+  "name": "OpenAPI Best Practices",
+  "version": "1.2.0",
+  "rules": [
+    { "ruleId": "operation-success-response", "severity": "error", "description": "Operations should declare a successful 2xx response." },
+    { "ruleId": "operation-tag-defined", "severity": "warning", "description": "Operations should be tagged for grouping." }
+  ]
 }
 ----
 
@@ -1237,7 +1415,15 @@ Use this tool to rank services or instances contributing to a specific performan
 [source,json]
 ----
 {
-  "status": "ok"
+  "metric": "availability",
+  "rows": [
+    { "serviceId": "orders-api", "instanceId": "16834521", "name": "Orders API", "environment": "production", "value": 99.92, "delta": -0.04 },
+    { "serviceId": "payments-api", "instanceId": "16834522", "name": "Payments API", "environment": "production", "value": 99.81, "delta": 0.01 },
+    { "serviceId": "customers-api", "instanceId": "16834523", "name": "Customers API", "environment": "production", "value": 99.43, "delta": -0.21 }
+  ],
+  "totalRows": 12,
+  "offset": 0,
+  "pageSize": 10
 }
 ----
 
@@ -1296,7 +1482,23 @@ Use this tool to get monitoring data for a single API instance: time-series char
 [source,json]
 ----
 {
-  "status": "ok"
+  "instanceId": "16834521",
+  "assetId": "orders-api",
+  "environment": "production",
+  "timeRange": "24h",
+  "charts": {
+    "requests": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 4218 }],
+    "errorRate": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 0.012 }],
+    "avgLatency": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 287 }],
+    "policyViolations": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 0 }]
+  },
+  "topEndpoints": [
+    { "path": "/orders", "method": "POST", "requests": 18420 },
+    { "path": "/orders/{id}", "method": "GET", "requests": 12508 }
+  ],
+  "topClients": [
+    { "clientId": "c_4f8a91d2", "clientName": "checkout-web", "requests": 21408 }
+  ]
 }
 ----
 
@@ -1346,7 +1548,22 @@ Use this tool to get an org-wide monitoring health snapshot: total requests, err
 [source,json]
 ----
 {
-  "status": "ok"
+  "environment": "production",
+  "provider": "mulesoft",
+  "timeRange": "7d",
+  "kpis": {
+    "totalRequests": 9128342,
+    "errorRate": 0.018,
+    "avgLatencyMs": 312,
+    "availability": 99.87,
+    "reliability": 99.41
+  },
+  "charts": {
+    "requestVolume": [{ "timestamp": "2026-05-01T00:00:00Z", "value": 1284018 }],
+    "errorRate": [{ "timestamp": "2026-05-01T00:00:00Z", "value": 0.021 }],
+    "avgLatency": [{ "timestamp": "2026-05-01T00:00:00Z", "value": 305 }],
+    "errorVolume": [{ "timestamp": "2026-05-01T00:00:00Z", "value": 26904 }]
+  }
 }
 ----
 
@@ -1400,7 +1617,27 @@ Use this tool when you need aggregate counts/buckets for summaries, dashboards, 
 [source,json]
 ----
 {
-  "status": "ok"
+  "businessGroupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "total": 142,
+  "aggregates": {
+    "byType": {
+      "rest-api": 87,
+      "graphql": 12,
+      "soap-api": 18,
+      "agent": 14,
+      "mcp": 11
+    },
+    "byProvider": {
+      "mulesoft": 118,
+      "kong": 15,
+      "apigee": 9
+    },
+    "byStatus": {
+      "active": 128,
+      "deprecated": 9,
+      "draft": 5
+    }
+  }
 }
 ----
 
@@ -1458,7 +1695,30 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 [source,json]
 ----
 {
-  "status": "ok"
+  "businessGroupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "total": 142,
+  "services": [
+    {
+      "assetId": "orders-api",
+      "name": "Orders API",
+      "assetType": "rest-api",
+      "provider": "mulesoft",
+      "version": "2.1.0",
+      "status": "active",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "links": { "self": "/exchange/api/v2/assets/orders-api/2.1.0" }
+    },
+    {
+      "assetId": "payments-api",
+      "name": "Payments API",
+      "assetType": "rest-api",
+      "provider": "mulesoft",
+      "version": "1.4.2",
+      "status": "active",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "links": { "self": "/exchange/api/v2/assets/payments-api/1.4.2" }
+    }
+  ]
 }
 ----
 
@@ -1492,7 +1752,16 @@ Get full metadata for a business group by its ID.
 [source,json]
 ----
 {
-  "status": "ok"
+  "id": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "name": "Acme Corp",
+  "parentId": null,
+  "isMaster": true,
+  "ownerId": "u-9f2a8c12",
+  "subOrganizationIds": ["b21d4f88-1c5e-4a3d-9e7b-0a4c6b3e8d11"],
+  "entitlements": {
+    "vcoreProduction": 50,
+    "vcoreSandbox": 10
+  }
 }
 ----
 
@@ -1536,7 +1805,20 @@ Read the deployed state of a catalog-managed MCP server. Returns current systems
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-mcp-server",
+  "apiId": 16834521,
+  "serverName": "Orders MCP Server",
+  "targetId": "fg_8c4e92a1",
+  "targetName": "prod-omni-gateway",
+  "basePath": "/mcp/orders",
+  "deployedSystems": [
+    {
+      "systemId": "salesforce",
+      "tools": ["query", "create-record", "update-record"],
+      "upstreamId": "u_2f1a8e44"
+    }
+  ],
+  "currentUpstreamIds": { "salesforce": "u_2f1a8e44" }
 }
 ----
 
@@ -1583,7 +1865,12 @@ Get ingress domains and app unique id for a managed Omni Gateway target.
 [source,json]
 ----
 {
-  "status": "ok"
+  "targetId": "fg_8c4e92a1",
+  "appUniqueId": "prod-omni-gateway-us-east-1",
+  "ingressDomains": [
+    "prod-omni-gateway.us-e1.cloudhub.io",
+    "api.acme.com"
+  ]
 }
 ----
 
@@ -1622,7 +1909,16 @@ Get current managed Omni Gateway size entitlement usage.
 [source,json]
 ----
 {
-  "status": "ok"
+  "providerId": "p_mulesoft_default",
+  "entitlements": {
+    "totalSize": "Medium",
+    "usedReplicas": 4,
+    "totalReplicas": 10
+  },
+  "byEnvironment": [
+    { "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002", "name": "production", "replicas": 3 },
+    { "environmentId": "e2a4c731-1f9b-4c20-9e43-7a8e22b14d09", "name": "sandbox", "replicas": 1 }
+  ]
 }
 ----
 
@@ -1686,7 +1982,17 @@ Load one policy template detail, including configuration schema, to dynamically 
 [source,json]
 ----
 {
-  "status": "ok"
+  "templateId": "rate-limiting",
+  "name": "Rate Limiting",
+  "version": "1.4.0",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "form": {
+    "fields": [
+      { "name": "rateLimits", "type": "array", "required": true, "label": "Rate Limits" },
+      { "name": "exposeHeaders", "type": "boolean", "required": false, "label": "Expose Headers", "default": true }
+    ]
+  },
+  "direction": "inbound"
 }
 ----
 
@@ -1720,7 +2026,13 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 [source,json]
 ----
 {
-  "status": "ok"
+  "jobId": "job_a1b2c3d4",
+  "status": "running",
+  "progressStep": "deploying-flex-gateway",
+  "completedSteps": ["create-asset", "configure-upstreams"],
+  "remainingSteps": ["deploy-flex-gateway", "register-mcp-server"],
+  "result": null,
+  "canResume": false
 }
 ----
 
@@ -1754,7 +2066,22 @@ Return the catalog of SaaS systems available for MCP server provisioning. Each i
 [source,json]
 ----
 {
-  "status": "ok"
+  "catalog": [
+    {
+      "systemId": "salesforce",
+      "name": "Salesforce",
+      "authType": "oauth2",
+      "credentialFields": ["clientId", "clientSecret", "instanceUrl"],
+      "tools": ["query", "create-record", "update-record", "delete-record"]
+    },
+    {
+      "systemId": "github",
+      "name": "GitHub",
+      "authType": "personal-access-token",
+      "credentialFields": ["token"],
+      "tools": ["list-repos", "get-file", "create-issue", "list-pull-requests"]
+    }
+  ]
 }
 ----
 
@@ -1798,7 +2125,25 @@ List agents registered in the Omni Platform for a given organization. Presents a
 [source,json]
 ----
 {
-  "status": "ok"
+  "agents": [
+    {
+      "assetId": "invoice-approval-agent",
+      "name": "Invoice Approval Agent",
+      "version": "1.2.0",
+      "provider": "mulesoft",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "description": "Routes invoices to approvers based on amount thresholds."
+    },
+    {
+      "assetId": "support-triage-agent",
+      "name": "Support Triage Agent",
+      "version": "0.9.1",
+      "provider": "mulesoft",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "description": "Classifies incoming support tickets."
+    }
+  ],
+  "total": 14
 }
 ----
 
@@ -1846,7 +2191,25 @@ List APIs from the Omni Platform catalog for a given organization. Presents an i
 [source,json]
 ----
 {
-  "status": "ok"
+  "apis": [
+    {
+      "assetId": "orders-api",
+      "name": "Orders API",
+      "apiCategory": "Commerce",
+      "version": "2.1.0",
+      "provider": "mulesoft",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913"
+    },
+    {
+      "assetId": "payments-api",
+      "name": "Payments API",
+      "apiCategory": "Commerce",
+      "version": "1.4.2",
+      "provider": "mulesoft",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913"
+    }
+  ],
+  "total": 87
 }
 ----
 
@@ -1880,7 +2243,21 @@ List available business groups, optionally filtering by name.
 [source,json]
 ----
 {
-  "status": "ok"
+  "businessGroups": [
+    {
+      "id": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "name": "Acme Corp",
+      "parentId": null,
+      "isMaster": true
+    },
+    {
+      "id": "b21d4f88-1c5e-4a3d-9e7b-0a4c6b3e8d11",
+      "name": "Acme Payments Division",
+      "parentId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "isMaster": false
+    }
+  ],
+  "total": 2
 }
 ----
 
@@ -1919,7 +2296,25 @@ List governance strategies for an organization. Shows the same searchable and fi
 [source,json]
 ----
 {
-  "status": "ok"
+  "strategies": [
+    {
+      "strategyId": "strat_a91f2c4d",
+      "name": "Auto-apply rate limiting",
+      "strategyType": "automated-policy",
+      "status": "active",
+      "scopeFilter": "apis:*",
+      "createdDate": "2026-04-12T08:21:43.000Z"
+    },
+    {
+      "strategyId": "gs_5e2f9a18",
+      "name": "PII redaction guardrail",
+      "strategyType": "guardrail",
+      "status": "active",
+      "scopeFilter": "apis:tags:public",
+      "createdDate": "2026-03-28T11:09:22.000Z"
+    }
+  ],
+  "total": 6
 }
 ----
 
@@ -1967,7 +2362,25 @@ List LLM models registered in the Omni Platform for a given organization. Presen
 [source,json]
 ----
 {
-  "status": "ok"
+  "llms": [
+    {
+      "assetId": "claude-opus-4-7",
+      "name": "Claude Opus 4.7",
+      "category": "general-purpose",
+      "provider": "anthropic",
+      "version": "1.0.0",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913"
+    },
+    {
+      "assetId": "gpt-4-turbo",
+      "name": "GPT-4 Turbo",
+      "category": "general-purpose",
+      "provider": "openai",
+      "version": "1.0.0",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913"
+    }
+  ],
+  "total": 9
 }
 ----
 
@@ -2009,7 +2422,25 @@ List MCP servers registered in the Omni Platform for a given organization. Prese
 [source,json]
 ----
 {
-  "status": "ok"
+  "mcpServers": [
+    {
+      "assetId": "orders-mcp-server",
+      "name": "Orders MCP Server",
+      "protocol": "streamable-http",
+      "version": "1.0.0",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "instances": 2
+    },
+    {
+      "assetId": "salesforce-mcp-server",
+      "name": "Salesforce MCP Server",
+      "protocol": "streamable-http",
+      "version": "1.2.1",
+      "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+      "instances": 3
+    }
+  ],
+  "total": 11
 }
 ----
 
@@ -2048,7 +2479,11 @@ List Anypoint environments available for managed Omni Gateway creation.
 [source,json]
 ----
 {
-  "status": "ok"
+  "environments": [
+    { "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002", "name": "production", "type": "production", "isProduction": true },
+    { "environmentId": "e2a4c731-1f9b-4c20-9e43-7a8e22b14d09", "name": "sandbox", "type": "sandbox", "isProduction": false },
+    { "environmentId": "e3d2a811-7f5c-4983-89ce-a141f9120abc", "name": "development", "type": "design", "isProduction": false }
+  ]
 }
 ----
 
@@ -2090,7 +2525,16 @@ List managed Omni Gateway deployment targets for an environment.
 [source,json]
 ----
 {
-  "status": "ok"
+  "targets": [
+    {
+      "targetId": "fg_8c4e92a1",
+      "name": "prod-omni-gateway",
+      "targetType": "cloudhub2",
+      "status": "running",
+      "ingressDomains": ["prod-omni-gateway.us-e1.cloudhub.io"],
+      "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002"
+    }
+  ]
 }
 ----
 
@@ -2129,7 +2573,24 @@ List gateways for the active provider. Currently returns Flex Gateways when the 
 [source,json]
 ----
 {
-  "status": "ok"
+  "providerId": "p_mulesoft_default",
+  "gatewayType": "flex-gateway",
+  "gateways": [
+    {
+      "gatewayId": "fg_8c4e92a1",
+      "name": "prod-omni-gateway",
+      "status": "running",
+      "version": "1.9.2",
+      "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002"
+    },
+    {
+      "gatewayId": "fg_2f1a8e44",
+      "name": "sandbox-flex-gateway",
+      "status": "running",
+      "version": "1.9.2",
+      "environmentId": "e2a4c731-1f9b-4c20-9e43-7a8e22b14d09"
+    }
+  ]
 }
 ----
 
@@ -2153,7 +2614,11 @@ This tool does not accept any input parameters.
 [source,json]
 ----
 {
-  "status": "ok"
+  "providers": [
+    { "providerId": "google-vertex", "name": "Google Vertex AI", "authMethods": ["service-account", "oauth2"] },
+    { "providerId": "microsoft-copilot", "name": "Microsoft Copilot", "authMethods": ["oauth2"] },
+    { "providerId": "aws-bedrock", "name": "AWS Bedrock", "authMethods": ["iam-role", "access-key"] }
+  ]
 }
 ----
 
@@ -2192,7 +2657,11 @@ Authenticate with Omni Platform. MUST be called before any other tool. Call WITH
 [source,json]
 ----
 {
-  "status": "ok"
+  "authenticated": true,
+  "userId": "u-9f2a8c12",
+  "username": "alice@acme.com",
+  "activeOrganizationId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "expiresAt": "2026-05-08T14:32:18.412Z"
 }
 ----
 
@@ -2216,7 +2685,7 @@ This tool does not accept any input parameters.
 [source,json]
 ----
 {
-  "status": "ok"
+  "authenticated": false
 }
 ----
 
@@ -2250,7 +2719,15 @@ Open the automated-policy creation wizard with scope options and policy template
 [source,json]
 ----
 {
-  "status": "ok"
+  "scopeOptions": [
+    { "scopeFilter": "apis:*", "label": "All APIs" },
+    { "scopeFilter": "apis:tags:public", "label": "APIs tagged public" }
+  ],
+  "policyTemplates": [
+    { "templateId": "rate-limiting", "name": "Rate Limiting", "category": "Quality of Service" },
+    { "templateId": "client-id-enforcement", "name": "Client ID Enforcement", "category": "Security" },
+    { "templateId": "jwt-validation", "name": "JWT Validation", "category": "Security" }
+  ]
 }
 ----
 
@@ -2284,7 +2761,15 @@ Open the guardrail creation wizard with scope options and guardrail rule catalog
 [source,json]
 ----
 {
-  "status": "ok"
+  "scopeOptions": [
+    { "scopeFilter": "apis:*", "label": "All APIs" },
+    { "scopeFilter": "apis:tags:public", "label": "APIs tagged public" }
+  ],
+  "rulesetCatalog": [
+    { "rulesetId": "openapi-best-practices", "name": "OpenAPI Best Practices", "ruleCount": 24 },
+    { "rulesetId": "pii-redaction", "name": "PII Redaction", "ruleCount": 8 },
+    { "rulesetId": "owasp-api-top-10", "name": "OWASP API Top 10", "ruleCount": 10 }
+  ]
 }
 ----
 
@@ -2334,7 +2819,15 @@ Load policy options for one asset instance.
 [source,json]
 ----
 {
-  "status": "ok"
+  "apiInstanceId": "16834521",
+  "assetId": "orders-api",
+  "assetVersion": "2.1.0",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "availablePolicies": [
+    { "templateId": "rate-limiting", "assetId": "rate-limiting", "assetVersion": "1.4.0", "name": "Rate Limiting", "category": "Quality of Service" },
+    { "templateId": "jwt-validation", "assetId": "jwt-validation", "assetVersion": "1.3.1", "name": "JWT Validation", "category": "Security" },
+    { "templateId": "ip-allowlist", "assetId": "ip-allowlist", "assetVersion": "1.2.0", "name": "IP Allowlist", "category": "Security" }
+  ]
 }
 ----
 
@@ -2400,7 +2893,12 @@ Provision a composite MCP server on Flex Gateway from selected catalog systems.
 [source,json]
 ----
 {
-  "status": "ok"
+  "jobId": "job_a1b2c3d4",
+  "status": "running",
+  "serverName": "Orders MCP Server",
+  "basePath": "/mcp/orders",
+  "targetId": "fg_8c4e92a1",
+  "estimatedDurationSeconds": 90
 }
 ----
 
@@ -2434,7 +2932,9 @@ Resume a failed provisioning or update job from its last checkpoint. Only works 
 [source,json]
 ----
 {
-  "status": "ok"
+  "jobId": "job_a1b2c3d4",
+  "status": "running",
+  "resumedFromStep": "deploy-flex-gateway"
 }
 ----
 
@@ -2480,7 +2980,26 @@ Search portfolio assets using natural language semantic search. Use this when th
 [source,json]
 ----
 {
-  "status": "ok"
+  "query": "payment processing",
+  "results": [
+    {
+      "assetId": "payments-api",
+      "name": "Payments API",
+      "assetType": "rest-api",
+      "description": "Handles credit card and ACH payment authorization and capture.",
+      "relevanceScore": 0.94,
+      "version": "1.4.2"
+    },
+    {
+      "assetId": "stripe-mcp-server",
+      "name": "Stripe MCP Server",
+      "assetType": "mcp",
+      "description": "Tools for Stripe charges, refunds, and customer management.",
+      "relevanceScore": 0.87,
+      "version": "0.5.0"
+    }
+  ],
+  "total": 6
 }
 ----
 
@@ -2523,7 +3042,14 @@ Compatibility alias for global content search. Searches across agents, MCP serve
 [source,json]
 ----
 {
-  "status": "ok"
+  "query": "payment processing",
+  "businessGroupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "results": [
+    { "assetId": "payments-api", "name": "Payments API", "assetType": "rest-api", "relevanceScore": 0.94 },
+    { "assetId": "stripe-mcp-server", "name": "Stripe MCP Server", "assetType": "mcp", "relevanceScore": 0.87 },
+    { "assetId": "fraud-detection-agent", "name": "Fraud Detection Agent", "assetType": "agent", "relevanceScore": 0.71 }
+  ],
+  "total": 8
 }
 ----
 
@@ -2566,7 +3092,13 @@ UI tool for embedded agents to search content across agents, MCP servers, and AP
 [source,json]
 ----
 {
-  "status": "ok"
+  "query": "payment processing",
+  "businessGroupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "results": [
+    { "assetId": "payments-api", "name": "Payments API", "assetType": "rest-api", "snippet": "Handles credit card and ACH payment authorization and capture.", "relevanceScore": 0.94 },
+    { "assetId": "stripe-mcp-server", "name": "Stripe MCP Server", "assetType": "mcp", "snippet": "Tools for Stripe charges, refunds, and customer management.", "relevanceScore": 0.87 }
+  ],
+  "total": 8
 }
 ----
 
@@ -2608,7 +3140,34 @@ Use this tool to discover assets based on capabilities and use cases.
 [source,json]
 ----
 {
-  "status": "ok"
+  "query": "payment processing",
+  "results": [
+    {
+      "assetId": "payments-api",
+      "name": "Payments API",
+      "assetType": "rest-api",
+      "description": "Handles credit card and ACH payment authorization and capture.",
+      "version": "1.4.2",
+      "relevanceScore": 0.94
+    },
+    {
+      "assetId": "stripe-mcp-server",
+      "name": "Stripe MCP Server",
+      "assetType": "mcp",
+      "description": "Tools for Stripe charges, refunds, and customer management.",
+      "version": "0.5.0",
+      "relevanceScore": 0.87
+    },
+    {
+      "assetId": "fraud-detection-agent",
+      "name": "Fraud Detection Agent",
+      "assetType": "agent",
+      "description": "Scores transactions for fraud risk before settlement.",
+      "version": "1.1.0",
+      "relevanceScore": 0.71
+    }
+  ],
+  "total": 11
 }
 ----
 
@@ -2654,7 +3213,24 @@ Use this tool for repository-grounded conceptual questions. It searches a curate
 [source,json]
 ----
 {
-  "status": "ok"
+  "query": "payment processing",
+  "matches": [
+    {
+      "sourcePath": "docs/policies/security/jwt-validation.md",
+      "snippet": "Use JWT Validation policy to authenticate requests carrying bearer tokens issued by your IdP...",
+      "lexicalScore": 0.62,
+      "semanticScore": 0.81,
+      "metadata": { "category": "security", "lastModified": "2026-02-14" }
+    },
+    {
+      "sourcePath": "docs/governance/rulesets/owasp-api-top-10.md",
+      "snippet": "OWASP API Top 10 ruleset addresses broken object-level authorization and excessive data exposure...",
+      "lexicalScore": 0.41,
+      "semanticScore": 0.74,
+      "metadata": { "category": "governance", "lastModified": "2026-01-30" }
+    }
+  ],
+  "total": 5
 }
 ----
 
@@ -2693,7 +3269,11 @@ Set the current active business group context and optionally set a new active bu
 [source,json]
 ----
 {
-  "status": "ok"
+  "activeBusinessGroup": {
+    "businessGroupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+    "name": "Acme Corp"
+  },
+  "changed": true
 }
 ----
 
@@ -2737,7 +3317,13 @@ Browse the available Anypoint environments for the active MuleSoft provider and 
 [source,json]
 ----
 {
-  "status": "ok"
+  "activeEnvironment": {
+    "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+    "name": "production",
+    "type": "production",
+    "isProduction": true
+  },
+  "changed": true
 }
 ----
 
@@ -2771,7 +3357,12 @@ Browse the available providers and set one as the active provider context for fo
 [source,json]
 ----
 {
-  "status": "ok"
+  "activeProvider": {
+    "providerId": "p_mulesoft_default",
+    "name": "MuleSoft",
+    "type": "mulesoft"
+  },
+  "changed": true
 }
 ----
 
@@ -2810,7 +3401,13 @@ Show an interactive version selector for an API and notify the host when the use
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-api",
+  "selectedVersion": "2.1.0",
+  "versions": [
+    { "version": "2.1.0", "lifecycleState": "stable", "createdDate": "2026-03-12T08:21:43.000Z" },
+    { "version": "2.0.0", "lifecycleState": "deprecated", "createdDate": "2025-11-04T11:09:22.000Z" },
+    { "version": "1.4.0", "lifecycleState": "deprecated", "createdDate": "2025-06-18T14:32:18.000Z" }
+  ]
 }
 ----
 
@@ -2854,7 +3451,18 @@ Load observability dashboards data for embedded MCP app rendering.
 [source,json]
 ----
 {
-  "status": "ok"
+  "environment": "sandbox",
+  "provider": "mulesoft",
+  "timeRange": "7d",
+  "kpis": {
+    "totalRequests": 612430,
+    "avgLatencyMs": 218,
+    "errorRate": 0.009
+  },
+  "topServices": [
+    { "assetId": "orders-api", "name": "Orders API", "requests": 184028, "avgLatencyMs": 287 },
+    { "assetId": "payments-api", "name": "Payments API", "requests": 142810, "avgLatencyMs": 214 }
+  ]
 }
 ----
 
@@ -2896,7 +3504,10 @@ Test connection to a scanner provider before creating the scanner.
 [source,json]
 ----
 {
-  "status": "ok"
+  "provider": "mulesoft",
+  "authMethod": "service-account",
+  "connectionStatus": "success",
+  "latencyMs": 142
 }
 ----
 
@@ -2975,7 +3586,14 @@ Update an existing catalog-managed MCP server. Diffs new configuration against d
 [source,json]
 ----
 {
-  "status": "ok"
+  "jobId": "job_b5c6d7e8",
+  "status": "running",
+  "assetId": "orders-mcp-server",
+  "diff": {
+    "addedSystems": ["github"],
+    "removedSystems": [],
+    "updatedSystems": ["salesforce"]
+  }
 }
 ----
 
@@ -3018,7 +3636,18 @@ Show read-only details for one agent, including versions, instances, and metadat
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "invoice-approval-agent",
+  "name": "Invoice Approval Agent",
+  "description": "Routes invoices to approvers based on amount thresholds.",
+  "provider": "mulesoft",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "versions": [
+    { "version": "1.2.0", "lifecycleState": "stable", "createdDate": "2026-04-01T08:21:43.000Z" },
+    { "version": "1.1.0", "lifecycleState": "deprecated", "createdDate": "2026-01-15T11:09:22.000Z" }
+  ],
+  "instances": [
+    { "instanceId": "16834561", "environment": "production", "endpoint": "https://agents.acme.com/invoice-approval" }
+  ]
 }
 ----
 
@@ -3073,7 +3702,16 @@ Show details for one API instance with a web-aligned header. Accepts either an i
 [source,json]
 ----
 {
-  "status": "ok"
+  "instanceId": "16834521",
+  "assetId": "orders-api",
+  "assetVersion": "2.1.0",
+  "apiVersion": "v2",
+  "endpoint": "https://api.acme.com/orders",
+  "environment": "production",
+  "deploymentType": "cloudhub2",
+  "status": "active",
+  "appliedPolicyCount": 4,
+  "createdDate": "2026-03-12T08:21:43.000Z"
 }
 ----
 
@@ -3132,7 +3770,17 @@ Show instance monitoring charts, traffic, and clients for one API instance.
 [source,json]
 ----
 {
-  "status": "ok"
+  "instanceId": "16834521",
+  "assetId": "orders-api",
+  "timeRange": "24h",
+  "charts": {
+    "requests": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 4218 }],
+    "errorRate": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 0.012 }],
+    "avgLatency": [{ "timestamp": "2026-05-07T13:00:00Z", "value": 287 }]
+  },
+  "topClients": [
+    { "clientId": "c_4f8a91d2", "clientName": "checkout-web", "requests": 21408 }
+  ]
 }
 ----
 
@@ -3187,7 +3835,18 @@ Show the applied policies for one API instance with the same grouping UI as the 
 [source,json]
 ----
 {
-  "status": "ok"
+  "instanceId": "16834521",
+  "assetId": "orders-api",
+  "policiesByCategory": {
+    "Security": [
+      { "policyId": "p_4f8a91d2", "templateId": "client-id-enforcement", "name": "Client ID Enforcement", "order": 1, "disabled": false },
+      { "policyId": "p_2f1a8e44", "templateId": "jwt-validation", "name": "JWT Validation", "order": 2, "disabled": false }
+    ],
+    "Quality of Service": [
+      { "policyId": "p_8c4e92a1", "templateId": "rate-limiting", "name": "Rate Limiting", "order": 3, "disabled": false }
+    ]
+  },
+  "totalCount": 4
 }
 ----
 
@@ -3237,7 +3896,15 @@ Show read-only details for one API version, including instances, metadata, and l
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-api",
+  "version": "2.1.0",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "lifecycleState": "stable",
+  "createdDate": "2026-03-12T08:21:43.000Z",
+  "instances": [
+    { "instanceId": "16834521", "environment": "production" },
+    { "instanceId": "16834522", "environment": "sandbox" }
+  ]
 }
 ----
 
@@ -3294,7 +3961,26 @@ Show governance ruleset report summary and findings for one API version.
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-api",
+  "apiName": "Orders API",
+  "version": "2.1.0",
+  "summary": {
+    "conformanceStatus": "non-compliant",
+    "errorCount": 2,
+    "warningCount": 5,
+    "infoCount": 1
+  },
+  "rulesets": [
+    {
+      "rulesetId": "openapi-best-practices",
+      "name": "OpenAPI Best Practices",
+      "errorCount": 2,
+      "warningCount": 5,
+      "findings": [
+        { "ruleId": "operation-success-response", "severity": "error", "path": "paths./orders.post", "message": "Operation 'POST /orders' is missing a 2xx response." }
+      ]
+    }
+  ]
 }
 ----
 
@@ -3342,7 +4028,12 @@ Show available instances for one API version and allow selecting instances to se
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-api",
+  "apiVersion": "v2",
+  "instances": [
+    { "instanceId": "16834521", "environment": "production", "endpoint": "https://api.acme.com/orders", "status": "active" },
+    { "instanceId": "16834522", "environment": "sandbox", "endpoint": "https://api-sandbox.acme.com/orders", "status": "active" }
+  ]
 }
 ----
 
@@ -3376,7 +4067,21 @@ Fetch the latest Governance Strategy report for an organization and render it in
 [source,json]
 ----
 {
-  "status": "ok"
+  "organizationId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "summary": {
+    "totalServices": 49,
+    "compliant": 38,
+    "nonCompliant": 9,
+    "pending": 2
+  },
+  "byConcernArea": {
+    "security-privacy": { "errorCount": 4, "warningCount": 11 },
+    "consumption-economic-governance": { "errorCount": 1, "warningCount": 3 },
+    "structural-conformity-lifecycle": { "errorCount": 2, "warningCount": 5 }
+  },
+  "topViolations": [
+    { "rulesetId": "openapi-best-practices", "name": "OpenAPI Best Practices", "violationCount": 7 }
+  ]
 }
 ----
 
@@ -3419,7 +4124,21 @@ Show read-only details for one LLM model, including versions, instances, and met
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "claude-opus-4-7",
+  "name": "Claude Opus 4.7",
+  "provider": "anthropic",
+  "category": "general-purpose",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "versions": [
+    { "version": "1.0.0", "lifecycleState": "stable", "createdDate": "2026-04-22T08:21:43.000Z" }
+  ],
+  "instances": [
+    { "instanceId": "16834581", "environment": "production", "endpoint": "https://llm.acme.com/claude-opus-4-7" }
+  ],
+  "metadata": {
+    "contextWindow": 200000,
+    "modalities": ["text", "vision"]
+  }
 }
 ----
 
@@ -3462,6 +4181,21 @@ Show read-only details for one MCP server, including versions, instances, and me
 [source,json]
 ----
 {
-  "status": "ok"
+  "assetId": "orders-mcp-server",
+  "name": "Orders MCP Server",
+  "description": "MCP server exposing Orders API operations as tools.",
+  "protocol": "streamable-http",
+  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "versions": [
+    { "version": "1.0.0", "lifecycleState": "stable", "createdDate": "2026-04-22T08:21:43.000Z" }
+  ],
+  "instances": [
+    { "instanceId": "16834571", "environment": "production", "endpoint": "https://mcp.acme.com/orders", "status": "active" }
+  ],
+  "tools": [
+    { "name": "list-orders", "description": "List orders for a customer." },
+    { "name": "get-order", "description": "Get a single order by ID." },
+    { "name": "cancel-order", "description": "Cancel an order." }
+  ]
 }
 ----
