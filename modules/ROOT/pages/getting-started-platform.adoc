@@ -8,6 +8,8 @@ Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#cre
 
 Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes.
 
+IMPORTANT: When creating the connected app, be sure to select the Authorization Code and Refresh Token grant types. 
+
 Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
 
 === Exchange
@@ -179,7 +181,7 @@ In Claude Desktop:
 
 Or run this command in your terminal:
 
-`claude mcp add --transport sse mulesoft-platform <URL for your region>`
+`claude mcp add --transport http mulesoft-platform <URL for your region>`
 
 Download https://claude.com/download[Claude Desktop].
 
