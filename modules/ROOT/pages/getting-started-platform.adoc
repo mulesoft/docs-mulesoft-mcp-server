@@ -231,16 +231,6 @@ In Windsurf:
 
 Download https://windsurf.com/[Windsurf].
 
-=== Cline
-
-In Cline:
-
-1. Click the MCP Servers icon, and select the **Remote Servers** tab.
-2. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
-3. When prompted, authenticate your connection.
-
-Download https://cline.bot/[Cline].
-
 === VS Code
 
 In VS Code:
