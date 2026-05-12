@@ -451,9 +451,57 @@ Create a new automated-policy governance strategy from wizard inputs.
 |===
 |Parameter |Description |Required
 
-|`tool_kwargs`
-|Tool Kwargs (any).
-|Yes
+|`allow_duplicated`
+|Allow Duplicated (boolean).
+|No
+
+|`automated_policy_configuration`
+|Automated Policy Configuration (object or null).
+|No
+
+|`automated_policy_endpoint_type_groups`
+|Automated Policy Endpoint Type Groups (array or null).
+|No
+
+|`automated_policy_endpoint_type_mode`
+|Automated Policy Endpoint Type Mode (string).
+|No
+
+|`automated_policy_environment_id`
+|Automated Policy Environment Id (string or null).
+|No
+
+|`automated_policy_id`
+|Automated Policy Id (string or null).
+|No
+
+|`automated_policy_runtime`
+|Automated Policy Runtime (string or null).
+|No
+
+|`automated_policy_runtime_range_from`
+|Automated Policy Runtime Range From (string or null).
+|No
+
+|`automated_policy_runtime_range_to`
+|Automated Policy Runtime Range To (string or null).
+|No
+
+|`description`
+|Description (string).
+|No
+
+|`name`
+|Name (string or null).
+|No
+
+|`organization_id`
+|Organization Id (string or null).
+|No
+
+|`scope_filter`
+|Scope Filter (string or null).
+|No
 
 |===
 
@@ -463,7 +511,8 @@ Create a new automated-policy governance strategy from wizard inputs.
 {
   "name": "create_automated_policy_strategy",
   "arguments": {
-    "tool_kwargs": null
+    "organization_id": "<organization_id>",
+    "name": "Auto-apply rate limiting"
   }
 }
 ----
@@ -2009,6 +2058,10 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 |Job Id (string).
 |Yes
 
+|`organization_id`
+|Organization Id (string or null).
+|No
+
 |===
 
 .Example request
@@ -2017,7 +2070,8 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 {
   "name": "get_provision_status",
   "arguments": {
-    "job_id": "<job_id>"
+    "job_id": "<job_id>",
+    "organization_id": "<organization_id>"
   }
 }
 ----
@@ -2915,6 +2969,10 @@ Resume a failed provisioning or update job from its last checkpoint. Only works 
 |Job Id (string).
 |Yes
 
+|`organization_id`
+|Organization Id (string or null).
+|No
+
 |===
 
 .Example request
@@ -2923,7 +2981,8 @@ Resume a failed provisioning or update job from its last checkpoint. Only works 
 {
   "name": "resume_provision_job",
   "arguments": {
-    "job_id": "<job_id>"
+    "job_id": "<job_id>",
+    "organization_id": "<organization_id>"
   }
 }
 ----
