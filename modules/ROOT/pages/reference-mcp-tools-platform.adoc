@@ -239,19 +239,19 @@ Apply the selected policy to the target asset instance using the provided config
 |Parameter |Description |Required
 
 |`api_instance_id`
-|Api Instance Id (string).
+|API instance ID (string).
 |Yes
 
 |`asset_id`
-|Asset Id (string or null).
+|Asset ID (string or null).
 |No
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`configuration_data`
-|Configuration Data (PolicyConfigurationData or null).
+|Configuration data (PolicyConfigurationData or null).
 |No
 
 |`disabled`
@@ -259,11 +259,11 @@ Apply the selected policy to the target asset instance using the provided config
 |No
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`group_id`
-|Group Id (string or null).
+|Group ID (string or null).
 |No
 
 |`order`
@@ -271,15 +271,15 @@ Apply the selected policy to the target asset instance using the provided config
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`pointcut_data`
-|Pointcut Data (PolicyPointcutData or null).
+|Pointcut data (PolicyPointcutData or null).
 |No
 
 |`policy_template_id`
-|Policy Template Id (string or null).
+|Policy template ID (string or null).
 |No
 
 |===
@@ -322,11 +322,11 @@ Preview APIs matched by a guardrail scope filter.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`scope_filter`
-|Scope Filter (string).
+|Scope filter (string).
 |Yes
 
 |===
@@ -367,19 +367,19 @@ Convert the selected policy application payload to JSON-LD and print it in backe
 |Parameter |Description |Required
 
 |`api_instance_id`
-|Api Instance Id (string).
+|API instance ID (string).
 |Yes
 
 |`asset_id`
-|Asset Id (string or null).
+|Asset ID (string or null).
 |No
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`configuration_data`
-|Configuration Data (PolicyConfigurationData or null).
+|Configuration data (PolicyConfigurationData or null).
 |No
 
 |`disabled`
@@ -387,11 +387,11 @@ Convert the selected policy application payload to JSON-LD and print it in backe
 |No
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`group_id`
-|Group Id (string or null).
+|Group ID (string or null).
 |No
 
 |`order`
@@ -399,15 +399,15 @@ Convert the selected policy application payload to JSON-LD and print it in backe
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`pointcut_data`
-|Pointcut Data (PolicyPointcutData or null).
+|Pointcut data (PolicyPointcutData or null).
 |No
 
 |`policy_template_id`
-|Policy Template Id (string or null).
+|Policy template ID (string or null).
 |No
 
 |===
@@ -452,39 +452,39 @@ Create a new automated-policy governance strategy from wizard inputs.
 |Parameter |Description |Required
 
 |`allow_duplicated`
-|Allow Duplicated (boolean).
+|Allow duplicated (boolean).
 |No
 
 |`automated_policy_configuration`
-|Automated Policy Configuration (object or null).
+|Automated policy configuration (object or null).
 |No
 
 |`automated_policy_endpoint_type_groups`
-|Automated Policy Endpoint Type Groups (array or null).
+|Automated policy endpoint type groups (array or null).
 |No
 
 |`automated_policy_endpoint_type_mode`
-|Automated Policy Endpoint Type Mode (string).
+|Automated policy endpoint type mode (string).
 |No
 
 |`automated_policy_environment_id`
-|Automated Policy Environment Id (string or null).
+|Automated policy environment ID (string or null).
 |No
 
 |`automated_policy_id`
-|Automated Policy Id (string or null).
+|Automated policy ID (string or null).
 |No
 
 |`automated_policy_runtime`
-|Automated Policy Runtime (string or null).
+|Automated policy runtime (string or null).
 |No
 
 |`automated_policy_runtime_range_from`
-|Automated Policy Runtime Range From (string or null).
+|Automated policy runtime range from (string or null).
 |No
 
 |`automated_policy_runtime_range_to`
-|Automated Policy Runtime Range To (string or null).
+|Automated policy runtime range to (string or null).
 |No
 
 |`description`
@@ -496,11 +496,11 @@ Create a new automated-policy governance strategy from wizard inputs.
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`scope_filter`
-|Scope Filter (string or null).
+|Scope filter (string or null).
 |No
 
 |===
@@ -543,7 +543,7 @@ Create a new guardrail strategy from wizard inputs.
 |No
 
 |`governance_target_type`
-|Governance Target Type (string).
+|Governance target type (string).
 |No
 
 |`name`
@@ -551,7 +551,7 @@ Create a new guardrail strategy from wizard inputs.
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`position`
@@ -567,27 +567,27 @@ Create a new guardrail strategy from wizard inputs.
 |No
 
 |`schedule_config`
-|Schedule Config (object or null).
+|Schedule config (object or null).
 |No
 
 |`scope_condition_mode`
-|Scope Condition Mode (string).
+|Scope condition mode (string).
 |No
 
 |`scope_conditions`
-|Scope Conditions (array or null).
+|Scope conditions (array or null).
 |No
 
 |`scope_filter`
-|Scope Filter (string or null).
+|Scope filter (string or null).
 |No
 
 |`strategy_status`
-|Strategy Status (string).
+|Strategy status (string).
 |No
 
 |`strategy_type`
-|Strategy Type (string).
+|Strategy type (string).
 |No
 
 |===
@@ -629,23 +629,23 @@ Launch the managed gateway creation wizard for the active MuleSoft provider. Whe
 |Parameter |Description |Required
 
 |`environment_id`
-|Environment Id (string or null).
+|Environment ID (string or null).
 |No
 
 |`environment_name`
-|Environment Name (string or null).
+|Environment name (string or null).
 |No
 
 |`environment_type`
-|Environment Type (string or null).
+|Environment type (string or null).
 |No
 
 |`governance_override_warnings`
-|Governance Override Warnings (boolean).
+|Governance override warnings (boolean).
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`payload`
@@ -653,11 +653,11 @@ Launch the managed gateway creation wizard for the active MuleSoft provider. Whe
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |`target_type`
-|Target Type (string or null).
+|Target type (string or null).
 |No
 
 |===
@@ -699,19 +699,19 @@ Launch the scanner creation wizard to configure and create a new agent scanner. 
 |Parameter |Description |Required
 
 |`auth_fields`
-|Auth Fields (ScannerAuthFields or null).
+|Auth fields (ScannerAuthFields or null).
 |No
 
 |`auth_fields_alias`
-|Auth Fields Alias (ScannerAuthFields or null).
+|Auth fields alias (ScannerAuthFields or null).
 |No
 
 |`auth_method`
-|Auth Method (string or null).
+|Auth method (string or null).
 |No
 
 |`auth_method_alias`
-|Auth Method Alias (string or null).
+|Auth method alias (string or null).
 |No
 
 |`description`
@@ -731,11 +731,11 @@ Launch the scanner creation wizard to configure and create a new agent scanner. 
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`owner_id`
-|Owner Id (string or null).
+|Owner ID (string or null).
 |No
 
 |`provider`
@@ -785,11 +785,11 @@ Delete one automated-policy governance strategy by strategy ID.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`strategy_id`
-|Strategy Id (string).
+|Strategy ID (string).
 |Yes
 
 |===
@@ -824,11 +824,11 @@ Delete one governance strategy by strategy id.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`strategy_id`
-|Strategy Id (string).
+|Strategy ID (string).
 |Yes
 
 |===
@@ -863,11 +863,11 @@ Fetch one policy template by templateId for configuration details.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`template_id`
-|Template Id (string).
+|Template ID (string).
 |Yes
 
 |===
@@ -912,15 +912,15 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 |Parameter |Description |Required
 
 |`instance_id`
-|Instance Id (string).
+|Instance ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`time_range`
-|Time Range (string).
+|Time range (string).
 |No
 
 |===
@@ -1348,11 +1348,11 @@ Fetch a guardrail ruleset payload by sourceRulesetKey.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`source_ruleset_key`
-|Source Ruleset Key (string).
+|Source ruleset key (string).
 |Yes
 
 |===
@@ -1781,7 +1781,7 @@ Get full metadata for a business group by its ID.
 |Parameter |Description |Required
 
 |`group_id`
-|Group Id (string).
+|Group ID (string).
 |Yes
 
 |===
@@ -1824,15 +1824,15 @@ Read the deployed state of a catalog-managed MCP server. Returns current systems
 |Parameter |Description |Required
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -1881,19 +1881,19 @@ Get ingress domains and app unique id for a managed Omni Gateway target.
 |Parameter |Description |Required
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |`target_id`
-|Target Id (string).
+|Target ID (string).
 |Yes
 
 |===
@@ -1933,11 +1933,11 @@ Get current managed Omni Gateway size entitlement usage.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -1981,15 +1981,15 @@ Load one policy template detail, including configuration schema, to dynamically 
 |Parameter |Description |Required
 
 |`api_instance_id`
-|Api Instance Id (string).
+|API instance ID (string).
 |Yes
 
 |`asset_id`
-|Asset Id (string or null).
+|Asset ID (string or null).
 |No
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`direction`
@@ -1997,19 +1997,19 @@ Load one policy template detail, including configuration schema, to dynamically 
 |No
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`group_id`
-|Group Id (string or null).
+|Group ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`template_id`
-|Template Id (string or null).
+|Template ID (string or null).
 |No
 
 |===
@@ -2055,11 +2055,11 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 |Parameter |Description |Required
 
 |`job_id`
-|Job Id (string).
+|Job ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |===
@@ -2100,7 +2100,7 @@ Return the catalog of SaaS systems available for MCP server provisioning. Each i
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |===
@@ -2153,7 +2153,7 @@ List agents registered in the Omni Platform for a given organization. Presents a
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider`
@@ -2211,7 +2211,7 @@ List APIs from the Omni Platform catalog for a given organization. Presents an i
 |Parameter |Description |Required
 
 |`api_category`
-|Api Category (string or null).
+|API category (string or null).
 |No
 
 |`name`
@@ -2219,7 +2219,7 @@ List APIs from the Omni Platform catalog for a given organization. Presents an i
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider`
@@ -2325,11 +2325,11 @@ List governance strategies for an organization. Shows the same searchable and fi
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`strategy_type`
-|Strategy Type (string or null).
+|Strategy type (string or null).
 |No
 
 |===
@@ -2390,7 +2390,7 @@ List LLM models registered in the Omni Platform for a given organization. Presen
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider`
@@ -2452,7 +2452,7 @@ List MCP servers registered in the Omni Platform for a given organization. Prese
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`protocol`
@@ -2508,11 +2508,11 @@ List Anypoint environments available for managed Omni Gateway creation.
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -2551,15 +2551,15 @@ List managed Omni Gateway deployment targets for an environment.
 |Parameter |Description |Required
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -2602,11 +2602,11 @@ List gateways for the active provider. Currently returns Flex Gateways when the 
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -2753,7 +2753,7 @@ Open the automated-policy creation wizard with scope options and policy template
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |===
@@ -2795,7 +2795,7 @@ Open the guardrail creation wizard with scope options and guardrail rule catalog
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |===
@@ -2837,23 +2837,23 @@ Load policy options for one asset instance.
 |Parameter |Description |Required
 
 |`api_instance_id`
-|Api Instance Id (string or null).
+|API instance ID (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string or null).
+|Asset ID (string or null).
 |No
 
 |`environment_id`
-|Environment Id (string or null).
+|Environment ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`policy_name_hint`
-|Policy Name Hint (string or null).
+|Policy name hint (string or null).
 |No
 
 |===
@@ -2895,19 +2895,19 @@ Provision a composite MCP server on Flex Gateway from selected catalog systems.
 |Parameter |Description |Required
 
 |`base_path`
-|Base Path (string).
+|Base path (string).
 |Yes
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`server_name`
-|Server Name (string).
+|Server name (string).
 |Yes
 
 |`servers`
@@ -2915,11 +2915,11 @@ Provision a composite MCP server on Flex Gateway from selected catalog systems.
 |Yes
 
 |`target_id`
-|Target Id (string).
+|Target ID (string).
 |Yes
 
 |`target_name`
-|Target Name (string).
+|Target name (string).
 |Yes
 
 |===
@@ -2966,11 +2966,11 @@ Resume a failed provisioning or update job from its last checkpoint. Only works 
 |Parameter |Description |Required
 
 |`job_id`
-|Job Id (string).
+|Job ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |===
@@ -3007,11 +3007,11 @@ Search portfolio assets using natural language semantic search. Use this when th
 |Parameter |Description |Required
 
 |`asset_type`
-|Asset Type (string or null).
+|Asset type (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`query`
@@ -3072,7 +3072,7 @@ Compatibility alias for global content search. Searches across agents, MCP serve
 |Parameter |Description |Required
 
 |`business_group_id`
-|Business Group Id (string).
+|Business group ID (string).
 |Yes
 
 |`query`
@@ -3122,7 +3122,7 @@ UI tool for embedded agents to search content across agents, MCP servers, and AP
 |Parameter |Description |Required
 
 |`business_group_id`
-|Business Group Id (string).
+|Business group ID (string).
 |Yes
 
 |`query`
@@ -3171,11 +3171,11 @@ Use this tool to discover assets based on capabilities and use cases.
 |Parameter |Description |Required
 
 |`asset_type`
-|Asset Type (string).
+|Asset type (string).
 |No
 
 |`max_results`
-|Max Results (integer).
+|Max results (integer).
 |No
 
 |`query`
@@ -3240,7 +3240,7 @@ Use this tool for repository-grounded conceptual questions. It searches a curate
 |Parameter |Description |Required
 
 |`lexical_top_n`
-|Lexical Top N (integer).
+|Lexical top n (integer).
 |No
 
 |`query`
@@ -3248,11 +3248,11 @@ Use this tool for repository-grounded conceptual questions. It searches a curate
 |Yes
 
 |`source_path_prefixes`
-|Source Path Prefixes (array or null).
+|Source path prefixes (array or null).
 |No
 
 |`top_k`
-|Top K (integer).
+|Top k (integer).
 |No
 
 |===
@@ -3303,7 +3303,7 @@ Set the current active business group context and optionally set a new active bu
 |Parameter |Description |Required
 
 |`business_group_id`
-|Business Group Id (string or null).
+|Business group ID (string or null).
 |No
 
 |`name`
@@ -3346,15 +3346,15 @@ Browse the available Anypoint environments for the active MuleSoft provider and 
 |Parameter |Description |Required
 
 |`environment_id`
-|Environment Id (string or null).
+|Environment ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -3396,7 +3396,7 @@ Browse the available providers and set one as the active provider context for fo
 |Parameter |Description |Required
 
 |`provider_id`
-|Provider Id (string or null).
+|Provider ID (string or null).
 |No
 
 |===
@@ -3435,11 +3435,11 @@ Show an interactive version selector for an API and notify the host when the use
 |Parameter |Description |Required
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -3488,7 +3488,7 @@ Load observability dashboards data for embedded MCP app rendering.
 |No
 
 |`time_range`
-|Time Range (string).
+|Time range (string).
 |No
 
 |===
@@ -3535,11 +3535,11 @@ Test connection to a scanner provider before creating the scanner.
 |Parameter |Description |Required
 
 |`auth_fields`
-|Auth Fields (ScannerAuthFields or null).
+|Auth fields (ScannerAuthFields or null).
 |No
 
 |`auth_method`
-|Auth Method (string).
+|Auth method (string).
 |No
 
 |`provider`
@@ -3580,31 +3580,31 @@ Update an existing catalog-managed MCP server. Diffs new configuration against d
 |Parameter |Description |Required
 
 |`api_id`
-|Api Id (integer).
+|API ID (integer).
 |Yes
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`current_upstream_ids`
-|Current Upstream Ids (object or null).
+|Current upstream IDs (object or null).
 |No
 
 |`deployed_systems`
-|Deployed Systems (array or null).
+|Deployed systems (array or null).
 |No
 
 |`environment_id`
-|Environment Id (string).
+|Environment ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`server_name`
-|Server Name (string).
+|Server name (string).
 |Yes
 
 |`servers`
@@ -3612,11 +3612,11 @@ Update an existing catalog-managed MCP server. Diffs new configuration against d
 |Yes
 
 |`target_id`
-|Target Id (string).
+|Target ID (string).
 |Yes
 
 |`target_name`
-|Target Name (string).
+|Target name (string).
 |Yes
 
 |===
@@ -3666,15 +3666,15 @@ Show read-only details for one agent, including versions, instances, and metadat
 |Parameter |Description |Required
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -3720,15 +3720,15 @@ Show details for one API instance with a web-aligned header. Accepts either an i
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|API version (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`instance`
@@ -3736,11 +3736,11 @@ Show details for one API instance with a web-aligned header. Accepts either an i
 |No
 
 |`instance_id`
-|Instance Id (string or null).
+|Instance ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -3784,15 +3784,15 @@ Show instance monitoring charts, traffic, and clients for one API instance.
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|API version (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`instance`
@@ -3800,15 +3800,15 @@ Show instance monitoring charts, traffic, and clients for one API instance.
 |No
 
 |`instance_id`
-|Instance Id (string or null).
+|Instance ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`time_range`
-|Time Range (string).
+|Time range (string).
 |No
 
 |===
@@ -3853,15 +3853,15 @@ Show the applied policies for one API instance with the same grouping UI as the 
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|API version (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`instance`
@@ -3869,11 +3869,11 @@ Show the applied policies for one API instance with the same grouping UI as the 
 |No
 
 |`instance_id`
-|Instance Id (string or null).
+|Instance ID (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -3919,19 +3919,19 @@ Show read-only details for one API version, including instances, metadata, and l
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string or null).
+|API version (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string or null).
+|Asset ID (string or null).
 |No
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string or null).
+|Organization ID (string or null).
 |No
 
 |`version`
@@ -3977,23 +3977,23 @@ Show governance ruleset report summary and findings for one API version.
 |Parameter |Description |Required
 
 |`api_name`
-|Api Name (string or null).
+|API name (string or null).
 |No
 
 |`api_version`
-|Api Version (string or null).
+|API version (string or null).
 |No
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`group_id`
-|Group Id (string).
+|Group ID (string).
 |Yes
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |`version`
@@ -4053,19 +4053,19 @@ Show available instances for one API version and allow selecting instances to se
 |Parameter |Description |Required
 
 |`api_version`
-|Api Version (string).
+|API version (string).
 |Yes
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -4106,7 +4106,7 @@ Fetch the latest Governance Strategy report for an organization and render it in
 |Parameter |Description |Required
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -4154,15 +4154,15 @@ Show read-only details for one LLM model, including versions, instances, and met
 |Parameter |Description |Required
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
@@ -4211,15 +4211,15 @@ Show read-only details for one MCP server, including versions, instances, and me
 |Parameter |Description |Required
 
 |`asset_id`
-|Asset Id (string).
+|Asset ID (string).
 |Yes
 
 |`asset_version`
-|Asset Version (string or null).
+|Asset version (string or null).
 |No
 
 |`organization_id`
-|Organization Id (string).
+|Organization ID (string).
 |Yes
 
 |===
