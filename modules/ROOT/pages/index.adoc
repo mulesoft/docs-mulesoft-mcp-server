@@ -1,6 +1,6 @@
 = MuleSoft MCP Servers Overview
 
-MuleSoft offers two MCP servers that implement the Model Context Protocol (MCP) for AI assistants. Both MCP servers integrate with MuleSoft Vibes in Anypoint Code Builder and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
+MuleSoft MCP Servers implement the Model Context Protocol (MCP) so AI assistants in your IDE can work with MuleSoft products and services. MuleSoft DX MCP Server supports API design, application deployment, and asset management. MuleSoft Platform MCP Server supports service discovery, policy enforcement, and traffic monitoring across your organization.
 
 == MuleSoft DX MCP Server
 
@@ -28,7 +28,6 @@ Typical platform areas you address with MuleSoft Platform MCP Server include:
 * Policy enforcement for PII detection, semantic routing, and token controls
 * Monitoring of traffic, cost, and performance across services
 
-Both MCP servers integrate with MuleSoft Vibes in Anypoint Code Builder and Connector Builder, and with other MCP-aware editors such as Cursor, Windsurf, and VS Code.
 
 xref:getting-started-platform.adoc[]
 

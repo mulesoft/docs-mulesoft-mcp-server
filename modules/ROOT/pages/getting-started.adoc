@@ -37,7 +37,7 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 
 * xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
 * xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
-* xref:reference-mcp-tools.adoc#create-mpc-server[create_MCP_server]
+* xref:reference-mcp-tools.adoc#create-mcp-server[create_MCP_server]
 * xref:reference-mcp-tools.adoc#generate-munit-test[generate_munit_test]
 * xref:reference-mcp-tools.adoc#modify-munit-test[modify_munit_test]
 
