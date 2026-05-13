@@ -173,6 +173,30 @@ Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
+=== Claude Desktop
+
+In Claude Desktop:
+
+. Click *Customize* > *Connectors*.
+. Click the add (+) icon, and then click *Add Custom Connector*.
+. Name the connection, and enter the *Remote Universal URL*, for example, https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
+. Enter the Client ID and Client Secret from your connected app.
+
+In your connected app:
+
+. Log into Anypoint Platform, and open your connected app.
+. In the *Redirect URLs* field, enter `https://claude.ai/api/mcp/auth_callback`.
+. To apply changes, click *Continue*.
+
+OR run this command in your terminal:
+
+[source,bash]
+----
+MCP_CLIENT_SECRET=<YOUR CLIENT SECRET> claude mcp add --transport http --client-id <YOUR CLIENT ID> --client-secret mulesoft-platform <URL for your region>
+----
+
+Download https://claude.com/download[Claude Desktop].
+
 === ChatGPT
 
 In ChatGPT:
@@ -184,7 +208,7 @@ In ChatGPT:
 .. Enter the Client ID and Client Secret from your connected app.
 .. Copy the Callback URL.
 
-In your Connected App:
+In your connected app:
 
 . Log in to Anypoint Platform, and open your connected app.
 . In the redirect URLs field, enter the Callback URL value you copied.
@@ -282,7 +306,7 @@ Resolve authentication and connection issues with these troubleshooting steps.
 
 === Authentication Failure
 
-* Try logging out of your Anypoint account and logging back in.
+* Try logging out of your Anypoint Platform account and logging back in.
 * If you see a "Not Authorized" error, try:
 ** Adding the correct redirect URL to your connected app.
 ** Adding the necessary permissions scopes to your connected app.
