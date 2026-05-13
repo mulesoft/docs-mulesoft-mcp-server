@@ -139,7 +139,9 @@ Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server
 
 == Configure Your IDE
 
-Configure Claude Desktop, Cursor, Windsurf, Zed, or other IDEs to work with MuleSoft Platform MCP Server. After you add the configuration, verify it by checking that the server has started in the MCP section of your IDE.
+Configure Claude Desktop, ChatGPT, Cursor, Windsurf, or VS Code to work with MuleSoft Platform MCP Server. After you add the configuration, verify it by checking that the server has started in the MCP section of your IDE.
+
+IMPORTANT: MuleSoft remote MCP servers currently only support manual client registration through app creation and do not support other client registration methods such as Dynamic Client Registration (DCR).
 
 === Available Client Connections
 
@@ -171,36 +173,45 @@ Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
 
-=== Claude Desktop
+=== ChatGPT
 
-In Claude Desktop:
+In ChatGPT:
 
-1. Click **Customize** > **Connectors**.
-2. Click the add (**+**) icon, and then click **Add Custom Connector**.
-3. Add a name for the connection, and in the **Remote Universal URL** field, add the appropriate URL, for example `https://omni.mulesoft.com/mcp`.
+. Click *Apps* > *Settings.*
+. Click the settings icon, click *Create App*, and configure the following:
+.. Name the connection, and enter the *Remote Universal URL*, for example, https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
+. In *OAuth* > *Advanced settings* > *Client registration*, configure the following:
+.. Enter the Client ID and Client Secret from your connected app.
+.. Copy the Callback URL.
 
-Or run this command in your terminal:
+In your Connected App:
 
-`claude mcp add --transport http mulesoft-platform <URL for your region>`
+. Log in to Anypoint Platform, and open your connected app.
+. In the redirect URLs field, enter the Callback URL value you copied.
+. To apply changes, click *Continue*.
 
-Download https://claude.com/download[Claude Desktop].
+Download https://chatgpt.com/download/[ChatGPT].
 
 === Cursor
 
 In Cursor:
 
-1. Click **Settings** -> **Tools and MCPs** -> **Add a Custom MCP Server**.
-2. Add the following code snippet:
-
+. Click *Settings* > *Tools and MCPs* > *Add a Custom MCP Server*.
+. Add the following code snippet:
++
+[source,json]
 ----
 {
   "mcpServers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
-      "auth": {
-        "CLIENT_ID": "your-client-id",
-        "CLIENT_SECRET": "your-client-secret"
-      }
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://omni.mulesoft.com/mcp",
+        "--static-oauth-client-info",
+        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET HERE\"}"
+      ]
     }
   }
 }
@@ -212,18 +223,22 @@ Download https://cursor.com/[Cursor].
 
 In Windsurf:
 
-1. Click **Settings** > **Cascade** > **Open MCP Registry**.
-2. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet:
-
+. Click *Settings* > *Cascade* > *Open MCP Registry*.
+. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet:
++
+[source,json]
 ----
 {
   "mcpServers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
-      "headers": {
-        "CLIENT_ID": "your-client-id",
-        "CLIENT_SECRET": "your-client-secret"
-      }
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.1.38",
+        "https://omni.mulesoft.com/mcp",
+        "--static-oauth-client-info",
+        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
+      ]
     }
   }
 }
@@ -235,25 +250,48 @@ Download https://windsurf.com/[Windsurf].
 
 In VS Code:
 
-In your user profile, configure a custom MCP server in the `mcp.json` file.
-
+. In your user profile, configure a custom MCP server in the `mcp.json` file. Alternatively, run `MCP: Add Server` in the Command Palette (Shift+Cmd+P) to add a server through a guided flow.
++
+[source,json]
 ----
 {
   "servers": {
     "mulesoft-platform": {
-      "url": "<URL for your region, for example https://omni.mulesoft.com/mcp>",
-      "headers": {
-        "CLIENT_ID": "your-client-id",
-        "CLIENT_SECRET": "your-client-secret"
-      }
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@0.1.38",
+        "https://omni.mulesoft.com/mcp",
+        "--static-oauth-client-info",
+        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
+      ]
     }
   }
 }
 ----
 
-Alternatively, run `MCP: Add Server` in the Command Palette (⇧⌘P) to add a server through a guided flow.
+. To run the server, click *Start*.
+. When prompted, enter the Client ID and Client Secret from your connected app.
 
 Download https://code.visualstudio.com/[VS Code].
+
+== Troubleshooting
+
+Resolve authentication and connection issues with these troubleshooting steps.
+
+=== Authentication Failure
+
+* Try logging out of your Anypoint account and logging back in.
+* If you see a "Not Authorized" error, try:
+** Adding the correct redirect URL to your connected app.
+** Adding the necessary permissions scopes to your connected app.
+
+=== Connection issues
+
+* Ensure your MCP client supports Streamable HTTP transport.
+* Check that your client can handle OAuth authentication flows.
+* Verify the MCP server URL is https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
 
 == See Also
 
