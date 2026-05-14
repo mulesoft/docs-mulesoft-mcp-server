@@ -285,7 +285,7 @@ In VS Code:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@0latest",
+        "mcp-remote@latest",
         "https://omni.mulesoft.com/mcp",
         "--static-oauth-client-info",
         "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
