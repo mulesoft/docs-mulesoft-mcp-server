@@ -1,14 +1,14 @@
-= Getting Started with MuleSoft DX MCP Server
+= Getting Started with MuleSoft MCP Server
 
-MuleSoft DX MCP Server enables AI-powered development assistants in your IDE to interact with Anypoint Platform, helping you manage APIs, applications, and platform resources directly from your coding environment. Install prerequisites, create a connected app with the scopes your tools require, and register the server in the IDE so assistants can call Anypoint Platform with your environments and identities. 
+MuleSoft MCP Server enables AI-powered development assistants in your IDE to interact with Anypoint Platform, helping you manage APIs, applications, and platform resources directly from your coding environment. Install prerequisites, create a connected app with the scopes your tools require, and register the server in the IDE so assistants can call Anypoint Platform with your environments and identities. 
 
 [IMPORTANT] 
 ====
-If you have Anypoint Code Builder or Connector Builder, MuleSoft DX MCP Server is already installed and configured in MuleSoft Vibes. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
+If you have Anypoint Code Builder or Connector Builder, MuleSoft MCP Server is already installed and configured in MuleSoft Vibes. For more information, see xref:anypoint-code-builder::api-ai-create-spec.adoc[] and xref:connector-builder::index.adoc[].
 ====
 
 == Before You Begin
-Before you install and use MuleSoft DX MCP Server, ensure you have installed the following software:
+Before you install and use MuleSoft MCP Server, ensure you have installed the following software:
 
 * Anypoint Extension Pack version 1.10.0 or later
 * Git
@@ -21,11 +21,11 @@ You also need permissions or access to perform these tasks:
 
 == Create a Connected App
 
-Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf] to create a connected app. Note the Client ID and Client Secret, as you need these to configure MuleSoft DX MCP Server in your IDE.
+Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app-on-its-own-behalf[Create a Connected App That Acts on Its Own Behalf] to create a connected app. Note the Client ID and Client Secret, as you need these to configure MuleSoft MCP Server in your IDE.
 
-Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft DX MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes. 
+Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft MCP Server tools. Make sure that all business groups and relevant environments are selected for these scopes. 
 
-Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP Server tools. Only tools listed in these tables require specific permission scopes. 
+Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft MCP Server tools. Only tools listed in these tables require specific permission scopes. 
 
 === Anypoint Code Builder 
 [cols="1,2,1"]
@@ -37,7 +37,7 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 
 * xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
 * xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
-* xref:reference-mcp-tools.adoc#create-mcp-server[create_MCP_server]
+* xref:reference-mcp-tools.adoc#create-mpc-server[create_MCP_server]
 * xref:reference-mcp-tools.adoc#generate-munit-test[generate_munit_test]
 * xref:reference-mcp-tools.adoc#modify-munit-test[modify_munit_test]
 
@@ -156,13 +156,13 @@ a|
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 |===
 
-== Install MuleSoft DX MCP Server
-Install MuleSoft DX MCP Server and then configure it in your IDE by adding the appropriate configuration snippet with your connected app credentials.
+== Install MuleSoft MCP Server
+Install MuleSoft MCP Server and then configure it in your IDE by adding the appropriate configuration snippet with your connected app credentials.
 
 To install with Node.js, run: `npm install -g mulesoft-mcp-server`.
 
 === Configure Your IDE
-You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft DX MCP Server. After you add the configuration, verify it by checking that the server has started
+You can configure Claude Desktop, Cursor, Windsurf, Zed, and other IDEs to work with the MuleSoft MCP Server. After you add the configuration, verify it by checking that the server has started
 in the MCP section of your IDE.
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
