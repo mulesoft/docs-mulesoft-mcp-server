@@ -192,7 +192,7 @@ OR run this command in your terminal:
 
 [source,bash]
 ----
-MCP_CLIENT_SECRET=<YOUR CLIENT SECRET> claude mcp add --transport http --client-id <YOUR CLIENT ID> --client-secret mulesoft-platform <URL for your region>
+MCP_CLIENT_SECRET=<YOUR_CLIENT_SECRET> claude mcp add --transport http mulesoft-platform YOUR_URL_HERE --client-id <YOUR_CLIENT_ID>
 ----
 
 Download https://claude.com/download[Claude Desktop].
@@ -258,7 +258,7 @@ In Windsurf:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@0.1.38",
+        "mcp-remote@latest",
         "https://omni.mulesoft.com/mcp",
         "--static-oauth-client-info",
         "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
@@ -285,7 +285,7 @@ In VS Code:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@0.1.38",
+        "mcp-remote@0latest",
         "https://omni.mulesoft.com/mcp",
         "--static-oauth-client-info",
         "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
