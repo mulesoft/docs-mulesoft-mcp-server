@@ -1,8 +1,8 @@
-= MuleSoft DX MCP Server Tool Reference
+= MuleSoft MCP Server Tool Reference
 
-MuleSoft DX MCP Server exposes tools for developing agent networks, building applications, creating connectors, managing deployments, governing APIs, and more. Each tool accepts specific parameters so assistants can automate tasks across Anypoint Platform APIs. Run them from your IDE to speed up delivery, tighten governance, and surface operational insight for your integrations.
+MuleSoft MCP Server exposes tools for developing agent networks, building applications, creating connectors, managing deployments, governing APIs, and more. Each tool accepts specific parameters so assistants can automate tasks across Anypoint Platform APIs. Run them from your IDE to speed up delivery, tighten governance, and surface operational insight for your integrations.
 
-NOTE: Some MuleSoft DX MCP Server tools are available only in the Anypoint Code Builder IDE or Connector Builder. 
+NOTE: Some MuleSoft MCP Server tools are available only in the Anypoint Code Builder IDE or Connector Builder. 
 
 See xref:getting-started.adoc#create-a-connected-app[Create a Connected App] for information about which tools require specific permission scopes.
 

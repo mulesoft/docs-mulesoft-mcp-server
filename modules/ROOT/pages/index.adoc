@@ -1,12 +1,12 @@
 = MuleSoft MCP Servers Overview
 
-MuleSoft MCP Servers implement the Model Context Protocol (MCP) so AI assistants in your IDE can work with MuleSoft products and services. MuleSoft DX MCP Server supports API design, application deployment, and asset management. MuleSoft Platform MCP Server supports service discovery, policy enforcement, and traffic monitoring across your organization.
+MuleSoft MCP Servers implement the Model Context Protocol (MCP) so AI assistants in your IDE can work with MuleSoft products and services. MuleSoft MCP Server supports API design, application deployment, and asset management. MuleSoft Platform MCP Server supports service discovery, policy enforcement, and traffic monitoring across your organization.
 
-== MuleSoft DX MCP Server
+== MuleSoft MCP Server
 
-MuleSoft DX MCP Server provides structured, permission-scoped access to Anypoint Platform from AI assistants in your IDE to help you design, build, publish, deploy, and secure MuleSoft assets by turning natural-language goals into production-ready actions.
+MuleSoft MCP Server provides structured, permission-scoped access to Anypoint Platform from AI assistants in your IDE to help you design, build, publish, deploy, and secure MuleSoft assets by turning natural-language goals into production-ready actions.
 
-Typical lifecycle areas you address with MuleSoft DX MCP Server include:
+Typical lifecycle areas you address with MuleSoft MCP Server include:
 
 * API specification development
 * Application creation and configuration
