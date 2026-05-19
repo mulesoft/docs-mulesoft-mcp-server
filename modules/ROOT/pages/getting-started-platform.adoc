@@ -165,10 +165,6 @@ Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
 |https://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
 |IN Prod
 |https://in1.omni.mulesoft.com[in1.omni.mulesoft.com]
-|AU Prod
-|https://au1.omni.mulesoft.com[au1.omni.mulesoft.com]
-|AE Prod
-|https://ae1.omni.mulesoft.com[ae1.omni.mulesoft.com]
 |===
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
