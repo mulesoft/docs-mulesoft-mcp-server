@@ -12,8 +12,7 @@ Before you get started, make sure you complete the setup and configuration steps
 
 == Example: Applying Policies Across MuleSoft Platform
 
-. In your MCP-compatible IDE, open the agent panel.
-. Sign in. MuleSoft Platform MCP Server requires authentication through the `login` tool before using other tools.
+. From your IDE or AI assistant, authenticate into your org. 
 . In the prompt field, ask the agent to apply a policy to a specific API.
 
 For example, use this prompt: `Help me set up a rate-limiting policy on my Stripe API.`
