@@ -1,10 +1,10 @@
-= Using MuleSoft MCP Server
+= Using MuleSoft DX MCP Server
 
-MuleSoft MCP Server integrates with MuleSoft Vibes so that you can build, deploy, and manage projects using natural language prompts. Whether you use Anypoint Code Builder, Cursor, Windsurf, or another MCP-compatible IDE, you keep the full Mule application lifecycle in your editor.
+MuleSoft DX MCP Server integrates with MuleSoft Vibes so that you can build, deploy, and manage projects using natural language prompts. Whether you use Anypoint Code Builder, Cursor, Windsurf, or another MCP-compatible IDE, you keep the full Mule application lifecycle in your editor.
 
 To learn more about MuleSoft Vibes, see xref:anypoint-code-builder::a4d-get-started.adoc[Get Started with MuleSoft Vibes].
 
-To learn more about the MuleSoft MCP Server tools, see xref:reference-mcp-tools.adoc[].
+To learn more about the MuleSoft DX MCP Server tools, see xref:reference-mcp-tools.adoc[].
  
 == Before You Begin
 
@@ -14,7 +14,7 @@ Before you get started, make sure you meet these prerequisites.
 ** xref:anypoint-code-builder::start-acb.adoc[Set up and access the desktop IDE].  
 ** Set the xref:anypoint-code-builder::start-configure-permissions.adoc#permissions[required Anypoint Code Builder permissions], including the Mule Developer Generative AI User permission. 
 ** xref:access-management::enabling-agentforce.adoc[Enable Agentforce in Access Management].
-* If you're using Cursor, Windsurf, or any MCP-compatible IDE, make sure you set up and configure MuleSoft MCP Server for your IDE, including all permissions. See xref:getting-started.adoc[].
+* If you're using Cursor, Windsurf, or any MCP-compatible IDE, make sure you set up and configure MuleSoft DX MCP Server for your IDE, including all permissions. See xref:getting-started.adoc[].
 
 == Example: Create a Network Using MuleSoft Vibes
 

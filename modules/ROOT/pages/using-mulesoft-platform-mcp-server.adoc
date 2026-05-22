@@ -1,0 +1,42 @@
+= Using MuleSoft Platform MCP Server
+
+Get governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale using MuleSoft Platform MCP Server. Use it to you scan, discover, govern, and monitor services across the infrastructure you already run. Integrations with MuleSoft Vibes or various AI clients, including Claude, Windsurf, and Cursor enables you to access your assets wherever you want.  
+
+To learn more about how to set up MuleSoft Platform MCP Server, see xref:getting-started-platform.adoc[].
+
+To learn more about MuleSoft Platform MCP Server tools, see xref:reference-mcp-tools-platform.adoc[].
+
+== Before You Begin
+
+Before you get started, make sure you complete the setup and configuration steps, including permissions, in xref:getting-started-platform.adoc[].
+
+== Example: Applying Policies Across MuleSoft Platform
+
+. From your IDE or AI assistant, authenticate into your org. 
+. In the prompt field, ask the agent to apply a policy to a specific API.
+
+For example, use this prompt: `Help me set up a rate-limiting policy on my Stripe API.`
+
+The agent calls `prepare_policy_creation` to fetch available policies for the target API instance:
+
+[source,json]
+----
+{
+  "name": "prepare_policy_creation",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "asset_id": "<asset_id>",
+    "policy_name_hint": "rate-limiting"
+  }
+}
+----
+
+This returns a list of applicable policies for the target API instance. The user selects a policy, and the agent calls `get_policy_template_form` to present configuration options. After the user specifies the policy configuration, the agent calls `apply_policy_to_instance` to apply the policy immediately.
+
+== Example Prompts
+
+Use prompts like these to explore key platform workflows:
+
+* Search and browse: `Show me all payment-related APIs across my organization.`
+* Govern and secure: `Create a governance strategy that applies a PII detection policy to all customer-facing agents.`
+* Monitor and analyze: `Which LLMs consumed the most requests last week?`

@@ -1,3 +1,3 @@
-//== MuleSoft MCP Server Release Notes
+//== MuleSoft MCP Servers Release Notes
 
 include::release-notes::partial$mulesoft-mcp-server/mcp-server-rn-landing-page.adoc[]
