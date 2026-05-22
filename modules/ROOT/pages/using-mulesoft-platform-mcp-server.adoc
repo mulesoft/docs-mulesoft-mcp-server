@@ -1,6 +1,6 @@
 = Using MuleSoft Platform MCP Server
 
- Get governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale using MuleSoft Platform MCP Server. Use it to you scan, discover, govern, and monitor services across the infrastructure you already run. Integrations with MuleSoft Vibes or various AI clients, including Claude, Windsurf, and Cursor enables you to access your assets wherever you want.  
+Get governed access to your entire agentic landscape, including APIs, agents, MCP servers, and LLMs, to accelerate production-ready AI at scale using MuleSoft Platform MCP Server. Use it to you scan, discover, govern, and monitor services across the infrastructure you already run. Integrations with MuleSoft Vibes or various AI clients, including Claude, Windsurf, and Cursor enables you to access your assets wherever you want.  
 
 To learn more about how to set up MuleSoft Platform MCP Server, see xref:getting-started-platform.adoc[].
 
