@@ -19,26 +19,26 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 
 .5+s|Business Group & Org
 |<<get-business-group,get_business_group>>
-|organization_read
+|read:organization
 
 |<<list-business-groups,list_business_groups>>
-|organization_read
+|read:organization
 
 |<<select-active-business-group,select_active_business_group>>
-|organization_read
+|read:organization
 
 |<<select-active-environment,select_active_environment>>
-|organization_read
+|read:organization
 
 |<<select-active-provider,select_active_provider>>
-|organization_read
+|read:organization
 
 .8+s|API Management
 |<<list-apis,list_apis>>
 |exchange:exchange_viewer
 
 |<<select-api-version,select_api_version>>
-|organization_read
+|read:organization
 
 |<<list-provider-gateways,list_provider_gateways>>
 |apimanager:environment_viewer
