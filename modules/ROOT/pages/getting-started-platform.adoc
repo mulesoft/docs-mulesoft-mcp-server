@@ -302,12 +302,12 @@ Resolve authentication and connection issues with these troubleshooting steps.
 
 === Authentication Failure
 
-* Try logging out of your Anypoint account and logging back in.
+* Try logging out of your Anypoint Platform account and logging back in.
 * If you encounter an authorization error:
 ** Add the correct redirect URL to your connected app.
 ** Add the necessary permissions scopes to your connected app.
 * If you get an error when adding a non-traditional redirect URL to your connected app:
-** Determine the automatically selected callback port the client is attempting to authenticate on (for example, 12148).
+** Determine the callback port automatically assigned for the client's authentication request (for example, 12148).
 ** Add the localhost URL to the redirect URLs in your connected app (for example, `http://localhost:12148/oauth/callback`).
 
 === Connection issues
