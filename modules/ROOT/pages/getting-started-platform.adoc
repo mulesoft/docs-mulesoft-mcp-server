@@ -319,7 +319,7 @@ If you have authentication issues, try these troubleshooting steps.
 
 === Connection Issues
 
-If your MCP client can't reach the server or fails to establish a session, verify the following settings.
+If your MCP client can't reach the server or fails to establish a session, verify these settings.
 
 * Ensure your MCP client supports Streamable HTTP transport.
 * Check that your client can handle OAuth authentication flows.
