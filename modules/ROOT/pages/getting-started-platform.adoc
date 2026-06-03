@@ -302,7 +302,7 @@ Resolve authentication and connection issues with these troubleshooting steps.
 
 === Authentication Failure
 
-If you have authentication issues, try these troubleshooting steps. 
+To resolve authentication issues, follow these troubleshooting steps.
 
 * Try logging out of your Anypoint Platform account and logging back in.
 * If you encounter an authorization error:
