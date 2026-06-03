@@ -311,7 +311,7 @@ If you have authentication issues, try these troubleshooting steps.
 * If you get an error when adding a non-traditional redirect URL to your connected app:
 ** Determine the callback port automatically assigned for the client's authentication request (for example, 12148).
 ** Add the localhost URL to the redirect URLs in your connected app (for example, `http://localhost:12148/oauth/callback`).
-* If you get a permissions-related error when attempting to authenticate, add the following permissions to your connected app:
+* If you get a permissions-related error when attempting to authenticate, add these permissions to your connected app:
 ** Background Access
 ** Profile
 ** Identity
