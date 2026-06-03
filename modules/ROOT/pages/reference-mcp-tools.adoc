@@ -2971,15 +2971,21 @@ Get an Omni Gateway policy example to help you configure your Rust source code. 
 * `ip_filter` to allow or block requests based on IP addresses and CIDR ranges.
 * `jwt` to parse and validate JSON Web Tokens.
 * `jwt_generate` to generate JSON Web Tokens.
+* `json_validator` to validate JSON payloads.
 * `lock` to synchronize workers.
 * `logger` to print custom messages.
 * `metadata` to access metadata of the policy, API, and environment.
 * `oauth2_token_introspection` to validate OAuth2 tokens.
+* `outbound` to define an outbound policy.
 * `policy_violation` to mark requests as violations in monitoring traffic.
 * `rate_limiting` to allow or block requests based on rate limits.
 * `request_data` to share data between requests and responses.
+* `spike_control` to limit requests by queuing or rejecting traffic that exceeds a sliding-window rate limit.
+* `stop_iteration` to enable processing of headers and body in the same request/response state.
 * `timer` to perform sleep operations.
+* `unit_testing` to generate unit tests for your custom policy.
 * `worker_variable` to share data across requests of a single worker.
+* `xml_validator` to validate XML payloads.
 |Yes
 
 |===
