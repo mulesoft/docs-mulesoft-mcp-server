@@ -302,6 +302,8 @@ Resolve authentication and connection issues with these troubleshooting steps.
 
 === Authentication Failure
 
+To resolve authentication issues, follow these troubleshooting steps.
+
 * Try logging out of your Anypoint Platform account and logging back in.
 * If you encounter an authorization error:
 ** Add the correct redirect URL to your connected app.
@@ -309,8 +311,15 @@ Resolve authentication and connection issues with these troubleshooting steps.
 * If you get an error when adding a non-traditional redirect URL to your connected app:
 ** Determine the callback port automatically assigned for the client's authentication request (for example, 12148).
 ** Add the localhost URL to the redirect URLs in your connected app (for example, `http://localhost:12148/oauth/callback`).
+* If you get a permissions-related error when attempting to authenticate, add these permissions to your connected app:
+** Background Access
+** Profile
+** Identity
+** Email
 
-=== Connection issues
+=== Connection Issues
+
+If your MCP client can't reach the server or fails to establish a session, verify these settings.
 
 * Ensure your MCP client supports Streamable HTTP transport.
 * Check that your client can handle OAuth authentication flows.
