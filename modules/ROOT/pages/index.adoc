@@ -15,7 +15,7 @@ Typical lifecycle areas you address with MuleSoft DX MCP Server include:
 * Instance deployment and management to CloudHub 2.0 and Runtime Fabric
 * Application security
 
-xref:getting-started.adoc[]
+For more information, see xref:getting-started.adoc[].
 
 == MuleSoft Platform MCP Server
 
@@ -29,7 +29,7 @@ Typical platform areas you address with MuleSoft Platform MCP Server include:
 * Monitoring of traffic, cost, and performance across services
 
 
-xref:getting-started-platform.adoc[]
+For more information, see xref:getting-started-platform.adoc[].
 
 
 
