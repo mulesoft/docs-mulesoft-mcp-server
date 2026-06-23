@@ -137,9 +137,10 @@ Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server
 * xref:reference-mcp-tools-platform.adoc#select-api-version[select_api_version]
 |===
 
+[[configure-your-ide]]
 == Configure Your IDE
 
-Configure Claude Desktop, ChatGPT, Cursor, Windsurf, or VS Code to work with MuleSoft Platform MCP Server. After you add the configuration, verify it by checking that the server has started in the MCP section of your IDE.
+Configure Claude Desktop, Claude Code, ChatGPT, Cursor, Windsurf, or VS Code to work with MuleSoft Platform MCP Server. After you add the configuration, verify it by checking that the server has started in the MCP section of your IDE.
 
 IMPORTANT: MuleSoft remote MCP servers currently only support manual client registration through app creation and do not support other client registration methods such as Dynamic Client Registration (DCR).
 
@@ -180,18 +181,30 @@ In Claude Desktop:
 
 In your connected app:
 
-. Log into Anypoint Platform, and open your connected app.
+. Log in to Anypoint Platform, and open your connected app.
 . In the *Redirect URLs* field, enter `https://claude.ai/api/mcp/auth_callback`.
 . To apply changes, click *Continue*.
 
-OR run this command in your terminal:
+Download https://claude.com/download[Claude Desktop].
+
+=== Claude Code
+
+In your terminal, run the following command, replacing `<PORT>` with a fixed port number (for example, `32493`):
 
 [source,bash]
 ----
-MCP_CLIENT_SECRET=<YOUR_CLIENT_SECRET> claude mcp add --transport http mulesoft-platform YOUR_URL_HERE --client-id <YOUR_CLIENT_ID>
+MCP_CLIENT_SECRET=<YOUR_CLIENT_SECRET> claude mcp add --transport http --callback-port <PORT> mulesoft-platform https://omni.mulesoft.com/mcp --client-id <YOUR_CLIENT_ID>
 ----
 
-Download https://claude.com/download[Claude Desktop].
+Using a fixed callback port ensures the redirect URL remains consistent across sessions. Without a fixed port, Claude Code assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
+
+In your connected app:
+
+. Log in to Anypoint Platform, and open your connected app.
+. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the command (for example, `\http://localhost:32493/oauth/callback`).
+. To apply changes, click *Continue*.
+
+Install https://docs.anthropic.com/en/docs/claude-code/overview[Claude Code].
 
 === ChatGPT
 
@@ -217,7 +230,7 @@ Download https://chatgpt.com/download/[ChatGPT].
 In Cursor:
 
 . Click *Settings* > *Tools and MCPs* > *Add a Custom MCP Server*.
-. Add the following code snippet:
+. Add the following code snippet, replacing `<PORT>` with a fixed port number (for example, `32493`):
 +
 [source,json]
 ----
@@ -229,33 +242,7 @@ In Cursor:
         "-y",
         "mcp-remote@latest",
         "https://omni.mulesoft.com/mcp",
-        "--static-oauth-client-info",
-        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET HERE\"}"
-      ]
-    }
-  }
-}
-----
-
-Download https://cursor.com/[Cursor].
-
-=== Windsurf
-
-In Windsurf:
-
-. Click *Settings* > *Cascade* > *Open MCP Registry*.
-. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet:
-+
-[source,json]
-----
-{
-  "mcpServers": {
-    "mulesoft-platform": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://omni.mulesoft.com/mcp",
+        "<PORT>",
         "--static-oauth-client-info",
         "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
       ]
@@ -264,13 +251,57 @@ In Windsurf:
 }
 ----
 
+Using a fixed port ensures the redirect URL remains consistent across sessions. Without a fixed port, Cursor assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
+
+In your connected app:
+
+. Log in to Anypoint Platform, and open your connected app.
+. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the configuration (for example, `\http://localhost:32493/oauth/callback`).
+. To apply changes, click *Continue*.
+
+Download https://cursor.com/[Cursor].
+
+=== Windsurf
+
+In Windsurf:
+
+. Click *Settings* > *Cascade* > *Open MCP Registry*.
+. Click the settings icon and in `~/.codeium/windsurf/mcp_config.json` add the following code snippet, replacing `<PORT>` with a fixed port number (for example, `32493`):
++
+[source,json]
+----
+{
+  "mcpServers": {
+    "mulesoft-platform": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://omni.mulesoft.com/mcp",
+        "<PORT>",
+        "--static-oauth-client-info",
+        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
+      ]
+    }
+  }
+}
+----
+
+Using a fixed port ensures the redirect URL remains consistent across sessions. Without a fixed port, Windsurf assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
+
+In your connected app:
+
+. Log in to Anypoint Platform, and open your connected app.
+. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the configuration (for example, `\http://localhost:32493/oauth/callback`).
+. To apply changes, click *Continue*.
+
 Download https://windsurf.com/[Windsurf].
 
 === VS Code
 
 In VS Code:
 
-. In your user profile, configure a custom MCP server in the `mcp.json` file. Alternatively, run `MCP: Add Server` in the Command Palette (Shift+Cmd+P) to add a server through a guided flow.
+. In your user profile, configure a custom MCP server in the `mcp.json` file. Alternatively, run `MCP: Add Server` in the Command Palette (Shift+Cmd+P) to add a server through a guided flow. Replace `<PORT>` with a fixed port number (for example, `32493`):
 +
 [source,json]
 ----
@@ -283,6 +314,7 @@ In VS Code:
         "-y",
         "mcp-remote@latest",
         "https://omni.mulesoft.com/mcp",
+        "<PORT>",
         "--static-oauth-client-info",
         "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
       ]
@@ -290,6 +322,14 @@ In VS Code:
   }
 }
 ----
+
+Using a fixed port ensures the redirect URL remains consistent across sessions. Without a fixed port, VS Code assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
+
+In your connected app:
+
+. Log in to Anypoint Platform, and open your connected app.
+. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the configuration (for example, `\http://localhost:32493/oauth/callback`).
+. To apply changes, click *Continue*.
 
 . To run the server, click *Start*.
 . When prompted, enter the Client ID and Client Secret from your connected app.
@@ -308,9 +348,8 @@ To resolve authentication issues, follow these troubleshooting steps.
 * If you encounter an authorization error:
 ** Add the correct redirect URL to your connected app.
 ** Add the necessary permissions scopes to your connected app.
-* If you get an error when adding a non-traditional redirect URL to your connected app:
-** Determine the callback port automatically assigned for the client's authentication request (for example, 12148).
-** Add the localhost URL to the redirect URLs in your connected app (for example, `http://localhost:12148/oauth/callback`).
+* If authorization fails due to a redirect URL mismatch:
+** IDE-based clients (Claude Code, Cursor, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`).
 * If you get a permissions-related error when attempting to authenticate, add these permissions to your connected app:
 ** Background Access
 ** Profile
