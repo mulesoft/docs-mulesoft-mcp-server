@@ -201,7 +201,7 @@ Using a fixed callback port ensures the redirect URL remains consistent across s
 In your connected app:
 
 . Log in to Anypoint Platform, and open your connected app.
-. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the command (for example, `\http://localhost:32493/oauth/callback`).
+. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/callback`, using the same port number you specified in the command (for example, `\http://localhost:32493/callback`).
 . To apply changes, click *Continue*.
 
 Install https://docs.anthropic.com/en/docs/claude-code/overview[Claude Code].
