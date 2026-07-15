@@ -193,7 +193,12 @@ In your terminal, run the following command, replacing `<PORT>` with a fixed por
 
 [source,bash]
 ----
-MCP_CLIENT_SECRET=<YOUR_CLIENT_SECRET> claude mcp add --transport http --callback-port <PORT> mulesoft-platform https://omni.mulesoft.com/mcp --client-id <YOUR_CLIENT_ID>
+MCP_CLIENT_SECRET=<YOUR_CLIENT_SECRET> claude mcp add \
+    --transport http \
+    --callback-port <PORT> \
+    --client-id <YOUR_CLIENT_ID> \
+    --client-secret \
+    mulesoft-platform https://omni.mulesoft.com/mcp
 ----
 
 Using a fixed callback port ensures the redirect URL remains consistent across sessions. Without a fixed port, Claude Code assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
