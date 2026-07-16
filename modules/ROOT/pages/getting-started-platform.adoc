@@ -353,6 +353,10 @@ To resolve authentication issues, follow these troubleshooting steps.
 * If you encounter an authorization error:
 ** Add the correct redirect URL to your connected app.
 ** Add the necessary permissions scopes to your connected app.
+* If you encounter a permissions-related error when attempting to authorize, add the following permission scopes to your connected app: 
+** `Full Access`
+** `Background Access`
+
 * If authorization fails due to a redirect URL mismatch:
 ** IDE-based clients (Claude Code, Cursor, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`).
 * If you get a permissions-related error when attempting to authenticate, add these permissions to your connected app:
