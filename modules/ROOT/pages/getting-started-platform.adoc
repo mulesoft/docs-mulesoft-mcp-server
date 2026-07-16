@@ -353,7 +353,7 @@ To resolve authentication issues, follow these troubleshooting steps.
 * If you encounter an authorization error:
 ** Add the correct redirect URL to your connected app.
 ** Add the necessary permissions scopes to your connected app.
-* If you encounter a permissions-related error when attempting to authorize, add the following permission scopes to your connected app: 
+* If you encounter a permissions-related error when attempting to authorize, add these permission scopes to your connected app: 
 ** `Full Access`
 ** `Background Access`
 * If authorization fails due to a redirect URL mismatch:
