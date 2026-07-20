@@ -3052,7 +3052,7 @@ Get an Omni Gateway policy example to help you configure your Rust source code. 
   "    }",
   "}"
 ],
-  "description": "Example Rust policy for manipulating request headers using the Flex Gateway Policy Development Kit (PDK)",
+  "description": "Example Rust policy for manipulating request headers using the Omni Gateway Policy Development Kit (PDK)",
   "dependencies": [
     "pdk = { version = \"0.1.0\" }",
     "tokio = { version = \"1.0\", features = [\"full\"] }"
