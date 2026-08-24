@@ -1771,6 +1771,101 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 }
 ----
 
+[[get-asset-lineage]]
+== get_asset_lineage
+
+Get instance-rooted lineage from the Context Catalog for an agent, MCP server, or API. Use this tool to for prompts such as "Show me everything upstream of the Fraud Detection MCP server" or 
+"Trace the downstream lineage for the Billing Agent".
+
+Requires the `CONTEXT_CATALOG_ENABLED` flag to be enable in your organization.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset`
+|Asset name or ID to resolve lineage for (string).
+|Yes
+
+|`asset_type`
+|Type of the root asset. Supported values: `agent`, `mcp`, `api`.
+|Yes
+
+|`asset_version`
+|Version of the asset. Defaults to the latest available (string or null).
+|No
+
+|`direction`
+|Traversal direction. Supported values: `upstream`, `downstream`. Downstream supports all three asset types; upstream supports `mcp` and `api` only.
+|Yes
+
+|`organization_id`
+|Organization ID to scope the lineage query. Defaults to the request-scoped active org (string or null).
+|No
+
+|`instance_id`
+|Deployed instance to root lineage at. If omitted, the tool returns instance options for clarification (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_asset_lineage",
+  "arguments": {
+    "asset": "fraud-detection-mcp",
+    "asset_type": "mcp",
+    "direction": "upstream"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "root": {
+    "assetId": "fraud-detection-mcp",
+    "assetType": "mcp",
+    "version": "1.2.0",
+    "instanceId": "i_7b3f9a12",
+    "instanceLabel": "prod-us-east"
+  },
+  "direction": "upstream",
+  "nodes": [
+    {
+      "assetId": "transactions-api",
+      "assetType": "api",
+      "version": "3.1.0",
+      "instanceId": "i_4e8c2d67",
+      "instanceLabel": "prod-transactions"
+    },
+    {
+      "assetId": "customer-profiles-api",
+      "assetType": "api",
+      "version": "2.0.1",
+      "instanceId": "i_9a1f5b83",
+      "instanceLabel": "prod-profiles"
+    }
+  ],
+  "edges": [
+    {
+      "from": "fraud-detection-mcp",
+      "to": "transactions-api",
+      "relationship": "consumes"
+    },
+    {
+      "from": "fraud-detection-mcp",
+      "to": "customer-profiles-api",
+      "relationship": "consumes"
+    }
+  ],
+  "totalNodes": 2
+}
+----
+
 [[get-business-group]]
 == get_business_group
 
@@ -1811,6 +1906,79 @@ Get full metadata for a business group by its ID.
     "vcoreProduction": 50,
     "vcoreSandbox": 10
   }
+}
+----
+
+[[get-data-asset-classification]]
+== get_data_asset_classification
+
+Get hierarchy, classifications, and PII state for a single data catalog source. Before using this tool, use `find_assets` with `asset_type=data` to discover available sources. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
+
+Requires the `CONTEXT_CATALOG_ENABLED` flag to be enable in your organization.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset`
+|Name or ID of a single data asset to resolve (string).
+|Yes
+
+|`organization_id`
+|Business-group org ID to search. Defaults to the request-scoped active org (string or null).
+|No
+
+|`asset_version`
+|Asset version to prefer when selecting a document. Defaults to the latest available (string or null).
+|No
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_data_asset_classification",
+  "arguments": {
+    "asset": "customer_orders"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "asset": "customer_orders",
+  "assetVersion": "2.1.0",
+  "organizationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "hierarchy": {
+    "groupId": "com.example",
+    "assetId": "customer_orders",
+    "version": "2.1.0"
+  },
+  "classifications": [
+    {
+      "fieldName": "email_address",
+      "classification": "PII",
+      "sensitivity": "high",
+      "category": "contact_info"
+    },
+    {
+      "fieldName": "shipping_address",
+      "classification": "PII",
+      "sensitivity": "medium",
+      "category": "contact_info"
+    },
+    {
+      "fieldName": "order_total",
+      "classification": "non-PII",
+      "sensitivity": "low",
+      "category": "transactional"
+    }
+  ],
+  "containsPII": true,
+  "totalFields": 12,
+  "piiFieldCount": 2
 }
 ----
 
