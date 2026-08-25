@@ -127,11 +127,17 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<show-observability-performance,show_observability_performance>>
 |monitoring:viewer
 
-.7+s|Search & Discovery
+.9+s|Search & Discovery
 |<<fetch-service-facets,fetch_service_facets>>
 |exchange:exchange_viewer
 
 |<<fetch-services,fetch_services>>
+|exchange:exchange_viewer
+
+|<<get-asset-lineage,get_asset_lineage>>
+|exchange:exchange_viewer
+
+|<<get-data-asset-classification,get_data_asset_classification>>
 |exchange:exchange_viewer
 
 |<<search-assets-semantic,search_assets_semantic>>
@@ -1777,8 +1783,6 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 Get instance-rooted lineage from the Context Catalog for an agent, MCP server, or API. Use this tool to for prompts such as "Show me everything upstream of the Fraud Detection MCP server" or 
 "Trace the downstream lineage for the Billing Agent".
 
-Requires the `CONTEXT_CATALOG_ENABLED` flag to be enable in your organization.
-
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
@@ -1912,9 +1916,7 @@ Get full metadata for a business group by its ID.
 [[get-data-asset-classification]]
 == get_data_asset_classification
 
-Get hierarchy, classifications, and PII state for a single data catalog source. Before using this tool, use `find_assets` with `asset_type=data` to discover available sources. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
-
-Requires the `CONTEXT_CATALOG_ENABLED` flag to be enable in your organization.
+Get the source-to-column hierarchy, classifications, descriptions, glossary terms, and PII state for a data catalog source. Before using this tool, use find_assets with asset_type=data to discover available sources. Before using this tool, use `find_assets` with `asset_type=data` to discover available sources. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
 
 [%header,cols="1,3,1"]
 |===
