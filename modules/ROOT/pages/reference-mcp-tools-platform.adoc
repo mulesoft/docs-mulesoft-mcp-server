@@ -1109,7 +1109,7 @@ Get a ranked list of instances with the highest projected token savings from una
 [[fetch-cost-overview]]
 == fetch_cost_overview
 
-Get the org-wide cost summary: MCP server token KPIs (total tokens, saved tokens from optimization policies, and total tool calls) plus org-wide agent dollar cards (`totalManagedSpend` and `agentAmountSaved`). The dollar cards are populated only when cost data is available for the org (`costDataAvailable=true`). When unavailable, they are absent. Optionally includes token usage timeseries.
+Get the org-wide cost summary: MCP server token KPIs (total tokens, saved tokens from optimization policies, and total tool calls) plus org-wide agent dollar cards (`totalManagedSpend` and `agentAmountSaved`). The dollar cards are populated only when cost data is available for the org (`costDataAvailable=true`). When unavailable, the cards are absent. Optionally includes token usage timeseries.
 
 [%header,cols="1,3,1"]
 |===
@@ -1819,7 +1819,7 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
 |No
 
 |`instance_id`
-|Deployed instance to root lineage at. If omitted, the tool returns instance options for clarification (string or null).
+|Deployed instance to get root lineage for. If omitted, the tool returns instance options for clarification (string or null).
 |No
 
 |===
