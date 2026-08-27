@@ -911,18 +911,18 @@ Fetch one policy template by templateId for configuration details.
 [[fetch-cost-instance-timeseries]]
 == fetch_cost_instance_timeseries
 
-Get token usage and response time timeseries for a single MCP server, agent, or model proxy instance. 
+Get token usage and response time timeseries for a single instance. This is the only tool that returns an agent timeseries.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`category`
-|Scope of the query. Supported values: `mcp` (default) and `agent`. When set to `agent`, `instance_id` must be an agent ID (`agentId` or `llmProxyId` from `fetch_cost_instances`); buckets return token counts and `avgResponseTimeMs` (no per-bucket dollar figures).
+|Scope of the series. Defaults to `mcp`. Supported values: `mcp` — an MCP server instance; `instance_id` is the API Manager instance ID; buckets carry `totalTokens`, `tokenDelta`, and `avgResponseTimeMs`. `agent` — a single agent (LLM proxy); `instance_id` is the agent's ID (`agentId` or `llmProxyId` from `fetch_cost_instances(category='agent')`); buckets carry token counts and `avgResponseTimeMs` (no per-bucket dollar figures).
 |No
 
 |`instance_id`
-|Instance ID to query. For `mcp`, the MCP server instance ID. For agent, the `agentId` or `llmProxyId` returned by `fetch_cost_instances(category='agent')`.
+|Instance ID to query. For `mcp`, the API Manager instance ID. For `agent`, the `agentId` or `llmProxyId` returned by `fetch_cost_instances(category='agent')`.
 |Yes
 
 |`organization_id`
@@ -930,7 +930,7 @@ Get token usage and response time timeseries for a single MCP server, agent, or 
 |Yes
 
 |`time_range`
-|Time window for the timeseries. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window for the timeseries. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `24h`.
 |No
 
 |===
@@ -964,30 +964,30 @@ Get token usage and response time timeseries for a single MCP server, agent, or 
 [[fetch-cost-instances]]
 == fetch_cost_instances
 
-Get per-instance token usage and optimization coverage across MCP servers, agents, and model proxies. For `category='agent'`, dollar figures appear only when cost data is configured for the organization. Otherwise values are zeroed placeholders. To optimize an MCP instance, pass its `unappliedCostPolicyIds` to `prepare_policy_creation`.
+Get per-instance token usage and optimization coverage across MCP servers and agents. To optimize an MCP instance, pass its `unappliedCostPolicyIds` to `prepare_policy_creation`.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
-|`filter_unoptimized`
-|Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty); use this to find optimization candidates quickly.
+|`category`
+|Scope of the query. Defaults to `mcp`. Supported values: `mcp` returns per-MCP-server-instance token usage with optimization coverage (includes `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `toolsListTokens`, `toolsCallTokens`, `appliedCostPolicyIds`, `unappliedCostPolicyIds`, and `optimizationCoverage`). `agent` returns per-agent LLM-proxy spend and savings in dollars (not token estimates). Dollar figures depend on cost data being available for the org (the response carries `costDataAvailable`). When `false`, spend and saved are zeroed placeholders. `filter_unoptimized` and `sort_by` do not apply to the agent scope.
 |No
 
-|`category`
-|Scope of the query. Supported values: `mcp` (default) and `agent`. When set to `agent`, returns per-agent dollar figures (`spend`, `saved`, `potentialSavings`) instead of token metrics; `filter_unoptimized` and `sort_by` do not apply.
+|`filter_unoptimized`
+|Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty). Use this to find optimization candidates quickly. Defaults to `false`. Applies to `mcp` category only.
 |No
 
 |`organization_id`
-|Organization ID to query for per-instance token usage and optimization coverage.
+|Organization ID to query for per-instance usage and optimization coverage.
 |Yes
 
 |`sort_by`
-|Sort field for results. Supported values: `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `totalCalls`, `tokensPerCall`.
+|Sort field for results. Supported values: `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `totalCalls`, `tokensPerCall`. Defaults to `totalTokens`. Applies to `mcp` category only.
 |No
 
 |`time_range`
-|Time window for usage analysis. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window for usage analysis. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |`top_n`
@@ -1041,22 +1041,26 @@ Get per-instance token usage and optimization coverage across MCP servers, agent
 [[fetch-cost-optimization-recommendations]]
 == fetch_cost_optimization_recommendations
 
-Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Use this tool to answer questions, such as "What should I optimize next?', "What are the biggest token savings opportunities?"", "Where is the most waste?".
+Get a ranked list of instances with the highest projected token savings from unapplied cost policies.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
+
+|`category`
+|Scope to rank. Defaults to `mcp`. Supported values: `mcp` — MCP server instances ranked by projected token savings from unapplied cost policies. `agent` — agent and LLM proxy scope. Currently returns an empty list because the upstream per-proxy rate source is not yet available.
+|No
 
 |`organization_id`
 |Organization ID to query for optimization recommendations.
 |Yes
 
 |`savings_pool_size`
-|Number of candidate instances to evaluate before ranking the final recommendations; increase this when you want broader coverage before taking the top results.
+|Number of candidate instances to evaluate before ranking the final recommendations; increase this when you want broader coverage before taking the top results. Defaults to `10`.
 |No
 
 |`time_range`
-|Time window used to detect active instances and estimate projected token savings. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window used to detect active instances and estimate projected token savings. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |`top_n`
@@ -1105,22 +1109,22 @@ Use this tool to get a ranked list of MCP server instances that should be optimi
 [[fetch-cost-overview]]
 == fetch_cost_overview
 
-Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls.
+Get the org-wide cost summary: MCP server token KPIs (total tokens, saved tokens from optimization policies, and total tool calls) plus org-wide agent dollar cards (`totalManagedSpend` and `agentAmountSaved`). The dollar cards are populated only when cost data is available for the org (`costDataAvailable=true`). When unavailable, they are absent. Optionally includes token usage timeseries.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`include_timeseries`
-|Set to `true` to include token usage timeseries for charting; this increases response size.
+|Set to `true` to include token usage timeseries for charting; this increases response size. Defaults to `false`.
 |No
 
 |`organization_id`
-|Organization ID to query for org-wide MCP token usage KPIs.
+|Organization ID to query for org-wide MCP token KPIs and agent dollar cards.
 |Yes
 
 |`time_range`
-|Time window for KPI aggregation. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window for KPI aggregation. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |===
