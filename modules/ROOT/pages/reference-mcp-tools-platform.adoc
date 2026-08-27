@@ -503,7 +503,7 @@ Verify that a secret exists and retrieve its non-sensitive metadata without expo
 
 |===
 
-NOTE: You must provide either (`secret_group_name` + `secret_name`) or (`secret_group_id` + `secret_id`), not both. You must also provide either `environment_id` or `environment_name`.
+NOTE: You must provide either (`secret_group_name` and`secret_name`) or (`secret_group_id` and `secret_id`), not both. You must also provide either `environment_id` or `environment_name`.
 
 .Example request
 [source,json]
