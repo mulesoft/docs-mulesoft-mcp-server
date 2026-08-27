@@ -911,14 +911,18 @@ Fetch one policy template by templateId for configuration details.
 [[fetch-cost-instance-timeseries]]
 == fetch_cost_instance_timeseries
 
-Use this tool to get token usage and response time timeseries for a single MCP server instance. 
+Get token usage and response time timeseries for a single MCP server, agent, or model proxy instance. 
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
+|`category`
+|Scope of the query. Supported values: `mcp` (default) and `agent`. When set to `agent`, `instance_id` must be an agent ID (`agentId` or `llmProxyId` from `fetch_cost_instances`); buckets return token counts and `avgResponseTimeMs` (no per-bucket dollar figures).
+|No
+
 |`instance_id`
-|Instance ID (string).
+|Instance ID to query. For `mcp`, the MCP server instance ID. For agent, the `agentId` or `llmProxyId` returned by `fetch_cost_instances(category='agent')`.
 |Yes
 
 |`organization_id`
@@ -926,7 +930,7 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 |Yes
 
 |`time_range`
-|Time range (string).
+|Time window for the timeseries. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
 |No
 
 |===
@@ -960,7 +964,7 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 [[fetch-cost-instances]]
 == fetch_cost_instances
 
-Use this tool to get per-instance token usage with optimization coverage.
+Get per-instance token usage and optimization coverage across MCP servers, agents, and model proxies. For `category='agent'`, dollar figures appear only when cost data is configured for the organization. Otherwise values are zeroed placeholders. To optimize an MCP instance, pass its `unappliedCostPolicyIds` to `prepare_policy_creation`.
 
 [%header,cols="1,3,1"]
 |===
@@ -968,6 +972,10 @@ Use this tool to get per-instance token usage with optimization coverage.
 
 |`filter_unoptimized`
 |Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty); use this to find optimization candidates quickly.
+|No
+
+|`category`
+|Scope of the query. Supported values: `mcp` (default) and `agent`. When set to `agent`, returns per-agent dollar figures (`spend`, `saved`, `potentialSavings`) instead of token metrics; `filter_unoptimized` and `sort_by` do not apply.
 |No
 
 |`organization_id`
@@ -1780,8 +1788,7 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 [[get-asset-lineage]]
 == get_asset_lineage
 
-Get instance-rooted lineage from the Context Catalog for an agent, MCP server, or API. Use this tool to for prompts such as "Show me everything upstream of the Fraud Detection MCP server" or 
-"Trace the downstream lineage for the Billing Agent".
+Get instance-rooted lineage, including design-time and runtime relationships, from the Context Catalog for an agent, MCP server, or API.
 
 [%header,cols="1,3,1"]
 |===
@@ -1916,7 +1923,7 @@ Get full metadata for a business group by its ID.
 [[get-data-asset-classification]]
 == get_data_asset_classification
 
-Get the source-to-column hierarchy, classifications, descriptions, glossary terms, and PII state for a data catalog source. Before using this tool, use find_assets with asset_type=data to discover available sources. Before using this tool, use `find_assets` with `asset_type=data` to discover available sources. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
+Get a data asset's source-to-column hierarchy, classifications, descriptions, glossary terms, and explicit PII state. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
 
 [%header,cols="1,3,1"]
 |===
@@ -2218,7 +2225,7 @@ Load one policy template detail, including configuration schema, to dynamically 
 [[get-provision-status]]
 == get_provision_status
 
-Poll the status of a provisioning or update job. Returns status (running/complete/failed), progress step, completed steps, result (MCP URL on success), and can_resume flag.
+Poll the status of a provisioning or update job. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2250,13 +2257,15 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 [source,json]
 ----
 {
+  "tool": "get_provision_status",
   "jobId": "job_a1b2c3d4",
   "status": "running",
-  "progressStep": "deploying-flex-gateway",
-  "completedSteps": ["create-asset", "configure-upstreams"],
-  "remainingSteps": ["deploy-flex-gateway", "register-mcp-server"],
+  "currentStep": 2,
+  "totalSteps": 3,
+  "stepLabel": "deploying-omni-gateway",
+  "error": null,
   "result": null,
-  "canResume": false
+  "failure": null
 }
 ----
 
