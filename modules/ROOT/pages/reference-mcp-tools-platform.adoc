@@ -127,11 +127,17 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<show-observability-performance,show_observability_performance>>
 |monitoring:viewer
 
-.7+s|Search & Discovery
+.9+s|Search & Discovery
 |<<fetch-service-facets,fetch_service_facets>>
 |exchange:exchange_viewer
 
 |<<fetch-services,fetch_services>>
+|exchange:exchange_viewer
+
+|<<get-asset-lineage,get_asset_lineage>>
+|exchange:exchange_viewer
+
+|<<get-data-asset-classification,get_data_asset_classification>>
 |exchange:exchange_viewer
 
 |<<search-assets-semantic,search_assets_semantic>>
@@ -1382,14 +1388,18 @@ Fetch one policy template by templateId for configuration details.
 [[fetch-cost-instance-timeseries]]
 == fetch_cost_instance_timeseries
 
-Use this tool to get token usage and response time timeseries for a single MCP server instance. 
+Get token usage and response time timeseries for a single instance. This is the only tool that returns an agent timeseries.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
+|`category`
+|Scope of the series. Defaults to `mcp`. Supported values: `mcp` — an MCP server instance; `instance_id` is the API Manager instance ID; buckets carry `totalTokens`, `tokenDelta`, and `avgResponseTimeMs`. `agent` — a single agent (LLM proxy); `instance_id` is the agent's ID (`agentId` or `llmProxyId` from `fetch_cost_instances(category='agent')`); buckets carry token counts and `avgResponseTimeMs` (no per-bucket dollar figures).
+|No
+
 |`instance_id`
-|Instance ID (string).
+|Instance ID to query. For `mcp`, the API Manager instance ID. For `agent`, the `agentId` or `llmProxyId` returned by `fetch_cost_instances(category='agent')`.
 |Yes
 
 |`organization_id`
@@ -1397,7 +1407,7 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 |Yes
 
 |`time_range`
-|Time range (string).
+|Time window for the timeseries. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `24h`.
 |No
 
 |===
@@ -1431,26 +1441,30 @@ Use this tool to get token usage and response time timeseries for a single MCP s
 [[fetch-cost-instances]]
 == fetch_cost_instances
 
-Use this tool to get per-instance token usage with optimization coverage.
+Get per-instance token usage and optimization coverage across MCP servers and agents. To optimize an MCP instance, pass its `unappliedCostPolicyIds` to `prepare_policy_creation`.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
+|`category`
+|Scope of the query. Defaults to `mcp`. Supported values: `mcp` returns per-MCP-server-instance token usage with optimization coverage (includes `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `toolsListTokens`, `toolsCallTokens`, `appliedCostPolicyIds`, `unappliedCostPolicyIds`, and `optimizationCoverage`). `agent` returns per-agent LLM-proxy spend and savings in dollars (not token estimates). Dollar figures depend on cost data being available for the org (the response carries `costDataAvailable`). When `false`, spend and saved are zeroed placeholders. `filter_unoptimized` and `sort_by` do not apply to the agent scope.
+|No
+
 |`filter_unoptimized`
-|Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty); use this to find optimization candidates quickly.
+|Set to `true` to return only instances that have unapplied cost policies (`unappliedCostPolicyIds` not empty). Use this to find optimization candidates quickly. Defaults to `false`. Applies to `mcp` category only.
 |No
 
 |`organization_id`
-|Organization ID to query for per-instance token usage and optimization coverage.
+|Organization ID to query for per-instance usage and optimization coverage.
 |Yes
 
 |`sort_by`
-|Sort field for results. Supported values: `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `totalCalls`, `tokensPerCall`.
+|Sort field for results. Supported values: `totalTokens`, `tokenDelta`, `avgResponseTimeMs`, `totalCalls`, `tokensPerCall`. Defaults to `totalTokens`. Applies to `mcp` category only.
 |No
 
 |`time_range`
-|Time window for usage analysis. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window for usage analysis. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |`top_n`
@@ -1504,22 +1518,26 @@ Use this tool to get per-instance token usage with optimization coverage.
 [[fetch-cost-optimization-recommendations]]
 == fetch_cost_optimization_recommendations
 
-Use this tool to get a ranked list of MCP server instances that should be optimized, mirroring the 'Recommended Optimizations' card on the Cost Management page. Use this tool to answer questions, such as "What should I optimize next?', "What are the biggest token savings opportunities?"", "Where is the most waste?".
+Get a ranked list of instances with the highest projected token savings from unapplied cost policies.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
+
+|`category`
+|Scope to rank. Defaults to `mcp`. Supported values: `mcp` — MCP server instances ranked by projected token savings from unapplied cost policies. `agent` — agent and LLM proxy scope. Currently returns an empty list because the upstream per-proxy rate source is not yet available.
+|No
 
 |`organization_id`
 |Organization ID to query for optimization recommendations.
 |Yes
 
 |`savings_pool_size`
-|Number of candidate instances to evaluate before ranking the final recommendations; increase this when you want broader coverage before taking the top results.
+|Number of candidate instances to evaluate before ranking the final recommendations; increase this when you want broader coverage before taking the top results. Defaults to `10`.
 |No
 
 |`time_range`
-|Time window used to detect active instances and estimate projected token savings. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window used to detect active instances and estimate projected token savings. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |`top_n`
@@ -1568,22 +1586,22 @@ Use this tool to get a ranked list of MCP server instances that should be optimi
 [[fetch-cost-overview]]
 == fetch_cost_overview
 
-Use this tool to get org-wide token usage KPIs for MCP servers: total tokens, saved tokens (from optimization policies), and total tool calls.
+Get the org-wide cost summary: MCP server token KPIs (total tokens, saved tokens from optimization policies, and total tool calls) plus org-wide agent dollar cards (`totalManagedSpend` and `agentAmountSaved`). The dollar cards are populated only when cost data is available for the org (`costDataAvailable=true`). When unavailable, the cards are absent. Optionally includes token usage timeseries.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`include_timeseries`
-|Set to `true` to include token usage timeseries for charting; this increases response size.
+|Set to `true` to include token usage timeseries for charting; this increases response size. Defaults to `false`.
 |No
 
 |`organization_id`
-|Organization ID to query for org-wide MCP token usage KPIs.
+|Organization ID to query for org-wide MCP token KPIs and agent dollar cards.
 |Yes
 
 |`time_range`
-|Time window for KPI aggregation. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`.
+|Time window for KPI aggregation. Supported values: `1h`, `6h`, `24h`, `7d`, `30d`. Defaults to `30d`.
 |No
 
 |===
@@ -2352,6 +2370,98 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 }
 ----
 
+[[get-asset-lineage]]
+== get_asset_lineage
+
+Get instance-rooted lineage, including design-time and runtime relationships, from the Context Catalog for an agent, MCP server, or API.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset`
+|Asset name or ID to resolve lineage for (string).
+|Yes
+
+|`asset_type`
+|Type of the root asset. Supported values: `agent`, `mcp`, `api`.
+|Yes
+
+|`asset_version`
+|Version of the asset. Defaults to the latest available (string or null).
+|No
+
+|`direction`
+|Traversal direction. Supported values: `upstream`, `downstream`. Downstream supports all three asset types; upstream supports `mcp` and `api` only.
+|Yes
+
+|`organization_id`
+|Organization ID to scope the lineage query. Defaults to the request-scoped active org (string or null).
+|No
+
+|`instance_id`
+|Deployed instance to get root lineage for. If omitted, the tool returns instance options for clarification (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_asset_lineage",
+  "arguments": {
+    "asset": "fraud-detection-mcp",
+    "asset_type": "mcp",
+    "direction": "upstream"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "root": {
+    "assetId": "fraud-detection-mcp",
+    "assetType": "mcp",
+    "version": "1.2.0",
+    "instanceId": "i_7b3f9a12",
+    "instanceLabel": "prod-us-east"
+  },
+  "direction": "upstream",
+  "nodes": [
+    {
+      "assetId": "transactions-api",
+      "assetType": "api",
+      "version": "3.1.0",
+      "instanceId": "i_4e8c2d67",
+      "instanceLabel": "prod-transactions"
+    },
+    {
+      "assetId": "customer-profiles-api",
+      "assetType": "api",
+      "version": "2.0.1",
+      "instanceId": "i_9a1f5b83",
+      "instanceLabel": "prod-profiles"
+    }
+  ],
+  "edges": [
+    {
+      "from": "fraud-detection-mcp",
+      "to": "transactions-api",
+      "relationship": "consumes"
+    },
+    {
+      "from": "fraud-detection-mcp",
+      "to": "customer-profiles-api",
+      "relationship": "consumes"
+    }
+  ],
+  "totalNodes": 2
+}
+----
+
 [[get-business-group]]
 == get_business_group
 
@@ -2392,6 +2502,77 @@ Get full metadata for a business group by its ID.
     "vcoreProduction": 50,
     "vcoreSandbox": 10
   }
+}
+----
+
+[[get-data-asset-classification]]
+== get_data_asset_classification
+
+Get a data asset's source-to-column hierarchy, classifications, descriptions, glossary terms, and explicit PII state. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`asset`
+|Name or ID of a single data asset to resolve (string).
+|Yes
+
+|`organization_id`
+|Business-group org ID to search. Defaults to the request-scoped active org (string or null).
+|No
+
+|`asset_version`
+|Asset version to prefer when selecting a document. Defaults to the latest available (string or null).
+|No
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_data_asset_classification",
+  "arguments": {
+    "asset": "customer_orders"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "asset": "customer_orders",
+  "assetVersion": "2.1.0",
+  "organizationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "hierarchy": {
+    "groupId": "com.example",
+    "assetId": "customer_orders",
+    "version": "2.1.0"
+  },
+  "classifications": [
+    {
+      "fieldName": "email_address",
+      "classification": "PII",
+      "sensitivity": "high",
+      "category": "contact_info"
+    },
+    {
+      "fieldName": "shipping_address",
+      "classification": "PII",
+      "sensitivity": "medium",
+      "category": "contact_info"
+    },
+    {
+      "fieldName": "order_total",
+      "classification": "non-PII",
+      "sensitivity": "low",
+      "category": "transactional"
+    }
+  ],
+  "containsPII": true,
+  "totalFields": 12,
+  "piiFieldCount": 2
 }
 ----
 
@@ -2629,7 +2810,7 @@ Load one policy template detail, including configuration schema, to dynamically 
 [[get-provision-status]]
 == get_provision_status
 
-Poll the status of a provisioning or update job. Returns status (running/complete/failed), progress step, completed steps, result (MCP URL on success), and can_resume flag.
+Poll the status of a provisioning or update job. 
 
 [%header,cols="1,3,1"]
 |===
@@ -2661,13 +2842,15 @@ Poll the status of a provisioning or update job. Returns status (running/complet
 [source,json]
 ----
 {
+  "tool": "get_provision_status",
   "jobId": "job_a1b2c3d4",
   "status": "running",
-  "progressStep": "deploying-flex-gateway",
-  "completedSteps": ["create-asset", "configure-upstreams"],
-  "remainingSteps": ["deploy-flex-gateway", "register-mcp-server"],
+  "currentStep": 2,
+  "totalSteps": 3,
+  "stepLabel": "deploying-omni-gateway",
+  "error": null,
   "result": null,
-  "canResume": false
+  "failure": null
 }
 ----
 
