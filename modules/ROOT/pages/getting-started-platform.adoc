@@ -6,7 +6,7 @@ Scan, discover, govern, and monitor APIs, agents, MCP servers, and LLMs across y
 
 Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app.
 
-Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft Platform MCP Server tools.
+When prompted, add the Full Access and Background permission scopes. You need these scopes to use the MCP server.
 
 IMPORTANT: When creating the connected app, be sure to select the Authorization Code and Refresh Token grant types. 
 
@@ -358,11 +358,6 @@ To resolve authentication issues, follow these troubleshooting steps.
 ** `Background Access`
 * If authorization fails due to a redirect URL mismatch:
 ** IDE-based clients (Claude Code, Cursor, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`).
-* If you get a permissions-related error when attempting to authenticate, add these permissions to your connected app:
-** Background Access
-** Profile
-** Identity
-** Email
 
 === Connection Issues
 
