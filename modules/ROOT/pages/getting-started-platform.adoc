@@ -6,7 +6,7 @@ Scan, discover, govern, and monitor APIs, agents, MCP servers, and LLMs across y
 
 Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app.
 
-When prompted, add the *Full Access* and *Background* permission scopes. These scopes are required to access any functionality in the MCP server.
+When prompted, add the Full Access and Background permission scopes. You need these scopes to use the MCP server.
 
 IMPORTANT: When creating the connected app, be sure to select the Authorization Code and Refresh Token grant types. 
 
