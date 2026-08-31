@@ -188,7 +188,22 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<view-llm-details,view_llm_details>>
 |exchange:exchange_viewer
 
-.4+s|Cost Management
+.9+s|Cost Management
+|<<create-model-wallet,create_model_wallet>>
+|None
+
+|<<delete-model-wallet,delete_model_wallet>>
+|None
+
+|<<edit-model-wallet,edit_model_wallet>>
+|None
+
+|<<fetch-model-wallet-details,fetch_model_wallet_details>>
+|None
+
+|<<fetch-model-wallets,fetch_model_wallets>>
+|None
+
 |<<fetch-cost-instance-timeseries,fetch_cost_instance_timeseries>>
 |None
 
@@ -723,6 +738,80 @@ Create a new guardrail strategy from wizard inputs.
 }
 ----
 
+[[create-model-wallet]]
+== create_model_wallet
+
+Create a model wallet with budget allocation for a specific LLM model. Configures token budgets with a defined cadence and required JWT claims for access control.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`amount`
+|Token amount allocated for the wallet budget.
+|Yes
+
+|`cadence`
+|Budget replenishment period (for example, `weekly`, `monthly`).
+|Yes
+
+|`claims`
+|Required JWT claims that must match for budget grants (array or null).
+|No
+
+|`environment_id`
+|Environment ID to scope the wallet.
+|Yes
+
+|`model_id`
+|Model ID to associate with the wallet budget.
+|Yes
+
+|`organization_id`
+|Organization ID to scope the wallet.
+|Yes
+
+|`wallet_id`
+|Wallet name or ID.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "create_model_wallet",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "environment_id": "<environment_id>",
+    "wallet_id": "orders-team-wallet",
+    "model_id": "<model_id>",
+    "amount": 3,
+    "cadence": "weekly",
+    "claims": ["claim_abc123"]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "walletId": "orders-team-wallet",
+  "organizationId": "68ef9520-24e9-4cf2-b2f5-620025690913",
+  "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+  "modelId": "claude-opus-4-7",
+  "budget": {
+    "amount": 3,
+    "cadence": "weekly",
+    "claims": ["claim_abc123"]
+  },
+  "status": "active",
+  "createdDate": "2026-05-07T14:32:18.412Z"
+}
+----
+
 [[create-omni-gateway]]
 == create_omni_gateway
 
@@ -957,71 +1046,38 @@ Delete one governance strategy by strategy id.
 }
 ----
 
-[[edit-integration]]
-== edit_integration
+[[delete-model-wallet]]
+== delete_model_wallet
 
-Modify an existing vault integration's configuration. Validates edited credentials and performs a connectivity test before saving.
+Delete a model wallet.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
-|`organization_id`
-|Anypoint organization ID. When omitted, the caller's authenticated org is used.
-|No
-
 |`environment_id`
-|Target environment ID. Required unless `environment_name` is provided.
-|No
+|Environment ID to scope the query.
+|Yes
 
-|`environment_name`
-|Human-readable environment name. Provide this or `environment_id`, not both.
-|No
+|`wallet_id`
+|Wallet ID.
+|Yes
 
-|`integration_name`
-|Human-readable name of the vault integration. Provide this or `integration_id`, not both.
-|No
-
-|`integration_id`
-|UUID of the vault integration. Provide this or `integration_name`, not both.
-|No
-
-|`description`
-|New description (max 512 characters).
-|No
-
-|`sync_enabled`
-|Enable or disable automatic sync (reference-based integrations only).
-|No
-
-|`raw_secrets`
-|Updated credential values (managed integrations only).
-|No
-
-|`connection_config`
-|Updated non-secret configuration (managed integrations only).
-|No
-
-|`credential_refs`
-|Updated credential references (reference-based integrations only).
-|No
+|`wallet_name`
+|Wallet name.
+|Yes
 
 |===
-
-NOTE: You must provide either `integration_name` or `integration_id`. You must also provide either `environment_id` or `environment_name`.
 
 .Example request
 [source,json]
 ----
 {
-  "name": "edit_integration",
+  "name": "delete_model_wallet",
   "arguments": {
-    "environment_name": "Production",
-    "integration_name": "My Azure Vault",
-    "description": "Updated description",
-    "raw_secrets": {
-      "azure.spSecret.clientSecret": "new-secret-value"
-    }
+    "wallet_name": "orders-team-wallet",
+    "wallet_id": "<wallet_id>",
+    "environment_id": "<environment_id>"
   }
 }
 ----
@@ -1030,24 +1086,9 @@ NOTE: You must provide either `integration_name` or `integration_id`. You must a
 [source,json]
 ----
 {
-  "tool": "edit_integration",
-  "organizationId": "org-uuid",
-  "environmentId": "env-uuid",
-  "environmentName": "Production",
-  "changedFields": [
-    "description",
-    "rawSecrets"
-  ],
-  "integration": {
-    "id": "integration-uuid",
-    "name": "My Azure Vault",
-    "description": "Updated description",
-    "provider": "azure_key_vault",
-    "authMethod": "azure_sp_secret",
-    "managed": true,
-    "version": 2,
-    "vaultUrl": "https://my-vault.vault.azure.net"
-  }
+  "walletId": "wlt_4f8a91d2",
+  "walletName": "orders-team-wallet",
+  "deleted": true
 }
 ----
 
@@ -1149,6 +1190,143 @@ Discover supported vault providers and the credential fields required to onboard
       }
     ]
   }
+}
+----
+
+[[edit-integration]]
+== edit_integration
+
+Modify an existing vault integration's configuration. Validates edited credentials and performs a connectivity test before saving.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this or `environment_id`, not both.
+|No
+
+|`integration_name`
+|Human-readable name of the vault integration. Provide this or `integration_id`, not both.
+|No
+
+|`integration_id`
+|UUID of the vault integration. Provide this or `integration_name`, not both.
+|No
+
+|`description`
+|New description (max 512 characters).
+|No
+
+|`sync_enabled`
+|Enable or disable automatic sync (reference-based integrations only).
+|No
+
+|`raw_secrets`
+|Updated credential values (managed integrations only).
+|No
+
+|`connection_config`
+|Updated non-secret configuration (managed integrations only).
+|No
+
+|`credential_refs`
+|Updated credential references (reference-based integrations only).
+|No
+
+|===
+
+NOTE: You must provide either `integration_name` or `integration_id`. You must also provide either `environment_id` or `environment_name`.
+
+.Example request
+[source,json]
+----
+{
+  "name": "edit_integration",
+  "arguments": {
+    "environment_name": "Production",
+    "integration_name": "My Azure Vault",
+    "description": "Updated description",
+    "raw_secrets": {
+      "azure.spSecret.clientSecret": "new-secret-value"
+    }
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "edit_integration",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "changedFields": [
+    "description",
+    "rawSecrets"
+  ],
+  "integration": {
+    "id": "integration-uuid",
+    "name": "My Azure Vault",
+    "description": "Updated description",
+    "provider": "azure_key_vault",
+    "authMethod": "azure_sp_secret",
+    "managed": true,
+    "version": 2,
+    "vaultUrl": "https://my-vault.vault.azure.net"
+  }
+}
+----
+
+[[edit-model-wallet]]
+== edit_model_wallet
+
+Edit an existing model wallet configuration. Updates wallet properties such as the client name for a given wallet and environment.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment ID to scope the query.
+|Yes
+
+|`wallet_id`
+|Wallet name or ID.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "edit_model_wallet",
+  "arguments": {
+    "wallet_id": "orders-team-wallet",
+    "environment_id": "<environment_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "walletId": "orders-team-wallet",
+  "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+  "name": "orders-team-wallet-v2",
+  "status": "active",
+  "updatedDate": "2026-05-07T14:32:18.412Z"
 }
 ----
 
@@ -1681,10 +1859,114 @@ Fetch a guardrail ruleset payload by sourceRulesetKey.
 }
 ----
 
+[[fetch-model-wallet-details]]
+== fetch_model_wallet_details
+
+Fetch model wallet details for a given wallet ID and environment.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment ID to scope the query.
+|Yes
+
+|`wallet_id`
+|Wallet ID.
+|Yes
+
+|`wallet_name`
+|Wallet name.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_model_wallet_details",
+  "arguments": {
+    "wallet_name": "orders-team-wallet",
+    "wallet_id": "<wallet_id>",
+    "environment_id": "<environment_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "walletId": "wlt_4f8a91d2",
+  "walletName": "orders-team-wallet",
+  "environmentId": "e1f3b920-4c8a-11ee-be56-0242ac120002",
+  "modelId": "claude-opus-4-7",
+  "budget": {
+    "amount": 3,
+    "cadence": "weekly",
+    "claims": ["claim_abc123"]
+  },
+  "status": "active",
+  "createdDate": "2026-04-12T08:21:43.000Z"
+}
+----
+
+[[fetch-model-wallets]]
+== fetch_model_wallets
+
+Fetch the list of model wallets for an environment.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`environment_id`
+|Environment ID to scope the query.
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "fetch_model_wallets",
+  "arguments": {
+    "environment_id": "<environment_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "wallets": [
+    {
+      "walletId": "wlt_4f8a91d2",
+      "walletName": "orders-team-wallet",
+      "modelId": "claude-opus-4-7",
+      "budget": { "amount": 3, "cadence": "weekly" },
+      "status": "active"
+    },
+    {
+      "walletId": "wlt_8c4e92a1",
+      "walletName": "support-team-wallet",
+      "modelId": "gpt-4-turbo",
+      "budget": { "amount": 5, "cadence": "monthly" },
+      "status": "active"
+    }
+  ],
+  "total": 4
+}
+----
+
 [[fetch-monitoring-drill-down]]
 == fetch_monitoring_drill_down
 
-Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, or policyViolations). Use this tool to answer queries such as, "Which services are driving errors?" or "Rank instances by latency." 
+Use this tool to rank services or instances contributing to a specific performance metric (availability, reliability, avgLatency, requestVolume, errorRate, or policyViolations). Use this tool to answer queries such as, "Which services are driving errors?" or "Rank instances by latency."
 
 [%header,cols="1,3,1"]
 |===
