@@ -242,6 +242,28 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<test-scanner-connection,test_scanner_connection>>
 |runtime:deploy_applications
 
+.7+s|Secrets Manager
+|<<check-secret,check_secret>>
+|read:organization
+
+|<<describe-vault-auth-schema,describe_vault_auth_schema>>
+|read:organization
+
+|<<edit-integration,edit_integration>>
+|read:organization
+
+|<<list-integration-secrets,list_integration_secrets>>
+|read:organization
+
+|<<onboard-vault,onboard_vault>>
+|read:organization
+
+|<<search-secrets,search_secrets>>
+|read:organization
+
+|<<test-integration-connection,test_integration_connection>>
+|read:organization
+
 |===
 
 [[apply-policy-to-instance]]
@@ -454,6 +476,88 @@ Convert the selected policy application payload to JSON-LD and print it in backe
     "policy": "client-id-enforcement",
     "target": "16834521"
   }
+}
+----
+
+[[check-secret]]
+== check_secret
+
+Verify that a secret exists and retrieve its non-sensitive metadata without exposing secret material.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target Anypoint environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this *or* `environment_id`, not both.
+|No
+
+|`secret_group_name`
+|Human-readable name of the secret group (as returned by `list_secret_refs` in `secretGroupName`). Pair with `secret_name`.
+|No
+
+|`secret_name`
+|Human-readable name of the secret. Pair with `secret_group_name`.
+|No
+
+|`secret_group_id`
+|ID of the secret group. Pair with `secret_id`.
+|No
+
+|`secret_id`
+|ID of the secret. Pair with `secret_group_id`.
+|No
+
+|===
+
+NOTE: You must provide either (`secret_group_name` and`secret_name`) or (`secret_group_id` and `secret_id`), not both. You must also provide either `environment_id` or `environment_name`.
+
+.Example request
+[source,json]
+----
+{
+  "name": "check_secret",
+  "arguments": {
+    "environment_name": "Production",
+    "secret_group_name": "My Group",
+    "secret_name": "my-api-key"
+  }
+}
+----
+
+.Example response (exists)
+[source,json]
+----
+{
+  "tool": "check_secret",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "exists": true,
+  "name": "my-api-key",
+  "type": "sharedSecret",
+  "expirationDate": "2027-01-01",
+  "lastModified": "2026-08-01T10:00:00Z"
+}
+----
+
+.Example response (not found)
+[source,json]
+----
+{
+  "tool": "check_secret",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "exists": false,
+  "error": "Secret 'my-api-key' not found in group 'My Group'."
 }
 ----
 
@@ -985,6 +1089,201 @@ Delete a model wallet.
   "walletId": "wlt_4f8a91d2",
   "walletName": "orders-team-wallet",
   "deleted": true
+}
+----
+
+[[describe-vault-auth-schema]]
+== describe_vault_auth_schema
+
+Discover supported vault providers and the credential fields required to onboard or edit a vault integration.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization UUID. When omitted, the caller's authenticated org is used.
+|No
+
+|`provider`
+|Vault provider to describe (`aws_secrets_manager`, `azure_key_vault`, `hashicorp_vault`). Omit along with `auth_method` to list all supported combinations.
+|No
+
+|`auth_method`
+|Authentication method to describe (for example, `azure_sp_secret`). Must be paired with `provider`; omit both to list all combinations.
+|No
+
+|===
+
+.Example request (list all)
+[source,json]
+----
+{
+  "name": "describe_vault_auth_schema",
+  "arguments": {}
+}
+----
+
+.Example response (list mode)
+[source,json]
+----
+{
+  "tool": "describe_vault_auth_schema",
+  "organizationId": "org-uuid",
+  "authMethods": [
+    {
+      "provider": "azure_key_vault",
+      "authMethod": "azure_sp_secret",
+      "enabled": true
+    },
+    {
+      "provider": "aws_secrets_manager",
+      "authMethod": "aws_static",
+      "enabled": true
+    }
+  ],
+  "message": "Choose a provider + authMethod, then call describe_vault_auth_schema again with both to see the exact fields required."
+}
+----
+
+.Example request (specific combination)
+[source,json]
+----
+{
+  "name": "describe_vault_auth_schema",
+  "arguments": {
+    "provider": "azure_key_vault",
+    "auth_method": "azure_sp_secret"
+  }
+}
+----
+
+.Example response (detail mode)
+[source,json]
+----
+{
+  "tool": "describe_vault_auth_schema",
+  "organizationId": "org-uuid",
+  "schema": {
+    "provider": "azure_key_vault",
+    "authMethod": "azure_sp_secret",
+    "rawSecrets": [
+      {
+        "key": "azure.spSecret.clientSecret",
+        "label": "Client Secret",
+        "required": true,
+        "type": "password"
+      }
+    ],
+    "connectionConfig": [
+      {
+        "key": "azure.spSecret.clientId",
+        "label": "Client ID",
+        "required": true,
+        "type": "text"
+      },
+      {
+        "key": "azure.spSecret.tenantId",
+        "label": "Tenant ID",
+        "required": true,
+        "type": "text"
+      }
+    ]
+  }
+}
+----
+
+[[edit-integration]]
+== edit_integration
+
+Modify an existing vault integration's configuration. Validates edited credentials and performs a connectivity test before saving.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this or `environment_id`, not both.
+|No
+
+|`integration_name`
+|Human-readable name of the vault integration. Provide this or `integration_id`, not both.
+|No
+
+|`integration_id`
+|UUID of the vault integration. Provide this or `integration_name`, not both.
+|No
+
+|`description`
+|New description (max 512 characters).
+|No
+
+|`sync_enabled`
+|Enable or disable automatic sync (reference-based integrations only).
+|No
+
+|`raw_secrets`
+|Updated credential values (managed integrations only).
+|No
+
+|`connection_config`
+|Updated non-secret configuration (managed integrations only).
+|No
+
+|`credential_refs`
+|Updated credential references (reference-based integrations only).
+|No
+
+|===
+
+NOTE: You must provide either `integration_name` or `integration_id`. You must also provide either `environment_id` or `environment_name`.
+
+.Example request
+[source,json]
+----
+{
+  "name": "edit_integration",
+  "arguments": {
+    "environment_name": "Production",
+    "integration_name": "My Azure Vault",
+    "description": "Updated description",
+    "raw_secrets": {
+      "azure.spSecret.clientSecret": "new-secret-value"
+    }
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "edit_integration",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "changedFields": [
+    "description",
+    "rawSecrets"
+  ],
+  "integration": {
+    "id": "integration-uuid",
+    "name": "My Azure Vault",
+    "description": "Updated description",
+    "provider": "azure_key_vault",
+    "authMethod": "azure_sp_secret",
+    "managed": true,
+    "version": 2,
+    "vaultUrl": "https://my-vault.vault.azure.net"
+  }
 }
 ----
 
@@ -2654,6 +2953,93 @@ List governance strategies for an organization. Shows the same searchable and fi
 }
 ----
 
+[[list-integration-secrets]]
+== list_integration_secrets
+
+List all secret references discovered by a specific vault integration, showing metadata only.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this or `environment_id`, not both.
+|No
+
+|`integration_name`
+|Human-readable name of the vault integration. Provide this or `integration_id`, not both.
+|No
+
+|`integration_id`
+|UUID of the vault integration. Provide this or `integration_name`, not both.
+|No
+
+|`offset`
+|Zero-based pagination offset. Default: `0`.
+|No
+
+|`limit`
+|Maximum number of items to return. Default: `10`.
+|No
+
+|===
+
+NOTE: You must provide either `integration_name` or `integration_id`. You must also provide either `environment_id` or `environment_name`.
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_integration_secrets",
+  "arguments": {
+    "environment_name": "Production",
+    "integration_name": "My Azure Vault",
+    "offset": 0,
+    "limit": 10
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "list_integration_secrets",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "integrationId": "integration-uuid",
+  "items": [
+    {
+      "name": "db-password",
+      "type": "sharedSecret",
+      "secretGroupName": "",
+      "expirationDate": "2027-06-01"
+    },
+    {
+      "name": "api-token",
+      "type": "sharedSecret",
+      "secretGroupName": "",
+      "expirationDate": ""
+    }
+  ],
+  "offset": 0,
+  "limit": 10,
+  "returned": 2,
+  "total": 2,
+  "has_more": false,
+  "next_offset": null
+}
+----
+
 [[list-llms]]
 == list_llms
 
@@ -3022,6 +3408,130 @@ This tool does not accept any input parameters.
 ----
 {
   "authenticated": false
+}
+----
+
+[[onboard-vault]]
+== onboard_vault
+
+Register a new external vault provider integration using the managed raw-value flow. Validates credentials and performs a live connectivity test before saving.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this *or* `environment_id`, not both.
+|No
+
+|`name`
+|Display name for the integration (3-64 characters).
+|Yes
+
+|`provider`
+|Vault provider. One of: `aws_secrets_manager`, `azure_key_vault`, `hashicorp_vault`.
+|Yes
+
+|`auth_method`
+|Authentication method for the provider (for example, `aws_static`, `azure_sp_secret`).
+|Yes
+
+|`vault_url`
+|Vault endpoint URL.
+|Yes
+
+|`raw_secrets`
+|Raw secret credential values keyed by the auth schema's secret-field key.
+|Yes
+
+|`connection_config`
+|Non-secret connection configuration keyed by the auth schema's config-field key.
+|No
+
+|`description`
+|Human-readable description (max 512 characters).
+|No
+
+|`sync_interval_minutes`
+|How often (minutes) to re-sync. Must be between `120` and `1440`. Default: `120`.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "onboard_vault",
+  "arguments": {
+    "environment_name": "Production",
+    "name": "My Azure Vault",
+    "provider": "azure_key_vault",
+    "auth_method": "azure_sp_secret",
+    "vault_url": "https://my-vault.vault.azure.net",
+    "raw_secrets": { "azure.spSecret.clientSecret": "" },
+    "connection_config": {
+      "azure.spSecret.clientId": "",
+      "azure.spSecret.tenantId": ""
+    },
+    "sync_interval_minutes": 120
+  }
+}
+----
+
+.Example response (success)
+[source,json]
+----
+{
+  "tool": "onboard_vault",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "created": true,
+  "integration": {
+    "id": "integration-uuid",
+    "name": "My Azure Vault",
+    "provider": "azure_key_vault",
+    "authMethod": "azure_sp_secret",
+    "vaultUrl": "https://my-vault.vault.azure.net",
+    "managed": true,
+    "version": 1,
+    "healthStatus": "healthy",
+    "syncIntervalMinutes": 120
+  },
+  "healthCheck": {
+    "status": "connected",
+    "permissions": {
+      "canList": true,
+      "canDescribe": true,
+      "canGetValue": true
+    },
+    "latencyMs": 245
+  }
+}
+----
+
+.Example response (connection failed)
+[source,json]
+----
+{
+  "tool": "onboard_vault",
+  "organizationId": "org-uuid",
+  "created": false,
+  "connected": false,
+  "reachable": true,
+  "missingPermissions": [
+    "canDescribe"
+  ],
+  "error": "Connection test failed. Integration was NOT saved. Reason: the vault credential is reachable but lacks required permission(s): canDescribe."
 }
 ----
 
@@ -3575,6 +4085,77 @@ Use this tool for repository-grounded conceptual questions. It searches a curate
 }
 ----
 
+[[search-secrets]]
+== search_secrets
+
+Search for secrets by name across all secret groups in an environment.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization UUID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target Anypoint environment UUID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this *or* `environment_id`, not both.
+|No
+
+|`search_term`
+|The secret name (or partial name) to search for. Must be at least 3 characters.
+|Yes
+
+|`limit`
+|Maximum number of results to return (default: `25`, max: `100`).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_secrets",
+  "arguments": {
+    "environment_name": "Production",
+    "search_term": "api-key",
+    "limit": 50
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "search_secrets",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "searchTerm": "api-key",
+  "results": [
+    {
+      "name": "my-api-key",
+      "type": "sharedSecret",
+      "secretGroupName": "Vault-A",
+      "expirationDate": "2027-01-01"
+    },
+    {
+      "name": "stripe-api-key",
+      "type": "sharedSecret",
+      "secretGroupName": "Payments",
+      "expirationDate": "2026-12-15"
+    }
+  ],
+  "count": 2
+}
+----
+
 [[select-active-business-group]]
 == select_active_business_group
 
@@ -3804,6 +4385,152 @@ Load observability dashboards data for embedded MCP app rendering.
     { "assetId": "orders-api", "name": "Orders API", "requests": 184028, "avgLatencyMs": 287 },
     { "assetId": "payments-api", "name": "Payments API", "requests": 142810, "avgLatencyMs": 214 }
   ]
+}
+----
+
+[[test-integration-connection]]
+== test_integration_connection
+
+Validate vault connectivity and credential permissions. Supports two modes: *pre-create* (supply provider, auth method, URL, and credentials to test before saving) and *post-create* (supply an integration name or ID to test an already-saved integration).
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Anypoint organization ID. When omitted, the caller's authenticated org is used.
+|No
+
+|`environment_id`
+|Target environment ID. Required unless `environment_name` is provided.
+|No
+
+|`environment_name`
+|Human-readable environment name. Provide this or `environment_id`, not both.
+|No
+
+|`integration_name`
+|Post-create mode: human-readable vault integration name. Provide this or `integration_id`.
+|No
+
+|`integration_id`
+|Post-create mode: vault integration UUID. Provide this or `integration_name`.
+|No
+
+|`provider`
+|Pre-create mode: vault provider (`aws_secrets_manager`, `azure_key_vault`, `hashicorp_vault`).
+|No
+
+|`auth_method`
+|Pre-create mode: authentication method for the provider.
+|No
+
+|`vault_url`
+|Pre-create mode: vault endpoint URL.
+|No
+
+|`raw_secrets`
+|Pre-create managed flow: credential values.
+|No
+
+|`connection_config`
+|Non-secret connection configuration.
+|No
+
+|`credential_refs`
+|Pre-create reference flow: credential references.
+|No
+
+|`managed`
+|Pre-create mode: `true` for managed flow, `false` for reference flow. Defaults based on `raw_secrets` presence.
+|No
+
+|===
+
+.Example request (post-create)
+[source,json]
+----
+{
+  "name": "test_integration_connection",
+  "arguments": {
+    "environment_name": "Production",
+    "integration_name": "My Azure Vault"
+  }
+}
+----
+
+.Example request (pre-create managed)
+[source,json]
+----
+{
+  "name": "test_integration_connection",
+  "arguments": {
+    "environment_name": "Production",
+    "provider": "azure_key_vault",
+    "auth_method": "azure_sp_secret",
+    "vault_url": "https://my-vault.vault.azure.net",
+    "raw_secrets": {
+      "azure.spSecret.clientSecret": ""
+    },
+    "connection_config": {
+      "azure.spSecret.clientId": "",
+      "azure.spSecret.tenantId": ""
+    }
+  }
+}
+----
+
+.Example response (fully connected)
+[source,json]
+----
+{
+  "tool": "test_integration_connection",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "environmentName": "Production",
+  "integrationId": "integration-uuid",
+  "mode": "post_create",
+  "connected": true,
+  "reachable": true,
+  "requiredPermissions": [
+    "canList",
+    "canDescribe",
+    "canGetValue"
+  ],
+  "result": {
+    "status": "connected",
+    "permissions": {
+      "canList": true,
+      "canDescribe": true,
+      "canGetValue": true
+    },
+    "latencyMs": 180
+  }
+}
+----
+
+.Example response (under-permissioned)
+[source,json]
+----
+{
+  "tool": "test_integration_connection",
+  "organizationId": "org-uuid",
+  "environmentId": "env-uuid",
+  "mode": "pre_create",
+  "connected": false,
+  "reachable": true,
+  "missingPermissions": [
+    "canGetValue"
+  ],
+  "warning": "The vault is reachable but the credential is missing required permission(s): canGetValue.",
+  "result": {
+    "status": "connected",
+    "permissions": {
+      "canList": true,
+      "canDescribe": true,
+      "canGetValue": false
+    }
+  }
 }
 ----
 
