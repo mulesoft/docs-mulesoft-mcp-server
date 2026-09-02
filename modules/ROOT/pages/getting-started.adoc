@@ -17,7 +17,7 @@ Before you install and use MuleSoft DX MCP Server, ensure you have installed the
 You also need permissions or access to perform these tasks:
 
 * Organization administrator access: xref:access-management::connected-apps-overview.adoc[create a connected app]
-* xref:access-management::enabling-generative-ai.adoc[Enable Generative AI] access to: run the `generate_mule_flow` and `generate_api_spec` tools.
+* xref:access-management::enabling-generative-ai.adoc[] access to: run the `generate_mule_flow` and `generate_api_spec` tools.
 
 == Create a Connected App
 
