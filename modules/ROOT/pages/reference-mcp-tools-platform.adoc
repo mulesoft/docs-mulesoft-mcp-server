@@ -196,31 +196,85 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 
 .9+s|Cost Management
 |<<create-model-wallet,create_model_wallet>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<delete-model-wallet,delete_model_wallet>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<edit-model-wallet,edit_model_wallet>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-model-wallet-details,fetch_model_wallet_details>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-model-wallets,fetch_model_wallets>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-cost-instance-timeseries,fetch_cost_instance_timeseries>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-cost-instances,fetch_cost_instances>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-cost-optimization-recommendations,fetch_cost_optimization_recommendations>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 |<<fetch-cost-overview,fetch_cost_overview>>
-|None
+a|
+* API Manager: Manage Policies
+* API Manager: View APIs Configuration
+* API Manager: View Policies
+* Anypoint Monitoring: Monitoring Viewer
+* Exchange: Exchange Viewer
+* Anypoint Code Builder: Mule Developer Generative AI User (Optional)
 
 .5+s|Omni Gateway
 |<<create-omni-gateway,create_omni_gateway>>
@@ -250,25 +304,25 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 
 .7+s|Secrets Manager
 |<<check-secret,check_secret>>
-|read:organization
+|Manage vault integrations, read secrets metadata, and manage secret groups
 
 |<<describe-vault-auth-schema,describe_vault_auth_schema>>
-|read:organization
+|Manage vault integrations
 
 |<<edit-integration,edit_integration>>
-|read:organization
+|Manage vault integrations
 
 |<<list-integration-secrets,list_integration_secrets>>
-|read:organization
+|Manage vault integrations, read secrets metadata, and manage secret groups
 
 |<<onboard-vault,onboard_vault>>
-|read:organization
+|Manage vault integrations
 
 |<<search-secrets,search_secrets>>
-|read:organization
+|Manage vault integrations, read secrets metadata, and manage secret groups
 
 |<<test-integration-connection,test_integration_connection>>
-|read:organization
+|Manage vault integrations
 
 |===
 
