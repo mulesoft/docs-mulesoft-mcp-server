@@ -200,8 +200,8 @@ For more information about Anypoint Platform regions, see xref:hosting-home::ind
 In Claude Desktop:
 
 . Click *Customize* > *Connectors*.
-. Click the add (+) icon, and then click *Add Custom Connector*.
-. Name the connection, and enter the *Remote Universal URL*, for example, https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
+. Click the add (+) icon, and then click *Browse Connectors*.
+. Search for "MuleSoft" and then add the connector.
 . Enter the Client ID and Client Secret from your connected app.
 
 In your connected app:
