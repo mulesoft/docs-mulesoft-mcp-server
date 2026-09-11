@@ -33,7 +33,8 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 |===
 |To...|Required Permission |Associated Tool
 
-|Use natural language prompts to develop and generate flows using Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User a|
+|Use natural language prompts to develop and generate flows using Anypoint Code Builder Generative Flows. |Mule Developer Generative AI User +
+`create:generations` a|
 
 * xref:reference-mcp-tools.adoc#generate-mule-flow[generate_mule_flow]
 * xref:reference-mcp-tools.adoc#generate-api-spec[generate_api_spec]
@@ -49,7 +50,8 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 |===
 |To...|Required Permission |Associated Tool
 
-|View but not modify content in Anypoint Monitoring.|Monitoring Viewer a|
+|View but not modify content in Anypoint Monitoring.|Monitoring Viewer +
+`view:monitoring` a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
@@ -63,11 +65,14 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 |===
 |To...|Required Permission |Associated Tool
 
-|View and modify API configurations in the specified environment.|Manage API Configuration|xref:reference-mcp-tools.adoc#create-and-manage-api-instances[create_and_manage_api_instances]
+|View and modify API configurations in the specified environment.|Manage API Configuration +
+`manage:api_configuration` |xref:reference-mcp-tools.adoc#create-and-manage-api-instances[create_and_manage_api_instances]
 
-|View, create, modify, and delete API policies in the specified environment.|Manage Policies |xref:reference-mcp-tools.adoc#manage-api-instance-policy[manage_api_instance_policy]
+|View, create, modify, and delete API policies in the specified environment.|Manage Policies +
+`manage:api_policies` |xref:reference-mcp-tools.adoc#manage-api-instance-policy[manage_api_instance_policy]
 
-|View API configurations in the specified environment.|View APIs Configuration a|
+|View API configurations in the specified environment.|View APIs Configuration +
+`read:api_configuration` a|
 
 * xref:reference-mcp-tools.adoc#list-api-instances[list_api_instances]
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights] 
@@ -83,13 +88,17 @@ Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP 
 a|
 * View, create, and download assets within a business group.
 * Edit asset portal content in an existing asset version.
-|Exchange Administrator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+|Exchange Administrator +
+`manage:exchange` |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|View, create, and download assets within a business group. |Exchange Contributor |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+|View, create, and download assets within a business group. |Exchange Contributor +
+`edit:exchange` |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|Create new assets within a business group's catalog.|Exchange Creator |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
+|Create new assets within a business group's catalog.|Exchange Creator +
+`create:exchange` |xref:reference-mcp-tools.adoc#create-and-manage-assets[create_and_manage_assets]
 
-|View and download assets within a business group.|Exchange Viewer a|
+|View and download assets within a business group.|Exchange Viewer +
+`read:exchange` a|
 
 * xref:reference-mcp-tools.adoc#search-asset[search_asset]
 * xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
@@ -104,12 +113,14 @@ a|
 |===
 |To...|Required Permission |Associated Tool
 
-|View organization information.|View Organization a|
+|View organization information.|View Organization +
+`read:organization` a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 * xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application]
 
-|View connected applications.|View Connected Applications a| 
+|View connected applications.|View Connected Applications +
+`read:orgconnapps` a| 
 
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 * xref:reference-mcp-tools.adoc#list-applications[list_applications]
@@ -124,21 +135,25 @@ a|
 |===
 |To...|Required Permission |Associated Tool
 
-|View applications in a specific environment.|Read Applications |xref:reference-mcp-tools.adoc#list-applications[list_applications]
+|View applications in a specific environment.|Read Applications +
+`read:applications` |xref:reference-mcp-tools.adoc#list-applications[list_applications]
 
-|Create applications in a specific environment.|Create Applications a|
+|Create applications in a specific environment.|Create Applications +
+`create:applications` a|
 
 * xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
 * xref:reference-mcp-tools.adoc#update-mule-application[update_mule_application]
 
-|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics a|
+|Query Runtime Fabric instances in the organization.|Read Runtime Fabrics +
+`read:runtime_fabrics` a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
 * xref:reference-mcp-tools.adoc#list-applications[list_applications]
 * xref:reference-mcp-tools.adoc#deploy-mule-application[deploy_mule_application]
 
-|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer a|
+|View CloudHub and CloudHub 2.0 network resources.|CloudHub Network Viewer +
+`read:cloudhub_networking` a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]
@@ -150,7 +165,8 @@ a|
 |===
 |To...|Required Permission |Associated Tool
 
-|View usage reports.|Usage Viewer a|
+|View usage reports.|Usage Viewer +
+`view:metering` a|
 
 * xref:reference-mcp-tools.adoc#get-platform-insights[get_platform_insights]
 * xref:reference-mcp-tools.adoc#get-reuse-metrics[get_reuse_metrics]

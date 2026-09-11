@@ -194,22 +194,22 @@ When configuring your AI tool, use the endpoint for your region.
 
 Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
 
-* https://omni.mulesoft.com/mcp
-* https://omni.mulesoft.com/mcp/sse
+* \https://omni.mulesoft.com/mcp
+* \https://omni.mulesoft.com/mcp/sse
 
 [cols="1,3"]
 |===
 |Type |URL
 |US Prod
-|https://omni.mulesoft.com[omni.mulesoft.com] (alias) / https://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
+|\https://omni.mulesoft.com[omni.mulesoft.com] (alias) / \https://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
 |EU Prod
-|https://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
+|\https://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
 |CA Prod
-|https://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
+|\https://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
 |JP Prod
-|https://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
+|\https://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
 |IN Prod
-|https://in1.omni.mulesoft.com[in1.omni.mulesoft.com]
+|\https://in1.omni.mulesoft.com[in1.omni.mulesoft.com]
 |===
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
@@ -226,7 +226,7 @@ In Claude Desktop:
 In your connected app:
 
 . Log in to Anypoint Platform, and open your connected app.
-. In the *Redirect URLs* field, enter `https://claude.ai/api/mcp/auth_callback`.
+. In the *Redirect URLs* field, enter `\https://claude.ai/api/mcp/auth_callback`.
 . To apply changes, click *Continue*.
 
 Download https://claude.com/download[Claude Desktop].
@@ -261,7 +261,7 @@ In ChatGPT:
 
 . Click *Apps* > *Settings.*
 . Click the settings icon, click *Create App*, and configure the following:
-.. Name the connection, and enter the *Remote Universal URL*, for example, https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
+.. Name the connection, and enter the *Remote Universal URL*, for example, `\https://omni.mulesoft.com/mcp`.
 . In *OAuth* > *Advanced settings* > *Client registration*, configure the following:
 .. Enter the Client ID and Client Secret from your connected app.
 .. Copy the Callback URL.
