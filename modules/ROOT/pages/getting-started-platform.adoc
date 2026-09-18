@@ -190,26 +190,31 @@ IMPORTANT: MuleSoft remote MCP servers currently only support manual client regi
 
 === Available Client Connections
 
-When configuring your AI tool, use the endpoint for your region.
+When configuring your AI tool, use the endpoint for your control plane.
 
-Use `/mcp`, and fall back to `/mcp/sse` if the client does not connect.
+Use the `/mcp` path (Streamable HTTP). If the client does not connect, fall back to `/mcp/sse` (Server-Sent Events), which some older clients still require.
 
-* \https://omni.mulesoft.com/mcp
-* \https://omni.mulesoft.com/mcp/sse
+For example, on US Cloud:
+
+* \https://us1.omni.mulesoft.com/mcp
+* \https://us1.omni.mulesoft.com/mcp/sse
 
 [cols="1,3"]
 |===
-|Type |URL
-|US Prod
-|\https://omni.mulesoft.com[omni.mulesoft.com] (alias) / \https://us1.omni.mulesoft.com[us1.omni.mulesoft.com]
-|EU Prod
-|\https://eu1.omni.mulesoft.com[eu1.omni.mulesoft.com]
-|CA Prod
-|\https://ca1.omni.mulesoft.com[ca1.omni.mulesoft.com]
-|JP Prod
-|\https://jp1.omni.mulesoft.com[jp1.omni.mulesoft.com]
-|IN Prod
-|\https://in1.omni.mulesoft.com[in1.omni.mulesoft.com]
+|Control Plane |URL
+|US Cloud
+|\https://us1.omni.mulesoft.com +
+(\https://omni.mulesoft.com is an alias)
+|EU Cloud
+|\https://eu1.omni.mulesoft.com
+|Canada Cloud
+|\https://ca1.omni.mulesoft.com
+|Japan Cloud
+|\https://jp1.omni.mulesoft.com
+|India Cloud
+|\https://in1.omni.mulesoft.com
+|Australia Cloud
+|\https://au1.omni.mulesoft.com
 |===
 
 For more information about Anypoint Platform regions, see xref:hosting-home::index.adoc#control-plane-hosting-options[Control Plane Hosting Options].
