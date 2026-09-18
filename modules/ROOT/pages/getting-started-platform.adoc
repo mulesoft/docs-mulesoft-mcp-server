@@ -4,13 +4,19 @@ Scan, discover, govern, and monitor APIs, agents, MCP servers, and LLMs across y
 
 == Create a Connected App
 
-Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#create-connected-app[Create a Connected App That Acts on the User’s Behalf] to create a connected app.
+Create a connected app that acts on your behalf so AI clients can access Anypoint Platform. After you create the app, copy the Client ID and Client Secret. You need these values when you configure your IDE.
 
-When prompted, add the Full Access and Background permission scopes. You need these scopes to use the MCP server.
+. In Anypoint Platform, xref:access-management::creating-connected-apps-dev.adoc#create-connected-app[create a connected app that acts on behalf of a user]. As part of the process, configure the app with the following settings:
+.. Select the *Authorization Code* and *Refresh Token* grant types.
+.. In *Redirect URIs*, enter the redirect URL for the AI client you plan to use. See <<configure-your-ide>> for the URL for each supported client.
+.. Click *Add Scopes* and add these scopes:
+** Full Access (`full`)
+** Background Access (`offline_access`)
++
+You need these scopes to use the MCP server.
+.. Copy the Client ID and Client Secret.
 
-IMPORTANT: When creating the connected app, be sure to select the Authorization Code and Refresh Token grant types. 
-
-Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in these tables require specific permission scopes.
+Some tools require additional permission scopes. Refer to the xref:reference-mcp-tools-platform.adoc[MuleSoft Platform MCP Server Tool Reference] for details on all MuleSoft Platform MCP Server tools. Only tools listed in the following tables require specific permission scopes.
 
 === Exchange
 [cols="2,1,3"]
@@ -398,8 +404,8 @@ To resolve authentication issues, follow these troubleshooting steps.
 ** Add the correct redirect URL to your connected app.
 ** Add the necessary permissions scopes to your connected app.
 * If you encounter a permissions-related error when attempting to authorize, add these permission scopes to your connected app: 
-** `Full Access`
-** `Background Access`
+** Full Access (`full`)
+** Background Access (`offline_access`)
 * If authorization fails due to a redirect URL mismatch:
 ** IDE-based clients (Claude Code, Cursor, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`).
 
