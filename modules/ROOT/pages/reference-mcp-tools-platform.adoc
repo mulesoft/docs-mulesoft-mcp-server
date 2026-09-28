@@ -38,69 +38,69 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |read:exchange
 
 |<<select-api-version,select_api_version>>
-|read:organization
+|read:exchange
 
 |<<list-provider-gateways,list_provider_gateways>>
-|read:api_configuration, read:api_policies
+|read:organization, read:managedgateways
 
 |<<view-api-instance-details,view_api_instance_details>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration
 
 |<<view-api-instance-monitoring,view_api_instance_monitoring>>
-|view:monitoring
+|view:monitoring, read:api_configuration
 
 |<<view-api-instance-policies,view_api_instance_policies>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration, read:api_policies
 
 |<<view-api-version-details,view_api_version_details>>
 |read:exchange
 
 |<<view-api-version-instances,view_api_version_instances>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration
 
 .8+s|Policy Management
 |<<apply-policy-to-instance,apply_policy_to_instance>>
-|manage:apis
+|read:exchange, read:api_configuration, read:api_policies, manage:api_policies
 
 |<<create-automated-policy-strategy,create_automated_policy_strategy>>
-|manage:apis
+|read:api_configuration, read:api_policies, manage:api_policies, read:exchange
 
 |<<delete-automated-policy-strategy,delete_automated_policy_strategy>>
-|manage:apis
+|read:api_configuration, read:api_policies, manage:api_policies, read:exchange
 
 |<<fetch-automated-policy-template,fetch_automated_policy_template>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration, read:api_policies
 
 |<<get-policy-template-form,get_policy_template_form>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_policies
 
 |<<list-governance-strategies,list_governance_strategies>>
-|read:api_configuration, read:api_policies
+|view:ang_governance_profiles, read:exchange, read:api_policies
 
 |<<prepare-automated-policy-creation,prepare_automated_policy_creation>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration, read:api_policies
 
 |<<prepare-policy-creation,prepare_policy_creation>>
-|read:api_configuration, read:api_policies
+|read:exchange, read:api_configuration, read:api_policies
 
 .10+s|Governance
 |<<check-guardrail-scope-targets,check_guardrail_scope_targets>>
 |read:api_configuration, read:api_policies
 
 |<<check-policy-conformance,check_policy_conformance>>
-|view:ang_governance_profiles
+|read:exchange, read:api_configuration, read:api_policies
 
 |<<create-guardrail,create_guardrail>>
 |admin:ang_governance_profiles
 
 |<<delete-governance-strategy,delete_governance_strategy>>
-|admin:ang_governance_profiles
+|admin:ang_governance_profiles, manage:exchange (when deleting customized ruleset asset versions)
 
 |<<fetch-governance-service-report,fetch_governance_service_report>>
-|view:ang_governance_profiles
+|None
 
 |<<fetch-governance-services,fetch_governance_services>>
-|view:ang_governance_profiles
+|None
 
 |<<fetch-guardrail-ruleset,fetch_guardrail_ruleset>>
 |read:api_configuration, read:api_policies
@@ -109,23 +109,23 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |read:api_configuration, read:api_policies
 
 |<<view-api-version-governance-report,view_api_version_governance_report>>
-|view:ang_governance_profiles
+|read:exchange
 
 |<<view-governance-report,view_governance_report>>
-|view:ang_governance_profiles
+|None
 
 .4+s|Monitoring & Observability
 |<<fetch-monitoring-drill-down,fetch_monitoring_drill_down>>
-|view:monitoring
+|view:monitoring, read:api_configuration; read:applications, read:servers (when querying those resource types)
 
 |<<fetch-monitoring-instance,fetch_monitoring_instance>>
-|view:monitoring
+|view:monitoring, read:api_configuration; read:applications, read:servers (when querying those resource types)
 
 |<<fetch-monitoring-overview,fetch_monitoring_overview>>
-|view:monitoring
+|view:monitoring, read:api_configuration; read:applications, read:servers (when querying those resource types)
 
 |<<show-observability-performance,show_observability_performance>>
-|view:monitoring
+|view:monitoring, read:api_configuration; read:applications, read:servers (when querying those resource types)
 
 .9+s|Search & Discovery
 |<<fetch-service-facets,fetch_service_facets>>
@@ -153,176 +153,122 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |read:exchange
 
 |<<search-repository-knowledge,search_repository_knowledge>>
-|read:exchange
+|None
 
 .8+s|MCP Servers
 |<<get-mcp-server-state,get_mcp_server_state>>
-|edit:exchange
+|read:exchange, read:api_configuration
 
 |<<get-provision-status,get_provision_status>>
-|edit:exchange
+|None
 
 |<<get-trusted-mcp-catalog,get_trusted_mcp_catalog>>
-|edit:exchange
+|read:exchange
 
 |<<list-mcp-servers,list_mcp_servers>>
 |read:exchange
 
 |<<provision-mcp-server,provision_mcp_server>>
-|edit:exchange
+|edit:exchange, read:organization, view:access_controls, manage:api_configuration, manage:api_policies, read:servers, manage:api_proxies
 
 |<<resume-provision-job,resume_provision_job>>
 |edit:exchange
 
 |<<update-mcp-server,update_mcp_server>>
-|edit:exchange
+|edit:exchange, read:organization, view:access_controls, manage:api_configuration, manage:api_policies, read:servers, manage:api_proxies
 
 |<<view-mcp-server-details,view_mcp_server_details>>
-|read:exchange
+|read:exchange, read:api_configuration
 
 .2+s|Agents
 |<<list-agents,list_agents>>
 |read:exchange
 
 |<<view-agent-details,view_agent_details>>
-|read:exchange
+|read:exchange, read:api_configuration (when enriching deployed API-instance details)
 
 .2+s|LLMs
 |<<list-llms,list_llms>>
 |read:exchange
 
 |<<view-llm-details,view_llm_details>>
-|read:exchange
+|read:exchange, read:api_configuration
 
 .9+s|Cost Management
 |<<create-model-wallet,create_model_wallet>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|create:apis, read:api_configuration, manage:api_configuration, manage:api_policies
 
 |<<delete-model-wallet,delete_model_wallet>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|create:apis, read:api_configuration, manage:api_configuration, manage:api_policies
 
 |<<edit-model-wallet,edit_model_wallet>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|create:apis, read:api_configuration, manage:api_configuration, manage:api_policies
 
 |<<fetch-model-wallet-details,fetch_model_wallet_details>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|create:apis, read:api_configuration, manage:api_configuration, manage:api_policies
 
 |<<fetch-model-wallets,fetch_model_wallets>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|create:apis, read:api_configuration, manage:api_configuration, manage:api_policies
 
 |<<fetch-cost-instance-timeseries,fetch_cost_instance_timeseries>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|view:monitoring, read:exchange, read:api_configuration, read:api_policies
 
 |<<fetch-cost-instances,fetch_cost_instances>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|view:monitoring, read:exchange, read:api_configuration, read:api_policies
 
 |<<fetch-cost-optimization-recommendations,fetch_cost_optimization_recommendations>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|view:monitoring, read:exchange, read:api_configuration, read:api_policies
 
 |<<fetch-cost-overview,fetch_cost_overview>>
-a|
-* API Manager: Manage Policies (`manage:api_policies`)
-* API Manager: View APIs Configuration (`read:api_configuration`)
-* API Manager: View Policies (`read:api_policies`)
-* Anypoint Monitoring: Monitoring Viewer (`view:monitoring`)
-* Exchange: Exchange Viewer (`read:exchange`)
-* Anypoint Code Builder: Mule Developer Generative AI User (`create:generations`) (Optional)
+|view:monitoring, read:api_configuration
 
 .5+s|Omni Gateway
 |<<create-omni-gateway,create_omni_gateway>>
-|manage:application_data
+|read:organization, read:managedgateways, manage:managedgateways
 
 |<<get-omni-gateway-target-domains,get_omni_gateway_target_domains>>
-|manage:application_data
+|None
 
 |<<get-omni-gateway-usage-report,get_omni_gateway_usage_report>>
-|manage:application_data
+|read:organization, read:managedgateways
 
 |<<list-omni-gateway-environments,list_omni_gateway_environments>>
-|manage:application_data
+|read:organization
 
 |<<list-omni-gateway-targets,list_omni_gateway_targets>>
-|manage:application_data
+|read:organization, read:managedgateways
 
 .3+s|Scanners
 |<<create-scanner,create_scanner>>
-|manage:application_data
+|manage:exchange
 
 |<<list-scanner-providers,list_scanner_providers>>
-|manage:application_data
+|manage:exchange
 
 |<<test-scanner-connection,test_scanner_connection>>
-|manage:application_data
+|manage:exchange
 
 .7+s|Secrets Manager
 |<<check-secret,check_secret>>
-|Manage vault integrations, read secrets metadata, and manage secret groups
+|read:secrets_metadata
 
 |<<describe-vault-auth-schema,describe_vault_auth_schema>>
-|Manage vault integrations
+|manage:vault_integrations
 
 |<<edit-integration,edit_integration>>
-|Manage vault integrations
+|read:vault_integrations, manage:vault_integrations
 
 |<<list-integration-secrets,list_integration_secrets>>
-|Manage vault integrations, read secrets metadata, and manage secret groups
+|read:vault_integrations, read:secrets_metadata
 
 |<<onboard-vault,onboard_vault>>
-|Manage vault integrations
+|manage:vault_integrations
 
 |<<search-secrets,search_secrets>>
-|Manage vault integrations, read secrets metadata, and manage secret groups
+|read:secrets_metadata
 
 |<<test-integration-connection,test_integration_connection>>
-|Manage vault integrations
+|read:vault_integrations, manage:vault_integrations
 
 |===
 
@@ -3964,7 +3910,7 @@ Provision a composite MCP server on Flex Gateway from selected catalog systems.
     "server_name": "<server_name>",
     "target_id": "<target_id>",
     "target_name": "<target_name>",
-    "base_path": "/<base_path>",
+    "base_path": "/<base_path>",check_guardrail_scope_targets
     "servers": [
       {}
     ]
