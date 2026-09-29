@@ -58,8 +58,11 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<view-api-version-instances,view_api_version_instances>>
 |read:exchange, read:api_configuration
 
-.8+s|Policy Management
+.14+s|Policy Management
 |<<apply-policy-to-instance,apply_policy_to_instance>>
+|read:exchange, read:api_configuration, read:api_policies, manage:api_policies
+
+|<<apply-universal-policy,apply_universal_policy>>
 |read:exchange, read:api_configuration, read:api_policies, manage:api_policies
 
 |<<create-automated-policy-strategy,create_automated_policy_strategy>>
@@ -71,17 +74,32 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<fetch-automated-policy-template,fetch_automated_policy_template>>
 |read:exchange, read:api_configuration, read:api_policies
 
+|<<get-policy-operation-status,get_policy_operation_status>>
+|read:exchange, read:api_configuration, read:api_policies
+
 |<<get-policy-template-form,get_policy_template_form>>
 |read:exchange, read:api_policies
 
 |<<list-governance-strategies,list_governance_strategies>>
 |view:ang_governance_profiles, read:exchange, read:api_policies
 
+|<<list-instance-policy-operations,list_instance_policy_operations>>
+|read:exchange, read:api_configuration, read:api_policies
+
+|<<list-universal-policies,list_universal_policies>>
+|read:exchange, read:api_policies
+
 |<<prepare-automated-policy-creation,prepare_automated_policy_creation>>
 |read:exchange, read:api_configuration, read:api_policies
 
 |<<prepare-policy-creation,prepare_policy_creation>>
 |read:exchange, read:api_configuration, read:api_policies
+
+|<<remove-applied-policy,remove_applied_policy>>
+|read:exchange, read:api_configuration, read:api_policies, manage:api_policies
+
+|<<toggle-applied-policy,toggle_applied_policy>>
+|read:exchange, read:api_configuration, read:api_policies, manage:api_policies
 
 .10+s|Governance
 |<<check-guardrail-scope-targets,check_guardrail_scope_targets>>
@@ -275,54 +293,62 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 [[apply-policy-to-instance]]
 == apply_policy_to_instance
 
-Apply the selected policy to the target asset instance using the provided configuration data.
+Apply the selected policy to a single target asset instance using the provided configuration data.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`api_instance_id`
-|API instance ID (string).
+|Numeric target instance ID (string).
 |Yes
 
-|`asset_id`
-|Asset ID (string or null).
-|No
-
-|`asset_version`
-|Asset version (string or null).
+|`asset`
+|Exchange coordinates: `group_id`, `asset_id`, and `asset_version` (object). Required for external provider writes.
 |No
 
 |`configuration_data`
-|Configuration data (PolicyConfigurationData or null).
+|Full template-conforming configuration (object).
 |No
 
 |`disabled`
-|Disabled (boolean or null).
+|Disabled (boolean).
 |No
 
 |`environment_id`
-|Environment ID (string).
-|Yes
+|Environment ID (string). Required for MuleSoft. Omit for the external Universal API.
+|No
 
-|`group_id`
-|Group ID (string or null).
+|`gateway_id`
+|Unused on the external Universal API path (string).
+|No
+
+|`injection_point`
+|Injection point (string). Defaults from the template when omitted.
+|No
+
+|`label`
+|Display label (string).
 |No
 
 |`order`
-|Order (integer or null).
+|Order (integer).
 |No
 
 |`organization_id`
-|Organization ID (string).
+|Anypoint organization ID (string).
 |Yes
 
 |`pointcut_data`
-|Pointcut data (PolicyPointcutData or null).
+|Pointcut data (object).
 |No
 
 |`policy_template_id`
-|Policy template ID (string or null).
+|Selected template ID (string).
+|No
+
+|`provider`
+|`kong`, `apigee`, or `azure` for the external path (string). Omit for MuleSoft.
 |No
 
 |===
@@ -334,8 +360,14 @@ Apply the selected policy to the target asset instance using the provided config
   "name": "apply_policy_to_instance",
   "arguments": {
     "organization_id": "<organization_id>",
-    "environment_id": "<environment_id>",
-    "api_instance_id": "<api_instance_id>"
+    "api_instance_id": "12345",
+    "provider": "kong",
+    "asset": {
+      "group_id": "<group_id>",
+      "asset_id": "<asset_id>",
+      "asset_version": "<version>"
+    },
+    "configuration_data": {}
   }
 }
 ----
@@ -344,14 +376,69 @@ Apply the selected policy to the target asset instance using the provided config
 [source,json]
 ----
 {
-  "policyId": "p_4f8a91d2",
-  "apiInstanceId": "16834521",
-  "policyTemplateId": "client-id-enforcement",
-  "assetId": "client-id-enforcement",
-  "assetVersion": "1.3.3",
-  "order": 1,
-  "disabled": false,
-  "status": "applied"
+  "tool": "apply_policy_to_instance",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "status": "success",
+  "httpStatus": 202,
+  "request": { "groupId": "<group_id>", "assetId": "<asset_id>", "assetVersion": "<version>" },
+  "result": { "id": "<operation_id>" },
+  "via": "apim_universal",
+  "operationStatus": "accepted"
+}
+----
+
+[[apply-universal-policy]]
+== apply_universal_policy
+
+Apply an open (canonical) policy to one or more API instances across any provider in a single call.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`configuration`
+|Configuration values that conform to the selected `configurationSchema` (object or null).
+|No
+
+|`instance_ids`
+|One or more API instance IDs. Instances can span providers (list of strings).
+|Yes
+
+|`organization_id`
+|Anypoint organization ID. (string or null).
+|No
+
+|`policy_name`
+|Canonical template name returned by `list_universal_policies` (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "apply_universal_policy",
+  "arguments": {
+    "policy_name": "rate-limiting",
+    "instance_ids": ["12345", "67890"],
+    "configuration": {}
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "accepted",
+  "organizationId": "<organization_id>",
+  "policyName": "rate-limiting",
+  "instanceIds": ["12345", "67890"],
+  "operationId": "<operation_id>",
+  "message": "The apply was accepted and is running asynchronously."
 }
 ----
 
@@ -2733,45 +2820,100 @@ Get current managed Omni Gateway size entitlement usage.
 }
 ----
 
+[[get-policy-operation-status]]
+== get_policy_operation_status
+
+Check the status of an asynchronous policy operation.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`operation_id`
+|Operation ID returned by an asynchronous canonical or native policy apply (string).
+|Yes
+
+|`organization_id`
+|Organization ID (string or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_policy_operation_status",
+  "arguments": {
+    "operation_id": "<operation_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok",
+  "organizationId": "<organization_id>",
+  "operationId": "<operation_id>",
+  "operation": {
+    "status": "COMPLETED",
+    "type": "CANONICAL_APPLY",
+    "displayName": "<operation_name>",
+    "startTime": "<timestamp>",
+    "closeTime": "<timestamp>"
+  }
+}
+----
+
 [[get-policy-template-form]]
 == get_policy_template_form
 
-Load one policy template detail, including configuration schema, to dynamically render the creation form. Use this immediately after the user selects a policy in prepare_policy_creation.
+Load one policy template detail, including configuration schema, to dynamically render the creation form. Use this immediately after selecting a policy in `prepare_policy_creation`.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`api_instance_id`
-|API instance ID (string).
+|Numeric target instance ID (string).
 |Yes
 
 |`asset_id`
-|Asset ID (string or null).
+|Exchange policy-template asset ID (string). Required with `group_id` and `asset_version` on external creation and edit paths.
 |No
 
 |`asset_version`
-|Asset version (string or null).
+|Exchange policy-template version (string). Required with `group_id` and `asset_id` on external creation and edit paths.
 |No
 
 |`direction`
-|Direction (string).
+|`inbound` or `outbound` (string). Defaults to `inbound`.
 |No
 
 |`environment_id`
-|Environment ID (string).
-|Yes
+|MuleSoft environment ID (string). Optional on the external path.
+|No
+
+|`gateway_id`
+|Unused on the external Universal API path (string).
+|No
 
 |`group_id`
-|Group ID (string or null).
+|Exchange policy-template group ID (string). Required with `asset_id` and `asset_version` on external creation and edit paths.
 |No
 
 |`organization_id`
-|Organization ID (string).
+|Anypoint organization ID (string).
 |Yes
 
+|`provider`
+|`kong`, `apigee`, or `azure` for the external schema (string).
+|No
+
 |`template_id`
-|Template ID (string or null).
+|Selected template ID from `prepare_policy_creation` (string).
 |No
 
 |===
@@ -2783,8 +2925,11 @@ Load one policy template detail, including configuration schema, to dynamically 
   "name": "get_policy_template_form",
   "arguments": {
     "organization_id": "<organization_id>",
-    "environment_id": "<environment_id>",
-    "api_instance_id": "<api_instance_id>"
+    "api_instance_id": "12345",
+    "provider": "kong",
+    "group_id": "<group_id>",
+    "asset_id": "<asset_id>",
+    "asset_version": "<version>"
   }
 }
 ----
@@ -2793,17 +2938,13 @@ Load one policy template detail, including configuration schema, to dynamically 
 [source,json]
 ----
 {
-  "templateId": "rate-limiting",
-  "name": "Rate Limiting",
-  "version": "1.4.0",
-  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
-  "form": {
-    "fields": [
-      { "name": "rateLimits", "type": "array", "required": true, "label": "Rate Limits" },
-      { "name": "exposeHeaders", "type": "boolean", "required": false, "label": "Expose Headers", "default": true }
-    ]
-  },
-  "direction": "inbound"
+  "tool": "get_policy_template_form",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "direction": "inbound",
+  "template": { "assetId": "<asset_id>", "assetVersion": "<version>", "configuration": {} },
+  "via": "apim_universal"
 }
 ----
 
@@ -3133,6 +3274,64 @@ List governance strategies for an organization. Shows the same searchable and fi
     }
   ],
   "total": 6
+}
+----
+
+[[list-instance-policy-operations]]
+== list_instance_policy_operations
+
+List the asynchronous policy operations for an external gateway instance (Kong, Apigee, or Azure).
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Numeric external-gateway API Manager instance ID (string).
+|Yes
+
+|`limit`
+|Newest operations to return (integer). `0` uses the service default of 10, capped at 50.
+|No
+
+|`organization_id`
+|Anypoint organization ID (string).
+|Yes
+
+|`provider`
+|`kong`, `apigee`, or `azure` (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_instance_policy_operations",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "api_instance_id": "12345",
+    "provider": "kong",
+    "limit": 10
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "list_instance_policy_operations",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "total": 1,
+  "running": 0,
+  "failed": 0,
+  "operations": [{ "id": "<operation_id>", "type": "APPLY", "status": "COMPLETED" }],
+  "failedDetailsTruncated": 0,
+  "via": "apim_universal"
 }
 ----
 
@@ -3527,6 +3726,54 @@ This tool does not accept any input parameters.
 }
 ----
 
+[[list-universal-policies]]
+== list_universal_policies
+
+List the open (canonical) policy templates available to an organization.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization ID (string or null).
+|No
+
+|`policy_name_hint`
+|Case-insensitive substring of the canonical name or label (string). Empty lists all templates.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_universal_policies",
+  "arguments": {
+    "policy_name_hint": "rate"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "status": "ok",
+  "organizationId": "<organization_id>",
+  "policies": [
+    {
+      "name": "rate-limiting",
+      "label": "Rate Limiting",
+      "configurationSchema": { "type": "object", "properties": {} },
+      "supportedProviders": ["mulesoft", "kong"],
+      "providerMapping": []
+    }
+  ]
+}
+----
+
 [[login]]
 == login
 
@@ -3805,30 +4052,38 @@ Open the guardrail creation wizard with scope options and guardrail rule catalog
 [[prepare-policy-creation]]
 == prepare_policy_creation
 
-Load policy options for one asset instance. 
+Load policy options for one asset instance. Returns only policies that are not already applied.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`api_instance_id`
-|API instance ID (string or null).
+|Numeric API Manager instance ID (string). Provide this or `asset_id`.
 |No
 
 |`asset_id`
-|Asset ID (string or null).
+|Exchange API asset ID (string). 
 |No
 
 |`environment_id`
-|Environment ID (string or null).
+|Environment ID (string).
+|No
+
+|`gateway_id`
+|Unused on the external Universal API path (string).
 |No
 
 |`organization_id`
-|Organization ID (string).
+|Anypoint organization ID (string).
 |Yes
 
 |`policy_name_hint`
-|Policy name hint (string or null).
+|Filter applicable templates by name (string).
+|No
+
+|`provider`
+|`kong`, `apigee`, or `azure` to read the native external catalog (string).
 |No
 
 |===
@@ -3839,7 +4094,10 @@ Load policy options for one asset instance.
 {
   "name": "prepare_policy_creation",
   "arguments": {
-    "organization_id": "<organization_id>"
+    "organization_id": "<organization_id>",
+    "api_instance_id": "12345",
+    "provider": "kong",
+    "policy_name_hint": "rate"
   }
 }
 ----
@@ -3848,15 +4106,145 @@ Load policy options for one asset instance.
 [source,json]
 ----
 {
-  "apiInstanceId": "16834521",
-  "assetId": "orders-api",
-  "assetVersion": "2.1.0",
-  "groupId": "68ef9520-24e9-4cf2-b2f5-620025690913",
-  "availablePolicies": [
-    { "templateId": "rate-limiting", "assetId": "rate-limiting", "assetVersion": "1.4.0", "name": "Rate Limiting", "category": "Quality of Service" },
-    { "templateId": "jwt-validation", "assetId": "jwt-validation", "assetVersion": "1.3.1", "name": "JWT Validation", "category": "Security" },
-    { "templateId": "ip-allowlist", "assetId": "ip-allowlist", "assetVersion": "1.2.0", "name": "IP Allowlist", "category": "Security" }
-  ]
+  "tool": "prepare_policy_creation",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "totalAvailable": 1,
+  "policyNameHint": "rate",
+  "policies": [{ "templateId": "<template_id>", "name": "<policy_name>" }],
+  "via": "apim_universal"
+}
+----
+
+[[remove-applied-policy]]
+== remove_applied_policy
+
+Permanently remove a single applied policy from a MuleSoft or external gateway instance.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Target API Manager instance ID (string).
+|Yes
+
+|`confirmed`
+|`true` only after explicit user confirmation of permanent removal (boolean).
+|Yes
+
+|`environment_id`
+|Environment ID (string). Required for MuleSoft. Omit for external providers.
+|No
+
+|`organization_id`
+|Anypoint organization ID (string).
+|Yes
+
+|`policy_id`
+|Policy ID from `view_api_instance_policies` (string).
+|Yes
+
+|`provider`
+|`mulesoft`, `kong`, `apigee`, `azure-apim`, or `aws-apigw` (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "remove_applied_policy",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "api_instance_id": "12345",
+    "policy_id": "<policy_id>",
+    "provider": "kong",
+    "confirmed": true
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "remove_applied_policy",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "policyId": "<policy_id>",
+  "removed": false,
+  "status": "pending",
+  "via": "apim_universal",
+  "httpStatus": 202
+}
+----
+
+[[toggle-applied-policy]]
+== toggle_applied_policy
+
+Enable or disable a single applied policy on a MuleSoft or external gateway instance.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Target API Manager instance ID (string).
+|Yes
+
+|`enabled`
+|`true` enables the policy, `false` disables it (boolean).
+|Yes
+
+|`environment_id`
+|Environment ID (string). Required for MuleSoft. Omit for external providers.
+|No
+
+|`organization_id`
+|Anypoint organization ID (string).
+|Yes
+
+|`policy_id`
+|Policy ID from `view_api_instance_policies` (string).
+|Yes
+
+|`provider`
+|`mulesoft`, `kong`, `apigee`, `azure-apim`, or `aws-apigw` (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "toggle_applied_policy",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "api_instance_id": "12345",
+    "policy_id": "<policy_id>",
+    "enabled": false,
+    "provider": "kong"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "toggle_applied_policy",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "policyId": "<policy_id>",
+  "enabled": false,
+  "status": "success",
+  "via": "apim_universal"
 }
 ----
 
