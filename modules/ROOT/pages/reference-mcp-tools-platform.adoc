@@ -58,7 +58,7 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<view-api-version-instances,view_api_version_instances>>
 |read:exchange, read:api_configuration
 
-.14+s|Policy Management
+.15+s|Policy Management
 |<<apply-policy-to-instance,apply_policy_to_instance>>
 |read:exchange, read:api_configuration, read:api_policies, manage:api_policies
 
@@ -70,6 +70,9 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 
 |<<delete-automated-policy-strategy,delete_automated_policy_strategy>>
 |read:api_configuration, read:api_policies, manage:api_policies, read:exchange
+
+|<<edit-applied-policy,edit_applied_policy>>
+|read:exchange, read:api_configuration, read:api_policies, manage:api_policies
 
 |<<fetch-automated-policy-template,fetch_automated_policy_template>>
 |read:exchange, read:api_configuration, read:api_policies
@@ -1283,6 +1286,80 @@ Discover supported vault providers and the credential fields required to onboard
       }
     ]
   }
+}
+----
+
+[[edit-applied-policy]]
+== edit_applied_policy
+
+Edit the configuration of an already-applied policy on one API instance.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`api_instance_id`
+|Numeric target instance ID (string).
+|Yes
+
+|`asset`
+|Exchange coordinates: `group_id`, `asset_id`, and `asset_version` (object). Required for external provider writes.
+|No
+
+|`configuration_data`
+|Full template-conforming configuration (object).
+|No
+
+|`environment_id`
+|Environment ID (string). Required for MuleSoft. Omit for the external Universal API.
+|No
+
+|`organization_id`
+|Anypoint organization ID (string).
+|Yes
+
+|`policy_id`
+|Policy ID from `view_api_instance_policies` (string).
+|Yes
+
+|`provider`
+|`kong`, `apigee`, or `azure` for the external path (string). Omit for MuleSoft.
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "edit_applied_policy",
+  "arguments": {
+    "organization_id": "<organization_id>",
+    "api_instance_id": "12345",
+    "policy_id": "<policy_id>",
+    "provider": "kong",
+    "asset": {
+      "group_id": "<group_id>",
+      "asset_id": "<asset_id>",
+      "asset_version": "<version>"
+    },
+    "configuration_data": {}
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "edit_applied_policy",
+  "platform": "kong",
+  "organizationId": "<organization_id>",
+  "apiInstanceId": "12345",
+  "policyId": "<policy_id>",
+  "status": "success",
+  "result": { "id": "<operation_id>" },
+  "via": "apim_universal"
 }
 ----
 
