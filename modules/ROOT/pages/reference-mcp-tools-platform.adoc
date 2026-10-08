@@ -2371,7 +2371,9 @@ Use this tool when you need concrete service rows (for example asset IDs/names, 
 ----
 
 [[get-asset-lineage]]
-== get_asset_lineage
+== get_asset_lineage (Beta)
+
+NOTE: This tool is a pilot or beta service that is subject to the Beta Services Terms at https://www.salesforce.com/company/legal/[Agreements - Salesforce.com] or a written Unified Pilot Agreement if executed by Customer, and applicable terms in the https://ptd.salesforce.com/?_ga=2.247987783.1372150065.1709219475-629000709.1639001992[Product Terms Directory]. Use of this pilot or beta service is at the Customer's sole discretion.
 
 Get instance-rooted lineage, including design-time and runtime relationships, from the Context Catalog for an agent, MCP server, or API.
 
@@ -2506,7 +2508,9 @@ Get full metadata for a business group by its ID.
 ----
 
 [[get-data-asset-classification]]
-== get_data_asset_classification
+== get_data_asset_classification (Beta)
+
+NOTE: This tool is a pilot or beta service that is subject to the Beta Services Terms at https://www.salesforce.com/company/legal/[Agreements - Salesforce.com] or a written Unified Pilot Agreement if executed by Customer, and applicable terms in the https://ptd.salesforce.com/?_ga=2.247987783.1372150065.1709219475-629000709.1639001992[Product Terms Directory]. Use of this pilot or beta service is at the Customer's sole discretion.
 
 Get a data asset's source-to-column hierarchy, classifications, descriptions, glossary terms, and explicit PII state. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
 
