@@ -2907,7 +2907,7 @@ Check the status of an asynchronous policy operation.
 |Parameter |Description |Required
 
 |`operation_id`
-|Operation ID returned by an asynchronous canonical or native policy apply (string).
+|Operation ID returned by an asynchronous canonical or native policy (string).
 |Yes
 
 |`organization_id`
@@ -3368,7 +3368,7 @@ List the asynchronous policy operations for an external gateway instance (Kong, 
 |Yes
 
 |`limit`
-|Newest operations to return (integer). `0` uses the service default of 10, capped at 50.
+|Newest operations to return (integer). `0` uses the service default of `10`, capped at `50`.
 |No
 
 |`organization_id`
