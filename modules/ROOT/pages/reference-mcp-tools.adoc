@@ -968,24 +968,12 @@ Get information about all applications in the environment you specify, sorted by
 |Set value to `true` to include used and total heap metrics when searching for an application.
 |No
 
-|`includeLogs`
-|Set value to `true` to include logs from searching for an application. Maximum 500 entries.
-|No
-
 |`timeFrame`
-|If `includeCpuMetrics`, `includeHeapMetrics`, or `includeLogs` is true, this parameter contains the time frame for metrics. 
+|If `includeCpuMetrics` or `includeHeapMetrics` is true, this parameter contains the time frame for metrics.
 
 Valid values are `5m`, `15m`, `30m`, `1h`, `3h`, `6h`, `12h`, `24h`, `3d`, `5d`, `7d`, `15d`, and `30d`.
 
 The default value is `30m`.
-|No
-
-|`logLevel`
-|If `includeLogs` is `true`, this parameter contains the level of log detail. Valid values are `INFO`, `DEBUG`, `WARN`, and `ERROR`. The default value is `ERROR`.
-|No
-
-|`logsPage`
-|Page number of log. Maximum is 20. Default is 1.
 |No
 
 |===
@@ -1003,7 +991,7 @@ The default value is `30m`.
 }
 ----
 
-.Example request (with metrics and logs)
+.Example request (with metrics)
 [source,json]
 ----
 {
@@ -1014,9 +1002,7 @@ The default value is `30m`.
     "appName": "customer-integration-app",
     "includeCpuMetrics": true,
     "includeHeapMetrics": true,
-    "includeLogs": true,
-    "timeFrame": "1h",
-    "logLevel": "ERROR"
+    "timeFrame": "1h"
   }
 }
 ----
@@ -1048,15 +1034,7 @@ The default value is `30m`.
         "usedHeapMB": 512,
         "totalHeapMB": 1024,
         "timeFrame": "1h"
-      },
-      "logs": [
-        {
-          "timestamp": "2024-01-15T14:25:00Z",
-          "level": "ERROR",
-          "message": "Connection timeout to external service",
-          "thread": "processor-thread-1"
-        }
-      ]
+      }
     },
     {
       "applicationId": "app-67890",
