@@ -25,6 +25,8 @@ Follow the steps in xref:access-management::creating-connected-apps-dev.adoc#cre
 
 Additionally, when prompted, add the following permission scopes. These scopes enable you to use specific MuleSoft DX MCP Server tools.
 
+For a connected app created in a child business group, assign the *View Organization* and *View Connected Applications* permissions at the root organization. Assign the remaining permissions at the organization, business group, or environment required by the tools that you use.
+
 Refer to the xref:reference-mcp-tools.adoc[] for details on all MuleSoft DX MCP Server tools. Only tools listed in these tables require specific permission scopes. 
 
 === Anypoint Code Builder 
@@ -256,7 +258,7 @@ Add this snippet to Trae `mcp_settings.json` or `.vscode/mcp.json` where `ANYPOI
       "command": "npx",
       "args": ["-y", "mulesoft-mcp-server", "start"],
       "env": {
-        "ANYPOINT_CLIENT_ID": "<YYOUR_CONNECTED_APP_CLIENT_ID>",
+        "ANYPOINT_CLIENT_ID": "<YOUR_CONNECTED_APP_CLIENT_ID>",
         "ANYPOINT_CLIENT_SECRET": "<YOUR_CONNECTED_APP_CLIENT_SECRET>",
         "ANYPOINT_REGION": "<REGION_NAME>"
       }
