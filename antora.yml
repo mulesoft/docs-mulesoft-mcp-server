@@ -1,5 +1,5 @@
 name: mulesoft-mcp-server
 title: MuleSoft MCP Servers
-version: master
+version: ~
 nav:
 - modules/ROOT/nav.adoc
