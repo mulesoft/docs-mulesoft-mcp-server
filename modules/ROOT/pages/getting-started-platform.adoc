@@ -289,34 +289,33 @@ Download https://chatgpt.com/download/[ChatGPT].
 
 In Cursor:
 
+. Set `MCP_CLIENT_SECRET` to your connected app's Client Secret in your shell profile or system environment, then restart Cursor.
 . Click *Settings* > *Tools and MCPs* > *Add a Custom MCP Server*.
-. Add the following code snippet, replacing `<PORT>` with a fixed port number (for example, `32493`):
+. Add the following code snippet, replacing `YOUR_CLIENT_ID` with the Client ID from your connected app:
 +
 [source,json]
 ----
 {
   "mcpServers": {
     "mulesoft-platform": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://omni.mulesoft.com/mcp",
-        "<PORT>",
-        "--static-oauth-client-info",
-        "{\"client_id\":\"YOUR_CLIENT_ID\",\"client_secret\":\"YOUR_CLIENT_SECRET\"}"
-      ]
+      "url": "https://omni.mulesoft.com/mcp",
+      "auth": {
+        "CLIENT_ID": "YOUR_CLIENT_ID",
+        "CLIENT_SECRET": "${env:MCP_CLIENT_SECRET}",
+        "scopes": ["full", "offline_access"]
+      }
     }
   }
 }
 ----
 
-Using a fixed port ensures the redirect URL remains consistent across sessions. Without a fixed port, Cursor assigns a random port for each authentication request, which causes authorization to fail because the connected app requires an exact URL match.
+Cursor handles OAuth directly and uses fixed callback URLs. See the https://cursor.com/docs/mcp[Cursor MCP documentation].
 
 In your connected app:
 
 . Log in to Anypoint Platform, and open your connected app.
-. In the *Redirect URLs* field, enter `\http://localhost:<PORT>/oauth/callback`, using the same port number you specified in the configuration (for example, `\http://localhost:32493/oauth/callback`).
+. In the *Redirect URLs* field, enter `\http://localhost:8787/callback` for Cursor desktop.
+. If you also use Cursor on the web or Cursor Agents, Cursor's hosted agents, add `\https://www.cursor.com/agents/mcp/oauth/callback`.
 . To apply changes, click *Continue*.
 
 Download https://cursor.com/[Cursor].
@@ -336,7 +335,7 @@ In Windsurf:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@latest",
+        "mcp-remote@0.15.2",
         "https://omni.mulesoft.com/mcp",
         "<PORT>",
         "--static-oauth-client-info",
@@ -372,7 +371,7 @@ In VS Code:
       "command": "npx",
       "args": [
         "-y",
-        "mcp-remote@latest",
+        "mcp-remote@0.15.2",
         "https://omni.mulesoft.com/mcp",
         "<PORT>",
         "--static-oauth-client-info",
@@ -412,7 +411,7 @@ To resolve authentication issues, follow these troubleshooting steps.
 ** Full Access (`full`)
 ** Background Access (`offline_access`)
 * If authorization fails due to a redirect URL mismatch:
-** IDE-based clients (Claude Code, Cursor, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`).
+** IDE-based clients (Claude Code, Windsurf, VS Code) use a localhost callback URL with a port number. If the port changes between sessions, the redirect URL no longer matches the one registered in your connected app. To prevent this, configure a fixed callback port as described in <<configure-your-ide>>. Then add the matching localhost URL to your connected app's redirect URLs (for example, `\http://localhost:32493/oauth/callback`). Cursor uses fixed callback URLs; see the Cursor section in <<configure-your-ide>>.
 
 === Connection Issues
 
