@@ -270,8 +270,8 @@ Install https://docs.anthropic.com/en/docs/claude-code/overview[Claude Code].
 
 In ChatGPT:
 
-. Click *Apps* > *Settings.*
-. Click the settings icon, click *Create App*, and configure the following:
+. Click *Apps* > *Plugins*.
+. Create a plugin and configure the following:
 .. Name the connection, and enter the *Remote Universal URL*, for example, `\https://omni.mulesoft.com/mcp`.
 . In *OAuth* > *Advanced settings* > *Client registration*, configure the following:
 .. Enter the Client ID and Client Secret from your connected app.
@@ -421,6 +421,7 @@ If your MCP client can't reach the server or fails to establish a session, verif
 * Ensure your MCP client supports Streamable HTTP transport.
 * Check that your client can handle OAuth authentication flows.
 * Verify the MCP server URL is https://omni.mulesoft.com/mcp[https://omni.mulesoft.com/mcp].
+* In ChatGPT, use *Apps* > *Plugins* to create the connection. The ChatGPT interface no longer displays this option as *Create App*.
 
 == See Also
 
