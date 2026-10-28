@@ -272,7 +272,7 @@ In ChatGPT:
 
 Follow the https://help.openai.com/en/articles/12584461-developer-mode-apps-and-full-mcp-connectors-in-chatgpt-beta[OpenAI documentation] to configure the custom app, as the steps can change.
 
-. Go to Plugins
+. Go to *Plugins*.
 . Select the plus button, then select *Add custom MCP server*.
 . Enter a name and, optionally, a description.
 . Under *Connection* enter the *Remote Universal URL*, for example, `\https://omni.mulesoft.com/mcp`.
