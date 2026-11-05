@@ -2629,7 +2629,7 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
 }
 ----
 
-When no lineage is found, the response includes `reasonCode: "LINEAGE_NOT_FOUND"`. Technical `ASSET` nodes and `IMPLEMENTATION_OF` and `RESOLVES_TO` edges aren't included in the graph.
+If no lineage is found, the response includes `reasonCode: "LINEAGE_NOT_FOUND"`. Technical `ASSET` nodes and `IMPLEMENTATION_OF` and `RESOLVES_TO` edges aren't included in the graph.
 
 [[get-business-group]]
 == get_business_group
