@@ -156,10 +156,10 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |read:exchange
 
 |<<get-asset-lineage,get_asset_lineage>>
-|read:exchange
+|None (requires Exchange Viewer permission and the `CONTEXT_CATALOG_ENABLED` flag)
 
 |<<get-data-asset-classification,get_data_asset_classification>>
-|read:exchange
+|None (requires Exchange Viewer permission and the `CONTEXT_CATALOG_ENABLED` flag)
 
 |<<search-assets-semantic,search_assets_semantic>>
 |read:exchange
@@ -2545,29 +2545,29 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
 |===
 |Parameter |Description |Required
 
-|`asset`
-|Asset name or ID to resolve lineage for (string).
+|`group_id`
+|Exact Exchange group ID that owns the asset, not a display name (string).
 |Yes
 
-|`asset_type`
-|Type of the root asset. Supported values: `agent`, `mcp`, `api`.
+|`asset_id`
+|Exact Exchange asset ID (string).
 |Yes
 
 |`asset_version`
-|Version of the asset. Defaults to the latest available (string or null).
-|No
+|Exact Exchange asset version. The tool doesn't resolve a version to latest (string).
+|Yes
 
 |`direction`
 |Traversal direction. Supported values: `upstream`, `downstream`. Downstream supports all three asset types; upstream supports `mcp` and `api` only.
 |Yes
 
 |`organization_id`
-|Organization ID to scope the lineage query. Defaults to the request-scoped active org (string or null).
+|Organization ID to scope the query. Defaults to the authenticated session's active business group. The supplied ID must be accessible to the authenticated session (string or null).
 |No
 
 |`instance_id`
-|Deployed instance to get root lineage for. If omitted, the tool returns instance options for clarification (string or null).
-|No
+|Exact deployed instance ID to root the lineage graph at. The tool doesn't discover or guess instances (string).
+|Yes
 
 |===
 
@@ -2577,8 +2577,10 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
 {
   "name": "get_asset_lineage",
   "arguments": {
-    "asset": "fraud-detection-mcp",
-    "asset_type": "mcp",
+    "group_id": "<group_id>",
+    "asset_id": "fraud-detection-mcp",
+    "asset_version": "1.2.0",
+    "instance_id": "i_7b3f9a12",
     "direction": "upstream"
   }
 }
@@ -2589,11 +2591,10 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
 ----
 {
   "root": {
+    "groupId": "<group_id>",
     "assetId": "fraud-detection-mcp",
-    "assetType": "mcp",
-    "version": "1.2.0",
-    "instanceId": "i_7b3f9a12",
-    "instanceLabel": "prod-us-east"
+    "assetVersion": "1.2.0",
+    "instanceId": "i_7b3f9a12"
   },
   "direction": "upstream",
   "nodes": [
@@ -2616,17 +2617,19 @@ Get instance-rooted lineage, including design-time and runtime relationships, fr
     {
       "from": "fraud-detection-mcp",
       "to": "transactions-api",
-      "relationship": "consumes"
+      "relationship": "CONNECTS_TO"
     },
     {
       "from": "fraud-detection-mcp",
       "to": "customer-profiles-api",
-      "relationship": "consumes"
+      "relationship": "ROUTES_TO"
     }
   ],
   "totalNodes": 2
 }
 ----
+
+When no lineage is found, the response includes `reasonCode: "LINEAGE_NOT_FOUND"`. Technical `ASSET` nodes and `IMPLEMENTATION_OF` and `RESOLVES_TO` edges aren't included in the graph.
 
 [[get-business-group]]
 == get_business_group
@@ -2676,22 +2679,26 @@ Get full metadata for a business group by its ID.
 
 NOTE: This tool is a pilot or beta service that is subject to the Beta Services Terms at https://www.salesforce.com/company/legal/[Agreements - Salesforce.com] or a written Unified Pilot Agreement if executed by Customer, and applicable terms in the https://ptd.salesforce.com/?_ga=2.247987783.1372150065.1709219475-629000709.1639001992[Product Terms Directory]. Use of this pilot or beta service is at the Customer's sole discretion.
 
-Get a data asset's source-to-column hierarchy, classifications, descriptions, glossary terms, and explicit PII state. Use this tool to answer questions such as "What's the PII classification for the customer_orders data source?" or "Is there any PII in the finance_reporting data catalog source?"
+Get the source-to-column hierarchy, data classifications, glossary terms, governance summaries, and explicit PII state for one exact data asset or catalog source.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
-|`asset`
-|Name or ID of a single data asset to resolve (string).
+|`asset_id`
+|Exact Exchange asset ID of the data asset (string).
+|Yes
+
+|`group_id`
+|Exact Exchange group ID that owns the data asset (string).
+|Yes
+
+|`asset_version`
+|Exact data asset version. The tool doesn't resolve a version to latest (string).
 |Yes
 
 |`organization_id`
-|Business-group org ID to search. Defaults to the request-scoped active org (string or null).
-|No
-
-|`asset_version`
-|Asset version to prefer when selecting a document. Defaults to the latest available (string or null).
+|Organization ID to scope the request. Defaults to the authenticated session's active business group. The supplied ID must be accessible to the authenticated session (string or null).
 |No
 |===
 
@@ -2701,7 +2708,9 @@ Get a data asset's source-to-column hierarchy, classifications, descriptions, gl
 {
   "name": "get_data_asset_classification",
   "arguments": {
-    "asset": "customer_orders"
+    "group_id": "<group_id>",
+    "asset_id": "customer_orders",
+    "asset_version": "2.1.0"
   }
 }
 ----
@@ -2710,37 +2719,31 @@ Get a data asset's source-to-column hierarchy, classifications, descriptions, gl
 [source,json]
 ----
 {
-  "asset": "customer_orders",
+  "assetId": "customer_orders",
   "assetVersion": "2.1.0",
   "organizationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   "hierarchy": {
-    "groupId": "com.example",
+    "source": "Snowflake Sales",
+    "database": "ANALYTICS",
+    "schema": "PUBLIC",
+    "table": "CUSTOMER_ORDERS",
     "assetId": "customer_orders",
-    "version": "2.1.0"
+    "assetVersion": "2.1.0",
+    "columns": [
+      {
+        "name": "email_address",
+        "dataType": "VARCHAR",
+        "classification": "confidential",
+        "containsPII": true,
+        "glossaryTerms": ["Customer email address"]
+      }
+    ]
   },
-  "classifications": [
-    {
-      "fieldName": "email_address",
-      "classification": "PII",
-      "sensitivity": "high",
-      "category": "contact_info"
-    },
-    {
-      "fieldName": "shipping_address",
-      "classification": "PII",
-      "sensitivity": "medium",
-      "category": "contact_info"
-    },
-    {
-      "fieldName": "order_total",
-      "classification": "non-PII",
-      "sensitivity": "low",
-      "category": "transactional"
-    }
-  ],
   "containsPII": true,
-  "totalFields": 12,
-  "piiFieldCount": 2
+  "piiColumnCount": 2,
+  "governanceSummary": {
+    "classifications": ["confidential", "restricted", "sensitive"]
+  }
 }
 ----
 
