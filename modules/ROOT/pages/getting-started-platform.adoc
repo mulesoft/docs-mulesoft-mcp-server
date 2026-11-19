@@ -42,6 +42,7 @@ a|
 * xref:reference-mcp-tools-platform.adoc#view-api-version-details[view_api_version_details]
 * xref:reference-mcp-tools-platform.adoc#view-llm-details[view_llm_details]
 * xref:reference-mcp-tools-platform.adoc#view-mcp-server-details[view_mcp_server_details]
+* xref:reference-mcp-tools-platform.adoc#swap-shared-mcp-instance[swap_shared_mcp_instance]
 
 |View, create, and download assets within a business group, including editing asset portal content in an existing asset version.
 |Exchange Contributor +
@@ -52,6 +53,7 @@ a|
 * xref:reference-mcp-tools-platform.adoc#get-trusted-mcp-catalog[get_trusted_mcp_catalog]
 * xref:reference-mcp-tools-platform.adoc#provision-mcp-server[provision_mcp_server]
 * xref:reference-mcp-tools-platform.adoc#resume-provision-job[resume_provision_job]
+* xref:reference-mcp-tools-platform.adoc#share-mcp-servers[share_mcp_servers]
 * xref:reference-mcp-tools-platform.adoc#update-mcp-server[update_mcp_server]
 |===
 
@@ -77,6 +79,7 @@ a|
 * xref:reference-mcp-tools-platform.adoc#view-api-instance-details[view_api_instance_details]
 * xref:reference-mcp-tools-platform.adoc#view-api-instance-policies[view_api_instance_policies]
 * xref:reference-mcp-tools-platform.adoc#view-api-version-instances[view_api_version_instances]
+* xref:reference-mcp-tools-platform.adoc#get-collection[get_collection]
 
 |View, create, modify, and delete APIs in the specified environment.
 |API Manager Environment Admin +
@@ -85,6 +88,21 @@ a|
 * xref:reference-mcp-tools-platform.adoc#apply-policy-to-instance[apply_policy_to_instance]
 * xref:reference-mcp-tools-platform.adoc#create-automated-policy-strategy[create_automated_policy_strategy]
 * xref:reference-mcp-tools-platform.adoc#delete-automated-policy-strategy[delete_automated_policy_strategy]
+|===
+
+=== Access Management
+[cols="2,1,3"]
+|===
+|To... |Required Permission |Associated Tools
+
+|Manage a Collection in a business group.
+|Organization Administrator in the Business Group
+a|
+* xref:reference-mcp-tools-platform.adoc#publish-collection[publish_collection]
+* xref:reference-mcp-tools-platform.adoc#remove-shared-mcp-server[remove_shared_mcp_server]
+* xref:reference-mcp-tools-platform.adoc#share-mcp-servers[share_mcp_servers]
+* xref:reference-mcp-tools-platform.adoc#swap-shared-mcp-instance[swap_shared_mcp_instance]
+* xref:reference-mcp-tools-platform.adoc#withdraw-collection[withdraw_collection]
 |===
 
 === Anypoint Monitoring
@@ -185,6 +203,7 @@ a|
 * xref:reference-mcp-tools-platform.adoc#select-active-environment[select_active_environment]
 * xref:reference-mcp-tools-platform.adoc#select-active-provider[select_active_provider]
 * xref:reference-mcp-tools-platform.adoc#select-api-version[select_api_version]
+* xref:reference-mcp-tools-platform.adoc#get-collection[get_collection]
 |===
 
 [[configure-your-ide]]

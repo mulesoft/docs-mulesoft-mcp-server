@@ -2775,7 +2775,7 @@ Return the Business Group's Collection, including its shared MCP servers and the
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID whose Collection to read.
+|Business Group ID whose Collection to read (string).
 |Yes
 
 |===
@@ -4420,7 +4420,7 @@ Republish the Business Group's withdrawn Collection after role and readiness che
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID whose Collection to bring back online.
+|Business Group ID whose Collection to bring back online (string).
 |Yes
 
 |===
@@ -4530,11 +4530,11 @@ Remove one MCP server from the Business Group's Collection without changing or d
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID whose Collection to change.
+|Business Group ID whose Collection to change (string).
 |Yes
 
 |`asset_id`
-|Asset ID of the shared MCP server to remove.
+|Asset ID of the shared MCP server to remove (string).
 |Yes
 
 |===
@@ -5402,11 +5402,11 @@ Add one or more MCP servers to the Business Group's Collection, with one instanc
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID.
+|Business Group ID (string).
 |Yes
 
 |`servers`
-|MCP servers to share, with one entry for each server (array).
+|MCP servers to share, with one entry for each server (array of objects). Each object contains an `asset_id` and an `instance_id` (strings).
 |Yes
 
 |===
@@ -5460,19 +5460,19 @@ Replace the instance that a shared MCP server uses in the Business Group's Colle
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID whose Collection contains the MCP server.
+|Business Group ID whose Collection contains the MCP server (string).
 |Yes
 
 |`asset_id`
-|Asset ID of the shared MCP server.
+|Asset ID of the shared MCP server (string).
 |Yes
 
 |`instance_id`
-|Existing instance to switch to.
+|Existing instance to switch to (string or null).
 |No
 
 |`new_instance`
-|Instance to create and switch to when the target has no instance.
+|Instance to create and switch to when the target has no instance (object or null).
 |No
 
 |===
@@ -6204,7 +6204,7 @@ Take the Business Group's entire Collection offline but preserve its membership 
 |Parameter |Description |Required
 
 |`organization_id`
-|Business Group ID whose Collection to take offline.
+|Business Group ID whose Collection to take offline (string).
 |Yes
 
 |===
