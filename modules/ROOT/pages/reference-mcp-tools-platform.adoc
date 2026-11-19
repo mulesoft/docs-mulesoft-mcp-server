@@ -259,14 +259,26 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<list-omni-gateway-targets,list_omni_gateway_targets>>
 |read:organization, read:managedgateways
 
-.3+s|Scanners
+.7+s|Scanners
 |<<create-scanner,create_scanner>>
+|manage:exchange
+
+|<<list-scanner-deltas,list_scanner_deltas>>
 |manage:exchange
 
 |<<list-scanner-providers,list_scanner_providers>>
 |manage:exchange
 
+|<<list-scanner-runs,list_scanner_runs>>
+|manage:exchange
+
 |<<test-scanner-connection,test_scanner_connection>>
+|manage:exchange
+
+|<<trigger-scanner-run,trigger_scanner_run>>
+|manage:exchange
+
+|<<update-scanner,update_scanner>>
 |manage:exchange
 
 .7+s|Secrets Manager
@@ -981,58 +993,30 @@ Launch the managed gateway creation wizard for the active MuleSoft provider. Whe
 [[create-scanner]]
 == create_scanner
 
-Launch the scanner creation wizard to configure and create a new agent scanner. The wizard will guide you through provider selection, authentication, and configuration. On success, returns the created scanner details including scannerId. Pass organization_id when calling this tool. Call WITHOUT name/provider to display the interactive wizard.
+Create a Salesforce Agentforce scanner.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`auth_fields`
-|Auth fields (ScannerAuthFields or null).
-|No
-
-|`auth_fields_alias`
-|Auth fields alias (ScannerAuthFields or null).
-|No
-
-|`auth_method`
-|Auth method (string or null).
-|No
-
-|`auth_method_alias`
-|Auth method alias (string or null).
-|No
-
-|`description`
-|Description (string).
-|No
-
-|`filters`
-|Filters (array or null).
+|Optional authentication fields. Only `tenantRelationshipId` is accepted (object).
 |No
 
 |`name`
-|Name (string or null).
-|No
-
-|`notifications`
-|Notifications (ScannerNotifications or null).
+|Name for the scanner (string). Required to create a scanner.
 |No
 
 |`organization_id`
-|Organization ID (string or null).
-|No
-
-|`owner_id`
-|Owner ID (string or null).
+|Organization ID that owns the scanner (string).
 |No
 
 |`provider`
-|Provider (string or null).
+|Scanner provider. Must be `SALESFORCE_AGENT` to create a scanner.
 |No
 
 |`schedule`
-|Schedule (ScannerSchedule or null).
+|Optional schedule with `unit` set to `day`, `week`, or `month`, and `at` set to an hour from `0` through `23` (object).
 |No
 
 |===
@@ -1043,9 +1027,9 @@ Launch the scanner creation wizard to configure and create a new agent scanner. 
 {
   "name": "create_scanner",
   "arguments": {
-    "auth_fields": {},
-    "auth_fields_alias": {},
-    "auth_method": "<auth_method>"
+    "provider": "SALESFORCE_AGENT",
+    "name": "<name>",
+    "organization_id": "<organization_id>"
   }
 }
 ----
@@ -1054,13 +1038,32 @@ Launch the scanner creation wizard to configure and create a new agent scanner. 
 [source,json]
 ----
 {
+  "tool": "create_scanner",
+  "status": "created",
   "scannerId": "sc_3d7a4f81",
-  "name": "vertex-prod-scanner",
-  "provider": "google-vertex",
-  "authMethod": "service-account",
-  "status": "active",
-  "schedule": { "frequency": "daily", "hour": 2 },
-  "createdDate": "2026-05-07T14:32:18.412Z"
+  "provider": "SALESFORCE_AGENT"
+}
+----
+
+.Example response (unsupported provider)
+[source,json]
+----
+{
+  "tool": "create_scanner",
+  "status": "unsupported_provider",
+  "provider": "OPENAI",
+  "supportedProvider": "SALESFORCE_AGENT"
+}
+----
+
+.Example response (connection failed)
+[source,json]
+----
+{
+  "tool": "create_scanner",
+  "status": "connection_failed",
+  "provider": "SALESFORCE_AGENT",
+  "message": "Connection parameters are required"
 }
 ----
 
@@ -3782,10 +3785,59 @@ List gateways for the active provider. Currently returns Flex Gateways when the 
 }
 ----
 
+[[list-scanner-deltas]]
+== list_scanner_deltas
+
+Summarize what a scanner discovered since a specific timestamp.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`scanner_id`
+|Scanner ID returned by `list_scanner_runs` (string).
+|Yes
+
+|`since`
+|ISO-8601 timestamp from which to summarize discoveries, for example `2026-08-01T00:00:00Z` (string).
+|Yes
+
+|`organization_id`
+|Organization ID that owns the scanner (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_scanner_deltas",
+  "arguments": {
+    "scanner_id": "sc_3d7a4f81",
+    "since": "2026-08-01T00:00:00Z"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "scannerId": "sc_3d7a4f81",
+  "added": [],
+  "updated": [],
+  "removed": [],
+  "unchanged": [],
+  "runsExamined": 3,
+  "truncated": false
+}
+----
+
 [[list-scanner-providers]]
 == list_scanner_providers
 
-Get the list of available scanner providers (Google Vertex, Microsoft Copilot, and others).
+List scanner providers that you can set up through chat. Only Salesforce Agentforce is returned. Use the Providers page to set up AWS, Kong, Azure, and other providers.
 
 This tool does not accept any input parameters.
 
@@ -3802,10 +3854,75 @@ This tool does not accept any input parameters.
 [source,json]
 ----
 {
+  "tool": "list_scanner_providers",
+  "status": "success",
   "providers": [
-    { "providerId": "google-vertex", "name": "Google Vertex AI", "authMethods": ["service-account", "oauth2"] },
-    { "providerId": "microsoft-copilot", "name": "Microsoft Copilot", "authMethods": ["oauth2"] },
-    { "providerId": "aws-bedrock", "name": "AWS Bedrock", "authMethods": ["iam-role", "access-key"] }
+    {
+      "groupKey": "salesforce",
+      "name": "Salesforce Agentforce",
+      "platforms": [
+        { "targetSystemType": "SALESFORCE_AGENT" }
+      ]
+    }
+  ]
+}
+----
+
+[[list-scanner-runs]]
+== list_scanner_runs
+
+List scanners in an organization with their last run, schedule, status, and number of agents found. Use `provider_id` to filter by a case-insensitive provider substring.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Organization ID to query (string).
+|No
+
+|`provider_id`
+|Case-insensitive provider substring to filter scanners (string).
+|No
+
+|`offset`
+|Result offset for pagination. Defaults to `0` (integer).
+|No
+
+|`limit`
+|Maximum number of scanners to return. Defaults to `20`; maximum is `100` (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "list_scanner_runs",
+  "arguments": {
+    "organization_id": "<organization_id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "organizationId": "<organization_id>",
+  "count": 1,
+  "totalMatching": 1,
+  "scanners": [
+    {
+      "id": "sc_3d7a4f81",
+      "name": "Agentforce scanner",
+      "provider": "SALESFORCE_AGENT",
+      "status": "active",
+      "lastRun": "2026-08-07T14:32:18Z",
+      "agentsFound": 12,
+      "schedule": { "unit": "week", "at": 2 }
+    }
   ]
 }
 ----
@@ -5192,22 +5309,18 @@ Validate vault connectivity and credential permissions. Supports two modes: *pre
 [[test-scanner-connection]]
 == test_scanner_connection
 
-Test connection to a scanner provider before creating the scanner.
+Test the Salesforce Agentforce scanner connection before creating it.
 
 [%header,cols="1,3,1"]
 |===
 |Parameter |Description |Required
 
 |`auth_fields`
-|Auth fields (ScannerAuthFields or null).
-|No
-
-|`auth_method`
-|Auth method (string).
+Optional authentication fields. Only `tenantRelationshipId` is accepted (object).
 |No
 
 |`provider`
-|Provider (string).
+|Scanner provider. Must be `SALESFORCE_AGENT`.
 |Yes
 
 |===
@@ -5218,7 +5331,61 @@ Test connection to a scanner provider before creating the scanner.
 {
   "name": "test_scanner_connection",
   "arguments": {
-    "provider": "mulesoft"
+    "provider": "SALESFORCE_AGENT",
+    "auth_fields": {}
+  }
+}
+----
+
+.Example response (unsupported provider)
+[source,json]
+----
+{
+  "status": "unsupported_provider",
+  "provider": "OPENAI",
+  "supportedProvider": "SALESFORCE_AGENT"
+}
+----
+
+.Example response (missing tenant relationship)
+[source,json]
+----
+{
+  "status": "failed",
+  "provider": "SALESFORCE_AGENT",
+  "result": {
+    "success": false,
+    "message": "Connection parameters are required"
+  }
+}
+----
+
+[[trigger-scanner-run]]
+== trigger_scanner_run
+
+Start a scanner run immediately. Returns `started` `true` when a new run is queued and `false` when the scanner is already running. This tool doesn't wait for the scan to finish.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`scanner_id`
+|Scanner ID to run (string).
+|Yes
+
+|`organization_id`
+|Organization ID that owns the scanner (string).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "trigger_scanner_run",
+  "arguments": {
+    "scanner_id": "sc_3d7a4f81"
   }
 }
 ----
@@ -5227,10 +5394,73 @@ Test connection to a scanner provider before creating the scanner.
 [source,json]
 ----
 {
-  "provider": "mulesoft",
-  "authMethod": "service-account",
-  "connectionStatus": "success",
-  "latencyMs": 142
+  "scannerId": "sc_3d7a4f81",
+  "started": true
+}
+----
+
+[[update-scanner]]
+== update_scanner
+
+Rename a scanner or change its schedule to run by day, week, or month.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`scanner_id`
+|Scanner ID to update (string).
+|Yes
+
+|`new_name`
+|New scanner name (string).
+|No
+
+|`schedule_unit`
+|Schedule interval. Supported values are `day`, `week`, and `month` (string).
+|No
+
+|`schedule_at`
+|Hour at which the scanner runs, from `0` through `23` (integer).
+|No
+
+|`schedule_on`
+|Day on which to run a weekly or monthly schedule (string).
+|No
+
+|`organization_id`
+|Organization ID that owns the scanner (string).
+|No
+
+|===
+
+NOTE: You must provide `new_name`, a schedule parameter, or both.
+
+.Example request
+[source,json]
+----
+{
+  "name": "update_scanner",
+  "arguments": {
+    "scanner_id": "sc_3d7a4f81",
+    "schedule_unit": "week",
+    "schedule_at": 2,
+    "schedule_on": "monday"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "scannerId": "sc_3d7a4f81",
+  "name": "Agentforce scanner",
+  "schedule": {
+    "unit": "week",
+    "at": 2,
+    "on": "monday"
+  }
 }
 ----
 
