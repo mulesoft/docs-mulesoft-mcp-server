@@ -53,6 +53,18 @@ a|
 * xref:reference-mcp-tools-platform.adoc#provision-mcp-server[provision_mcp_server]
 * xref:reference-mcp-tools-platform.adoc#resume-provision-job[resume_provision_job]
 * xref:reference-mcp-tools-platform.adoc#update-mcp-server[update_mcp_server]
+
+|Manage scanners in a business group.
+|Exchange Administrator +
+`manage:exchange`
+a|
+* xref:reference-mcp-tools-platform.adoc#create-scanner[create_scanner]
+* xref:reference-mcp-tools-platform.adoc#list-scanner-deltas[list_scanner_deltas]
+* xref:reference-mcp-tools-platform.adoc#list-scanner-providers[list_scanner_providers]
+* xref:reference-mcp-tools-platform.adoc#list-scanner-runs[list_scanner_runs]
+* xref:reference-mcp-tools-platform.adoc#test-scanner-connection[test_scanner_connection]
+* xref:reference-mcp-tools-platform.adoc#trigger-scanner-run[trigger_scanner_run]
+* xref:reference-mcp-tools-platform.adoc#update-scanner[update_scanner]
 |===
 
 === API Manager
@@ -136,13 +148,10 @@ a|
 `manage:application_data`
 a|
 * xref:reference-mcp-tools-platform.adoc#create-omni-gateway[create_omni_gateway]
-* xref:reference-mcp-tools-platform.adoc#create-scanner[create_scanner]
 * xref:reference-mcp-tools-platform.adoc#get-omni-gateway-target-domains[get_omni_gateway_target_domains]
 * xref:reference-mcp-tools-platform.adoc#get-omni-gateway-usage-report[get_omni_gateway_usage_report]
 * xref:reference-mcp-tools-platform.adoc#list-omni-gateway-environments[list_omni_gateway_environments]
 * xref:reference-mcp-tools-platform.adoc#list-omni-gateway-targets[list_omni_gateway_targets]
-* xref:reference-mcp-tools-platform.adoc#list-scanner-providers[list_scanner_providers]
-* xref:reference-mcp-tools-platform.adoc#test-scanner-connection[test_scanner_connection]
 |===
 
 === Cost Management
