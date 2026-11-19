@@ -176,9 +176,12 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<search-repository-knowledge,search_repository_knowledge>>
 |None
 
-.8+s|MCP Servers
+.14+s|MCP Servers
 |<<get-mcp-server-state,get_mcp_server_state>>
 |read:exchange, read:api_configuration
+
+|<<get-collection,get_collection>>
+|read: organization, view:api_configuration
 
 |<<get-provision-status,get_provision_status>>
 |None
@@ -189,17 +192,32 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<list-mcp-servers,list_mcp_servers>>
 |read:exchange
 
+|<<publish-collection,publish_collection>>
+|Organization Administrator in the Business Group
+
 |<<provision-mcp-server,provision_mcp_server>>
 |edit:exchange, read:organization, view:access_controls, manage:api_configuration, manage:api_policies, read:servers, manage:api_proxies
 
+|<<remove-shared-mcp-server,remove_shared_mcp_server>>
+|Organization Administrator in the Business Group
+
 |<<resume-provision-job,resume_provision_job>>
 |edit:exchange
+
+|<<share-mcp-servers,share_mcp_servers>>
+|Organization Administrator in the Business Group; edit:exchange
+
+|<<swap-shared-mcp-instance,swap_shared_mcp_instance>>
+|Organization Administrator in the Business Group; read:exchange or edit:exchange
 
 |<<update-mcp-server,update_mcp_server>>
 |edit:exchange, read:organization, view:access_controls, manage:api_configuration, manage:api_policies, read:servers, manage:api_proxies
 
 |<<view-mcp-server-details,view_mcp_server_details>>
 |read:exchange, read:api_configuration
+
+|<<withdraw-collection,withdraw_collection>>
+|Organization Administrator in the Business Group
 
 .2+s|Agents
 |<<list-agents,list_agents>>
@@ -2747,6 +2765,66 @@ Get the source-to-column hierarchy, data classifications, glossary terms, govern
 }
 ----
 
+[[get-collection]]
+== get_collection
+
+Return the Business Group's Collection, including its shared MCP servers and their instances, publication states, readiness, gateways, MCP and API URLs. Also includes setup steps for Claude, Copilot, VS Code, and Slack.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID whose Collection to read (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "get_collection",
+  "arguments": {
+    "organization_id": "<business-group-id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "publication_state": "published",
+  "readiness": {
+    "ready": true
+  },
+  "gateway": {
+    "id": "<gateway-id>",
+    "name": "Shared MCP Gateway"
+  },
+  "mcp_url": "https://<host>/mcp",
+  "api_url": "https://<host>/api",
+  "members": [
+    {
+      "asset_id": "orders-mcp-server",
+      "name": "Orders MCP Server",
+      "instance": {
+        "id": "<instance-id>",
+        "type": "managed",
+        "url": "https://<host>/orders"
+      }
+    }
+  ],
+  "setup": {
+    "claude": "<claude-setup>",
+    "copilot": "<copilot-setup>",
+    "vscode": "<vscode-setup>",
+    "slack": "<slack-setup>"
+  }
+}
+----
+
 [[get-mcp-server-state]]
 == get_mcp_server_state
 
@@ -4332,6 +4410,45 @@ Enable or disable a single applied policy on a MuleSoft or external gateway inst
 }
 ----
 
+[[publish-collection]]
+== publish_collection
+
+Republish the Business Group's withdrawn Collection after role and readiness checks.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID whose Collection to bring back online (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "publish_collection",
+  "arguments": {
+    "organization_id": "<business-group-id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "publication_state": "published",
+  "changed": true,
+  "mcp_url": "https://<host>/mcp",
+  "readiness": {
+    "ready": true
+  }
+}
+----
+
 [[provision-mcp-server]]
 == provision_mcp_server
 
@@ -4400,6 +4517,47 @@ Provision a composite MCP server on Flex Gateway from selected catalog systems.
   "basePath": "/mcp/orders",
   "targetId": "fg_8c4e92a1",
   "estimatedDurationSeconds": 90
+}
+----
+
+[[remove-shared-mcp-server]]
+== remove_shared_mcp_server
+
+Remove one MCP server from the Business Group's Collection without changing or deleting the source asset or its instances.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID whose Collection to change (string).
+|Yes
+
+|`asset_id`
+|Asset ID of the shared MCP server to remove (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "remove_shared_mcp_server",
+  "arguments": {
+    "organization_id": "<business-group-id>",
+    "asset_id": "<asset-id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "asset_id": "orders-mcp-server",
+  "removed": true,
+  "remaining_count": 3
 }
 ----
 
@@ -5234,6 +5392,119 @@ Test connection to a scanner provider before creating the scanner.
 }
 ----
 
+[[share-mcp-servers]]
+== share_mcp_servers
+
+Add one or more MCP servers to the Business Group's Collection, with one instance for each server.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID (string).
+|Yes
+
+|`servers`
+|MCP servers to share, with one entry for each server (array of objects). Each object contains an `asset_id` and an `instance_id` (strings).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "share_mcp_servers",
+  "arguments": {
+    "organization_id": "<business-group-id>",
+    "servers": [
+      {
+        "asset_id": "<asset-id>",
+        "instance_id": "<instance-id>"
+      }
+    ]
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "mcp_url": "https://<host>/mcp",
+  "api_url": "https://<host>/api",
+  "added": [
+    {
+      "asset_id": "orders-mcp-server"
+    }
+  ],
+  "unchanged": [],
+  "rejected": [
+    {
+      "asset_id": "<asset-id>",
+      "reason": "<reason>"
+    }
+  ],
+  "needs_instance": []
+}
+----
+
+[[swap-shared-mcp-instance]]
+== swap_shared_mcp_instance
+
+Replace the instance that a shared MCP server uses in the Business Group's Collection.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID whose Collection contains the MCP server (string).
+|Yes
+
+|`asset_id`
+|Asset ID of the shared MCP server (string).
+|Yes
+
+|`instance_id`
+|Existing instance to switch to (string or null).
+|No
+
+|`new_instance`
+|Instance to create and switch to when the target has no instance (object or null).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "swap_shared_mcp_instance",
+  "arguments": {
+    "organization_id": "<business-group-id>",
+    "asset_id": "<asset-id>",
+    "instance_id": "<instance-id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "asset_id": "orders-mcp-server",
+  "instance": {
+    "id": "<instance-id>",
+    "type": "managed"
+  },
+  "changed": true,
+  "rejected": [],
+  "needs_instance": []
+}
+----
+
 [[update-mcp-server]]
 == update_mcp_server
 
@@ -5920,5 +6191,41 @@ Show read-only details for one MCP server, including versions, instances, and me
     { "name": "get-order", "description": "Get a single order by ID." },
     { "name": "cancel-order", "description": "Cancel an order." }
   ]
+}
+----
+
+[[withdraw-collection]]
+== withdraw_collection
+
+Take the Business Group's entire Collection offline but preserve its membership and URL.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`organization_id`
+|Business Group ID whose Collection to take offline (string).
+|Yes
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "withdraw_collection",
+  "arguments": {
+    "organization_id": "<business-group-id>"
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "publication_state": "withdrawn",
+  "changed": true,
+  "member_count": 4
 }
 ----
