@@ -148,7 +148,7 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 |<<show-observability-performance,show_observability_performance>>
 |view:monitoring, read:api_configuration; read:applications, read:servers (when querying those resource types)
 
-.9+s|Search & Discovery
+.11+s|Search & Discovery
 |<<fetch-service-facets,fetch_service_facets>>
 |read:exchange
 
@@ -169,6 +169,12 @@ See xref:getting-started-platform.adoc[Get Started with MuleSoft Platform MCP Se
 
 |<<search-global-content,search_global_content>>
 |read:exchange
+
+|<<search-known-issues,search_known_issues>>
+|None (requires authentication)
+
+|<<search-mulesoft-documentation,search_mulesoft_documentation>>
+|None (requires authentication and the Customer Success feature flag when an organization context is provided)
 
 |<<search-portfolio-services,search_portfolio_services>>
 |read:exchange
@@ -4605,6 +4611,139 @@ UI tool for embedded agents to search content across agents, MCP servers, and AP
     { "assetId": "stripe-mcp-server", "name": "Stripe MCP Server", "assetType": "mcp", "snippet": "Tools for Stripe charges, refunds, and customer management.", "relevanceScore": 0.87 }
   ],
   "total": 8
+}
+----
+
+[[search-known-issues]]
+== search_known_issues
+
+Search public MuleSoft Known Issues for an error, symptom, product problem, or troubleshooting question.
+
+This read-only tool requires authentication but no additional Anypoint permission scope.
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`query`
+|Error message, symptom, product issue, or known-issue question to search for (string).
+|Yes
+
+|`product`
+|Optional product hint, such as `Flex Gateway` or `API Manager` (string or null).
+|No
+
+|`status`
+|Optional status hint, such as `Published`, `Resolved`, or `Under Investigation` (string or null).
+|No
+
+|`limit`
+|Maximum number of results requested from the search service (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_known_issues",
+  "arguments": {
+    "query": "Flex Gateway rate limiting returns intermittent 429 errors",
+    "limit": 5
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "search_known_issues",
+  "query": "Flex Gateway rate limiting returns intermittent 429 errors",
+  "filters": {
+    "product": null,
+    "status": null
+  },
+  "results": [
+    {
+      "issue_id": "KI-EXAMPLE-001",
+      "title": "Intermittent 429 responses when using multiple gateway replicas",
+      "description": "Requests can receive intermittent rate-limit responses when traffic is distributed across multiple replicas.",
+      "status": "Published",
+      "product": "Flex Gateway",
+      "version": "1.x",
+      "workaround": "Apply the workaround documented in the linked Known Issue.",
+      "url": "https://help.salesforce.com/s/issue?id=KI-EXAMPLE-001"
+    }
+  ],
+  "total": 1
+}
+----
+
+[[search-mulesoft-documentation]]
+== search_mulesoft_documentation
+
+Search official MuleSoft product documentation for how-to guidance, configuration instructions, and product and feature explanations.
+
+This read-only tool requires authentication but no additional Anypoint permission scope. 
+
+[%header,cols="1,3,1"]
+|===
+|Parameter |Description |Required
+
+|`query`
+|Natural-language how-to, configuration, concept, comparison, best-practice, or release-notes question (string).
+|Yes
+
+|`version`
+|Optional version hint, such as `4.6` or `CloudHub 2.0` (string or null).
+|No
+
+|`product`
+|Optional product hint, such as `Mule Runtime`, `API Manager`, or `Anypoint Studio` (string or null).
+|No
+
+|`limit`
+|Maximum number of results requested from the search service (integer).
+|No
+
+|===
+
+.Example request
+[source,json]
+----
+{
+  "name": "search_mulesoft_documentation",
+  "arguments": {
+    "query": "How do I configure upstream HTTPS and Last-Mile Security in CloudHub 2.0?",
+    "limit": 5
+  }
+}
+----
+
+.Example response
+[source,json]
+----
+{
+  "tool": "search_mulesoft_documentation",
+  "query": "How do I configure upstream HTTPS and Last-Mile Security in CloudHub 2.0?",
+  "filters": {
+    "version": null,
+    "product": null
+  },
+  "results": [
+    {
+      "title": "Configure Upstream HTTPS Communication",
+      "url": "https://docs.mulesoft.com/example/cloudhub-2-upstream-https",
+      "content": "Example documentation content describing upstream HTTPS configuration and certificate requirements.",
+      "version": "CloudHub 2.0",
+      "product": "CloudHub",
+      "relevance_score": 0.94,
+      "last_updated": "2026-01-15T12:00:00Z"
+    }
+  ],
+  "total": 1
 }
 ----
 
